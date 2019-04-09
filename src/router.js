@@ -1,25 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-
+import welcome from './views/welcome/welcome.vue';
+import login from './views/login/login.vue'; // 登陆页面
+import loadapproval from './views/loanapproval/loanapproval.vue'; // 贷款审批
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
-  ]
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+        {
+          path: '/',
+          name: 'welcome',
+          component: welcome
+        },
+        {
+          path: '/login',
+          name: 'login',
+          component: login
+        },
+        {
+          path: '/loadapproval',
+          name: 'loadapproval',
+          component: loadapproval
+        }
+        // {
+        //   path: '/about',
+        //   name: 'about',
+        //   // route level code-splitting
+        //   // this generates a separate chunk (about.[hash].js) for this route
+        //   // which is lazy-loaded when the route is visited.
+        //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+        // }
+    ]
 })
