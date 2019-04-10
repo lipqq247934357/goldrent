@@ -3,7 +3,7 @@ import { Message } from 'element-ui';
 import Vue from 'vue';
 import router from '@/router';
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL ='';
+axios.defaults.baseURL = '';
 
 
 //http request 拦截器

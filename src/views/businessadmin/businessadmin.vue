@@ -1,0 +1,206 @@
+<template>
+<div class="businfo">
+    <div class="topTitle">
+        <componentitle :message="message" :titletext="titletext" />
+    </div>
+    <div class="topcontent">
+        <div>
+            <label>业务编号：</label>
+            <input type="text" name="" value="">
+            <label class="rightlabel">承租人姓名：</label>
+            <input type="text" name="" value="">
+        </div>
+        <div>
+            <label>到期日期：</label>
+            <el-date-picker
+                v-model="value1"
+                type="date"
+                placeholder="选择日期">
+            </el-date-picker>
+            -
+            <el-date-picker
+                v-model="value1"
+                type="date"
+                placeholder="选择日期">
+            </el-date-picker>
+
+            <label class="rightlabel">任务状态：</label>
+            <select>
+                <option disabled value="">请选择</option>
+                <option>已审批</option>
+                <option>进行中</option>
+                <option>已提交</option>
+                <option>待处理</option>
+            </select>
+        </div>
+        <button type="button" name="button">查询</button>
+    </div>
+
+    <div class="content">
+        <div class="titletop">
+            <div class="topbox">
+                <span>任务信息</span>
+                <label for="" @click="add">新增</label>
+            </div>
+        </div>
+
+        <!-- 表格 -->
+        <template>
+            <el-table
+                :data="tableData"
+                border
+                style="width: 100%">
+                <el-table-column
+                    prop="date"
+                    label="ID">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="供应商名称">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    label="企业性质">
+                </el-table-column>
+                <el-table-column
+                    prop="date"
+                    label="负责人姓名">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="负责人电话">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    label="债务种类">
+                </el-table-column>
+                <el-table-column
+                    prop="date"
+                    label="年营业额（万）">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="担保余额（万）">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    label="被担保人">
+                </el-table-column>
+                <el-table-column
+                    prop="date"
+                    label="最后更新时间">
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="操作">
+                    <template slot-scope="scope">
+                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                        <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+
+        <!-- 分页 -->
+        <div class="block">
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage2"
+                :page-sizes="[10, 20, 30, 40]"
+                :page-size="100"
+                layout="sizes, prev, pager, next"
+                :total="1000">
+            </el-pagination>
+        </div>
+    </div>
+
+</div>
+</template>
+
+<script  type="text/ecmascript-6">
+import componentitle from '../../components/title/title.vue';
+export default {
+    data() {
+        return {
+            message: '筛选条件',
+            titletext: '商业伙伴管理',
+            contenttext: '任务信息',
+            tableData: [
+                {
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                },
+                {
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                },
+                {
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                },
+                {
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                },
+            ],
+            currentPage2: 1,
+            value1: ''
+        }
+    },
+    components: {
+        componentitle,
+    },
+    methods: {
+        handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
+        },
+        handleCurrentChange(val) {
+            console.log(`当前页: ${val}`);
+        },
+        handleClick(val) {
+            //查看按钮
+            console.log(val);
+            this.$router.push({
+                path: '/'
+            })
+        },
+        edit(val) {
+            // 编辑按钮
+            console.log(val);
+            this.$router.push({
+                path: '/addbusine',
+                query: {
+
+                }
+            })
+        },
+        add() {
+            // 新增按钮
+            this.$router.push({
+                path: '/addbusine',
+                query: {
+
+                }
+            })
+        }
+    },
+}
+</script>
+<style lang="less">
+.businfo {
+    background: #fff;
+    .topTitle {
+        width: 95%;
+        margin: 0 auto;
+    }
+    .content {
+        width: 95%;
+        margin: 0 auto;
+    }
+}
+</style>

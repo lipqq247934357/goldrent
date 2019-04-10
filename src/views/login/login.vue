@@ -22,6 +22,8 @@ export default {
 <style lang="less">
 .login {
     font-size: 20px;
+    background: #ffe3c7;
+    height: calc(100vh - 50px);
     img {
         margin: 100px auto 50px;
         display: block;

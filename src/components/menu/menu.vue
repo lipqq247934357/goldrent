@@ -19,9 +19,7 @@
                         <span>业务信息</span>
                     </template>
                     <el-menu-item-group>
-                        <template slot="title">业务信息</template>
-                        <el-menu-item index="/login">业务信息列表页</el-menu-item>
-                        <el-menu-item index="1-222">业务信息查看</el-menu-item>
+                        <el-menu-item index="/businfo">业务信息列表页</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="2">
@@ -30,16 +28,8 @@
                         <span>贷款审批管理</span>
                     </template>
                     <el-menu-item-group>
-                        <template slot="title">贷款审批</template>
-                        <el-menu-item index="/loadapproval">贷款审批</el-menu-item>
+                        <el-menu-item index="/loanapprovallist">贷款审批</el-menu-item>
                     </el-menu-item-group>
-                    <!-- <el-menu-item-group title="分组2">
-                        <el-menu-item index="1-3123">选项3</el-menu-item>
-                    </el-menu-item-group>
-                    <el-submenu index="1-4">
-                        <template slot="title">选项4</template>
-                        <el-menu-item index="1-4-1421">选项1</el-menu-item>
-                    </el-submenu> -->
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title">
@@ -71,8 +61,7 @@
                         <span>业务管理</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="1-116">商业伙伴管理</el-menu-item>
-
+                        <el-menu-item index="businessadmin">商业伙伴管理</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
 
@@ -103,7 +92,10 @@ export default {
 <style lang="less">
 .menu {
     width: 200px;
-    height: 100vh;
+    height: 100%;
+    position: absolute;
+    top: 50px;
+    left: 0;
     background: #545c64;
     .tac {
         .el-col-12 {
@@ -116,7 +108,6 @@ export default {
     }
     .el-menu-item-group {
         ul {
-            // margin-left: 20px;
 
         }
     }

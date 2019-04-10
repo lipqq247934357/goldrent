@@ -1,25 +1,50 @@
 <template>
 <div class="loanapproval">
-    <h3>贷款审批</h3>
-    <el-tabs type="border-card">
-        <el-tab-pane>
-            <span slot="label">
-                <i class="el-icon-date"></i> {{list.lease}}
-            </span>
-            {{list.lease}}
+    <div class="content">
+        <h3>贷款审批</h3>
+        <el-tabs type="border-card">
+            <el-tab-pane>
+                <span slot="label">
+                    {{list.lease}}
+                </span>
+                <wantfactor />
             </el-tab-pane>
-        <el-tab-pane :label="list.rentpeople">{{list.rentpeople}}</el-tab-pane>
-        <el-tab-pane :label="list.guarantor">{{list.guarantor}}111</el-tab-pane>
-        <el-tab-pane :label="list.repurchase">{{list.repurchase}}</el-tab-pane>
-        <el-tab-pane :label="list.leasegoods">{{list.leasegoods}}</el-tab-pane>
-        <el-tab-pane :label="list.externalnews">{{list.externalnews}}</el-tab-pane>
-        <el-tab-pane :label="list.investigation">{{list.investigation}}</el-tab-pane>
-        <el-tab-pane :label="list.loan">{{list.loan}}</el-tab-pane>
-    </el-tabs>
+            <el-tab-pane :label="list.rentpeople">
+                <lesseeinfo />
+            </el-tab-pane>
+            <el-tab-pane :label="list.guarantor">
+                <guarantor />
+            </el-tab-pane>
+            <el-tab-pane :label="list.repurchase">
+                <buybackpeople />
+            </el-tab-pane>
+            <el-tab-pane :label="list.leasegoods">
+                <leasehold />
+            </el-tab-pane>
+            <el-tab-pane :label="list.externalnews">
+                <externalinfo />
+            </el-tab-pane>
+            <el-tab-pane :label="list.investigation">
+                <investigation />
+            </el-tab-pane>
+            <el-tab-pane :label="list.loan">
+                <operation />
+            </el-tab-pane>
+        </el-tabs>
+    </div>
+
 </div>
 </template>
 
 <script  type="text/ecmascript-6">
+import wantfactor from '../../components/loanapproval/wantfactor.vue'; //租赁要素
+import lesseeinfo from '../../components/loanapproval/lesseeinfo.vue'; //承租人信息
+import guarantor from '../../components/loanapproval/guarantor.vue'; //保证人信息
+import buybackpeople from '../../components/loanapproval/buybackpeople.vue'; //回购人信息
+import leasehold from '../../components/loanapproval/leasehold.vue'; //租赁物信息
+import externalinfo from '../../components/loanapproval/externalinfo.vue'; //外部信息
+import investigation from '../../components/loanapproval/investigation.vue'; //调查环节
+import operation from '../../components/loanapproval/operation.vue'; //贷款审批操作
 export default {
     data() {
         return {
@@ -34,9 +59,29 @@ export default {
                 loan: '贷款审批操作'
             }
         }
+    },
+    components: {
+        wantfactor, //租赁要素
+        lesseeinfo, //承租人信息
+        guarantor, //保证人信息
+        buybackpeople, //回购人信息
+        leasehold, //租赁物信息
+        externalinfo, //外部信息
+        investigation, //调查环节
+        operation //贷款审批操作
     }
 }
 </script>
 <style lang="less">
-
+.content {
+    width: 95%;
+    margin: 0 auto;
+    h3 {
+        font-size: 14px;
+        margin: 15px 0;
+    }
+    .el-tabs--border-card>.el-tabs__content {
+        padding: 0;
+    }
+}
 </style>

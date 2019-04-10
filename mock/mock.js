@@ -32,7 +32,7 @@ function nameData(){
     dataName: namelist
   }
 }
-function asd(){
+function datas(){
   let list = {
       address: Random.city(),
       name: Random.cname(),
@@ -44,5 +44,5 @@ function asd(){
 }
 const data = Mock.mock('/datalist',getData)
 const dataName = Mock.mock('/dataNames',nameData)
-const list = Mock.mock('/datalists',asd)
+const list = Mock.mock('/datalists',datas)
 export default {data,dataName,list};
