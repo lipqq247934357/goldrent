@@ -33,8 +33,7 @@
 
     .app-main {
         /*50 = navbar  */
-        min-height: calc(100vh - 100px);
+        min-height: calc(100vh - 0px);
         position: relative;
-        background: #eceff4;
     }
 </style>
