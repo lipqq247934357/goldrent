@@ -26,6 +26,7 @@ export default {
         font-size: 20px;
         font-weight: bold;
         line-height: 50px;
+        color: #f68e58;
     }
     .topbox {
         width: 100%;

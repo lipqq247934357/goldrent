@@ -42,7 +42,6 @@
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
-                <label for="">新增</label>
             </div>
         </div>
 
@@ -54,50 +53,33 @@
                 style="width: 100%">
                 <el-table-column
                     prop="date"
-                    label="ID">
+                    label="业务编号">
                 </el-table-column>
                 <el-table-column
                     prop="name"
-                    label="供应商名称">
+                    label="承租人姓名">
                 </el-table-column>
                 <el-table-column
                     prop="address"
-                    label="企业性质">
+                    label="任务名称">
                 </el-table-column>
                 <el-table-column
                     prop="date"
-                    label="负责人姓名">
+                    label="任务状态">
                 </el-table-column>
                 <el-table-column
                     prop="name"
-                    label="负责人电话">
+                    label="任务创建时间">
                 </el-table-column>
                 <el-table-column
                     prop="address"
-                    label="债务种类">
-                </el-table-column>
-                <el-table-column
-                    prop="date"
-                    label="年营业额（万）">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="担保余额（万）">
-                </el-table-column>
-                <el-table-column
-                    prop="address"
-                    label="被担保人">
-                </el-table-column>
-                <el-table-column
-                    prop="date"
-                    label="最后更新时间">
+                    label="任务结束时间">
                 </el-table-column>
                 <el-table-column
                     prop="name"
                     label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+                        <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -214,7 +196,9 @@ export default {
             console.log(`当前页: ${val}`);
         },
         handleClick(val) {
-            console.log(val);
+            this.$router.push({
+                path: '/layout/businessdetail'
+            });
         }
     },
 }

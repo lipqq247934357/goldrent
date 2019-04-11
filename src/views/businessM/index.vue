@@ -166,14 +166,14 @@ export default {
             //查看按钮
             console.log(val);
             this.$router.push({
-                path: '/'
+                path: '/layout/addbusine'
             })
         },
         edit(val) {
             // 编辑按钮
             console.log(val);
             this.$router.push({
-                path: '/addbusine',
+                path: '/layout/addbusine',
                 query: {
 
                 }
@@ -182,7 +182,7 @@ export default {
         add() {
             // 新增按钮
             this.$router.push({
-                path: '/addbusine',
+                path: '/layout/addbusine',
                 query: {
 
                 }
