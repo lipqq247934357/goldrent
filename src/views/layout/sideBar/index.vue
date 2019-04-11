@@ -25,18 +25,14 @@
                             <i class="el-icon-location"></i>
                             <span>贷款审批管理</span>
                         </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="/layout/loadapproval">贷款审批</el-menu-item>
-                        </el-menu-item-group>
+                        <el-menu-item index="/layout/loadapproval">贷款审批</el-menu-item>
                     </el-submenu>
                     <el-submenu index="5">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>业务管理</span>
                         </template>
-                        <el-menu-item-group>
-                            <el-menu-item index="/layout/businessM">商业伙伴管理</el-menu-item>
-                        </el-menu-item-group>
+                        <el-menu-item index="/layout/businessM">商业伙伴管理</el-menu-item>
                     </el-submenu>
                 </el-menu>
             </el-col>
