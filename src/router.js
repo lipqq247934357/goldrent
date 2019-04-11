@@ -21,10 +21,21 @@ export default new Router({
             component: login
         },
         {
+            path: '',
+            component: layout,
+            redirect: '/layout/index',
+            name: 'Dashboard',
+        },
+        {
             path: '/layout',
             name: 'layout',
             component: layout,
             children: [
+                {
+                    path: 'index',
+                    name: 'index',
+                    component: index
+                },
                 {
                     path: 'loadapprovallist',
                     name: 'loadapprovallist',
