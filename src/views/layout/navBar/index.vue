@@ -15,58 +15,54 @@
                 <li @click="logout">登出</li>
             </ul>
         </div>
-        <div v-show="updateInfoPop">
-            <div class="mask"></div>
-            <div class="pop-class">
-                <div class="title">
-                    <span>更改个人信息</span>
-                    <span @click="updateInfoPop = !updateInfoPop">x</span>
-                </div>
-                <div class="update-user-info">
-                    <el-form ref="form" label-width="60px">
-                        <el-form-item label="用户名">
-                            <el-input size="mini"></el-input>
-                        </el-form-item>
-                        <el-form-item label="密码">
-                            <el-input size="mini"></el-input>
-                        </el-form-item>
-                        <el-form-item label="手机">
-                            <el-input size="mini"></el-input>
-                        </el-form-item>
-                    </el-form>
-                </div>
-                <div class="btn">
-                    <el-button size="small" @click="updateInfoPop = !updateInfoPop">关闭</el-button>
-                    <el-button size="small">确认</el-button>
-                </div>
+        <el-dialog
+                title="更改个人信息"
+                :visible.sync="updateInfoPop"
+                custom-class="pop-class"
+                width="30%">
+            <div class="update-user-info">
+                <el-form ref="form" label-width="60px">
+                    <el-form-item label="用户名">
+                        <el-input size="mini"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码">
+                        <el-input size="mini"></el-input>
+                    </el-form-item>
+                    <el-form-item label="手机">
+                        <el-input size="mini"></el-input>
+                    </el-form-item>
+                </el-form>
             </div>
-        </div>
-        <div v-show="updatePasswordPop" class="update-password">
-            <div class="mask"></div>
-            <div class="pop-class">
-                <div class="title">
-                    <span>更改密码</span>
-                    <span @click="updatePasswordPop = !updatePasswordPop">x</span>
-                </div>
-                <div class="update-user-info">
-                    <el-form ref="form" label-width="70px">
-                        <el-form-item label="原密码">
-                            <el-input size="mini"></el-input>
-                        </el-form-item>
-                        <el-form-item label="新密码">
-                            <el-input size="mini"></el-input>
-                        </el-form-item>
-                        <el-form-item label="确认密码">
-                            <el-input size="mini"></el-input>
-                        </el-form-item>
-                    </el-form>
-                </div>
-                <div class="btn">
-                    <el-button size="small" @click="updatePasswordPop = !updatePasswordPop">关闭</el-button>
-                    <el-button size="small">确认</el-button>
-                </div>
+            <div class="btn" slot="footer">
+                <el-button size="small" @click="updateInfoPop = !updateInfoPop">关闭</el-button>
+                <el-button size="small">确认</el-button>
             </div>
-        </div>
+        </el-dialog>
+
+        <el-dialog
+                title="更改密码"
+                :visible.sync="updatePasswordPop"
+                custom-class="pop-class"
+                width="30%">
+            <div class="update-user-info">
+                <el-form ref="form" label-width="70px">
+                    <el-form-item label="原密码">
+                        <el-input size="mini"></el-input>
+                    </el-form-item>
+                    <el-form-item label="新密码">
+                        <el-input size="mini"></el-input>
+                    </el-form-item>
+                    <el-form-item label="确认密码">
+                        <el-input size="mini"></el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div class="btn" slot="footer">
+                <el-button size="small" @click="updatePasswordPop = !updatePasswordPop">关闭</el-button>
+                <el-button size="small">确认</el-button>
+            </div>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -188,14 +184,13 @@
         position: fixed;
         top: 30%;
         z-index: 100;
-        border: 1px solid #ccc;
         width: 30%;
         left: 35%;
         background: #ffffff;
         border-radius: 6px;
 
         .title {
-            padding: 10px 15px;
+            padding: 0 15px;
             overflow: hidden;
             border-bottom: 1px solid #ccc;
 
@@ -210,9 +205,8 @@
         }
 
         .btn {
-            padding: 10px 20px 10px;
+            padding: 0 20px;
             text-align: right;
-            border-top: 1px solid #ccc;
 
             .el-button {
                 margin-right: 20px;
@@ -221,7 +215,7 @@
 
         .update-user-info {
             width: 70%;
-            margin: 15px auto;
+            margin: 0 auto;
         }
 
     }
@@ -231,6 +225,15 @@
     }
 
 
+    /*修改个人信息标题和x号水平*/
+    /deep/ .el-dialog__header {
+        padding: 20px 20px 10px;
+    }
+
+    /*修改弹框body部分*/
+    /deep/ .el-dialog__body {
+        padding: 0;
+    }
 
 
 </style>
