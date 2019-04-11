@@ -1,6 +1,6 @@
 <template>
 <div class="top">
-    <img src="./logo.png" alt="" width="20" height="20">
+    <img src="logo.png" alt="" width="20" height="20">
     <span>金租业务管理系统</span>
 </div>
 </template>
