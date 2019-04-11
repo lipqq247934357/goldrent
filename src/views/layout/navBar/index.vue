@@ -22,6 +22,7 @@ export default {
         font-size: 16px;
         color: #fff;
         line-height: 50px;
+        z-index: 1;
         img {
             text-align: center;
             vertical-align: sub;
