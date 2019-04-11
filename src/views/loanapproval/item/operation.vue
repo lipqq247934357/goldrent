@@ -30,11 +30,25 @@
             </li>
             <li>
                 <span>涉诉：</span>
-
+                <el-select v-model="value2" placeholder="请选择" class="choiceselect">
+                    <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
             </li>
             <li>
                 <span>被执行信息：</span>
-
+                <el-select v-model="value2" placeholder="请选择" class="choiceselect">
+                    <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
             </li>
         </ul>
         <h3>累计得分：88 建议通过</h3>
@@ -174,6 +188,50 @@
             </tr>
         </table>
     </div>
+    <componentitle :message="message='审批意见'" />
+    <div class="opinion">
+        <div class="subone">
+            <p>审批报告：</p>
+            <el-button type="primary">查看调查报告</el-button>
+            <el-button type="primary">生成审批报告</el-button>
+        </div>
+        <div class="subone">
+            <p>面签合同：</p>
+            <template>
+                <el-radio v-model="radio" label="1">抵押合同</el-radio>
+                <el-radio v-model="radio" label="2">XX合同</el-radio>
+                <el-radio v-model="radio" label="3">XX合同</el-radio>
+                <el-radio v-model="radio" label="4">XX合同</el-radio>
+                <el-radio v-model="radio" label="5">XX合同</el-radio>
+                <el-radio v-model="radio" label="6">XX合同</el-radio>
+            </template>
+        </div>
+        <div class="subone">
+            <p>审批意见：</p>
+            <template>
+                <el-radio v-model="radio" label="1">同意该笔申请</el-radio>
+                <el-radio v-model="radio" label="2">不同意该笔申请</el-radio>
+            </template>
+        </div>
+        <div class="subone">
+            <p>原因描述：</p>
+            <el-input
+                type="textarea"
+                class="textareawidth"
+                :rows="3"
+                placeholder="请输入内容"
+                v-model="textarea">
+            </el-input>
+        </div>
+
+        <div class="bottombutton">
+            <el-button type="primary">保存</el-button>
+            <el-button type="primary">上会审议</el-button>
+            <el-button type="primary">终审通过</el-button>
+            <el-button type="primary">拒绝</el-button>
+            <el-button type="primary">退回</el-button>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -184,7 +242,20 @@ export default {
         return {
             message: '',
             radio: '',
-            tableData: []
+            tableData: [],
+            radio: '', // 合同按钮绑定
+            textarea: '', //文本域绑定
+            options: [
+                {
+                    value: '选项1',
+                    label: '有'
+                },
+                 {
+                    value: '选项2',
+                    label: '无'
+                },
+            ],
+            value2: ''
         }
     },
     components: {
@@ -204,18 +275,21 @@ export default {
         }
     }
     .nothingshow {
-        width: 400px;
+        // width: 400px;
         margin: 15px;
         border: 1px solid #EBEEF5;
         li {
-            height: 40px;
-            line-height: 40px;
+            height: 50px;
+            line-height: 50px;
             border-bottom: 1px solid #EBEEF5;
+            width: 50%;
+            display: inline-block;
             &:last-child {
                 border-bottom: 0;
             }
             span {
                 margin-left: 15px;
+                text-align: right;
             }
             .inputinfo {
                 width: 90px;
@@ -224,6 +298,24 @@ export default {
                 padding-left: 10px;
             }
         }
+    }
+    .subone {
+        &:last-child {
+            margin-bottom: 20px;
+        }
+        p {
+            display: inline-block;
+            line-height: 80px;
+            color: #f68e58;
+            margin-left: 15px;
+        }
+        .textareawidth {
+            width: 80%;
+            margin-bottom: 10px 0 20px 0;
+        }
+    }
+    .bottombutton {
+        margin: 15px;
     }
 }
 table {
