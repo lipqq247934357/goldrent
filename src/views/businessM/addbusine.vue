@@ -7,10 +7,18 @@
             <li>
                 <span>伙伴类型</span>
                 <span>
-                    <select>
+                    <!-- <select>
                         <option>自然人</option>
                         <option>法人机构</option>
-                    </select>
+                    </select> -->
+                    <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
+                        <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </span>
             </li>
             <li>
@@ -70,19 +78,31 @@
             <li>
                 <span>涉诉</span>
                 <span>
-                    <select>
-                        <option>有无</option>
-                        <option>法人机构</option>
-                    </select>
+                    <template>
+                        <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
+                            <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </template>
                 </span>
             </li>
             <li>
                 <span>被执行信息</span>
                 <span>
-                    <select>
-                        <option>有无</option>
-                        <option>法人机构</option>
-                    </select>
+                    <template>
+                        <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
+                            <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </template>
                 </span>
             </li>
         </ul>
@@ -179,6 +199,25 @@ export default {
         return {
             message: '基本信息',
             titletext: '商业伙伴维护',
+            options: [
+                {
+                    value: '选项1',
+                    label: '待处理'
+                },
+                 {
+                    value: '选项2',
+                    label: '进行中'
+                },
+                {
+                    value: '选项3',
+                    label: '已提交'
+                },
+                {
+                    value: '选项4',
+                    label: '已退回'
+                }
+            ],
+            value: ''
         }
     },
     components: {

@@ -604,6 +604,7 @@ export default {
                         float: left;
                         border-bottom: 1px solid #EBEEF5;
                         height: 100px;
+                        color: #606266;
                         &:first-child {
                             width: 29.8%;
                             border-right: 1px solid #EBEEF5;
