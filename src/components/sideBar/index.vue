@@ -31,30 +31,6 @@
                         <el-menu-item index="/loanapprovallist">贷款审批</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="3">
-                    <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span>放款审批</span>
-                    </template>
-                    <el-menu-item-group>
-                        <template slot="title">分组一</template>
-                        <el-menu-item index="1-111">放款审批处理页</el-menu-item>
-                    </el-menu-item-group>
-                </el-submenu>
-
-                <el-submenu index="4">
-                    <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span>还款管理</span>
-                    </template>
-                    <el-menu-item-group>
-                        <el-menu-item index="1-112">代扣核销-列表</el-menu-item>
-                        <el-menu-item index="1-113">代扣清单-下载</el-menu-item>
-                        <el-menu-item index="1-114">主动核销</el-menu-item>
-                        <el-menu-item index="1-115">核销管理处理页</el-menu-item>
-                    </el-menu-item-group>
-                </el-submenu>
-
                 <el-submenu index="5">
                     <template slot="title">
                         <i class="el-icon-location"></i>
@@ -64,7 +40,6 @@
                         <el-menu-item index="businessadmin">商业伙伴管理</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-
             </el-menu>
         </el-col>
     </el-row>
@@ -93,7 +68,7 @@ export default {
 .menu {
     width: 200px;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 50px;
     left: 0;
     background: #545c64;

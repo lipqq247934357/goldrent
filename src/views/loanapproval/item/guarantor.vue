@@ -16,7 +16,7 @@
 </template>
 
 <script  type="text/ecmascript-6">
-import componentitle from '../title/title.vue';
+import componentitle from '../../../components/title/title.vue';
 import ulinfolist from './ulinfolist.vue'; // 基本信息 暂时废弃不引用移到assetsinfo组件
 import assetsinfo from './assetsinfo.vue'; //资产信息
 export default {

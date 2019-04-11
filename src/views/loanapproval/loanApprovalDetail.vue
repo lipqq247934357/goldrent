@@ -37,14 +37,14 @@
 </template>
 
 <script  type="text/ecmascript-6">
-import wantfactor from '../../components/loanapproval/wantfactor.vue'; //租赁要素
-import lesseeinfo from '../../components/loanapproval/lesseeinfo.vue'; //承租人信息
-import guarantor from '../../components/loanapproval/guarantor.vue'; //保证人信息
-import buybackpeople from '../../components/loanapproval/buybackpeople.vue'; //回购人信息
-import leasehold from '../../components/loanapproval/leasehold.vue'; //租赁物信息
-import externalinfo from '../../components/loanapproval/externalinfo.vue'; //外部信息
-import investigation from '../../components/loanapproval/investigation.vue'; //调查环节
-import operation from '../../components/loanapproval/operation.vue'; //贷款审批操作
+import wantfactor from './item/wantfactor.vue'; //租赁要素
+import lesseeinfo from './item/lesseeinfo.vue'; //承租人信息
+import guarantor from './item/guarantor.vue'; //保证人信息
+import buybackpeople from './item/buybackpeople.vue'; //回购人信息
+import leasehold from './item/leasehold.vue'; //租赁物信息
+import externalinfo from './item/externalinfo.vue'; //外部信息
+import investigation from './item/investigation.vue'; //调查环节
+import operation from './item/operation.vue'; //贷款审批操作
 export default {
     data() {
         return {

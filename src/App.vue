@@ -1,25 +1,21 @@
 <template>
     <div id="app">
-        <topculumn />
-        <leftmenu />
+        <navBar/>
+        <sideBar/>
         <router-view/>
     </div>
 </template>
 
-<script  type="text/ecmascript-6">
-import topculumn from './components/topcolumn/topcolumn.vue';
-import leftmenu from './components/menu/menu.vue';
-export default {
-    data() {
-        return {
-            message: '我是头部'
+<script type="text/ecmascript-6">
+    import navBar from './components/navBar/index.vue';
+    import sideBar from './components/sideBar/index.vue';
+
+    export default {
+        components: {
+            navBar,
+            sideBar
         }
-    },
-    components: {
-        topculumn,
-        leftmenu
     }
-}
 </script>
 <style lang="less">
 

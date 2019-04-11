@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from './router';
 import './public/public.less';
 
+import 'normalize.css/normalize.css'
+
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 

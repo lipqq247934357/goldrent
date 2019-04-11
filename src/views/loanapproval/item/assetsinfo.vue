@@ -577,7 +577,7 @@
 </template>
 
 <script  type="text/ecmascript-6">
-import componentitle from '../title/title.vue';
+import componentitle from '../../../components/title/title.vue';
 export default {
     data() {
         return {
