@@ -7,8 +7,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import navBar from './components/navBar/index.vue';
-    import sideBar from './components/sideBar/index.vue';
+    import navBar from './views/layout/navBar/index.vue';
+    import sideBar from './views/layout/sideBar/index.vue';
 
     export default {
         components: {
