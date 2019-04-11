@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import welcome from './views/welcome/welcome.vue';
+import welcome from './views/index/index.vue';
 import login from './views/login/login.vue'; // 登陆页面
-import loanapprovallist from './views/loanapproval/loanapprovallist.vue'; //贷款审批列表
-import loadapproval from './views/loanapproval/loanapproval.vue'; // 贷款审批
-import businfo from './views/businessinfo/businessinfo.vue'; // 业务信息列表
-import businessadmin from './views/businessadmin/businessadmin.vue'; //商业伙伴管理
-import seebusinessinfo from './views/businessinfo/seebusinessinfo.vue'; // 业务信息查看
-import addbusine from './views/businessadmin/addbusine.vue'; //添加商业伙伴
-import legalperson from './views/businessadmin/legalperson.vue'; //法人
-import naturalperson from './views/businessadmin/naturalperson.vue'; //自然人
+import loanapprovallist from './views/loanapproval/index.vue'; //贷款审批列表
+import loadapproval from './views/loanapproval/loanApprovalDetail.vue'; // 贷款审批
+import businfo from './views/businessInfo/businessInfo.vue'; // 业务信息列表
+import businessadmin from './views/businessM/index.vue'; //商业伙伴管理
+import businessdetail from './views/businessInfo/businessDetail.vue'; // 业务信息查看
+import addbusine from './views/businessM/addbusine.vue'; //添加商业伙伴
+import legalperson from './views/businessM/legalperson.vue'; //法人
+import naturalperson from './views/businessM/naturalperson.vue'; //自然人
 Vue.use(Router)
 
 export default new Router({
@@ -42,9 +42,9 @@ export default new Router({
         component: businfo
         },
         {
-         path: '/seebusinessinfo',
-         name: 'seebusinessinfo',
-         component: seebusinessinfo
+         path: '/businessdetail',
+         name: 'businessdetail',
+         component: businessdetail
         },
         {
          path: '/addbusine',
@@ -52,7 +52,7 @@ export default new Router({
          component: addbusine
         },
         {
-         path: '/businessadmin',
+         path: '/businessM',
          name: 'businessadmin',
          component: businessadmin
          },

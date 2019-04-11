@@ -1,4 +1,5 @@
 <template>
+
 <div class="businfo">
     <div class="topTitle">
         <componentitle :message="message" :titletext="titletext" />
