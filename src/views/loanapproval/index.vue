@@ -6,9 +6,9 @@
     <div class="topcontent">
         <div>
             <label>业务编号：</label>
-            <input type="text" name="" value="">
+            <el-input placeholder="请输入内容" class="contentinout"></el-input>
             <label class="rightlabel">承租人姓名：</label>
-            <input type="text" name="" value="">
+            <el-input placeholder="请输入内容" class="contentinout"></el-input>
         </div>
         <div>
             <label>任务创建时间：</label>
@@ -167,14 +167,14 @@ export default {
             //查看按钮
             console.log(val);
             this.$router.push({
-                path: '/loadapproval'
+                path: '/layout/loadapprovaldetail'
             })
         },
         edit(val) {
             // 编辑按钮
             console.log(val);
             this.$router.push({
-                path: '/loadapproval',
+                path: '/layout/loadapprovaldetail',
                 query: {
 
                 }

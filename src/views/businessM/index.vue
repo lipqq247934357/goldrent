@@ -6,9 +6,9 @@
     <div class="topcontent">
         <div>
             <label>业务编号：</label>
-            <input type="text" name="" value="">
+            <el-input placeholder="请输入内容" class="contentinout"></el-input>
             <label class="rightlabel">承租人姓名：</label>
-            <input type="text" name="" value="">
+            <el-input placeholder="请输入内容" class="contentinout"></el-input>
         </div>
         <div>
             <label>到期日期：</label>
@@ -25,13 +25,16 @@
             </el-date-picker>
 
             <label class="rightlabel">任务状态：</label>
-            <select>
-                <option disabled value="">请选择</option>
-                <option>已审批</option>
-                <option>进行中</option>
-                <option>已提交</option>
-                <option>待处理</option>
-            </select>
+            <template>
+                <el-select v-model="value" placeholder="请选择" class="choiceselect">
+                    <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
+            </template>
         </div>
         <button type="button" name="button">查询</button>
     </div>
@@ -45,61 +48,184 @@
         </div>
 
         <!-- 表格 -->
-        <template>
-            <el-table
-                :data="tableData"
-                border
-                style="width: 100%">
-                <el-table-column
-                    prop="date"
-                    label="ID">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="供应商名称">
-                </el-table-column>
-                <el-table-column
-                    prop="address"
-                    label="企业性质">
-                </el-table-column>
-                <el-table-column
-                    prop="date"
-                    label="负责人姓名">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="负责人电话">
-                </el-table-column>
-                <el-table-column
-                    prop="address"
-                    label="债务种类">
-                </el-table-column>
-                <el-table-column
-                    prop="date"
-                    label="年营业额（万）">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="担保余额（万）">
-                </el-table-column>
-                <el-table-column
-                    prop="address"
-                    label="被担保人">
-                </el-table-column>
-                <el-table-column
-                    prop="date"
-                    label="最后更新时间">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="操作">
-                    <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+        <div class="grouptables">
+            <el-tabs type="border-card">
+                <el-tab-pane label="自然人">
+                    <template>
+                        <el-table
+                            :data="tableData"
+                            border
+                            style="width: 100%">
+                            <el-table-column
+                                prop="date"
+                                label="ID">
+                            </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="供应商名称">
+                            </el-table-column>
+                            <el-table-column
+                                prop="address"
+                                label="企业性质">
+                            </el-table-column>
+                            <el-table-column
+                                prop="date"
+                                label="负责人姓名">
+                            </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="负责人电话">
+                            </el-table-column>
+                            <el-table-column
+                                prop="address"
+                                label="债务种类">
+                            </el-table-column>
+                            <el-table-column
+                                prop="date"
+                                label="年营业额（万）">
+                            </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="担保余额（万）">
+                            </el-table-column>
+                            <el-table-column
+                                prop="address"
+                                label="被担保人">
+                            </el-table-column>
+                            <el-table-column
+                                prop="date"
+                                label="最后更新时间">
+                            </el-table-column>
+                            <el-table-column
+                                prop="name"
+                                label="操作">
+                                <template slot-scope="scope">
+                                    <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+                                    <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
                     </template>
-                </el-table-column>
-            </el-table>
-        </template>
+                </el-tab-pane>
+                <el-tab-pane label="法人">
+                    <ul class="infolist">
+                        <li>
+                            <span>商业伙伴全称</span>
+                            <span>
+                                宅基地
+                            </span>
+                        </li>
+                        <li>
+                            <span>商业伙伴编码</span>
+                            <span>1000</span>
+                        </li>
+                        <li>
+                            <span>商业伙伴类别</span>
+                            <span>XXXXXXXXXX</span>
+
+                        </li>
+                        <li>
+                            <span>统一社会信用低吗</span>
+                            <span>XXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>证件生效时间</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>证件失效时间</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>公司性质</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>所属行业</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>注册资本（万元）</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>成立日期</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>营业收入（万元）</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>经营范围</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>营业地址</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>从业人数</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>资产总额（万元）</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>企业规模</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>法定代表人</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>法人证件类型</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>法人证件号码</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>法人证件失效时间</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>法人电话</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>法人地址</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>联系人</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>联系地址</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>管户人</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>贷款卡号</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                        <li>
+                            <span>附件</span>
+                            <span>XXXXXXXXXXXXXXX</span>
+                        </li>
+                    </ul>
+                </el-tab-pane>
+            </el-tabs>
+        </div>
+
+
 
         <!-- 分页 -->
         <div class="block">
@@ -148,6 +274,25 @@ export default {
                     address: '上海市普陀区金沙江路 1518 弄'
                 },
             ],
+            options: [
+                {
+                    value: '选项1',
+                    label: '待处理'
+                },
+                 {
+                    value: '选项2',
+                    label: '进行中'
+                },
+                {
+                    value: '选项3',
+                    label: '已提交'
+                },
+                {
+                    value: '选项4',
+                    label: '已退回'
+                }
+            ],
+            value: '',
             currentPage2: 1,
             value1: ''
         }
@@ -201,6 +346,11 @@ export default {
     .content {
         width: 95%;
         margin: 0 auto;
+        .grouptables {
+            .el-tabs__header {
+                margin-bottom: 15px;
+            }
+        }
     }
 }
 </style>

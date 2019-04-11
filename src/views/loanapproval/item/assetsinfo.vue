@@ -62,24 +62,6 @@
                 <span>微信号</span>
                 <span>XXXXXXX</span>
             </li>
-            <li>
-                <span>涉诉</span>
-                <span>
-                    <select>
-                        <option>有无</option>
-                        <option>法人机构</option>
-                    </select>
-                </span>
-            </li>
-            <li>
-                <span>被执行信息</span>
-                <span>
-                    <select>
-                        <option>有无</option>
-                        <option>法人机构</option>
-                    </select>
-                </span>
-            </li>
         </ul>
     </div>
     <!-- 资产情况 -->

@@ -59,40 +59,12 @@
             </li>
         </ul>
     </div>
-    <div class="assetsinfoul">
-        <h3>保证担保</h3>
-        <ul class="infolist">
-            <li>
-                <span>抵押物种类</span>
-                <span>
-                    宅基地
-                </span>
-            </li>
-            <li>
-                <span>抵押物价值</span>
-                <span>1000</span>
-            </li>
-            <li>
-                <span>抵押人/坐落</span>
-                <span>XXXXXXXXXX</span>
-
-            </li>
-            <li>
-                <span>与承租人关系</span>
-                <span>XXXXXXXXXXX</span>
-            </li>
-            <li>
-                <span>备注</span>
-                <span>XXXXXXXXXXXXXXX</span>
-
-            </li>
-        </ul>
-    </div>
+    
     <div class="bottombox">
         <componentitle :message="message='调查结论及风险评价'" />
         <el-input
             type="textarea"
-            :rows="2"
+            :rows="4"
             placeholder="请输入内容"
             class="inputtext"
             v-model="textarea">

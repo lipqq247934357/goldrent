@@ -198,12 +198,14 @@
         <div class="subone">
             <p>面签合同：</p>
             <template>
-                <el-radio v-model="radio" label="1">抵押合同</el-radio>
-                <el-radio v-model="radio" label="2">XX合同</el-radio>
-                <el-radio v-model="radio" label="3">XX合同</el-radio>
-                <el-radio v-model="radio" label="4">XX合同</el-radio>
-                <el-radio v-model="radio" label="5">XX合同</el-radio>
-                <el-radio v-model="radio" label="6">XX合同</el-radio>
+                <el-checkbox-group v-model="checklist" class="elcheckboxs">
+                    <el-checkbox label="抵押合同"></el-checkbox>
+                    <el-checkbox label="XX合同1"></el-checkbox>
+                    <el-checkbox label="XX合同2"></el-checkbox>
+                    <el-checkbox label="XX合同3"></el-checkbox>
+                    <el-checkbox label="XX合同4"></el-checkbox>
+                    <el-checkbox label="XX合同5"></el-checkbox>
+                </el-checkbox-group>
             </template>
         </div>
         <div class="subone">
@@ -243,8 +245,8 @@ export default {
             message: '',
             radio: '',
             tableData: [],
-            radio: '', // 合同按钮绑定
             textarea: '', //文本域绑定
+            checklist: [], // 合同按钮
             options: [
                 {
                     value: '选项1',
@@ -275,7 +277,6 @@ export default {
         }
     }
     .nothingshow {
-        // width: 400px;
         margin: 15px;
         border: 1px solid #EBEEF5;
         li {
@@ -284,6 +285,7 @@ export default {
             border-bottom: 1px solid #EBEEF5;
             width: 50%;
             display: inline-block;
+            color: #606266;
             &:last-child {
                 border-bottom: 0;
             }
@@ -296,6 +298,7 @@ export default {
                 border: 0;
                 border-bottom: 1px solid #EBEEF5;
                 padding-left: 10px;
+                color: #606266;
             }
         }
     }
@@ -313,9 +316,17 @@ export default {
             width: 80%;
             margin-bottom: 10px 0 20px 0;
         }
+        .elcheckboxs {
+            display: inline-block;
+        }
     }
     .bottombutton {
-        margin: 15px;
+        float: right;
+        margin: 20px 13% 20px 0;
+        .el-button--primary {
+            background: #f68e58;
+            border: 0;
+        }
     }
 }
 table {
