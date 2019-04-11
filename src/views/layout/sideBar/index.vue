@@ -26,7 +26,7 @@
                             <span>贷款审批管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="/layout/loadapprovallist">贷款审批</el-menu-item>
+                            <el-menu-item index="/layout/loadapproval">贷款审批</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="5">
