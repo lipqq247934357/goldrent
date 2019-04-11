@@ -1,0 +1,230 @@
+<template>
+<div class="buybackpeople">
+    <componentitle :message="message='基本信息'"/>
+    <ul class="infolist">
+        <li>
+            <span>回购人名称</span>
+            <span>
+                xxxxxx
+            </span>
+        </li>
+        <li>
+            <span>企业性质</span>
+            <span>企业法人</span>
+        </li>
+        <li>
+            <span>注册资本金</span>
+            <span>XXXXXXXXXXXXX</span>
+
+        </li>
+        <li>
+            <span>年营业额</span>
+            <span>XXXXXXXXXXX</span>
+        </li>
+        <li>
+            <span>经销商层级</span>
+            <span>一级经销商</span>
+
+        </li>
+        <li>
+            <span>回购方负责人</span>
+            <span>XXXXXXXXX</span>
+        </li>
+        <li>
+            <span>回购方联系电话</span>
+            <span>123123123123</span>
+        </li>
+    </ul>
+    <componentitle :message="message='负债及对外担保情况'"/>
+    <div class="assetsinfoul">
+        <h3>回购人</h3>
+        <ul class="infolist">
+            <li>
+                <span>房产类型</span>
+                <span>
+                    宅基地
+                </span>
+            </li>
+            <li>
+                <span>面积（㎡）</span>
+                <span>1000</span>
+            </li>
+            <li>
+                <span>房产地址/坐落</span>
+                <span>XXXXXXXXXX</span>
+
+            </li>
+            <li>
+                <span>当前估价</span>
+                <span>XXXXXXXXXXX</span>
+            </li>
+            <li>
+                <span>所以权人</span>
+                <span>XXXXXXXXXXXXXXX</span>
+
+            </li>
+            <li>
+                <span>是否抵押</span>
+                <span>XXXXXXXXXXX</span>
+            </li>
+        </ul>
+    </div>
+    <div class="assetsinfoul">
+        <h3>回购方实际控制人</h3>
+        <ul class="infolist">
+            <li>
+                <span>房产类型</span>
+                <span>
+                    宅基地
+                </span>
+            </li>
+            <li>
+                <span>面积（㎡）</span>
+                <span>1000</span>
+            </li>
+            <li>
+                <span>房产地址/坐落</span>
+                <span>XXXXXXXXXX</span>
+
+            </li>
+            <li>
+                <span>当前估价</span>
+                <span>XXXXXXXXXXX</span>
+            </li>
+            <li>
+                <span>所以权人</span>
+                <span>XXXXXXXXXXXXXXX</span>
+
+            </li>
+            <li>
+                <span>是否抵押</span>
+                <span>XXXXXXXXXXX</span>
+            </li>
+        </ul>
+    </div>
+    <componentitle :message="message='回购人相关影像资料'"/>
+    <div class="imgbox">
+        <h3>基础资料</h3>
+
+        <ul>
+            <li>
+                <div>营业执照副本原件</div>
+                <div class="">
+
+                </div>
+            </li>
+            <li>
+                <div>开户许可证原件</div>
+                <div class="">
+
+                </div>
+            </li>
+            <li>
+                <div>公司章程工商调档原件</div>
+                <div class="">
+
+                </div>
+            </li>
+            <li>
+                <div>法人、实际控制人身份证原件</div>
+                <div class="">
+
+                </div>
+            </li>
+            <li>
+                <div>法人、实际控制人户口簿原件</div>
+                <div class="">
+
+                </div>
+            </li>
+            <li>
+                <div>法人、实际控制人婚姻状况证明材料原件</div>
+                <div class="">
+
+                </div>
+            </li>
+        </ul>
+
+        <h3>财务资料</h3>
+        <ul>
+            <li>
+                <div>审计报告（财务报表）</div>
+                <div class="">
+
+                </div>
+            </li>
+            <li>
+                <div>纳税申请表</div>
+                <div class="">
+
+                </div>
+            </li>
+        </ul>
+
+        <h3>征信证明务资料</h3>
+        <ul>
+            <li>
+                <div>人行征信报告</div>
+                <div class="">
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</template>
+
+<script  type="text/ecmascript-6">
+import componentitle from '../title/title.vue';
+
+export default {
+    data() {
+        return {
+            message: '',
+
+        }
+    },
+    components: {
+        componentitle,
+
+    }
+}
+</script>
+<style lang="less">
+.buybackpeople {
+    h3 {
+        padding-left: 15px;
+    }
+    .imgbox {
+        h3 {
+            font-size: 16px;
+            margin: 35px 0 35px 15px;
+            font-weight: bold;
+        }
+        ul {
+            width: 95%;
+            margin: 0 auto;
+            border: 1px solid #EBEEF5;
+            li {
+                width: 100%;
+                height: 100px;
+                text-align: center;
+                clear: both;
+                div {
+                    float: left;
+                    border-bottom: 1px solid #EBEEF5;
+                    height: 100px;
+                    &:first-child {
+                        width: 29.8%;
+                        border-right: 1px solid #EBEEF5;
+                        line-height: 100px;
+                    }
+                    &:last-child {
+                        width: 70%;
+                    }
+                }
+            }
+        }
+    }
+}
+</style>
