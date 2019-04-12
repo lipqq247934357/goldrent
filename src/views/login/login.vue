@@ -10,12 +10,20 @@
                 <span class="passwordText">密&nbsp;&nbsp;&nbsp;码：</span>
                 <input type="password" name="" value="">
             </div>
+            <el-button type="primary" class="loginbutton" @click="login">登录</el-button>
+            <p class="tips">忘记密码请联系管理员</p>
         </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    export default {}
+    export default {
+        methods: {
+            login() {
+                this.$message.error('登录啥啊，现在啥都没有');
+            }
+        }
+    }
 </script>
 <style lang="less">
     .login {
@@ -27,12 +35,12 @@
         top: 0;
         bottom: 0;
         img {
-            margin: 15% auto 50px;
+            margin: 10% auto 30px;
             display: block;
         }
 
         .inputText {
-            width: 300px;
+            width: 350px;
             padding: 10px;
             margin: 0 auto;
 
@@ -48,6 +56,21 @@
                     height: 30px;
                     padding-left: 10px;
                 }
+            }
+            .loginbutton {
+                width: 100px;
+                float: right;
+                margin-right: 55px;
+                margin-bottom: 15px;
+                background: #f68f4e;
+                border: 0;
+            }
+            .tips {
+                clear: both;
+                font-size: 14px;
+                color: #868686;
+                margin-right: 55px;
+                text-align: right;
             }
         }
     }
