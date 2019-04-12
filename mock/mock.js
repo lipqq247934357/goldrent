@@ -36,10 +36,10 @@ function images(){
   let imageslist= [];
   for (let i = 0; i < 10; i++) {
     let newData = {
-      images: Random.dataImage('100x100', 'mock的图片'), // Random.dataImage( size, text ) 生成一段随机的 Base64 图片编码
-      name: Random.cname(), // Random.cname() 随机生成一个常见的中文姓名
+      images: Random.dataImage('300x250', 'mock的图片'), // Random.dataImage( size, text ) 生成一段随机的 Base64 图片编码
+      name: Random.cname() // Random.cname() 随机生成一个常见的中文姓名
     }
-    namelist.push(images)
+    imageslist.push(newData)
   }
   return {
     dataName: imageslist

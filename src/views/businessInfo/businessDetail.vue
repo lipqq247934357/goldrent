@@ -29,14 +29,6 @@
                     prop="name"
                     label="任务结束时间">
                 </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="操作">
-                    <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-                    </template>
-                </el-table-column>
             </el-table>
         </template>
     </div>
@@ -127,7 +119,6 @@
             </template>
         </div>
     </div>
-
 </div>
 </template>
 
@@ -183,6 +174,7 @@ export default {
 <style lang="less">
 .businfo {
     background: #fff;
+    margin-bottom: 40px;
     .topTitle {
         width: 95%;
         margin: 0 auto;

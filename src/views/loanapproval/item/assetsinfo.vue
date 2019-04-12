@@ -485,19 +485,20 @@
                     <div>身份证原件</div>
                     <div class="imgeslist">
                         <img
-                            src="../../../assets/logo.png"
+                            v-for="(item,index) in images"
+                            :src="item.images"
                             preview="1"
                             preview-text="身份证原件"
                             width="100"
                             height="100"
                             >
-                        <img
+                        <!-- <img
                             src="../../../assets/logo0.png"
                             preview="1"
                             preview-text="身份证原件"
                             width="100"
                             height="100"
-                            >
+                            > -->
                     </div>
                 </li>
                 <li>
@@ -589,13 +590,15 @@ import componentitle from '../../../components/title/title.vue';
 export default {
     data() {
         return {
-
+            images: []
         }
     },
     created() {
-        // this.$post('/imageslist').then((response) => {
-        //     console.log(response)
-        // })
+        this.$post('/imageslist').then((response) => {
+            this.images = response.data.dataName;
+            this.$previewRefresh() // 异步生成图片调用插件方法
+            console.log(this.images);
+        })
     },
     methods: {
 

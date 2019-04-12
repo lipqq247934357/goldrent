@@ -36,7 +36,7 @@
                 </el-select>
             </template>
         </div>
-        <button type="button" name="button">查询</button>
+        <button type="button" name="button" class="search">查询</button>
     </div>
 
     <div class="content">
@@ -76,8 +76,8 @@
                     prop="name"
                     label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-                        <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+                        <el-button @click="edit(scope.row)" type="text" size="small">处理</el-button>
+                        <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -195,4 +195,9 @@ export default {
         margin: 0 auto;
     }
 }
+
+    .search {
+        cursor: pointer;
+    }
+
 </style>

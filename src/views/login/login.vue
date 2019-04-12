@@ -4,11 +4,11 @@
         <div class="inputText">
             <div class="subTextdiv">
                 <span>登录名：</span>
-                <input type="text" name="" value="">
+                <input type="text" v-model="name">
             </div>
             <div class="subTextdiv">
                 <span class="passwordText">密&nbsp;&nbsp;&nbsp;码：</span>
-                <input type="password" name="" value="">
+                <input type="password" v-model="pwd">
             </div>
             <el-button type="primary" class="loginbutton" @click="login">登录</el-button>
             <p class="tips">忘记密码请联系管理员</p>
@@ -17,10 +17,28 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import {setStore} from "../../utils/utils";
+
     export default {
+        data() {
+            return {
+                name: '',
+                pwd: ''
+            }
+        },
         methods: {
-            login() {
-                this.$message.error('登录啥啊，现在啥都没有');
+            async login() {
+                // let data = await this.$post('user/login', {name: this.name, pwd: this.pwd});
+                // if (data.data.code === 2000000) {
+                //     //跳首页，保存用户数据
+                //     setStore('name', data.data.name || 'name');
+                //     setStore('username', data.data.username || 'username');
+                //     setStore('phone', data.data.phone || 'phone');
+                // }
+                setStore('name', 'name');
+                setStore('username', 'username');
+                setStore('phone', 'phone');
+                this.$router.push('/');
             }
         }
     }
@@ -34,6 +52,7 @@
         right: 0;
         top: 0;
         bottom: 0;
+
         img {
             margin: 10% auto 30px;
             display: block;
@@ -57,6 +76,7 @@
                     padding-left: 10px;
                 }
             }
+
             .loginbutton {
                 width: 100px;
                 float: right;
@@ -65,6 +85,7 @@
                 background: #f68f4e;
                 border: 0;
             }
+
             .tips {
                 clear: both;
                 font-size: 14px;
