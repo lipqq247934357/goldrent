@@ -7,12 +7,12 @@
         </div>
         <div v-show="userInfoPop" class="userInfo">
             <ul class="first" v-Clickoutside="closeUserInfoPop">
-                <li>管理员</li>
-                <li @click="showUpdateInfoPop">个人信息</li>
-                <li @click="showUpdatePasswordPop">更改密码</li>
+                <li><span class="iconfont">&#xe7ae;</span>&nbsp;管理员</li>
+                <li @click="showUpdateInfoPop"><span class="iconfont">&#xe7e4;</span>&nbsp;个人信息</li>
+                <li @click="showUpdatePasswordPop"><span class="iconfont">&#xe7e1;</span>&nbsp;更改密码</li>
             </ul>
             <ul class="second">
-                <li @click="logout">登出</li>
+                <li @click="logout"><span class="iconfont">&#xe78c;</span>&nbsp;登出</li>
             </ul>
         </div>
         <el-dialog

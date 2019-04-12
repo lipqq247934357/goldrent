@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import './public/public.less';
+import './public/iconfont.css';
 
 import 'normalize.css/normalize.css'
 
