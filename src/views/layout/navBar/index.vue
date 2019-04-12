@@ -160,7 +160,7 @@
             padding-left: 20px;
 
             &:hover {
-                background: linear-gradient(top, #ffffff, #dddddd);
+                background: linear-gradient(to bottom, #ffffff, #dddddd);
             }
         }
 
