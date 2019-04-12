@@ -137,7 +137,7 @@
     }
 
     .userInfo {
-        position: absolute;
+        position: fixed;
         top: 52px;
         right: 5px;
         z-index: 90;
