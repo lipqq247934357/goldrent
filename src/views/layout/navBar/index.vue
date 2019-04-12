@@ -3,7 +3,7 @@
         <div class="top">
             <img src="logo.png" alt="" width="20" height="20">
             <span>金租业务管理系统</span>
-            <span class="username" @click="showUserInfo">魏然</span>
+            <span class="username" @click="showUserInfo">{{name}}</span>
         </div>
         <div v-show="userInfoPop" class="userInfo">
             <ul class="first" v-Clickoutside="closeUserInfoPop">
@@ -23,19 +23,19 @@
             <div class="update-user-info">
                 <el-form ref="form" label-width="60px">
                     <el-form-item label="用户名">
-                        <el-input size="mini"></el-input>
+                        <el-input size="mini" v-model="name"></el-input>
                     </el-form-item>
-                    <el-form-item label="密码">
-                        <el-input size="mini"></el-input>
+                    <el-form-item label="姓名">
+                        <el-input size="mini" v-model="username"></el-input>
                     </el-form-item>
-                    <el-form-item label="手机">
-                        <el-input size="mini"></el-input>
+                    <el-form-item label="手机号">
+                        <el-input size="mini" v-model="phone"></el-input>
                     </el-form-item>
                 </el-form>
             </div>
             <div class="btn" slot="footer">
                 <el-button size="small" @click="updateInfoPop = !updateInfoPop">关闭</el-button>
-                <el-button size="small">确认</el-button>
+                <el-button size="small" @click="updateInfo">确认</el-button>
             </div>
         </el-dialog>
 
@@ -47,19 +47,19 @@
             <div class="update-user-info">
                 <el-form ref="form" label-width="70px">
                     <el-form-item label="原密码">
-                        <el-input size="mini"></el-input>
+                        <el-input size="mini" v-model="pwd"></el-input>
                     </el-form-item>
                     <el-form-item label="新密码">
-                        <el-input size="mini"></el-input>
+                        <el-input size="mini" v-model="newPwd"></el-input>
                     </el-form-item>
                     <el-form-item label="确认密码">
-                        <el-input size="mini"></el-input>
+                        <el-input size="mini" v-model="newPwd1"></el-input>
                     </el-form-item>
                 </el-form>
             </div>
             <div class="btn" slot="footer">
                 <el-button size="small" @click="updatePasswordPop = !updatePasswordPop">关闭</el-button>
-                <el-button size="small">确认</el-button>
+                <el-button size="small" @click="updatePwd">确认</el-button>
             </div>
         </el-dialog>
 
@@ -68,6 +68,8 @@
 
 <script type="text/ecmascript-6">
     import Clickoutside from 'element-ui/src/utils/clickoutside';
+    import {setStore, getStore} from "../../../utils/utils";
+    import Cookies from 'js-cookie';
 
     export default {
         data() {
@@ -76,16 +78,28 @@
                 updateInfoPop: false,
                 updatePasswordPop: false,
                 clickPos: 0,
+                name: '',
+                username: '',
+                phone: '',
+                pwd: '',
+                newPwd: '',
+                newPwd1: ''
             }
         },
         directives: {Clickoutside},
+        created() {
+            this.name = getStore('name') || '';
+            this.username = getStore('username') || '';
+            this.phone = getStore('phone') || '';
+        },
         methods: {
             showUserInfo() {
                 this.userInfoPop = !this.userInfoPop;
                 this.clickPos = 1;
             },
             logout() {
-                alert('登出');
+                Cookies.remove('session');
+                this.$router.push('/login');
             },
             closeUserInfoPop() {
                 setTimeout(() => {
@@ -104,6 +118,12 @@
             showUpdatePasswordPop() {
                 this.closeUserInfoPop();
                 this.updatePasswordPop = true;
+            },
+            async updateInfo() {
+                // 如果更新成功 修改sessionStorage中的内容
+            },
+            async updatePwd() {
+
             }
         }
     }
