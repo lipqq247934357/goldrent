@@ -8,9 +8,9 @@ import loanapprovaldetail from './views/loanapproval/loanApprovalDetail.vue'; //
 import businfo from './views/businessInfo/businessInfo.vue'; // 业务信息列表
 import businessadmin from './views/businessM/index.vue'; //商业伙伴管理
 import businessdetail from './views/businessInfo/businessDetail.vue'; // 业务信息查看
-import addbusine from './views/businessM/addbusine.vue'; //添加商业伙伴
-import legalperson from './views/businessM/legalperson.vue'; //法人
-import naturalperson from './views/businessM/naturalperson.vue'; //自然人
+import businedetail from './views/businessM/detail.vue'; //添加商业伙伴
+import editbusine from './views/businessM/edit.vue'; //添加商业伙伴
+import error404 from './views/404'; // 404
 Vue.use(Router)
 
 export default new Router({
@@ -63,22 +63,21 @@ export default new Router({
                     component: businessadmin
                 },
                 {
-                    path: 'addbusine', //添加
-                    name: 'addbusine',
-                    component: addbusine
-                },
-
-                {
-                    path: 'legalperson', // 法人
-                    name: 'legalperson',
-                    component: legalperson
+                    path: 'businedetail', //详情
+                    name: 'businedetail',
+                    component: businedetail
                 },
                 {
-                    path: 'naturalperson', // 自然人
-                    name: 'naturalperson',
-                    component: naturalperson
+                    path: 'editbusine', //修改删除
+                    name: 'editbusine',
+                    component: editbusine
                 }
             ]
         },
+        {
+            path: '*',
+            name: '404',
+            component: error404
+        }
     ]
 })

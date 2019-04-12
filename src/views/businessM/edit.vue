@@ -5,36 +5,105 @@
 
         <ul class="infolist">
             <li>
-                <span>回购人名称</span>
+                <span>伙伴类型</span>
                 <span>
-                    xxxxxx
+                    <!-- <select>
+                        <option>自然人</option>
+                        <option>法人机构</option>
+                    </select> -->
+                    <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
+                        <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </span>
             </li>
             <li>
-                <span>企业性质</span>
-                <span>企业法人</span>
+                <span>客户类别</span>
+                <span>A类客户</span>
             </li>
             <li>
-                <span>注册资本金</span>
-                <span>XXXXXXXXXXXXX</span>
+                <span>姓名</span>
+                <span>豹子头·林冲</span>
 
             </li>
             <li>
-                <span>年营业额</span>
-                <span>XXXXXXXXXXX</span>
+                <span>与承租人关系</span>
+                <span>本人</span>
             </li>
             <li>
-                <span>经销商层级</span>
-                <span>一级经销商</span>
+                <span>性别</span>
+                <span>男</span>
 
             </li>
             <li>
-                <span>回购方负责人</span>
-                <span>XXXXXXXXX</span>
+                <span>年龄</span>
+                <span>28</span>
             </li>
             <li>
-                <span>回购方联系电话</span>
+                <span>身份证号码</span>
                 <span>123123123123</span>
+            </li>
+            <li>
+                <span>婚姻状况</span>
+                <span>已婚</span>
+            </li>
+            <li>
+                <span>户籍地址</span>
+                <span>XXXXXXXX</span>
+            </li>
+            <li>
+                <span>现住地</span>
+                <span>XXXXXXX</span>
+            </li>
+            <li>
+                <span>种植年限</span>
+                <span>XXXXXXXX</span>
+            </li>
+            <li>
+                <span>申请地居住年限（年）</span>
+                <span>XXXXXXX</span>
+            </li>
+            <li>
+                <span>联系电话</span>
+                <span>XXXXXXXX</span>
+            </li>
+            <li>
+                <span>微信号</span>
+                <span>XXXXXXX</span>
+            </li>
+            <li>
+                <span>涉诉</span>
+                <span>
+                    <template>
+                        <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
+                            <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </template>
+                </span>
+            </li>
+            <li>
+                <span>被执行信息</span>
+                <span>
+                    <template>
+                        <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
+                            <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </template>
+                </span>
             </li>
         </ul>
 
@@ -43,81 +112,7 @@
     <div class="content">
         <div class="titletop">
             <div class="topbox">
-                <span>负债及对外担保情况</span>
-            </div>
-
-            <h3>回购人</h3>
-
-            <ul class="infolist">
-                <li>
-                    <span>回购人</span>
-                    <span>
-                        xxxxxx
-                    </span>
-                </li>
-                <li>
-                    <span>债务种类</span>
-                    <span>XXXXXXXX</span>
-                </li>
-                <li>
-                    <span>债务余额</span>
-                    <span>XXXXXXXXXXXXX</span>
-
-                </li>
-                <li>
-                    <span>担保余额</span>
-                    <span>XXXXXXXXXXX</span>
-                </li>
-                <li>
-                    <span>被担保人</span>
-                    <span>一级经销商</span>
-
-                </li>
-                <li>
-                    <span>备注</span>
-                    <span>XXXXXXXXX</span>
-                </li>
-            </ul>
-
-            <h3>回购方实际控制人</h3>
-
-            <ul class="infolist">
-                <li>
-                    <span>回购方实际控制人</span>
-                    <span>
-                        xxxxxx
-                    </span>
-                </li>
-                <li>
-                    <span>债务种类</span>
-                    <span>XXXXXXXX</span>
-                </li>
-                <li>
-                    <span>债务余额</span>
-                    <span>XXXXXXXXXXXXX</span>
-
-                </li>
-                <li>
-                    <span>担保余额</span>
-                    <span>XXXXXXXXXXX</span>
-                </li>
-                <li>
-                    <span>被担保人</span>
-                    <span>一级经销商</span>
-
-                </li>
-                <li>
-                    <span>备注</span>
-                    <span>XXXXXXXXX</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="content">
-        <div class="titletop">
-            <div class="topbox">
-                <span>回购人相关影像资料</span>
+                <span>相关影像资料</span>
             </div>
         </div>
 
@@ -204,6 +199,25 @@ export default {
         return {
             message: '基本信息',
             titletext: '商业伙伴维护',
+            options: [
+                {
+                    value: '选项1',
+                    label: '待处理'
+                },
+                 {
+                    value: '选项2',
+                    label: '进行中'
+                },
+                {
+                    value: '选项3',
+                    label: '已提交'
+                },
+                {
+                    value: '选项4',
+                    label: '已退回'
+                }
+            ],
+            value: ''
         }
     },
     components: {
