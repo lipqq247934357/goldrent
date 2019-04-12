@@ -21,6 +21,8 @@
         methods: {
             login() {
                 this.$message.error('登录啥啊，现在啥都没有');
+                // 跳首页
+                this.$router.push('/');
             }
         }
     }

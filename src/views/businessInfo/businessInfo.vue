@@ -1,6 +1,5 @@
 <template>
-
-<div class="businfo">
+    <div class="businfo">
     <div class="topTitle">
         <componentitle :message="message" :titletext="titletext" />
     </div>
@@ -35,7 +34,7 @@
                 </el-select>
             </template>
         </div>
-        <button type="button" name="button">查询</button>
+        <button type="button" name="button" class="search">查询</button>
     </div>
 
     <div class="content">
@@ -213,6 +212,9 @@ export default {
     .content {
         width: 95%;
         margin: 0 auto;
+    }
+    .search {
+        cursor: pointer;
     }
 }
 </style>

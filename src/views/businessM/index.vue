@@ -36,14 +36,14 @@
                 </el-select>
             </template>
         </div>
-        <button type="button" name="button">查询</button>
+        <button type="button" name="button" class="search">查询</button>
     </div>
 
     <div class="content">
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
-                <label for="" @click="add">新增</label>
+                <label for="" @click="add" class="search">新增</label>
             </div>
         </div>
 
@@ -100,12 +100,24 @@
                                 prop="name"
                                 label="操作">
                                 <template slot-scope="scope">
-                                    <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
                                     <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+                                    <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
                     </template>
+                    <!-- 分页 -->
+                    <div class="block">
+                        <el-pagination
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                :current-page.sync="currentPage2"
+                                :page-sizes="[10, 20, 30, 40]"
+                                :page-size="100"
+                                layout="sizes, prev, pager, next"
+                                :total="1000">
+                        </el-pagination>
+                    </div>
                 </el-tab-pane>
                 <el-tab-pane label="法人">
                     <ul class="infolist">
@@ -224,21 +236,6 @@
                 </el-tab-pane>
             </el-tabs>
         </div>
-
-
-
-        <!-- 分页 -->
-        <div class="block">
-            <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page.sync="currentPage2"
-                :page-sizes="[10, 20, 30, 40]"
-                :page-size="100"
-                layout="sizes, prev, pager, next"
-                :total="1000">
-            </el-pagination>
-        </div>
     </div>
 
 </div>
@@ -352,5 +349,8 @@ export default {
             }
         }
     }
+}
+.search {
+    cursor: pointer;
 }
 </style>
