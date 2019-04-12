@@ -140,7 +140,7 @@
         position: absolute;
         top: 52px;
         right: 5px;
-        z-index: 1;
+        z-index: 90;
         width: 145px;
 
         font-size: 14px;
