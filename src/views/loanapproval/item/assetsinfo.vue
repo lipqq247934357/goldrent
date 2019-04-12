@@ -483,14 +483,40 @@
             <ul>
                 <li>
                     <div>身份证原件</div>
-                    <div class="">
-
+                    <div class="imgeslist">
+                        <img
+                            src="../../../assets/logo.png"
+                            preview="1"
+                            preview-text="身份证原件"
+                            width="100"
+                            height="100"
+                            >
+                        <img
+                            src="../../../assets/logo0.png"
+                            preview="1"
+                            preview-text="身份证原件"
+                            width="100"
+                            height="100"
+                            >
                     </div>
                 </li>
                 <li>
                     <div>户口簿原件</div>
-                    <div class="">
-
+                    <div class="imgeslist">
+                        <img
+                            src="../../../assets/logo0.png"
+                            preview="2"
+                            preview-text="户口簿原件"
+                            width="100"
+                            height="100"
+                            >
+                        <img
+                            src="../../../assets/logo.png"
+                            preview="2"
+                            preview-text="户口簿原件"
+                            width="100"
+                            height="100"
+                            >
                     </div>
                 </li>
             </ul>
@@ -566,6 +592,14 @@ export default {
 
         }
     },
+    created() {
+        // this.$post('/imageslist').then((response) => {
+        //     console.log(response)
+        // })
+    },
+    methods: {
+
+    },
     components: {
         componentitle,
     }
@@ -587,6 +621,12 @@ export default {
                 font-size: 16px;
                 margin: 35px 0 35px 15px;
                 font-weight: bold;
+            }
+            .imgeslist {
+                img {
+                    float: left;
+                    margin-left: 15px;
+                }
             }
             ul {
                 width: 95%;

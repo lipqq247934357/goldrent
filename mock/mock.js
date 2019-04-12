@@ -32,6 +32,19 @@ function nameData(){
     dataName: namelist
   }
 }
+function images(){
+  let imageslist= [];
+  for (let i = 0; i < 10; i++) {
+    let newData = {
+      images: Random.dataImage('100x100', 'mock的图片'), // Random.dataImage( size, text ) 生成一段随机的 Base64 图片编码
+      name: Random.cname(), // Random.cname() 随机生成一个常见的中文姓名
+    }
+    namelist.push(images)
+  }
+  return {
+    dataName: imageslist
+  }
+}
 function datas(){
   let list = {
       address: Random.city(),
@@ -42,7 +55,9 @@ function datas(){
       datalists: list
   }
 }
-const data = Mock.mock('/datalist',getData)
-const dataName = Mock.mock('/dataNames',nameData)
-const list = Mock.mock('/datalists',datas)
-export default {data,dataName,list};
+const data = Mock.mock('/datalist',getData);
+const dataName = Mock.mock('/dataNames',nameData);
+const list = Mock.mock('/datalists',datas);
+const imageslist = Mock.mock('/imageslist',images);
+
+export default {data,dataName,list,imageslist};

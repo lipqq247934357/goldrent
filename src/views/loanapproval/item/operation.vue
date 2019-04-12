@@ -1,13 +1,14 @@
 <template>
 <div class="operation">
     <componentitle :message="message='评分卡结果'" />
+    <el-button type="primary" class="againbutton" @click="again">重评</el-button>
     <div class="presentation">
         <i>征信报告：</i>
         <template>
             <el-radio v-model="radio" label="1">有</el-radio>
             <el-radio v-model="radio" label="2">无</el-radio>
         </template>
-        <ul class="nothingshow">
+        <ul class="nothingshow" v-show="radio == 2">
             <li>
                 <span>信用卡及贷款24个月最大逾期期数：</span>
                 <input type="text" name="" value="" class="inputinfo">
@@ -260,6 +261,11 @@ export default {
             value2: ''
         }
     },
+    methods: {
+        again() {
+            this.$message.error('测试');
+        }
+    },
     components: {
         componentitle,
     }
@@ -267,6 +273,11 @@ export default {
 </script>
 <style lang="less">
 .operation {
+    .againbutton {
+        position: absolute;
+        top: 7px;
+        right: 15px;
+    }
     .presentation {
         margin: 15px;
         i {
