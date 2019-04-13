@@ -18,6 +18,10 @@ Vue.use(Router)
 export default new Router({
     routes: [
         {
+            path: '/404',
+            component: error404
+        },
+        {
             path: '/login',
             name: 'login',
             component: login
@@ -88,8 +92,7 @@ export default new Router({
         },
         {
             path: '*',
-            name: '404',
-            component: error404
+            redirect: '/404',
         }
     ]
 })

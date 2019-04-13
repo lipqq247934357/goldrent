@@ -453,11 +453,12 @@
             width: 80px;
             height: 80px;
             margin: 10px 0 10px 20px;
-
-            /deep/ .el-icon-plus {
-                vertical-align: inherit;
-                margin-top: 26px;
-            }
         }
+
+        /deep/ .el-icon-plus {
+            vertical-align: top;
+            margin-top: 26px;
+        }
+
     }
 </style>

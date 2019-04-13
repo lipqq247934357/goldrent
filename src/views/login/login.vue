@@ -18,6 +18,7 @@
 
 <script type="text/ecmascript-6">
     import {setStore} from "../../utils/utils";
+    import Cookies from 'js-cookie';
 
     export default {
         data() {
@@ -38,6 +39,7 @@
                 setStore('name', 'name');
                 setStore('username', 'username');
                 setStore('phone', 'phone');
+                Cookies.set('session','xxx'); // 模拟后台设置session
                 this.$router.push('/');
             }
         }

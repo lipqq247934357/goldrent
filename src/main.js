@@ -15,6 +15,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import mockdata from '../mock/mock.js';
 import axios from 'axios';
 import {get, post} from './http';
+import './utils/beforeEach';
 
 
 //定义全局变量

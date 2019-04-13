@@ -128,43 +128,27 @@
                                     style="width: 100%">
                                 <el-table-column
                                         prop="date"
-                                        label="ID">
+                                        label="商业伙伴全称">
                                 </el-table-column>
                                 <el-table-column
                                         prop="name"
-                                        label="供应商名称">
+                                        label="商业伙伴编码">
                                 </el-table-column>
                                 <el-table-column
                                         prop="address"
-                                        label="企业性质">
+                                        label="商业伙伴类别">
                                 </el-table-column>
                                 <el-table-column
                                         prop="date"
-                                        label="负责人姓名">
+                                        label="统一社会信用代码">
                                 </el-table-column>
                                 <el-table-column
                                         prop="name"
-                                        label="负责人电话">
+                                        label="证件失效时间">
                                 </el-table-column>
                                 <el-table-column
                                         prop="address"
-                                        label="债务种类">
-                                </el-table-column>
-                                <el-table-column
-                                        prop="date"
-                                        label="年营业额（万）">
-                                </el-table-column>
-                                <el-table-column
-                                        prop="name"
-                                        label="担保余额（万）">
-                                </el-table-column>
-                                <el-table-column
-                                        prop="address"
-                                        label="被担保人">
-                                </el-table-column>
-                                <el-table-column
-                                        prop="date"
-                                        label="最后更新时间">
+                                        label="公司性质">
                                 </el-table-column>
                                 <el-table-column
                                         prop="name"
