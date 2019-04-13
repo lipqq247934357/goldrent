@@ -49,11 +49,11 @@
 
             <!-- 表格 -->
             <div class="grouptables">
-                <el-tabs type="border-card">
+                <el-tabs type="border-card" @tab-click="tabClick">
                     <el-tab-pane label="自然人">
                         <template>
                             <el-table
-                                    :data="tableData"
+                                    :data="naturalData"
                                     border
                                     style="width: 100%">
                                 <el-table-column
@@ -101,7 +101,7 @@
                                         label="操作">
                                     <template slot-scope="scope">
                                         <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
-                                        <el-button @click="handleClick(scope.row)" type="text" size="small">查看
+                                        <el-button @click="detail(scope.row)" type="text" size="small">查看
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -121,124 +121,78 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="法人">
-                        <ul class="infolist">
-                            <li>
-                                <span>商业伙伴全称</span>
-                                <span>
-                                宅基地
-                            </span>
-                            </li>
-                            <li>
-                                <span>商业伙伴编码</span>
-                                <span>1000</span>
-                            </li>
-                            <li>
-                                <span>商业伙伴类别</span>
-                                <span>XXXXXXXXXX</span>
-
-                            </li>
-                            <li>
-                                <span>统一社会信用低吗</span>
-                                <span>XXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>证件生效时间</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>证件失效时间</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>公司性质</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>所属行业</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>注册资本（万元）</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>成立日期</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>营业收入（万元）</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>经营范围</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>营业地址</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>从业人数</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>资产总额（万元）</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>企业规模</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>法定代表人</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>法人证件类型</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>法人证件号码</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>法人证件失效时间</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>法人电话</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>法人地址</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>联系人</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>联系地址</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>管户人</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>贷款卡号</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                            <li>
-                                <span>附件</span>
-                                <span>XXXXXXXXXXXXXXX</span>
-                            </li>
-                        </ul>
+                        <template>
+                            <el-table
+                                    :data="legalData"
+                                    border
+                                    style="width: 100%">
+                                <el-table-column
+                                        prop="date"
+                                        label="ID">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="name"
+                                        label="供应商名称">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="address"
+                                        label="企业性质">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="date"
+                                        label="负责人姓名">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="name"
+                                        label="负责人电话">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="address"
+                                        label="债务种类">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="date"
+                                        label="年营业额（万）">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="name"
+                                        label="担保余额（万）">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="address"
+                                        label="被担保人">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="date"
+                                        label="最后更新时间">
+                                </el-table-column>
+                                <el-table-column
+                                        prop="name"
+                                        label="操作">
+                                    <template slot-scope="scope">
+                                        <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+                                        <el-button @click="detail(scope.row)" type="text" size="small">查看
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </template>
+                        <!-- 分页 -->
+                        <div class="block">
+                            <el-pagination
+                                    @size-change="handleSizeChange"
+                                    @current-change="handleCurrentChange"
+                                    :current-page.sync="pagInfo.currentPage"
+                                    :page-sizes="[10, 20, 30, 40]"
+                                    :page-size="pagInfo.pageSize"
+                                    layout="sizes, prev, pager, next"
+                                    :total="pagInfo.total">
+                            </el-pagination>
+                        </div>
                     </el-tab-pane>
                 </el-tabs>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -248,6 +202,9 @@
     export default {
         components: {
             componentTitle,
+        },
+        created() {
+          // 1.查找默认数据
         },
         data() {
             return {
@@ -279,7 +236,7 @@
                     currentPage: 1,
                     pageSize: 10
                 },
-                tableData: [
+                naturalData: [
                     {
                         date: '2016-05-02',
                         name: '王小虎',
@@ -289,52 +246,53 @@
                         date: '2016-05-02',
                         name: '王小虎',
                         address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        date: '2016-05-02',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        date: '2016-05-02',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
+                    }
                 ],
+                legalData: [
+                    {
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    },
+                    {
+                        date: '2016-05-02',
+                        name: '王小虎',
+                        address: '上海市普陀区金沙江路 1518 弄'
+                    }
+                ],
+                tab: "0",
             }
         },
         methods: {
-            query() {
-
+            async query() { // 查询数据
+                let data = await this.$post('','');
+                console.log(data);
             },
-            handleClick(row) {
-                this.$router.push({
-                    path: '/layout/businedetail'
-                })
+            detail(row) { //查看详情
+                let path = this.tab === "0" ? '/layout/naturaldetail' : '/layout/legaldetail';
+                this.$router.push({path: path, query: {row}});
             },
-            edit(val) {
-                console.log(val);
-                this.$router.push({
-                    path: '/layout/editbusine',
-                    query: {}
-                })
+            edit(row) { // 编辑页面
+                let path = this.tab === "0" ? '/layout/natural' : '/layout/legal';
+                this.$router.push({path: path, query: {row}});
             },
-            add() {
-                this.$router.push({
-                    path: '/layout/editbusine',
-                    query: {}
-                })
+            add() { // 新增页面
+                let path = this.tab === "0" ? '/layout/natural' : '/layout/legal';
+                this.$router.push({path: path, query: {}});
             },
             handleSizeChange() {
-                query();
+                this.query();
             },
             handleCurrentChange() {
-                query();
+                this.query();
+            },
+            tabClick(tab) {
+                this.tab = tab.index; // 0代表第一个，1代表第二个
             }
         },
     }
 </script>
-<style lang="less">
+<style lang="less" scoped>
     .bus-info {
         background: #fff;
 

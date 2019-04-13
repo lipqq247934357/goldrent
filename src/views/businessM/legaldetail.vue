@@ -3,107 +3,118 @@
         <div class="topTitle">
             <componentitle :message="message" :titletext="titletext"/>
 
-            <ul class="infolist">
+            <ul class="tabInfo">
                 <li>
-                    <span>伙伴类型</span>
-                    <span>
-                    <!-- <select>
-                        <option>自然人</option>
-                        <option>法人机构</option>
-                    </select> -->
-                    <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
-                        <el-option
-                                v-for="item in options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                        </el-option>
-                    </el-select>
-                </span>
+                    <div>商业伙伴全称</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>客户类别</span>
-                    <span>A类客户</span>
+                    <div>商业伙伴编码</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>姓名</span>
-                    <span>豹子头·林冲</span>
-
+                    <div>商业伙伴类别</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>与承租人关系</span>
-                    <span>本人</span>
+                    <div>统一社会信用代码</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>性别</span>
-                    <span>男</span>
-
+                    <div>证件生效时间</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>年龄</span>
-                    <span>28</span>
+                    <div>证件失效时间</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>身份证号码</span>
-                    <span>123123123123</span>
+                    <div>公司性质</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>婚姻状况</span>
-                    <span>已婚</span>
+                    <div>所属行业</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>户籍地址</span>
-                    <span>XXXXXXXX</span>
+                    <div>注册资本(万元)</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>现住地</span>
-                    <span>XXXXXXX</span>
+                    <div>成立日期</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>种植年限</span>
-                    <span>XXXXXXXX</span>
+                    <div>营业收入(万元)</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>申请地居住年限（年）</span>
-                    <span>XXXXXXX</span>
+                    <div>经营范围</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>联系电话</span>
-                    <span>XXXXXXXX</span>
+                    <div>营业地址</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>微信号</span>
-                    <span>XXXXXXX</span>
+                    <div>从业人数</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>涉诉</span>
-                    <span>
-                    <template>
-                        <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
-                            <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </template>
-                </span>
+                    <div>资产总额(万元)</div>
+                    <div>1111</div>
                 </li>
                 <li>
-                    <span>被执行信息</span>
-                    <span>
-                    <template>
-                        <el-select v-model="value" placeholder="请选择" class="infolistchoiceselect">
-                            <el-option
-                                    v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </template>
-                </span>
+                    <div>企业规模</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>法定代表人</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>法人证件类型</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>法人证件号码</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>法人证件失效时间</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>法人电话</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>法人地址</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>联系人</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>联系地址</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>管户人</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>贷款卡号</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div>附件</div>
+                    <div>1111</div>
+                </li>
+                <li>
+                    <div></div>
+                    <div></div>
                 </li>
             </ul>
 
@@ -243,7 +254,10 @@
         },
     }
 </script>
-<style lang="less">
+<style lang="less" scoped>
+    // 引入公共的样式
+    @import '../../public/businessm';
+
     .businfo {
         background: #fff;
 

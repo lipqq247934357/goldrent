@@ -1,0 +1,38 @@
+.tabInfo {
+  overflow: hidden;
+  margin: 20px 0;
+  border-left: 1px solid #EBEEF5;
+  border-top: 1px solid #EBEEF5;
+
+
+  li {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    line-height: 50px;
+    height: 50px;
+
+    & > div {
+      border-right: 1px solid #EBEEF5;
+      border-bottom: 1px solid #EBEEF5;
+      float: left;
+    }
+
+    & > div:nth-child(1) {
+      font-size: 14px;
+      text-align: center;
+      width: 30%;
+      height: 50px;
+      box-sizing: border-box;
+
+
+    }
+
+    & > div:nth-child(2) {
+      height: 50px;
+      width: 70%;
+      padding: 0 60px;
+      box-sizing: border-box;
+    }
+  }
+}
