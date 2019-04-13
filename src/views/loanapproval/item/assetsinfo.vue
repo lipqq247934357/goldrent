@@ -597,7 +597,7 @@ export default {
         this.$post('/imageslist').then((response) => {
             this.images = response.data.dataName;
             this.$previewRefresh() // 异步生成图片调用插件方法
-            console.log(this.images);
+            // console.log(this.images);
         })
     },
     methods: {

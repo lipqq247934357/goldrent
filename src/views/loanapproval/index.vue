@@ -153,6 +153,11 @@ export default {
             value1: ''
         }
     },
+    created() {
+        this.$get('http://localhost:8080/LoanApprove/queryApproveList').then( res => {
+            console.log(res);
+        });
+    },
     components: {
         componentitle,
     },

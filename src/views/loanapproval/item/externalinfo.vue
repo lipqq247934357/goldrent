@@ -8,7 +8,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            v-model="textarea">
+            v-model="textarea.lesseeCredit">
         </el-input>
     </div>
     <div class="">
@@ -18,7 +18,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            v-model="textarea">
+            v-model="textarea.guarantorCredit">
         </el-input>
     </div>
     <div class="">
@@ -28,7 +28,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            v-model="textarea">
+            v-model="textarea.repurchaseCredit">
         </el-input>
     </div>
 
@@ -41,7 +41,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            v-model="textarea">
+            v-model="textarea.lesseeCreditZhongdeng">
         </el-input>
     </div>
 
@@ -54,7 +54,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            v-model="textarea">
+            v-model="textarea.lesseeCreditExternal">
         </el-input>
     </div>
     <div class="">
@@ -64,7 +64,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            v-model="textarea">
+            v-model="textarea.guarantorCreditExternal">
         </el-input>
     </div>
     <div class="">
@@ -74,7 +74,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            v-model="textarea">
+            v-model="textarea.repurchaseCreditExternal">
         </el-input>
     </div>
 </div>
@@ -86,8 +86,14 @@ export default {
     data() {
         return {
             message: '',
-            textarea: ''
+            textarea: {}
         }
+    },
+    created() {
+        this.$post('/surveyinformation/info').then( res => {
+            this.textarea = res.data.data;
+            console.log(this.textarea,'外部信息');
+        })
     },
     components: {
         componentitle,

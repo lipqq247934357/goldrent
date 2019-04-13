@@ -4,79 +4,79 @@
     <ul class="factorlist">
         <li>
             <span>业务编号</span>
-            <span>CON_ZZ02_0000_YYYYMM_四位流水号</span>
+            <span>{{wantfactor.bussNo}}</span>
         </li>
         <li>
             <span>租赁模式</span>
-            <span>直租</span>
+            <span>{{wantfactor.leaseMode}}</span>
         </li>
         <li>
             <span>租赁物名称</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.leaseName}}</span>
         </li>
         <li>
             <span>租赁物金额</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.purchaseAmt}}</span>
         </li>
         <li>
             <span>首付款金额</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.firstPayAmt}}</span>
         </li>
         <li>
             <span>租金金额</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.leaseAmount}}</span>
         </li>
         <li>
             <span>补贴金额</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.allowanceAmt}}</span>
         </li>
         <li>
             <span>补贴时间</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.allowanceDate}}</span>
         </li>
         <li>
             <span>租赁期限</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.leaseTerm}}</span>
         </li>
         <li>
             <span>合同利率</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.leaseRate}}</span>
         </li>
         <li>
-            <span>厂商翻译金额</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>厂商返利金额</span>
+            <span>{{wantfactor.rebateAmt}}</span>
         </li>
         <li>
             <span>风险金</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.riskAmt}}</span>
         </li>
         <li>
-            <span>内部收益率IRR</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>内部收益率</span>
+            <span>{{wantfactor.earningRate}}</span>
         </li>
         <li>
             <span>租金支付方式</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.payWay}}</span>
         </li>
         <li>
             <span>使用地点</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.placeUse}}</span>
         </li>
         <li>
             <span>起租日</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.startDate}}</span>
         </li>
         <li>
             <span>止租日</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.endDate}}</span>
         </li>
         <li>
             <span>留购价款</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.depositAmt}}</span>
         </li>
         <li>
             <span>提前结清手续费</span>
-            <span>XXXXXXXXXXXXXXX</span>
+            <span>{{wantfactor.settleAhead}}</span>
         </li>
     </ul>
     <componentitle :message="message='租金计划表'" />
@@ -118,8 +118,15 @@ export default {
     data() {
         return {
             message: '',
-            tableData: []
+            tableData: [],
+            wantfactor: {}
         }
+    },
+    created() {
+        this.$post('/lease/queryElement').then( res => {
+            console.log(res);
+            this.wantfactor = res.data.data;
+        });
     },
     components: {
         componentitle

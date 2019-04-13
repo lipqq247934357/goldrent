@@ -7,30 +7,30 @@
             <li>
                 <span>名称</span>
                 <span>
-                    宅基地
+                    {{rentinfo.leaseName}}
                 </span>
             </li>
             <li>
                 <span>规格型号</span>
-                <span>1000</span>
+                <span>{{rentinfo.leaseName}}</span>
             </li>
             <li>
                 <span>购置价格/坐落</span>
-                <span>XXXXXXXXXX</span>
+                <span>{{rentinfo.purchasePrice}}</span>
 
             </li>
             <li>
                 <span>唯一识别码</span>
-                <span>XXXXXXXXXXX</span>
+                <span>{{rentinfo.serialNo}}</span>
             </li>
             <li>
                 <span>能否抵押受理</span>
-                <span>XXXXXXXXXXXXXXX</span>
+                <span>{{rentinfo.mortgage}}</span>
 
             </li>
             <li>
-                <span>低压管理机关</span>
-                <span>XXXXXXXXXXX</span>
+                <span>抵押管理机关</span>
+                <span>{{rentinfo.mortgageAgency}}</span>
             </li>
         </ul>
     </div>
@@ -40,12 +40,12 @@
             <li>
                 <span>险种</span>
                 <span>
-                    宅基地
+                    {{rentinfo.insuranceType}}
                 </span>
             </li>
             <li>
                 <span>保险公司</span>
-                <span>1000</span>
+                <span>{{rentinfo.insuranceCompany}}</span>
             </li>
             <li>
                 <span>保险金额/坐落</span>
@@ -54,16 +54,16 @@
             </li>
             <li>
                 <span>保险期限</span>
-                <span>XXXXXXXXXXX</span>
+                <span>{{rentinfo.insuranceTerm}}</span>
             </li>
             <li>
                 <span>第一受益人</span>
-                <span>XXXXXXXXXXXXXXX</span>
+                <span>{{rentinfo.firstBeneficiary}}</span>
 
             </li>
             <li>
                 <span>备注</span>
-                <span>XXXXXXXXXXX</span>
+                <span>{{rentinfo.remark}}</span>
             </li>
         </ul>
     </div>
@@ -76,7 +76,13 @@ export default {
     data() {
         return {
             message: '',
+            rentinfo: {}
         }
+    },
+    created() {
+        this.$post('api/lease/query').then( res => {
+            this.rentinfo = res.data.data;
+        });
     },
     components: {
         componentitle,
