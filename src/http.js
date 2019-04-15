@@ -26,24 +26,9 @@ axios.interceptors.request.use(
 //http response 拦截器
 axios.interceptors.response.use(
     response => {
-        // TODO 如果提示需要登录跳转到登录页面 需要登录的code码没有
-        // if (response.data.resultCode !== 200) {
-        //     router.push({
-        //         path: '/login'
-        //     });
-        // }
-        // if (response.data.resultCode !== 200) {
-        //     //业务异常
-        //     Message.error({message: response.data.resultMsg, duration: 5 * 1000});
-        // } // 暂时注释
-        if (response.status !== 200) {
-            router.push({
-                path: '/login'
-            });
-        }
-        if (response.status !== 200) {
+        if (response.data.code !== '2000000') {
             //业务异常
-            Message.error({message: response.data.resultMsg, duration: 5 * 1000});
+            Message.error({message: response.data.msg, duration: 5 * 1000});
         }
         return response;
     },

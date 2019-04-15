@@ -171,31 +171,76 @@
                     </li>
                     <li>
                         <div>开户许可证原件</div>
-                        <div class="">
+                        <div class="edit-pic">
+                            <el-upload
+                                    :file-list="fileList"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+
 
                         </div>
                     </li>
                     <li>
                         <div>公司章程工商调档原件</div>
-                        <div class="">
+                        <div class="edit-pic">
+                            <el-upload
+                                    :file-list="fileList"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+
 
                         </div>
                     </li>
                     <li>
                         <div>法人、实际控制人身份证原件</div>
-                        <div class="">
+                        <div class="edit-pic">
+                            <el-upload
+                                    :file-list="fileList"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+
 
                         </div>
                     </li>
                     <li>
                         <div>法人、实际控制人户口簿原件</div>
-                        <div class="">
+                        <div class="edit-pic">
+                            <el-upload
+                                    :file-list="fileList"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+
 
                         </div>
                     </li>
                     <li>
                         <div>法人、实际控制人婚姻状况证明材料原件</div>
-                        <div class="">
+                        <div class="edit-pic">
+                            <el-upload
+                                    :file-list="fileList"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+
 
                         </div>
                     </li>
@@ -205,13 +250,31 @@
                 <ul class="img-box-content">
                     <li>
                         <div>审计报告（财务报表）</div>
-                        <div class="">
+                        <div class="edit-pic">
+                            <el-upload
+                                    :file-list="fileList"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+
 
                         </div>
                     </li>
                     <li>
                         <div>纳税申请表</div>
-                        <div class="">
+                        <div class="edit-pic">
+                            <el-upload
+                                    :file-list="fileList"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+
 
                         </div>
                     </li>
@@ -221,13 +284,22 @@
                 <ul class="img-box-content">
                     <li>
                         <div>人行征信报告</div>
-                        <div class="">
+                        <div class="edit-pic">
+                            <el-upload
+                                    :file-list="fileList"
+                                    :on-preview="handlePictureCardPreview"
+                                    :on-remove="handleRemove"
+                                    action="https://jsonplaceholder.typicode.com/posts/"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                            </el-upload>
+
 
                         </div>
                     </li>
                 </ul>
             </div>
-            <div class="bottombut">
+            <div class="bottombut" v-if="type !== 'detail'">
                 <el-button @click="save" type="primary">保存</el-button>
                 <el-button @click="submit" type="primary">提交</el-button>
             </div>
@@ -240,8 +312,12 @@
 
 <script type="text/ecmascript-6">
     import componentitle from '../../components/title/title.vue';
+    import {urlParse} from '../../utils/utils';
 
     export default {
+        components: {
+            componentitle,
+        },
         data() {
             return {
                 message: '基本信息',
@@ -254,21 +330,34 @@
                 }, {
                     name: 'food2.jpeg',
                     url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-                }]
+                }],
+                type: ''
             }
         },
-        components: {
-            componentitle,
+        created() {
+            let params = urlParse();
+            if (params.id) {
+                if (params.type === 'detail') { // 设置元素不可被更改
+                    console.log(params.type);
+                    this.type = 'detail';
+                } else { // 更新
+                    console.log('update');
+                    this.type = 'update';
+                }
+            } else { // 新增
+                console.log('add');
+                this.type = 'add';
+            }
         },
         methods: {
             save() {
             },
             submit() {
             },
-            handleRemove(file, fileList) {
+            handleRemove(file, fileList) { // 删除回调
                 console.log(file, fileList);
             },
-            handlePictureCardPreview(file) {
+            handlePictureCardPreview(file) { // 图片浏览功能
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             }

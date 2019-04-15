@@ -13,30 +13,30 @@
             <div>
                 <label>到期日期：</label>
                 <el-date-picker
-                        v-model="form.stDate"
+                        placeholder="选择日期"
                         type="date"
-                        placeholder="选择日期">
+                        v-model="form.stDate">
                 </el-date-picker>
                 -
                 <el-date-picker
-                        v-model="form.edDate"
+                        placeholder="选择日期"
                         type="date"
-                        placeholder="选择日期">
+                        v-model="form.edDate">
                 </el-date-picker>
 
                 <label class="rightlabel">任务状态：</label>
                 <template>
-                    <el-select v-model="form.status" placeholder="请选择" class="choiceselect">
+                    <el-select class="choiceselect" placeholder="请选择" v-model="form.status">
                         <el-option
-                                v-for="item in statusOptions"
                                 :key="item.value"
                                 :label="item.label"
-                                :value="item.value">
+                                :value="item.value"
+                                v-for="item in statusOptions">
                         </el-option>
                     </el-select>
                 </template>
             </div>
-            <button type="button" name="button" class="search">查询</button>
+            <button class="search" name="button" type="button">查询</button>
         </div>
 
         <div class="content">
@@ -49,7 +49,7 @@
 
             <!-- 表格 -->
             <div class="grouptables">
-                <el-tabs type="border-card" @tab-click="tabClick">
+                <el-tabs @tab-click="tabClick" type="border-card">
                     <el-tab-pane label="自然人">
                         <template>
                             <el-table
@@ -57,51 +57,51 @@
                                     border
                                     style="width: 100%">
                                 <el-table-column
-                                        prop="date"
-                                        label="ID">
+                                        label="ID"
+                                        prop="date">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="name"
-                                        label="供应商名称">
+                                        label="供应商名称"
+                                        prop="name">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="address"
-                                        label="企业性质">
+                                        label="企业性质"
+                                        prop="address">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="date"
-                                        label="负责人姓名">
+                                        label="负责人姓名"
+                                        prop="date">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="name"
-                                        label="负责人电话">
+                                        label="负责人电话"
+                                        prop="name">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="address"
-                                        label="债务种类">
+                                        label="债务种类"
+                                        prop="address">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="date"
-                                        label="年营业额（万）">
+                                        label="年营业额（万）"
+                                        prop="date">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="name"
-                                        label="担保余额（万）">
+                                        label="担保余额（万）"
+                                        prop="name">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="address"
-                                        label="被担保人">
+                                        label="被担保人"
+                                        prop="address">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="date"
-                                        label="最后更新时间">
+                                        label="最后更新时间"
+                                        prop="date">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="name"
-                                        label="操作">
+                                        label="操作"
+                                        prop="name">
                                     <template slot-scope="scope">
-                                        <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
-                                        <el-button @click="detail(scope.row)" type="text" size="small">查看
+                                        <el-button @click="update(scope.row)" size="small" type="text">编辑</el-button>
+                                        <el-button @click="detail(scope.row)" size="small" type="text">查看
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -110,13 +110,13 @@
                         <!-- 分页 -->
                         <div class="block">
                             <el-pagination
-                                    @size-change="handleSizeChange"
-                                    @current-change="handleCurrentChange"
-                                    :current-page.sync="pagInfo.currentPage"
+                                    :current-page.sync="naturalPagInfo.currentPage"
+                                    :page-size="naturalPagInfo.pageSize"
                                     :page-sizes="[10, 20, 30, 40]"
-                                    :page-size="pagInfo.pageSize"
-                                    layout="sizes, prev, pager, next"
-                                    :total="pagInfo.total">
+                                    :total="naturalPagInfo.total"
+                                    @current-change="queryNatural"
+                                    @size-change="queryNatural"
+                                    layout="sizes, prev, pager, next">
                             </el-pagination>
                         </div>
                     </el-tab-pane>
@@ -127,35 +127,35 @@
                                     border
                                     style="width: 100%">
                                 <el-table-column
-                                        prop="date"
-                                        label="商业伙伴全称">
+                                        label="商业伙伴全称"
+                                        prop="date">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="name"
-                                        label="商业伙伴编码">
+                                        label="商业伙伴编码"
+                                        prop="name">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="address"
-                                        label="商业伙伴类别">
+                                        label="商业伙伴类别"
+                                        prop="address">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="date"
-                                        label="统一社会信用代码">
+                                        label="统一社会信用代码"
+                                        prop="date">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="name"
-                                        label="证件失效时间">
+                                        label="证件失效时间"
+                                        prop="name">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="address"
-                                        label="公司性质">
+                                        label="公司性质"
+                                        prop="address">
                                 </el-table-column>
                                 <el-table-column
-                                        prop="name"
-                                        label="操作">
+                                        label="操作"
+                                        prop="name">
                                     <template slot-scope="scope">
-                                        <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
-                                        <el-button @click="detail(scope.row)" type="text" size="small">查看
+                                        <el-button @click="update(scope.row)" size="small" type="text">编辑</el-button>
+                                        <el-button @click="detail(scope.row)" size="small" type="text">查看
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -164,13 +164,13 @@
                         <!-- 分页 -->
                         <div class="block">
                             <el-pagination
-                                    @size-change="handleSizeChange"
-                                    @current-change="handleCurrentChange"
-                                    :current-page.sync="pagInfo.currentPage"
+                                    :current-page.sync="legalPagInfo.currentPage"
+                                    :page-size="legalPagInfo.pageSize"
                                     :page-sizes="[10, 20, 30, 40]"
-                                    :page-size="pagInfo.pageSize"
-                                    layout="sizes, prev, pager, next"
-                                    :total="pagInfo.total">
+                                    :total="legalPagInfo.total"
+                                    @current-change="queryLegal"
+                                    @size-change="queryLegal"
+                                    layout="sizes, prev, pager, next">
                             </el-pagination>
                         </div>
                     </el-tab-pane>
@@ -188,7 +188,7 @@
             componentTitle,
         },
         created() {
-          // 1.查找默认数据
+            // 1.查找默认数据
         },
         data() {
             return {
@@ -215,18 +215,25 @@
                         label: '进行中'
                     }
                 ],
-                pagInfo: {
+                naturalPagInfo: {
+                    total: 100,
+                    currentPage: 1,
+                    pageSize: 10
+                },
+                legalPagInfo: {
                     total: 100,
                     currentPage: 1,
                     pageSize: 10
                 },
                 naturalData: [
                     {
+                        id: '1',
                         date: '2016-05-02',
                         name: '王小虎',
                         address: '上海市普陀区金沙江路 1518 弄'
                     },
                     {
+                        id: '2',
                         date: '2016-05-02',
                         name: '王小虎',
                         address: '上海市普陀区金沙江路 1518 弄'
@@ -234,44 +241,43 @@
                 ],
                 legalData: [
                     {
+                        id: '1',
                         date: '2016-05-02',
                         name: '王小虎',
                         address: '上海市普陀区金沙江路 1518 弄'
                     },
                     {
+                        id: '2',
                         date: '2016-05-02',
                         name: '王小虎',
                         address: '上海市普陀区金沙江路 1518 弄'
                     }
                 ],
-                tab: "0",
+                path: '/layout/natural', // 增删改地址
             }
         },
         methods: {
-            async query() { // 查询数据
-                let data = await this.$post('','');
-                console.log(data);
+            async query() { // 查询所有数据
+                let data = await this.$post('', '');
+
+            },
+            async queryNatural() { // 分页查询自然人数据
+                let data = await this.$post('', '');
+            },
+            async queryLegal() { // 分页查询法人数据
+                let data = await this.$post('', '');
             },
             detail(row) { //查看详情
-                let path = this.tab === "0" ? '/layout/naturaldetail' : '/layout/legaldetail';
-                this.$router.push({path: path, query: {row}});
+                this.$router.push({path: this.path, query: {id: row.id, type: 'detail'}});
             },
-            edit(row) { // 编辑页面
-                let path = this.tab === "0" ? '/layout/natural' : '/layout/legal';
-                this.$router.push({path: path, query: {row}});
+            update(row) { // 编辑页面
+                this.$router.push({path: this.path, query: {id: row.id, type: 'update'}});
             },
             add() { // 新增页面
-                let path = this.tab === "0" ? '/layout/natural' : '/layout/legal';
-                this.$router.push({path: path, query: {}});
+                this.$router.push({path: this.path, query: {}});
             },
-            handleSizeChange() {
-                this.query();
-            },
-            handleCurrentChange() {
-                this.query();
-            },
-            tabClick(tab) {
-                this.tab = tab.index; // 0代表第一个，1代表第二个
+            tabClick(tab) { // 0代表自然人 1代表法人
+                this.path = tab.index === "0" ? '/layout/natural' : '/layout/legal';
             }
         },
     }
