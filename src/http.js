@@ -1,7 +1,6 @@
 import Qs from "qs";
 import axios from 'axios';
 import {Message} from 'element-ui';
-import router from './router'
 
 axios.defaults.timeout = 5000;
 if (process.env.NODE_ENV === 'development') {// 根据不同的环境使用不同的接口
