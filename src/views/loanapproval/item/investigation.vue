@@ -2,64 +2,86 @@
 <div class="externalinfo">
     <componentitle :message="message='其他增信措施'" />
     <div class="assetsinfoul">
-        <h3>财产抵押</h3>
+        <h3>房产抵押</h3>
         <ul class="infolist">
             <li>
-                <span>抵押物种类</span>
+                <span>房屋产权人(抵押人)</span>
                 <span>
-                    宅基地
+                    {{investigation.houseMortgager.mortgager}}
                 </span>
             </li>
             <li>
-                <span>抵押物价值</span>
-                <span>1000</span>
+                <span>与承租人关系</span>
+                <span>{{investigation.houseMortgager.relation}}</span>
+            </li>
+
+            <li>
+                <span>房屋产权证号</span>
+                <span>{{investigation.houseMortgager.certificate}}</span>
             </li>
             <li>
-                <span>抵押人/坐落</span>
-                <span>XXXXXXXXXX</span>
+                <span>建筑面积（平方米）</span>
+                <span>{{investigation.houseMortgager.area}}</span>
 
             </li>
             <li>
-                <span>与承租人关系</span>
-                <span>XXXXXXXXXXX</span>
+                <span>建筑结构</span>
+                <span>{{investigation.houseMortgager.structure}}</span>
+            </li>
+            <li>
+                <span>评估价值（万元）</span>
+                <span>{{investigation.houseMortgager.evaluateValue}}</span>
             </li>
             <li>
                 <span>备注</span>
-                <span>XXXXXXXXXXXXXXX</span>
-
+                <span>{{investigation.houseMortgager.remark}}</span>
             </li>
         </ul>
     </div>
     <div class="assetsinfoul">
-        <h3>资产质押</h3>
+        <h3>土地使用权抵押</h3>
         <ul class="infolist">
             <li>
-                <span>抵押物种类</span>
+                <span>土地使用权人（抵押人）</span>
                 <span>
-                    宅基地
+                    {{investigation.landMortgager.mortgager}}
                 </span>
             </li>
             <li>
-                <span>抵押物价值</span>
-                <span>1000</span>
-            </li>
-            <li>
-                <span>抵押人/坐落</span>
-                <span>XXXXXXXXXX</span>
-
-            </li>
-            <li>
                 <span>与承租人关系</span>
-                <span>XXXXXXXXXXX</span>
+                <span>{{investigation.landMortgager.relation}}</span>
+            </li>
+            <li>
+                <span>土地使用证号</span>
+                <span>{{investigation.landMortgager.certificate}}</span>
+            </li>
+            <li>
+                <span>土地使用权类型</span>
+                <span>{{investigation.landMortgager.landType}}</span>
+            </li>
+            <li>
+                <span>土地使用权期限</span>
+                <span>{{investigation.landMortgager.landTerm}}</span>
+            </li>
+            <li>
+                <span>面积（平方米）</span>
+                <span>{{investigation.landMortgager.area}}</span>
+            </li>
+            <li>
+                <span>坐落</span>
+                <span>{{investigation.landMortgager.location}}</span>
+            </li>
+            <li>
+                <span>评估价值（万元）</span>
+                <span>{{investigation.landMortgager.evaluateValue}}</span>
             </li>
             <li>
                 <span>备注</span>
-                <span>XXXXXXXXXXXXXXX</span>
-
+                <span>{{investigation.landMortgager.remark}}</span>
             </li>
         </ul>
     </div>
-    
+
     <div class="bottombox">
         <componentitle :message="message='调查结论及风险评价'" />
         <el-input
@@ -67,7 +89,8 @@
             :rows="4"
             placeholder="请输入内容"
             class="inputtext"
-            v-model="textarea">
+            disabled
+            v-model="investigation.conclusion">
         </el-input>
     </div>
 </div>
@@ -79,8 +102,17 @@ export default {
     data() {
         return {
             message: '',
-            textarea: ''
+            textarea: '',
+            investigation: {
+                houseMortgager: {},
+                landMortgager: {}
+            }
         }
+    },
+    created() {
+        this.$post('/app/api/getSurveyConclusion').then( res => {
+            this.investigation = res.data.data;
+        });
     },
     components: {
         componentitle,

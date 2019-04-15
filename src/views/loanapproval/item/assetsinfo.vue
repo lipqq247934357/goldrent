@@ -104,7 +104,7 @@
             <h3>土地（含代收代耕）</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>土地类型</span>
                     <span>
                         宅基地
                     </span>
@@ -119,11 +119,11 @@
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>价值</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>承包期限</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
@@ -137,26 +137,26 @@
             <h3>车产情况</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>车产类型</span>
                     <span>
                         宅基地
                     </span>
                 </li>
                 <li>
-                    <span>面积（㎡）</span>
+                    <span>购买时间</span>
                     <span>1000</span>
                 </li>
                 <li>
-                    <span>房产地址/坐落</span>
+                    <span>当前估价</span>
                     <span>XXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>所有权限</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>车辆号牌</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
@@ -170,26 +170,26 @@
             <h3>农机具</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>农机具类型</span>
                     <span>
                         宅基地
                     </span>
                 </li>
                 <li>
-                    <span>面积（㎡）</span>
+                    <span>购买时间</span>
                     <span>1000</span>
                 </li>
                 <li>
-                    <span>房产地址/坐落</span>
+                    <span>当前估价</span>
                     <span>XXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>所有权限</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>号牌/车架号</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
@@ -200,29 +200,29 @@
             </ul>
         </div>
         <div class="assetsinfoul">
-            <h3>其他产</h3>
+            <h3>其他资产</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>其他资产</span>
                     <span>
                         宅基地
                     </span>
                 </li>
                 <li>
-                    <span>面积（㎡）</span>
+                    <span>购买时间</span>
                     <span>1000</span>
                 </li>
                 <li>
-                    <span>房产地址/坐落</span>
+                    <span>价值</span>
                     <span>XXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>所有权限</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>备注</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
@@ -274,31 +274,31 @@
             <h3>对外担保</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>对外担保</span>
                     <span>
                         宅基地
                     </span>
                 </li>
                 <li>
-                    <span>面积（㎡）</span>
+                    <span>债权人</span>
                     <span>1000</span>
                 </li>
                 <li>
-                    <span>房产地址/坐落</span>
+                    <span>担保余额</span>
                     <span>XXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>被担保人</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>承租人与被担保人关系</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>是否抵押</span>
+                    <span>备注</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
             </ul>
@@ -307,31 +307,31 @@
             <h3>其他负债</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>其他负债</span>
                     <span>
                         宅基地
                     </span>
                 </li>
                 <li>
-                    <span>面积（㎡）</span>
+                    <span>债权人</span>
                     <span>1000</span>
                 </li>
                 <li>
-                    <span>房产地址/坐落</span>
+                    <span>余额</span>
                     <span>XXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>至今赊龄（月）</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>有无担保</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>是否抵押</span>
+                    <span>备注</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
             </ul>
@@ -378,31 +378,31 @@
             <h3>农机作业收入</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>收入名称</span>
                     <span>
                         宅基地
                     </span>
                 </li>
                 <li>
-                    <span>面积（㎡）</span>
+                    <span>作业类别</span>
                     <span>1000</span>
                 </li>
                 <li>
-                    <span>房产地址/坐落</span>
+                    <span>作业面积/亩</span>
                     <span>XXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>单亩成本</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>亩产收入</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>是否抵押</span>
+                    <span>结余</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
             </ul>
@@ -411,31 +411,31 @@
             <h3>其他收入</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>收入名称</span>
                     <span>
                         宅基地
                     </span>
                 </li>
                 <li>
-                    <span>面积（㎡）</span>
+                    <span>上年收入</span>
                     <span>1000</span>
                 </li>
                 <li>
-                    <span>房产地址/坐落</span>
+                    <span>上年支出</span>
                     <span>XXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>本年收入</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>本年支出</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>是否抵押</span>
+                    <span>结余</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
             </ul>
@@ -444,31 +444,31 @@
             <h3>收入偿债比</h3>
             <ul class="infolist">
                 <li>
-                    <span>房产类型</span>
+                    <span>收入偿债比</span>
                     <span>
                         宅基地
                     </span>
                 </li>
                 <li>
-                    <span>面积（㎡）</span>
+                    <span>结余合计</span>
                     <span>1000</span>
                 </li>
                 <li>
-                    <span>房产地址/坐落</span>
+                    <span>年租金支出</span>
                     <span>XXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>当前估价</span>
+                    <span>其他负债支出</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
                 <li>
-                    <span>所以权人</span>
+                    <span>年支出合计</span>
                     <span>XXXXXXXXXXXXXXX</span>
 
                 </li>
                 <li>
-                    <span>是否抵押</span>
+                    <span>偿债比</span>
                     <span>XXXXXXXXXXX</span>
                 </li>
             </ul>
@@ -593,12 +593,18 @@ export default {
             images: []
         }
     },
+    props: {
+        lesseeinfolist: {
+            type: Array
+        }
+    },
     created() {
         this.$post('/imageslist').then((response) => {
             this.images = response.data.dataName;
             this.$previewRefresh() // 异步生成图片调用插件方法
             // console.log(this.images);
         })
+        console.log(':::::::>>>>>>>',this.lesseeinfolist)
     },
     methods: {
 

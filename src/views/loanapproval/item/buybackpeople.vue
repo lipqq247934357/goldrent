@@ -5,34 +5,34 @@
         <li>
             <span>回购人名称</span>
             <span>
-                xxxxxx
+                {{backpeople.basicInfo.comFullname}}
             </span>
         </li>
         <li>
             <span>企业性质</span>
-            <span>企业法人</span>
+            <span>{{backpeople.basicInfo.comNature}}</span>
         </li>
         <li>
             <span>注册资本金</span>
-            <span>XXXXXXXXXXXXX</span>
+            <span>{{backpeople.basicInfo.comRegisterdCapital}}</span>
 
         </li>
         <li>
             <span>年营业额</span>
-            <span>XXXXXXXXXXX</span>
+            <span>{{backpeople.basicInfo.comIncome}}</span>
         </li>
         <li>
             <span>经销商层级</span>
-            <span>一级经销商</span>
+            <span>{{backpeople.basicInfo.agencyLevel}}</span>
 
         </li>
         <li>
             <span>回购方负责人</span>
-            <span>XXXXXXXXX</span>
+            <span>{{backpeople.basicInfo.comManager}}</span>
         </li>
         <li>
             <span>回购方联系电话</span>
-            <span>123123123123</span>
+            <span>{{backpeople.basicInfo.comMobile}}</span>
         </li>
     </ul>
     <componentitle :message="message='负债及对外担保情况'"/>
@@ -40,32 +40,32 @@
         <h3>回购人</h3>
         <ul class="infolist">
             <li>
-                <span>房产类型</span>
+                <span>回购人</span>
                 <span>
-                    宅基地
+                    {{backpeople.debtInfo.repurchaseType}}
                 </span>
             </li>
             <li>
-                <span>面积（㎡）</span>
-                <span>1000</span>
+                <span>债务种类</span>
+                <span>{{backpeople.debtInfo.debtType}}</span>
             </li>
             <li>
-                <span>房产地址/坐落</span>
-                <span>XXXXXXXXXX</span>
+                <span>债务余额</span>
+                <span>{{backpeople.debtInfo.debtBalance}}</span>
 
             </li>
             <li>
-                <span>当前估价</span>
-                <span>XXXXXXXXXXX</span>
+                <span>担保余额</span>
+                <span>{{backpeople.debtInfo.comMobile}}</span>
             </li>
             <li>
-                <span>所以权人</span>
-                <span>XXXXXXXXXXXXXXX</span>
+                <span>被担保人</span>
+                <span>{{backpeople.debtInfo.warrantee}}</span>
 
             </li>
             <li>
-                <span>是否抵押</span>
-                <span>XXXXXXXXXXX</span>
+                <span>备注</span>
+                <span>{{backpeople.debtInfo.remark}}</span>
             </li>
         </ul>
     </div>
@@ -73,31 +73,31 @@
         <h3>回购方实际控制人</h3>
         <ul class="infolist">
             <li>
-                <span>房产类型</span>
+                <span>回购方实际控制人</span>
                 <span>
                     宅基地
                 </span>
             </li>
             <li>
-                <span>面积（㎡）</span>
+                <span>债务种类</span>
                 <span>1000</span>
             </li>
             <li>
-                <span>房产地址/坐落</span>
+                <span>债务余额</span>
                 <span>XXXXXXXXXX</span>
 
             </li>
             <li>
-                <span>当前估价</span>
+                <span>担保余额</span>
                 <span>XXXXXXXXXXX</span>
             </li>
             <li>
-                <span>所以权人</span>
+                <span>被担保人</span>
                 <span>XXXXXXXXXXXXXXX</span>
 
             </li>
             <li>
-                <span>是否抵押</span>
+                <span>备注</span>
                 <span>XXXXXXXXXXX</span>
             </li>
         </ul>
@@ -181,8 +181,16 @@ export default {
     data() {
         return {
             message: '',
-
+            backpeople: {
+                basicInfo: {},
+                debtInfo: {}
+            }
         }
+    },
+    created() {
+        this.$post('/api/repurchase/info').then( res => {
+            this.backpeople = res.data.data;
+        });
     },
     components: {
         componentitle,

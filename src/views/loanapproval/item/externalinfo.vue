@@ -8,6 +8,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
+            disabled
             v-model="textarea.lesseeCredit">
         </el-input>
     </div>
@@ -18,6 +19,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
+            disabled
             v-model="textarea.guarantorCredit">
         </el-input>
     </div>
@@ -28,6 +30,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
+            disabled
             v-model="textarea.repurchaseCredit">
         </el-input>
     </div>
@@ -41,6 +44,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
+            disabled
             v-model="textarea.lesseeCreditZhongdeng">
         </el-input>
     </div>
@@ -54,6 +58,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
+            disabled
             v-model="textarea.lesseeCreditExternal">
         </el-input>
     </div>
@@ -64,6 +69,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
+            disabled
             v-model="textarea.guarantorCreditExternal">
         </el-input>
     </div>
@@ -74,6 +80,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
+            disabled
             v-model="textarea.repurchaseCreditExternal">
         </el-input>
     </div>

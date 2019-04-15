@@ -190,7 +190,301 @@ function externalinfo(){
   }
 }
 
+function investigation(){
+    // 调查环节综素
+    // 接口地址 /app/api/getSurveyConclusion
+    // conclusion: 调查结论
+    // //  房产抵押
+    // houseMortgager： {
+    //     id	ID	 	varchar(32)
+    //     mortgager	抵押人	 	varchar(20)
+    //     relation	与承租人关系	 	varchar(20)
+    //     certificate	产权证号	 	varchar(40)
+    //     area	面积,单位/平方米	 	decimal(12,6)
+    //     structure	建筑结构	 	varchar(10)
+    //     evaluateValue	评估价值,单位/元	 	decimal(20,6)
+    //     remark	备注	 	varchar(100)
+    //     status	状态
+    // }
+    // 土地使用权抵押
+    // landMortgager: {
+    //     id	ID	 	varchar(32)
+    //     mortgager	抵押人	 	varchar(20)
+    //     relation	与承租人关系	 	varchar(20)
+    //     certificate	产权证号	 	varchar(40)
+    //     landType	土地类型	 	varchar(10)
+    //     landTerm	土地使用期限,单位/年	 	varchar(4)
+    //     area	面积,单位/平方米	 	decimal(12,6)
+    //     location	坐落'	 	varchar(100)
+    //     evaluateValue	评估价值,单位/元	 	decimal(20,6)
+    //     remark	备注	 	varchar(100)
+    //     status	状态	 	varchar(2)
+    // }
+  let investigation = {
+     conclusion: Random.paragraph(2),
+     houseMortgager: {
+         id: Random.guid(),
+         mortgager:	Random.cname(),
+         relation: '子',
+         certificate: Random.guid(),
+         area: '80²',
+         structure:	'float',
+         evaluateValue:	'100万',
+         remark: "Random.paragraph(2)",
+         status: 'xxxxx'
+     },
+     landMortgager: {
+         id: Random.guid(),
+         mortgager:	Random.cname(),
+         relation: '妻',
+         certificate: Random.guid(),
+         landType: '宅基地',
+         landTerm:	'70/年',
+         area: '80²',
+         location: Random.city(),
+         evaluateValue:	'100万',
+         remark: "Random.paragraph(2)",
+         status: 'xxxx'
+     }
+  }
+  return {
+      data: investigation
+  }
+}
 
+function buybackpeople(){
+    // 回购人信息
+    // 接口地址 /api/repurchase/info
+    // basicInfo: {
+    //     id	数据ID	String
+    //     comFullname	回购人名称	String
+    //     comNature	企业性质	String
+    //     comRegisterdCapital	注册资金	double
+    //     comIncome	年营业额	double
+    //     agencyLevel	经销商层级	String
+    //     comManager	回购方负责人姓名	String
+    //     comMobile	回购方负责人电话	String
+    //     feeRequire	是否收取服务费	String
+    //     serviceFee	咨询服务费	double
+    // }
+    // debtInfo: {
+    //     id	数据ID	String
+    //     repurchaseType
+    //     回购人类型 1:回购人 2:回购方实际控制人 String
+    //     personName	姓名	String
+    //     debtType	债务种类	String
+    //     debtBalance	债务余额	double
+    //     warrantee	被担保人	String
+    //     guaranteeBalance	担保余额	double
+    //     remark	备注
+    // }
+  let buybackpeople = {
+      basicInfo: {
+          id: Random.guid(),
+          comFullname: Random.cname(),
+          comNature: '私企',
+          comRegisterdCapital: '1000万',
+          comIncome: '5000万',
+          agencyLevel: '一级',
+          comManager: Random.cname(),
+          comMobile: '1102023828123',
+          feeRequire: '是',
+          serviceFee: '10',
+      },
+      debtInfo: {
+          id: Random.guid(),
+          repurchaseType: '',
+          personName: Random.cname(),
+          debtType:	'贷款',
+          debtBalance: '100万',
+          warrantee: Random.cname(),
+          guaranteeBalance: '1000万',
+          remark: "Random.paragraph(2)"
+      }
+  }
+  return {
+      data: buybackpeople
+  }
+}
+
+
+function lesseeinfo(){
+    // 承租人信息
+        // 接口地址 /api/leasee/info
+        // bussNo: 订单号
+        // naturalData: {
+        //     custType:客户类别
+        //     custName: 性别
+        //     custSex： 性别
+        //     custAge： 年龄
+        //     certNo： 身份证号
+        //     custMarriage：婚姻状况
+        //     custHomeplace: 户籍地址
+        //     custAddress：现住地址
+        //     cultureYears： 种植年限
+        //     residenceYears： 申请地居住年限
+        //     custMobile：联系电话
+        //     custWechat： 微信
+        // }
+  let lesseeinfo= [];
+  for (let i = 0; i < 3; i++) {
+    let newData = {
+        bussNo: Random.id(),
+        naturalData: {
+            custType: 'A类客户',
+            custName: Random.cname(),
+            custSex: '男',
+            custAge: '30',
+            certNo: Random.id(),
+            custMarriage: '未婚',
+            custHomeplace: Random.city(),
+            custAddress: Random.city(),
+            cultureYears: '10年',
+            residenceYears: '20年',
+            custMobile: Random.increment(11),
+            custWechat: Random.increment(10),
+            //房产类型
+            assetsHouses: {
+                type: '商用住宅',
+                acreage: '80㎡',
+                currEvaluation: '100万',
+                owner: '本人',
+                mortgage: '否',
+                address: Random.city()
+            },
+            // 土地
+            assetsLands: {
+                id:	Random.id(),
+                acreage: '70²',
+                value:	'20万',
+                contractLife: '10年',
+                mortgage: 'N',
+                address: Random.city(),
+                checkMode: '手动',
+                status: '正常'
+            },
+            // 金融资产
+            assetsFinances: {
+                id: Random.id(),
+                deposit: '20万',
+                bigDeposit: '100万',
+                bond: '无',
+                shares: '无',
+                products:  '无',
+                status: '正常'
+            },
+            // 车产
+            assetsVehicles: {
+                id: Random.id(),
+                buyTime: '2019-02-02',
+                currEvaluation:	'20万',
+                owner: Random.cname(),
+                mortgage: 'N',
+                serialNo: '京B BB110',
+                status: '正常'
+            },
+            // 农机具
+            assetsFarmTools: {
+                id: Random.id(),
+                buyTime: '2019-02-02',
+                currEvaluation:	'20万',
+                owner: Random.cname(),
+                mortgage: 'N',
+                serialNo: '京B BB110',
+                status: '正常'
+            },
+            // assetsOthers 其他产
+            assetsOthers: {
+                id: Random.id(),
+                value: '20万',
+                currEvaluation: '100万',
+                mortgage: 'Y',
+                owner: Random.cname(),
+                status: '正常',
+                remark: 'haha'
+            },
+            // 债务情况
+            debtSituations: {
+                id: Random.id(),
+                debtSituation: '负债',
+                debtType: '房贷',
+                debtPerson: Random.cname(),
+                debtBalance: '20万',
+                debtTerm: '20年',
+                remark: '备注',
+                status: '正常'
+            },
+            debtGuarantees: {
+                id: Random.id(),
+                externalGuarantee: '对外担保',
+                creditor: Random.cname(),
+                guaranteeBalance: '20万',
+                warrantee: Random.cname(),
+                withWarranteeRelation: '子',
+                remark: '备注',
+                status: ' 状态'
+            },
+            // 其他负债
+            debtOthers: {
+                id: Random.id(),
+                creditor: Random.cname(),
+                debtBalance: '20万',
+                debtMaturity: '20期',
+                isGuarantee: 1,
+                remark:' 备注',
+                status: '状态'
+            },
+            // incomePlants 土地收入
+            incomePlants: {
+                id: Random.id(),
+                plantType: '水稻',
+                plantArea: '20亩',
+                oneCost: '200',
+                oneIncome :'1000',
+                surplus: '800',
+                status: '	状态',
+                remark: '备注'
+            },
+            // incomeFarmMachineryWork 农机具作业收入
+            incomeFarmMachineryWork: {
+                id: Random.id(),
+                plantType: '水稻',
+                plantArea: '20亩',
+                oneCost: '200',
+                oneIncome :'1000',
+                surplus: '800',
+                status: '	状态',
+                remark: '备注'
+            },
+            // incomeOthers 其他收入
+            incomeOthers: {
+                id: Random.id(),
+                prevYearIncome: '1000',
+                prevYearPay: '200',
+                currYearIncome:	'1200',
+                currYearPay: '300',
+                surplus: '900',
+                status: '状态',
+                remark:	'备注	varchar(150)	 '
+            },
+            incomeDebtRatios: {
+                id: Random.id(),
+                total_surplus: '10万',
+                annual_rental_expense: '10',
+                other_debt_expense: '20',
+                total_annual_expense: '30',
+                income_debt_ratio: '1%',
+                status: '状态'
+
+            }
+        }
+    }
+    lesseeinfo.push(newData)
+  }
+  return {
+    data: lesseeinfo
+  }
+}
 
 const data = Mock.mock('/datalist',getData);
 const dataName = Mock.mock('/dataNames',nameData);
@@ -199,5 +493,8 @@ const imageslist = Mock.mock('/imageslist',images);
 const queryElement = Mock.mock('/lease/queryElement',queryData);
 const queryDatas = Mock.mock('api/lease/query',leasequery);
 const ternalinfo = Mock.mock('/surveyinformation/info',externalinfo);
+const tigation = Mock.mock('/app/api/getSurveyConclusion',investigation);
+const backpeople = Mock.mock('/api/repurchase/info',buybackpeople);
+const lesseeinfos = Mock.mock('/api/leasee/info',lesseeinfo);
 
-export default {data,dataName,list,imageslist,queryData,leasequery,ternalinfo};
+export default {data, dataName, list, imageslist, queryData, leasequery, ternalinfo, investigation, lesseeinfos};
