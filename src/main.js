@@ -13,6 +13,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 import mockdata from '../mock/mock.js';
+require('../mock/mock_busInfo');
 import axios from 'axios';
 import {get, post} from './http';
 import './utils/beforeEach';
