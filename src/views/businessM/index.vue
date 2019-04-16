@@ -5,38 +5,10 @@
         </div>
         <div class="topcontent">
             <div>
-                <label>业务编号：</label>
-                <el-input class="contentinout" placeholder="请输入内容" v-model="form.busNo"></el-input>
-                <label class="rightlabel">承租人姓名：</label>
-                <el-input class="contentinout" placeholder="请输入内容" v-model="form.busName"></el-input>
+                <label>商业伙伴名称：</label>
+                <el-input class="contentinout" placeholder="请输入内容" v-model="partnerName"></el-input>
             </div>
-            <div>
-                <label>到期日期：</label>
-                <el-date-picker
-                        placeholder="选择日期"
-                        type="date"
-                        v-model="form.stDate">
-                </el-date-picker>
-                -
-                <el-date-picker
-                        placeholder="选择日期"
-                        type="date"
-                        v-model="form.edDate">
-                </el-date-picker>
-
-                <label class="rightlabel">任务状态：</label>
-                <template>
-                    <el-select class="choiceselect" placeholder="请选择" v-model="form.status">
-                        <el-option
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                                v-for="item in statusOptions">
-                        </el-option>
-                    </el-select>
-                </template>
-            </div>
-            <button class="search" name="button" type="button">查询</button>
+            <button class="search" name="button" type="button" @click="queryFunc">查询</button>
         </div>
 
         <div class="content">
@@ -127,27 +99,39 @@
                                     border
                                     style="width: 100%">
                                 <el-table-column
-                                        label="商业伙伴全称"
+                                        label="ID"
+                                        prop="id">
+                                </el-table-column>
+                                <el-table-column
+                                        label="全称"
                                         prop="date">
-                                </el-table-column>
-                                <el-table-column
-                                        label="商业伙伴编码"
-                                        prop="name">
-                                </el-table-column>
-                                <el-table-column
-                                        label="商业伙伴类别"
-                                        prop="address">
                                 </el-table-column>
                                 <el-table-column
                                         label="统一社会信用代码"
                                         prop="date">
                                 </el-table-column>
                                 <el-table-column
-                                        label="证件失效时间"
+                                        label="证件生效时间"
                                         prop="name">
                                 </el-table-column>
                                 <el-table-column
-                                        label="公司性质"
+                                        label="营业收入(万)"
+                                        prop="name">
+                                </el-table-column>
+                                <el-table-column
+                                        label="注册资本(万)"
+                                        prop="address">
+                                </el-table-column>
+                                <el-table-column
+                                        label="法定代表人"
+                                        prop="address">
+                                </el-table-column>
+                                <el-table-column
+                                        label="法人证件类型"
+                                        prop="address">
+                                </el-table-column>
+                                <el-table-column
+                                        label="法人证件号码"
                                         prop="address">
                                 </el-table-column>
                                 <el-table-column
@@ -187,20 +171,11 @@
         components: {
             componentTitle,
         },
-        created() {
-            // 1.查找默认数据
-        },
         data() {
             return {
                 firstTitle: '筛选条件', // 第一个标题
                 maxTitle: '商业伙伴管理', // 大标题
-                form: {
-                    busNo: '',
-                    busName: '',
-                    stDate: '',
-                    edDate: '',
-                    status: ''
-                },
+                partnerName: '',
                 statusOptions: [ // 任务状态
                     {
                         value: '1',
@@ -215,57 +190,44 @@
                         label: '进行中'
                     }
                 ],
+                naturalData: [],
                 naturalPagInfo: {
                     total: 100,
                     currentPage: 1,
                     pageSize: 10
                 },
+                legalData: [],
                 legalPagInfo: {
                     total: 100,
                     currentPage: 1,
                     pageSize: 10
                 },
-                naturalData: [
-                    {
-                        id: '1',
-                        date: '2016-05-02',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        id: '2',
-                        date: '2016-05-02',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    }
-                ],
-                legalData: [
-                    {
-                        id: '1',
-                        date: '2016-05-02',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        id: '2',
-                        date: '2016-05-02',
-                        name: '王小虎',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    }
-                ],
                 path: '/layout/natural', // 增删改地址
+                queryFunc: this.queryNatural // 查询的类型
             }
         },
         methods: {
-            async query() { // 查询所有数据
-                let data = await this.$post('', '');
+            async query(partnerType, pagInfo) {
+                let data = await this.$post('/bussPartner/listPartnerInfo', {
+                    partnerName: this.partnerName,
+                    partnerType: partnerType,
+                    currentPage: pagInfo.currentPage,
+                    pageSize: pagInfo.pageSize
+                });
+                //TODO 增加对回来的参数进行解析
+
+                if (data.data.data.code === '2000000') { // 状态正确，执行更新操作
+                    data = data.data.data;
+                    this.tableData = data.data;
+                    this.pagInfo.total = data.total;
+                }
 
             },
-            async queryNatural() { // 分页查询自然人数据
-                let data = await this.$post('', '');
+            queryNatural() { // 分页查询自然人数据
+                this.query(1, this.naturalPagInfo);
             },
-            async queryLegal() { // 分页查询法人数据
-                let data = await this.$post('', '');
+            queryLegal() { // 分页查询法人数据
+                this.query(2, this.legalPagInfo);
             },
             detail(row) { //查看详情
                 this.$router.push({path: this.path, query: {id: row.id, type: 'detail'}});
@@ -278,6 +240,7 @@
             },
             tabClick(tab) { // 0代表自然人 1代表法人
                 this.path = tab.index === "0" ? '/layout/natural' : '/layout/legal';
+                this.queryFunc = tab.index === "0" ? this.queryNatural : this.queryLegal;
             }
         },
     }
