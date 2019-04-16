@@ -154,8 +154,8 @@ export default {
         }
     },
     created() {
-        this.$get('http://localhost:8080/LoanApprove/queryApproveList').then( res => {
-            console.log(res);
+        this.$get('/LoanApprove/queryApproveList').then( res => {
+            console.log(res,'<<<<<');
         });
     },
     components: {
@@ -172,7 +172,10 @@ export default {
             //查看按钮
             console.log(val);
             this.$router.push({
-                path: '/layout/loadapprovaldetail'
+                path: '/layout/loadapprovaldetail',
+                query: {
+                    disabled: 1 // 1为子页面input 不可以编辑 2 为可以
+                }
             })
         },
         edit(val) {
@@ -181,7 +184,7 @@ export default {
             this.$router.push({
                 path: '/layout/loadapprovaldetail',
                 query: {
-
+                    disabled: 2 // 1为子页面input 不可以编辑 2 为可以
                 }
             })
         }
