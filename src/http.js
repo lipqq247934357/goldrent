@@ -25,11 +25,11 @@ axios.interceptors.request.use(
 //http response 拦截器
 axios.interceptors.response.use(
     response => {
-        // if (response.data.data.code !== '2000000') {
-        //     //业务异常
-        //     Message.error({message: response.data.msg, duration: 5 * 1000});
-        // }
-        // return response;
+        if (response.data.code !== '2000000') {
+            //业务异常
+            Message.error({message: response.data.msg, duration: 5 * 1000});
+        }
+        return response;
     },
     error => {
         return Promise.reject(error)

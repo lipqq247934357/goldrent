@@ -154,14 +154,17 @@ export default {
         }
     },
     created() {
-        this.$get('/LoanApprove/queryApproveList').then( res => {
-            console.log(res,'<<<<<');
-        });
+        this.query();
     },
     components: {
         componentitle,
     },
     methods: {
+        async query(){
+            console.log(1)
+            let data = await this.$get('/LoanApprove/queryApproveList',{});
+            console.log(data)
+        },
         handleSizeChange(val) {
             console.log(`每页 ${val} 条`);
         },
