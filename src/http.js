@@ -1,116 +1,49 @@
+import Qs from "qs";
 import axios from 'axios';
-import { Message } from 'element-ui';
-import Vue from 'vue';
-import router from '@/router';
+import {Message} from 'element-ui';
+
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL ='';
-
-
+if (process.env.NODE_ENV === 'development') {// 根据不同的环境使用不同的接口
+    axios.defaults.baseURL = '';
+} else {
+    axios.defaults.baseURL = '/api';
+}
 //http request 拦截器
 axios.interceptors.request.use(
-  config => {
-    // const token = getCookie('名称');注意使用的时候需要引入cookie方法，推荐js-cookie
-    config.data = JSON.stringify(config.data);
-    config.headers = {
-      'Content-Type':'application/x-www-form-urlencoded'
+    config => {
+        config.headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
     }
-    // if(token){
-    //   config.params = {'token':token}
-    // }
-    return config;
-  },
-  error => {
-    return Promise.reject(err);
-  }
 );
 
 
 //http response 拦截器
 axios.interceptors.response.use(
-  response => {
-    if(response.status == 2000){
-       router.push('/about')
+    response => {
+        if (response.data.data.code !== '2000000') {
+            //业务异常
+            Message.error({message: response.data.msg, duration: 5 * 1000});
+        }
+        return response;
+    },
+    error => {
+        return Promise.reject(error)
     }
-    return response;
-  },
-  error => {
-    return Promise.reject(error)
-  }
-)
+);
 
-
-/**
- * 封装get方法
- * @param url
- * @param data
- * @returns {Promise}
- */
-
-export function fetch(url,params={}){
-  return new Promise((resolve,reject) => {
-    axios.get(url,{
-      params:params
-    })
-    .then(response => {
-      resolve(response.data);
-    })
-    .catch(err => {
-      reject(err)
-    })
-  })
+export const get = (url, data = {}) => {
+    let method = 'get';
+    return axios({method, url, data});
 }
 
 
-/**
- * 封装post请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-
- export function post(url,data = {}){
-   return new Promise((resolve,reject) => {
-     axios.post(url,data)
-          .then(response => {
-            resolve(response.data);
-          },err => {
-            reject(err)
-          })
-   })
- }
-
- /**
- * 封装patch请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-
-export function patch(url,data = {}){
-  return new Promise((resolve,reject) => {
-    axios.patch(url,data)
-         .then(response => {
-           resolve(response.data);
-         },err => {
-           reject(err)
-         })
-  })
-}
-
- /**
- * 封装put请求
- * @param url
- * @param data
- * @returns {Promise}
- */
-
-export function put(url,data = {}){
-  return new Promise((resolve,reject) => {
-    axios.put(url,data)
-         .then(response => {
-           resolve(response.data);
-         },err => {
-           reject(err)
-         })
-  })
+export const post = (url, data = {}) => {
+    let method = 'post';
+    data = Qs.stringify(data);
+    return axios({method, url, data});
 }
