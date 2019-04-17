@@ -8,7 +8,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            disabled
+            :disabled="inputdisabled"
             v-model="textarea.lesseeCredit">
         </el-input>
     </div>
@@ -93,7 +93,8 @@ export default {
     data() {
         return {
             message: '',
-            textarea: {}
+            textarea: {},
+            inputdisabled: false
         }
     },
     created() {
@@ -101,6 +102,12 @@ export default {
             this.textarea = res.data.data;
             console.log(this.textarea,'外部信息');
         })
+        console.log();
+        if(this.$route.query.disabled == 1) {
+            this.inputdisabled = true;
+        } else {
+            this.inputdisabled = false;
+        }
     },
     components: {
         componentitle,

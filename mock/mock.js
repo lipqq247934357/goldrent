@@ -329,7 +329,7 @@ function lesseeinfo(){
   let lesseeinfo= [];
   for (let i = 0; i < 3; i++) {
     let newData = {
-        bussNo: Random.id(),
+        bussNo: Random.guid(),
         naturalData: {
             custType: 'A类客户',
             custName: Random.cname(),
@@ -507,7 +507,7 @@ function guarantor(){
   let guarantor= [];
   for (let i = 0; i < 2; i++) {
     let newData = {
-        bussNo: Random.id(),
+        bussNo: Random.guid(),
         naturalData: {
             custType: 'A类客户',
             custName: Random.cname(),
@@ -519,7 +519,7 @@ function guarantor(){
             custAddress: Random.city(),
             cultureYears: '10年',
             residenceYears: '20年',
-            custMobile: Random.increment(11),
+            custMobile: Random.increment(1122222),
             custWechat: Random.increment(10),
             //房产类型
             assetsHouses: {

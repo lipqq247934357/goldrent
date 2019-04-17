@@ -2,49 +2,93 @@
     <div class="businfo">
         <div class="topTitle">
             <componentitle :message="message" :titletext="titletext"/>
+            <div style="margin: 20px 0 0 20px">
+                伙伴类型：自然人
+            </div>
             <ul class="tabInfo">
                 <li>
-                    <div>回购人名称</div>
+                    <div>商业伙伴全称</div>
                     <div>
-                        <el-input size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
                     </div>
                 </li>
                 <li>
-                    <div>企业性质</div>
+                    <div>客户类别</div>
                     <div>
-                        <el-input size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" />
                     </div>
                 </li>
                 <li>
-                    <div>注册资本金</div>
+                    <div>性别</div>
                     <div>
-                        <el-input size="mini" type="text"/>
-                    </div>
-
-                </li>
-                <li>
-                    <div>年营业额</div>
-                    <div>
-                        <el-input size="mini" type="text"/>
-                    </div>
-                </li>
-                <li>
-                    <div>经销商层级</div>
-                    <div>
-                        <el-input size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
                     </div>
 
                 </li>
                 <li>
-                    <div>回购方负责人</div>
+                    <div>年龄</div>
                     <div>
-                        <el-input size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
                     </div>
                 </li>
                 <li>
-                    <div>回购方联系电话</div>
+                    <div>联系电话</div>
                     <div>
-                        <el-input size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+
+                </li>
+                <li>
+                    <div>微信</div>
+                    <div>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div>身份证号码</div>
+                    <div>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div>教育程度</div>
+                    <div>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div>婚姻状况</div>
+                    <div>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div>申请地居住年限</div>
+                    <div>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div>种植年限</div>
+                    <div>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div>户籍地址</div>
+                    <div>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div>现住地</div>
+                    <div>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div></div>
+                    <div>
                     </div>
                 </li>
             </ul>
@@ -53,102 +97,7 @@
         <div class="content">
             <div class="titletop">
                 <div class="topbox">
-                    <span>负债及对外担保情况</span>
-                </div>
-
-                <h3>回购人</h3>
-                <ul class="tabInfo">
-                    <li>
-                        <div>回购人</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div>债务种类</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div>债务余额</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-
-                    </li>
-                    <li>
-                        <div>担保余额</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div>被担保人</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-
-                    </li>
-                    <li>
-                        <div>备注</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-                    </li>
-                </ul>
-
-
-                <h3>回购方实际控制人</h3>
-
-                <ul class="tabInfo">
-                    <li>
-                        <div>回购方实际控制人</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div>债务种类</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div>债务余额</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-
-                    </li>
-                    <li>
-                        <div>担保余额</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div>被担保人</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-
-                    </li>
-                    <li>
-                        <div>备注</div>
-                        <div>
-                            <el-input size="mini" type="text"/>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-
-        <div class="content">
-            <div class="titletop">
-                <div class="topbox">
-                    <span>回购人相关影像资料</span>
+                    <span>2  相关影像资料</span>
                 </div>
             </div>
 
@@ -160,6 +109,7 @@
                         <div>营业执照副本原件</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -173,6 +123,7 @@
                         <div>开户许可证原件</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -180,14 +131,13 @@
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
                             </el-upload>
-
-
                         </div>
                     </li>
                     <li>
                         <div>公司章程工商调档原件</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -203,6 +153,7 @@
                         <div>法人、实际控制人身份证原件</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -218,6 +169,7 @@
                         <div>法人、实际控制人户口簿原件</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -233,6 +185,7 @@
                         <div>法人、实际控制人婚姻状况证明材料原件</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -252,6 +205,7 @@
                         <div>审计报告（财务报表）</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -267,6 +221,7 @@
                         <div>纳税申请表</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -286,6 +241,7 @@
                         <div>人行征信报告</div>
                         <div class="edit-pic">
                             <el-upload
+                                    :disabled="type === 'detail'"
                                     :file-list="fileList"
                                     :on-preview="handlePictureCardPreview"
                                     :on-remove="handleRemove"
@@ -320,15 +276,13 @@
         },
         data() {
             return {
-                message: '基本信息',
+                message: '1  基本信息',
                 titletext: '商业伙伴维护',
+                data:{},
                 dialogImageUrl: '',
                 dialogVisible: false,
                 fileList: [{
                     name: 'food.jpeg',
-                    url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-                }, {
-                    name: 'food2.jpeg',
                     url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
                 }],
                 type: ''
@@ -338,14 +292,11 @@
             let params = urlParse();
             if (params.id) {
                 if (params.type === 'detail') { // 设置元素不可被更改
-                    console.log(params.type);
                     this.type = 'detail';
                 } else { // 更新
-                    console.log('update');
                     this.type = 'update';
                 }
             } else { // 新增
-                console.log('add');
                 this.type = 'add';
             }
         },

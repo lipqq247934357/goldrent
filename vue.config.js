@@ -4,11 +4,11 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://39.105.185.89',
+                target: 'http://172.16.5.170:8080/',
                 ws: true,
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': '/static/mock'
+                    '^/api': ''
                 }
             }
         }
