@@ -9,9 +9,7 @@ import businfo from './views/businessInfo/businessInfo.vue'; // 业务信息列�
 import businessadmin from './views/businessM/index.vue'; //商业伙伴管理
 import businessdetail from './views/businessInfo/businessDetail.vue'; // 业务信息查看
 import legal from './views/businessM/legal.vue'; //添加商业伙伴
-import legaldetail from './views/businessM/legaldetail.vue'; //添加商业伙伴
 import natural from './views/businessM/natural.vue'; //添加商业伙伴
-import naturaldetail from './views/businessM/naturaldetail.vue'; //添加商业伙伴
 import error404 from './views/404'; // 404
 Vue.use(Router)
 
@@ -69,19 +67,9 @@ export default new Router({
                     component: businessadmin
                 },
                 {
-                    path: 'legaldetail', //详情
-                    name: 'legaldetail',
-                    component: legaldetail
-                },
-                {
                     path: 'legal', //修改删除法人
                     name: 'legal',
                     component: legal
-                },
-                {
-                    path: 'naturaldetail', //详情
-                    name: 'naturaldetail',
-                    component: naturaldetail
                 },
                 {
                     path: 'natural', //修改删除
