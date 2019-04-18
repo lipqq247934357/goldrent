@@ -196,7 +196,10 @@
         },
         created() {
             let data = urlParse();
-            this.query(data.bussNo);
+            // this.query(data.bussNo);
+            this.$get('buss/getBussInfo?task_id=7e616786689140d690ad2c33a089c2ae').then(res => {
+                console.log(res)
+            });
         },
         methods: {
             async query(bussNo) {

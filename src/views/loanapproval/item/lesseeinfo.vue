@@ -481,53 +481,13 @@
                     <!-- 承租人相关影像资料 -->
                     <div class="div3">
                         <componentitle :message="message='承租人相关影像资料'" />
-                        <div class="imgbox" v-for="value in imageslist">
+                        <div class="imgbox" v-for="value in imgFile">
                             <h3>{{value.nodeName}}</h3>
                             <ul>
-                                <li>
-                                    <div v-for="(val,key) in value.nodes">
-                                        <div class="tabletitleul">
-                                            {{val}}
-                                        </div>
-                                        <div class="imgRelevant">
-                                            <img v-for=""
-                                                :src="imageUrl"
-                                                alt=""
-                                                :preview="index"
-                                                width="100"
-                                                height="100"
-                                                preview="1"
-                                                class="imagescss">
-                                        </div>
-                                    </div>
-
-                                </li>
-                                <!-- <li>
-                                    <div>户口簿原件</div>
-                                    <div class="imgeslist">
-                                        <img
-                                            src="../../../assets/logo0.png"
-                                            preview="2"
-                                            preview-text="户口簿原件"
-                                            width="100"
-                                            height="100"
-                                            >
-                                        <img
-                                            src="../../../assets/logo.png"
-                                            preview="2"
-                                            preview-text="户口簿原件"
-                                            width="100"
-                                            height="100"
-                                            >
-                                    </div>
-                                </li> -->
+                                <imgLine :name="val" :type="key" :relationId="id" :bussNo="bussNo" v-for="(val,key) in value.nodes"/>
                             </ul>
-
-
                         </div>
                     </div>
-
-
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -539,6 +499,8 @@
 import componentitle from '../../../components/title/title.vue';
 import ulinfolist from './ulinfolist.vue'; // 基本信息 暂时废弃不引用移到assetsinfo组件
 import assetsinfo from './assetsinfo.vue'; //资产信息
+import imgLine from './imgLine';
+import {urlParse} from "../../../utils/utils";
 
 export default {
     data() {
@@ -550,12 +512,19 @@ export default {
             partner: '',
             imageslist: {},
             fileId: [], //文件ID
-            imageUrl: ''
+            imageUrl: '',
+            imgFile: [],
+            id: '',
+            bussNo:''
         }
     },
     created() {
         this.getStockPriceByName();
         this.fileData();
+        let data = urlParse();
+            this.id = data.id;
+            this.bussNo = data.bussNo;
+            this.getStockPriceByName();
     },
     methods: {
         async getStockPriceByName(res) {
@@ -569,21 +538,35 @@ export default {
                   }
               })
           )();
-          const stockPrice = await (() => {
-              const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
-              return this.$post('/materialTree',{
-                  materialType: matType[this.partner]
-              }).then( res => {
-                  // this.imageslist = res.data.data;
-                  let treeInfo = res.data.data;
+          // const stockPrice = await (() => {
+          //     const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
+          //     return this.$post('/materialTree',{
+          //         materialType: matType[this.partner]
+          //     }).then( res => {
+          //         // this.imageslist = res.data.data;
+          //         let treeInfo = res.data.data;
+          //
+          //         let tempArr = [];
+          //         Object.keys(treeInfo).forEach((key) => {
+          //            tempArr.push(treeInfo[key]);
+          //         });
+          //         this.imageslist = tempArr;
+          //     })
+          // })();
 
-                  let tempArr = [];
-                  Object.keys(treeInfo).forEach((key) => {
-                     tempArr.push(treeInfo[key]);
-                  });
-                  this.imageslist = tempArr;
-              })
-          })();
+        },
+        async getStockPriceByName(res) {
+            let data = await this.$post('/materialTree', {
+                materialType: 'LEGAL_MATERIAL',
+            });
+            if (data.data.code === '2000000') { // 状态正确，执行更新操作
+                let treeInfo = data.data.data;
+                let tempArr = [];
+                Object.keys(treeInfo).forEach((key) => {
+                    tempArr.push(treeInfo[key]);
+                });
+                this.imgFile = tempArr;
+            }
         },
         async fileData(res) {
             this.fileId = await (() =>
@@ -610,6 +593,7 @@ export default {
     components: {
         componentitle,
         ulinfolist,
+        imgLine,
         assetsinfo
     }
 }

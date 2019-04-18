@@ -3,7 +3,7 @@
     <div class="content">
         <h3>贷款审批</h3>
         <el-tabs type="border-card">
-            <!-- <el-tab-pane>
+            <el-tab-pane>
                 <span slot="label">
                     {{list.lease}}
                 </span>
@@ -26,7 +26,7 @@
             </el-tab-pane>
             <el-tab-pane :label="list.investigation">
                 <investigation />
-            </el-tab-pane> -->
+            </el-tab-pane>
             <el-tab-pane :label="list.loan">
                 <operation />
             </el-tab-pane>

@@ -34,7 +34,7 @@
                     </el-select>
                 </template>
             </div>
-            <button @click="search" class="search" name="button" type="button">查询</button>
+            <button @click="save" class="search" name="button" type="button">查询</button>
         </div>
 
         <div class="content">
@@ -87,12 +87,12 @@
             <!-- 分页 -->
             <div class="block">
                 <el-pagination
-                        :current-page.sync="pagInfo.currentPage"
-                        :page-size="pagInfo.pageSize"
+                        :current-page.sync="pagesothen"
+                        :page-size="nowpage"
                         :page-sizes="[10, 20, 30, 40]"
-                        :total="pagInfo.total"
-                        @current-change="search"
-                        @size-change="search"
+                        :total="allpage"
+                        @current-change="pagechange"
+                        @size-change="pageinfosearch"
                         layout="sizes, prev, pager, next">
                 </el-pagination>
             </div>
@@ -170,34 +170,57 @@
                     }
                 ],
                 tableData: [],
-                pagInfo: {
-                    currentPage: 1,
-                    pageSize: 10,
-                    total: 100
-                },
+                pagesothen: 1,
+                nowpage: 1,
+                allpage: 100
 
             }
         },
         created() {
-            this.search();
+            // this.search();
+            this.pages();
         },
         methods: {
-            async search() {
-                let data = await this.$post('/buss/listBussInfo', {
-                    bussNo: this.bussNo,
-                    custName: this.custName,
-                    owner_name: '',
-                    task_name: this.task_name,
-                    status: this.status,
-                    currentPage: this.pagInfo.currentPage,
-                    pageSize: this.pagInfo.pageSize
-                });
+            // async search() {
+            //     let data = await this.$post('/buss/listBussInfo', {
+            //         bussNo: this.bussNo,
+            //         custName: this.custName,
+            //         ownerName: '',
+            //         taskName: this.task_name,
+            //         status: this.status,
+            //         currentPage: this.pagInfo.currentPage,
+            //         pageSize: this.pagInfo.pageSize
+            //     });
+            //     if (data.data.code === '2000000') { // 状态正确，执行更新操作
+            //         data = data.data.data;
+            //         this.tableData = data.recordList;
+            //         this.pagInfo = data.totalCount;
+            //         console.log(data);
+            //     }
+            // },
+            pagechange(val) {
+                alert(val)
+            },
+            pageinfosearch(val) {
+                alert(val);
+            },
+            save() {
 
-                if (data.data.data.code === '2000000') { // 状态正确，执行更新操作
-                    data = data.data.data;
-                    this.tableData = data.data;
-                    this.pagInfo.total = data.total;
-                }
+            },
+            pages() {
+                this.$post('/buss/listBussInfo',{
+                    // bussNo: this.bussNo,
+                    // custName: this.custName,
+                    // ownerName: '',
+                    // taskName: this.task_name,
+                    // status: this.status,
+                    // currentPage: this.pagInfo.currentPage,
+                    // pageSize: this.pagInfo.pageSize
+                }).then(res => {
+                    console.log(res);
+                    this.tableData = res.data.data.recordList;
+                    this.allpage = res.data.data.totalCount;
+                });
             },
             handleClick(row) {
                 this.$router.push({

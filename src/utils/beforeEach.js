@@ -9,9 +9,9 @@ router.beforeEach((to, from, next) => {
     })) {
         next();
     } else if (Cookies.get('token') === undefined) {
-        next({path: '/login', replace: true});
+        // next({path: '/login', replace: true});
+        next();
     } else {
         next();
     }
 });
-
