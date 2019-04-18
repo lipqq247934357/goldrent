@@ -1,4 +1,4 @@
-import Qs from "qs";
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import {Message} from 'element-ui';
 
@@ -12,8 +12,9 @@ if (process.env.NODE_ENV === 'development') {// 根据不同的环境使用不�
 axios.interceptors.request.use(
     config => {
         config.headers = {
-            'Content-Type': 'application/json;charset=UTF-8'//'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json; charset=utf-8'
         };
+        config.headers['token'] = Cookies.get('token') || '';
         return config;
     },
     error => {
@@ -36,10 +37,9 @@ axios.interceptors.response.use(
     }
 );
 
-export const get = (url, data) => {
+export const get = (url) => {
     let method = 'get';
-    console.log(data);
-    return axios.get(url, data);
+    return axios.get(url);
 }
 
 

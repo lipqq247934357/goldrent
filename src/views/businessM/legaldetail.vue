@@ -1,316 +1,130 @@
-<template>
-    <div class="businfo">
-        <div class="topTitle">
-            <componentitle :message="message" :titletext="titletext"/>
+<h3>基础资料</h3>
 
-            <ul class="tabInfo">
-                <li>
-                    <div>商业伙伴全称</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>商业伙伴编码</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>商业伙伴类别</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>统一社会信用代码</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>证件生效时间</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>证件失效时间</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>公司性质</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>所属行业</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>注册资本(万元)</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>成立日期</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>营业收入(万元)</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>经营范围</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>营业地址</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>从业人数</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>资产总额(万元)</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>企业规模</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>法定代表人</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>法人证件类型</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>法人证件号码</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>法人证件失效时间</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>法人电话</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>法人地址</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>联系人</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>联系地址</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>管户人</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>贷款卡号</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div>附件</div>
-                    <div>1111</div>
-                </li>
-                <li>
-                    <div></div>
-                    <div></div>
-                </li>
-            </ul>
-
+<ul>
+    <upload @handlePictureCardPreview="handlePictureCardPreview" />
+    <li>
+        <div>营业执照副本原件</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
         </div>
-
-        <div class="content">
-            <div class="titletop">
-                <div class="topbox">
-                    <span>相关影像资料</span>
-                </div>
-            </div>
-
-            <div class="imgbox">
-                <h3>基础资料</h3>
-
-                <ul>
-                    <li>
-                        <div>营业执照副本原件</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>开户许可证原件</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>公司章程工商调档原件</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>法人、实际控制人身份证原件</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>法人、实际控制人户口簿原件</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>法人、实际控制人婚姻状况证明材料原件</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                </ul>
-
-                <h3>财务资料</h3>
-                <ul>
-                    <li>
-                        <div>审计报告（财务报表）</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>纳税申请表</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                </ul>
-
-                <h3>征信证明务资料</h3>
-                <ul>
-                    <li>
-                        <div>人行征信报告</div>
-                        <div class="">
-
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="bottombut"></div>
+    </li>
+    <li>
+        <div>开户许可证原件</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
         </div>
-    </div>
-</template>
+    </li>
+    <li>
+        <div>公司章程工商调档原件</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </div>
+    </li>
+    <li>
+        <div>法人、实际控制人身份证原件</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </div>
+    </li>
+    <li>
+        <div>法人、实际控制人户口簿原件</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </div>
+    </li>
+    <li>
+        <div>法人、实际控制人婚姻状况证明材料原件</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </div>
+    </li>
+</ul>
 
-<script type="text/ecmascript-6">
-    import componentitle from '../../components/title/title.vue';
+<h3>财务资料</h3>
+<ul>
+    <li>
+        <div>审计报告（财务报表）</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </div>
+    </li>
+    <li>
+        <div>纳税申请表</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </div>
+    </li>
+</ul>
 
-    export default {
-        data() {
-            return {
-                message: '基本信息',
-                titletext: '商业伙伴维护',
-                options: [
-                    {
-                        value: '选项1',
-                        label: '待处理'
-                    },
-                    {
-                        value: '选项2',
-                        label: '进行中'
-                    },
-                    {
-                        value: '选项3',
-                        label: '已提交'
-                    },
-                    {
-                        value: '选项4',
-                        label: '已退回'
-                    }
-                ],
-                value: ''
-            }
-        },
-        components: {
-            componentitle,
-        },
-        methods: {
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
-            },
-            handleClick(val) {
-                console.log(val);
-                this.$router.push({
-                    // 'path': '/'
-                })
-            },
-            edit(val) {
-                console.log(val);
-            },
-            add() {
-                // 添加信息
-            }
-        },
-    }
-</script>
-<style lang="less" scoped>
-    // 引入公共的样式
-    @import '../../public/businessm';
-
-    .businfo {
-        background: #fff;
-
-        .topTitle {
-            width: 95%;
-            margin: 0 auto;
-        }
-
-        .content {
-            width: 95%;
-            margin: 0 auto;
-        }
-
-        .imgbox {
-            h3 {
-                font-size: 16px;
-                margin: 35px 0 35px 15px;
-                font-weight: bold;
-            }
-
-            ul {
-                width: 95%;
-                margin: 0 auto;
-                border: 1px solid #EBEEF5;
-
-                li {
-                    width: 100%;
-                    height: 100px;
-                    text-align: center;
-                    clear: both;
-
-                    div {
-                        float: left;
-                        border-bottom: 1px solid #EBEEF5;
-                        height: 100px;
-
-                        &:first-child {
-                            width: 29.8%;
-                            border-right: 1px solid #EBEEF5;
-                            line-height: 100px;
-                        }
-
-                        &:last-child {
-                            width: 70%;
-                        }
-                    }
-                }
-            }
-        }
-
-        .bottombut {
-            width: 160px;
-            margin: 15px auto;
-        }
-    }
-</style>
+<h3>征信证明材料</h3>
+<ul>
+    <li>
+        <div>人行征信报告</div>
+        <div class="edit-pic">
+            <el-upload
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </div>
+    </li>
+</ul>
