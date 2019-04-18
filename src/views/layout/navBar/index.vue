@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="top">
-            <img src="logo.png" alt="" width="20" height="20">
+            <img alt="" height="20" src="logo.png" width="20">
             <span>金租业务管理系统</span>
-            <span class="username" @click="showUserInfo">{{name}}</span>
+            <span @click="showUserInfo" class="username">{{userName}}</span>
         </div>
-        <div v-show="userInfoPop" class="userInfo">
+        <div class="userInfo" v-show="userInfoPop">
             <ul class="first" v-Clickoutside="closeUserInfoPop">
                 <li><span class="iconfont">&#xe7ae;</span>&nbsp;管理员</li>
                 <li @click="showUpdateInfoPop"><span class="iconfont">&#xe7e4;</span>&nbsp;个人信息</li>
@@ -16,50 +16,52 @@
             </ul>
         </div>
         <el-dialog
-                title="更改个人信息"
+                :before-close="handleInfoClose"
                 :visible.sync="updateInfoPop"
                 custom-class="pop-class"
+                title="更改个人信息"
                 width="30%">
             <div class="update-user-info">
-                <el-form ref="form" label-width="60px">
+                <el-form label-width="60px" ref="form">
                     <el-form-item label="用户名">
-                        <el-input size="mini" v-model="name"></el-input>
+                        <el-input disabled size="mini" v-model="loginName"></el-input>
                     </el-form-item>
                     <el-form-item label="姓名">
-                        <el-input size="mini" v-model="username"></el-input>
+                        <el-input size="mini" v-model="newUserName"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号">
-                        <el-input size="mini" v-model="phone"></el-input>
+                        <el-input size="mini" v-model="userPhone"></el-input>
                     </el-form-item>
                 </el-form>
             </div>
             <div class="btn" slot="footer">
-                <el-button size="small" @click="updateInfoPop = !updateInfoPop">关闭</el-button>
-                <el-button size="small" @click="updateInfo">确认</el-button>
+                <el-button @click="handleInfoClose" size="small">关闭</el-button>
+                <el-button @click="updateInfo" size="small">确认</el-button>
             </div>
         </el-dialog>
 
         <el-dialog
-                title="更改密码"
+                :before-close="handlePwdClose"
                 :visible.sync="updatePasswordPop"
                 custom-class="pop-class"
+                title="更改密码"
                 width="30%">
             <div class="update-user-info">
-                <el-form ref="form" label-width="70px">
+                <el-form label-width="70px" ref="form">
                     <el-form-item label="原密码">
-                        <el-input size="mini" v-model="pwd"></el-input>
+                        <el-input size="mini" type="password" v-model="oldPwd"></el-input>
                     </el-form-item>
                     <el-form-item label="新密码">
-                        <el-input size="mini" v-model="newPwd"></el-input>
+                        <el-input size="mini" type="password" v-model="newPwd"></el-input>
                     </el-form-item>
                     <el-form-item label="确认密码">
-                        <el-input size="mini" v-model="newPwd1"></el-input>
+                        <el-input size="mini" type="password" v-model="rnewPwd"></el-input>
                     </el-form-item>
                 </el-form>
             </div>
             <div class="btn" slot="footer">
-                <el-button size="small" @click="updatePasswordPop = !updatePasswordPop">关闭</el-button>
-                <el-button size="small" @click="updatePwd">确认</el-button>
+                <el-button @click="handlePwdClose" size="small">关闭</el-button>
+                <el-button @click="updatePwd" size="small">确认</el-button>
             </div>
         </el-dialog>
 
@@ -78,19 +80,20 @@
                 updateInfoPop: false,
                 updatePasswordPop: false,
                 clickPos: 0,
-                name: '',
-                username: '',
-                phone: '',
-                pwd: '',
+                loginName: '',
+                userName: '',
+                newUserName: '',
+                userPhone: '',
+                oldPwd: '',
                 newPwd: '',
-                newPwd1: ''
+                rnewPwd: ''
             }
         },
         directives: {Clickoutside},
         created() {
-            this.name = getStore('name') || '';
-            this.username = getStore('username') || '';
-            this.phone = getStore('phone') || '';
+            this.userName = this.newUserName = getStore('userName') || '';
+            this.loginName = getStore('loginName') || '';
+            this.userPhone = getStore('userPhone') || '';
         },
         methods: {
             showUserInfo() {
@@ -120,10 +123,37 @@
                 this.updatePasswordPop = true;
             },
             async updateInfo() {
-                // 如果更新成功 修改sessionStorage中的内容
+                let data = await this.$post('user/updateUser', {
+                    userName: this.newUserName,
+                    userPhone: this.userPhone
+                });
+                if (data.data.code === '2000000') {
+                    this.userName = this.newUserName;
+                    setStore('userName', this.userName);
+                    setStore('userPhone', this.userPhone);
+                    this.handleInfoClose();
+                }
             },
             async updatePwd() {
-
+                let data = await this.$post('/user/updatepwd', {
+                    oldPwd: this.oldPwd,
+                    newPwd: this.newPwd,
+                    rnewPwd: this.rnewPwd
+                });
+                if (data.data.code === '2000000') {
+                    this.handlePwdClose();
+                }
+            },
+            handleInfoClose() {
+                this.updateInfoPop = false;
+                this.newUserName = this.userName;
+                this.userPhone = getStore('userPhone');
+            },
+            handlePwdClose() {
+                this.updatePasswordPop = false;
+                this.oldPwd = '';
+                this.newPwd = '';
+                this.rnewPwd = '';
             }
         }
     }

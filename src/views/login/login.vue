@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <img src="./logo.png" alt="">
+        <img alt="" src="./logo.png">
         <div class="inputText">
             <div class="subTextdiv">
                 <span>登录名：</span>
@@ -10,7 +10,7 @@
                 <span class="passwordText">密&nbsp;&nbsp;&nbsp;码：</span>
                 <input type="password" v-model="pwd">
             </div>
-            <el-button type="primary" class="loginbutton" @click="login">登录</el-button>
+            <el-button @click="login" class="loginbutton" type="primary">登录</el-button>
             <p class="tips">忘记密码请联系管理员</p>
         </div>
     </div>
@@ -29,18 +29,16 @@
         },
         methods: {
             async login() {
-                // let data = await this.$post('user/login', {name: this.name, pwd: this.pwd});
-                // if (data.data.code === 2000000) {
-                //     //跳首页，保存用户数据
-                //     setStore('name', data.data.name || 'name');
-                //     setStore('username', data.data.username || 'username');
-                //     setStore('phone', data.data.phone || 'phone');
-                // }
-                setStore('name', 'name');
-                setStore('username', 'username');
-                setStore('phone', 'phone');
-                Cookies.set('session','xxx'); // 模拟后台设置session
-                this.$router.push('/');
+                let data = await this.$post('/user/login', {name: this.name, pwd: this.pwd});
+                if (data.data.code === '2000000') {
+                    //跳首页，保存用户数据
+                    let user = data.data.data.user;
+                    setStore('loginName', user.loginName || '');
+                    setStore('userName', user.userName || '');
+                    setStore('userPhone', user.userPhone || '');
+                    Cookies.set('token', data.data.data.token);
+                    this.$router.push('/');
+                }
             }
         }
     }
