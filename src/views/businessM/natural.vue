@@ -15,13 +15,35 @@
                 <li>
                     <div>客户类别</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.partnerType"/>
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.partnerType"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in partnerTypeOptions">
+                            </el-option>
+                        </el-select>
                     </div>
                 </li>
                 <li>
                     <div>性别</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custSex"/>
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.custSex"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in sexOptions">
+                            </el-option>
+                        </el-select>
                     </div>
                 </li>
                 <li>
@@ -52,13 +74,35 @@
                 <li>
                     <div>教育程度</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custEducation"/>
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.custEducation"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in custEducationOptions">
+                            </el-option>
+                        </el-select>
                     </div>
                 </li>
                 <li>
                     <div>婚姻状况</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custMarriage"/>
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.custMarriage"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in custMarriageOptions">
+                            </el-option>
+                        </el-select>
                     </div>
                 </li>
                 <li>
@@ -105,7 +149,7 @@
                     <template v-for="value in imgFile">
                         <h3>{{value.nodeName}}</h3>
                         <ul>
-                            <upload :name="val" :relationId="22222" :type="key" :disabled="type === 'detail'"
+                            <upload :disabled="type === 'detail'" :name="val" :relationId="22222" :type="key"
                                     @handlePictureCardPreview="handlePictureCardPreview"
                                     v-for="(val,key) in value.nodes"/>
                         </ul>
@@ -130,7 +174,7 @@
 
     export default {
         components: {
-            componentitle,upload
+            componentitle, upload
         },
         data() {
             return {
@@ -141,7 +185,63 @@
                 dialogImageUrl: '',
                 dialogVisible: false,
                 type: '',
-                imgFile: {}
+                imgFile: {},
+                partnerTypeOptions: [
+                    {
+                        value: 'NAT',
+                        label: '自然人'
+                    },
+                    {
+                        value: 'LEG',
+                        label: '法人'
+                    }
+                ],
+                sexOptions: [
+                    {
+                        value: 'M',
+                        label: '男'
+                    },
+                    {
+                        value: 'F',
+                        label: '女'
+                    }
+                ],
+                custEducationOptions: [
+                    {
+                        value: 'college',
+                        label: '大专及以上'
+                    },
+                    {
+                        value: 'senior',
+                        label: '高中'
+                    },
+                    {
+                        value: 'middle',
+                        label: '初中'
+                    },
+                    {
+                        value: 'primary',
+                        label: '初中以下'
+                    }
+                ],
+                custMarriageOptions: [
+                    {
+                        value: "married",
+                        label: "已婚"
+                    },
+                    {
+                        value: "widowed",
+                        label: "丧偶"
+                    },
+                    {
+                        value: "unmarried",
+                        label: "未婚"
+                    },
+                    {
+                        value: "divorced",
+                        label: "离异"
+                    },
+                ]
             }
         },
         created() {
@@ -188,7 +288,7 @@
                 // if (data.data.code === '2000000') {
                 //     this.data.id = this.id = data.data.data;
                 // }
-                    this.data.id = this.id = '1111';
+                this.data.id = this.id = '1111';
             },
             async save() { // 保存用户信息
 
@@ -205,7 +305,7 @@
                 }
             },
             submit() {
-
+                this.save();
             },
             handleRemove(file, fileList) { // 删除回调
             },

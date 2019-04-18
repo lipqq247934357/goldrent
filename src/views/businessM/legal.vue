@@ -15,7 +15,7 @@
                 <li>
                     <div>商业伙伴编码</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comFullname"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.partnerSerial"/>
                     </div>
                 </li>
                 <li>
@@ -24,13 +24,13 @@
                         <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
                                    size="mini"
                                    style="width: 100%;"
-                                   v-model="value"
+                                   v-model="data.partnerType"
                         >
                             <el-option
                                     :key="item.value"
                                     :label="item.label"
                                     :value="item.value"
-                                    v-for="item in options">
+                                    v-for="item in partnerTypeOptions">
                             </el-option>
                         </el-select>
                     </div>
@@ -38,25 +38,36 @@
                 <li>
                     <div>统一社会信用代码</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comFullname"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.socialSerial"/>
                     </div>
                 </li>
                 <li>
                     <div>证件生效时间</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comFullname"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.socialSerial"/>
                     </div>
                 </li>
                 <li>
                     <div>证件失效时间</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comFullname"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.certEndDate"/>
                     </div>
                 </li>
                 <li>
                     <div>公司性质</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comNature"/>
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.comNature"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in comNatureOptions">
+                            </el-option>
+                        </el-select>
                     </div>
                 </li>
                 <li>
@@ -155,7 +166,8 @@
                 <li>
                     <div>联系人</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comFullname"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text"
+                                  v-model="data.actualController"/>
                     </div>
                 </li>
                 <li>
@@ -180,7 +192,10 @@
                     <div>附件</div>
                     <div>
                         <el-upload
-                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :data="{bussNo:'',relationId:this.id,dataType:'2001',token:this.token}"
+                                :limit="Number(1)"
+                                :on-remove="handleRemove"
+                                action="/web/fileUploadSingle"
                                 class="upload-demo"
                         >
                             <el-button size="small" type="primary">点击上传</el-button>
@@ -208,7 +223,7 @@
                     <template v-for="value in imgFile">
                         <h3>{{value.nodeName}}</h3>
                         <ul>
-                            <upload :name="val" :relationId="22222" :type="key"
+                            <upload :name="val" :relationId="id" :type="key"
                                     @handlePictureCardPreview="handlePictureCardPreview"
                                     v-for="(val,key) in value.nodes"/>
                         </ul>
@@ -230,6 +245,7 @@
     import componentitle from '../../components/title/title.vue';
     import upload from './upload';
     import {urlParse} from '../../utils/utils';
+    import Cookies from 'js-cookie';
 
     export default {
         components: {
@@ -241,34 +257,27 @@
                 titletext: '商业伙伴维护',
                 id: '',
                 data: {},
-                options: [
+                partnerTypeOptions: [
                     {
-                        value: '选项1',
-                        label: '待处理'
+                        value: 'NAT',
+                        label: '自然人'
                     },
                     {
-                        value: '选项2',
-                        label: '进行中'
-                    },
-                    {
-                        value: '选项3',
-                        label: '已提交'
-                    },
-                    {
-                        value: '选项4',
-                        label: '已退回'
+                        value: 'LEG',
+                        label: '法人'
                     }
                 ],
-                sexOptions: [
+                comNatureOptions: [
                     {
-                        value: '1',
-                        label: '男'
+                        value: 'QY01',
+                        label: '企业法人'
                     },
                     {
-                        value: '2',
-                        label: '女'
+                        value: 'SH02',
+                        label: '个体工商户'
                     }
                 ],
+
                 marrayOptions: [
                     {
                         value: '1',
@@ -287,7 +296,8 @@
                 dialogVisible: false,
                 dialogImageUrl: '',
                 type: '',
-                imgFile: {}
+                imgFile: {},
+                token:''
             }
         },
         created() {
@@ -308,6 +318,10 @@
 
             //影像资料数据
             this.imgData();
+
+            // 获取token
+            this.token = Cookies.get('token');
+
         },
         methods: {
             async query(id) {
@@ -351,13 +365,26 @@
                 }
             },
             submit() {
+                this.save();
+            },
+            async handleRemove(file) { // 删除回调
+                let id = '';
+                if (file.id) {
+                    id = file.id;
+                } else {
+                    id = file.response.data.id;
+                }
+                return await this.$post('/deleteImageData', {
+                    id: id
+                });
+            },
 
-            },
-            handleRemove(file, fileList) { // 删除回调
-            },
             handlePictureCardPreview(file) { // 图片浏览功能
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
+            },
+            onExceed() {
+                Message.error({message: '超出文件上传数量限制！', duration: 5 * 1000});
             }
         },
     }

@@ -38,12 +38,10 @@ axios.interceptors.response.use(
 );
 
 export const get = (url) => {
-    let method = 'get';
     return axios.get(url);
 }
 
 
 export const post = (url, data) => {
-    let method = 'post';
     return axios.post(url, data);
 }

@@ -4,12 +4,14 @@
             <div>{{name}}</div>
             <div class="edit-pic">
                 <el-upload
+                        :limit="Number(6)"
                         :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type,token:this.token}"
                         :disabled="disabled"
                         :file-list="fileList"
                         :on-preview="handlePictureCardPreview"
                         :on-remove="handleRemove"
                         action="/web/fileUploadSingle"
+                        :on-exceed="onExceed"
                         list-type="picture-card">
                     <i class="el-icon-plus"></i>
                 </el-upload>
@@ -20,6 +22,7 @@
 
 <script type="text/ecmascript-6">
     import Cookies from 'js-cookie';
+    import {Message} from 'element-ui';
 
     export default {
         data() {
@@ -58,22 +61,23 @@
                     });
                 }
             },
-            async handleRemove(file, fileList) { // 删除回调
+            async handleRemove(file) { // 删除回调
                 let id = '';
                 if (file.id) {
                     id = file.id;
                 } else {
                     id = file.response.data.id;
                 }
-                let data = await this.$post('/deleteImageData', {
+                return await this.$post('/deleteImageData', {
                     id: id
                 });
-                if (data.data.code === '2000000') { // 状态正确，执行更新操作
-                }
             },
             handlePictureCardPreview(file) { // 图片浏览功能
                 this.$emit('handlePictureCardPreview', file);
             },
+            onExceed(){
+                Message.error({message: '超出文件上传数量限制！', duration: 5 * 1000});
+            }
         },
     }
 </script>

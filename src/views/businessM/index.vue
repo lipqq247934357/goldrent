@@ -35,11 +35,13 @@
                                         prop="custName">
                                 </el-table-column>
                                 <el-table-column
+                                        :formatter="formatCusType"
                                         label="客户类别"
                                         prop="partnerType">
                                 </el-table-column>
                                 <el-table-column
                                         label="性别"
+                                        :formatter="formatSex"
                                         prop="custSex">
                                 </el-table-column>
                                 <el-table-column
@@ -48,6 +50,7 @@
                                 </el-table-column>
                                 <el-table-column
                                         label="婚姻状况"
+                                        :formatter="formatMariage"
                                         prop="custMarriage">
                                 </el-table-column>
                                 <el-table-column
@@ -164,11 +167,13 @@
 
 <script type="text/ecmascript-6">
     import componentTitle from '../../components/title/title.vue';
+    import formatter from '../../components/mixins/formatter';
 
     export default {
         components: {
             componentTitle,
         },
+        mixins:[formatter],
         data() {
             return {
                 firstTitle: '筛选条件', // 第一个标题
@@ -212,7 +217,7 @@
                     this.naturalPagInfo.total = data.data.data.totalCount;
                 }
             },
-            async queryLegal(val) { // 分页查询法人数据
+            async queryLegal() { // 分页查询法人数据
                 let data = await this.$get(`/bussPartner/listPartnerInfo?partnerName=${this.partnerName}&partnerType=2&currentPage=${this.legalPagInfo.currentPage}&pageSize=${this.legalPagInfo.pageSize}`);
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
                     this.legalData = data.data.data.recordList;
@@ -247,7 +252,7 @@
             tabClick(tab) { // 0代表自然人 1代表法人
                 this.path = tab.index === "0" ? '/layout/natural' : '/layout/legal';
                 this.queryFunc = tab.index === "0" ? this.queryNatural : this.queryLegal;
-            }
+            },
         },
     }
 </script>
