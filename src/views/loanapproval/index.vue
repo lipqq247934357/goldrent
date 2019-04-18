@@ -184,7 +184,9 @@ export default {
             this.$router.push({
                 path: '/layout/loadapprovaldetail',
                 query: {
-                    disabled: 1 // 1为子页面input不可以编辑，2为可以
+                    disabled: 1, // 1为子页面input不可以编辑，2为可以
+                    id:val.id,
+                    bussNo:val.bussNo
                 }
             })
         },
@@ -194,7 +196,9 @@ export default {
             this.$router.push({
                 path: '/layout/loadapprovaldetail',
                 query: {
-                    disabled: 2 // 1为子页面input不可以编辑，2为可以
+                    disabled: 2, // 1为子页面input不可以编辑，2为可以
+                    id:val.id,
+                    bussNo:val.bussNo
                 }
             })
         },
