@@ -644,26 +644,26 @@ export default {
                 &:last-child {
                     margin-bottom: 30px;
                 }
-                li {
-                    width: 100%;
-                    height: 100px;
-                    text-align: center;
-                    clear: both;
-                    div {
-                        float: left;
-                        border-bottom: 1px solid #EBEEF5;
-                        height: 100px;
-                        color: #606266;
-                        &:first-child {
-                            width: 29.8%;
-                            border-right: 1px solid #EBEEF5;
-                            line-height: 100px;
-                        }
-                        &:last-child {
-                            width: 70%;
-                        }
-                    }
-                }
+                // li {
+                //     width: 100%;
+                //     height: 100px;
+                //     text-align: center;
+                //     clear: both;
+                //     div {
+                //         float: left;
+                //         border-bottom: 1px solid #EBEEF5;
+                //         height: 100px;
+                //         color: #606266;
+                //         &:first-child {
+                //             width: 29.8%;
+                //             border-right: 1px solid #EBEEF5;
+                //             line-height: 100px;
+                //         }
+                //         &:last-child {
+                //             width: 70%;
+                //         }
+                //     }
+                // }
             }
         }
     }

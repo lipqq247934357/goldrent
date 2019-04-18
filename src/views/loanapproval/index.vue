@@ -6,37 +6,42 @@
     <div class="topcontent">
         <div>
             <label>业务编号：</label>
-            <el-input placeholder="请输入内容" class="contentinout"></el-input>
+            <el-input placeholder="请输入内容" class="contentinout" v-model="bussNumber"></el-input>
             <label class="rightlabel">承租人姓名：</label>
-            <el-input placeholder="请输入内容" class="contentinout"></el-input>
+            <el-input placeholder="请输入内容" class="contentinout" v-model="loanName"></el-input>
         </div>
         <div>
             <label>任务创建时间：</label>
             <el-date-picker
-                v-model="value1"
+                v-model="beginTime"
                 type="date"
+                format="yyyy 年 MM 月 dd 日"
+                value-format="yyyy-MM-dd"
                 placeholder="选择日期">
             </el-date-picker>
             -
             <el-date-picker
-                v-model="value1"
+                v-model="endTime"
                 type="date"
+                format="yyyy 年 MM 月 dd 日"
+                value-format="yyyy-MM-dd"
                 placeholder="选择日期">
             </el-date-picker>
 
             <label class="rightlabel">任务状态：</label>
             <template>
-                <el-select v-model="value" placeholder="请选择" class="choiceselect">
+                <el-select v-model="value" placeholder="请选择" class="choiceselect" @change="selectchange(value)">
                     <el-option
                         v-for="item in options"
                         :key="item.value"
                         :label="item.label"
+
                         :value="item.value">
                     </el-option>
                 </el-select>
             </template>
         </div>
-        <button type="button" name="button" class="search">查询</button>
+        <button type="button" name="button" class="search" @click="search">查询</button>
     </div>
 
     <div class="content">
@@ -51,25 +56,26 @@
             <el-table
                 :data="tableData"
                 border
+                size="small"
                 style="width: 100%">
                 <el-table-column
-                    prop="date"
+                    prop="bussNo"
                     label="业务编号">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="custName"
                     label="租赁人姓名">
                 </el-table-column>
                 <el-table-column
-                    prop="address"
+                    prop="createTime"
                     label="任务创建时间">
                 </el-table-column>
                 <el-table-column
-                    prop="date"
+                    prop="ownerName"
                     label="任务员姓名">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="status"
                     label="任务状态">
                 </el-table-column>
                 <el-table-column
@@ -90,9 +96,9 @@
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage2"
                 :page-sizes="[10, 20, 30, 40]"
-                :page-size="100"
+                :page-size="10"
                 layout="sizes, prev, pager, next"
-                :total="1000">
+                :total="alldata.totalCount">
             </el-pagination>
         </div>
     </div>
@@ -108,49 +114,34 @@ export default {
             message: '筛选条件',
             titletext: '贷款审批列表',
             contenttext: '任务信息',
-            tableData: [
-                {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                },
-                {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                },
-                {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                },
-                {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                },
-            ],
+            tableData: [],
+            alldata: '',
+            bussNumber: '', //业务编号
+            loanName: '', // 承租人姓名
             options: [
                 {
-                    value: '选项1',
+                    value: '待处理',
                     label: '待处理'
                 },
                  {
-                    value: '选项2',
+                    value: '进行中',
                     label: '进行中'
                 },
                 {
-                    value: '选项3',
+                    value: '已提交',
                     label: '已提交'
                 },
                 {
-                    value: '选项4',
+                    value: '已退回',
                     label: '已退回'
                 }
             ],
             value: '',
             currentPage2: 1,
-            value1: ''
+            beginTime: '', // 开始控件时间
+            endTime: '',  // 结束控件时间
+            alsoSize: 10,
+            nowPage: 1
         }
     },
     created() {
@@ -160,16 +151,32 @@ export default {
         componentitle,
     },
     methods: {
-        async query(){
-            console.log(1)
-            let data = await this.$get('/LoanApprove/queryApproveList',{});
-            console.log(data)
+        //进入页面获取数据展示在表格中
+        query(numbers){
+            this.$post('/LoanApprove/queryApproveList',{}).then(res => {
+                this.alldata = res.data.data;
+                this.tableData = res.data.data.recordList;
+            });
         },
         handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
+            this.alsoSize = val;
+            this.$post('/LoanApprove/queryApproveList',{
+                currentPage: this.nowPage,
+                numPerPage: this.alsoSize
+            }).then(res => {
+                this.alldata = res.data.data;
+                this.tableData = res.data.data.recordList;
+            });
         },
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            console.log('页大小',this.alsoSize);
+            this.$post('/LoanApprove/queryApproveList',{
+                currentPage: val,
+                numPerPage: this.alsoSize
+            }).then(res => {
+                this.alldata = res.data.data;
+                this.tableData = res.data.data.recordList;
+            });
         },
         handleClick(val) {
             //查看按钮
@@ -177,7 +184,7 @@ export default {
             this.$router.push({
                 path: '/layout/loadapprovaldetail',
                 query: {
-                    disabled: 1 // 1为子页面input 不可以编辑 2 为可以
+                    disabled: 1 // 1为子页面input不可以编辑，2为可以
                 }
             })
         },
@@ -187,9 +194,25 @@ export default {
             this.$router.push({
                 path: '/layout/loadapprovaldetail',
                 query: {
-                    disabled: 2 // 1为子页面input 不可以编辑 2 为可以
+                    disabled: 2 // 1为子页面input不可以编辑，2为可以
                 }
             })
+        },
+        // 查询按钮
+        search() {
+            console.log(this.alsoSize);
+            this.$post('/LoanApprove/queryApproveList',{
+                bussNo: this.bussNumber, // 业务编号
+                custName: this.loanName, // 承租人姓名
+                status: this.value, //任务状态
+                createTimeStart: this.beginTime, // 任务开始时间
+                createTimeEnd: this.endTime, // 任务结束时间
+                numPerPage: this.alsoSize, // 每页多少条
+                currentPage: '1' // 每次点击查询按钮都是第一页
+            }).then(res => {
+                this.alldata = res.data.data;
+                this.tableData = res.data.data.recordList;
+            });
         }
     },
 }
@@ -206,7 +229,6 @@ export default {
         margin: 0 auto;
     }
 }
-
     .search {
         cursor: pointer;
     }

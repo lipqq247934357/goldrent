@@ -15,11 +15,11 @@
                             </li>
                             <li>
                                 <span>客户类别</span>
-                                <span>{{item.naturalData.custType}}</span>
+                                <span>{{item.custType}}</span>
                             </li>
                             <li>
                                 <span>姓名</span>
-                                <span>{{item.naturalData.custName}}</span>
+                                <span>{{item.custName}}</span>
 
                             </li>
                             <li>
@@ -28,44 +28,44 @@
                             </li>
                             <li>
                                 <span>性别</span>
-                                <span>{{item.naturalData.custSex}}</span>
+                                <span>{{item.custSex}}</span>
 
                             </li>
                             <li>
                                 <span>年龄</span>
-                                <span>{{item.naturalData.custAge}}</span>
+                                <span>{{item.custAge}}</span>
                             </li>
                             <li>
                                 <span>身份证号码</span>
-                                <span>{{item.naturalData.certNo}}</span>
+                                <span>{{item.certNo}}</span>
                             </li>
                             <li>
                                 <span>婚姻状况</span>
-                                <span>{{item.naturalData.custMarriage}}</span>
+                                <span>{{item.custMarriage}}</span>
                             </li>
                             <li>
                                 <span>户籍地址</span>
-                                <span>{{item.naturalData.custHomeplace}}</span>
+                                <span>{{item.custHomeplace}}</span>
                             </li>
                             <li>
                                 <span>现住地</span>
-                                <span>{{item.naturalData.custAddress}}</span>
+                                <span>{{item.custAddress}}</span>
                             </li>
                             <li>
                                 <span>种植年限</span>
-                                <span>{{item.naturalData.cultureYears}}</span>
+                                <span>{{item.cultureYears}}</span>
                             </li>
                             <li>
                                 <span>申请地居住年限（年）</span>
-                                <span>{{item.naturalData.residenceYears}}</span>
+                                <span>{{item.residenceYears}}</span>
                             </li>
                             <li>
                                 <span>联系电话</span>
-                                <span>{{item.naturalData.custMobile}}</span>
+                                <span>{{item.custMobile}}</span>
                             </li>
                             <li>
                                 <span>微信号</span>
-                                <span>{{item.naturalData.custWechat}}</span>
+                                <span>{{item.custWechat}}</span>
                             </li>
                         </ul>
                     </div>
@@ -74,40 +74,40 @@
                         <componentitle :message="message='资产情况'" />
                         <div class="assetsinfoul">
                             <h3>房产信息</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="assetsHouses in item.assetsHouses">
                                 <li>
                                     <span>房产类型</span>
                                     <span>
-                                        {{item.naturalData.assetsHouses.type}}
+                                        {{assetsHouses.type}}
                                     </span>
                                 </li>
                                 <li>
                                     <span>面积（㎡）</span>
-                                    <span>{{item.naturalData.assetsHouses.acreage}}</span>
+                                    <span>{{assetsHouses.acreage}}</span>
                                 </li>
                                 <li>
                                     <span>房产地址/坐落</span>
-                                    <span>{{item.naturalData.assetsHouses.address}}</span>
+                                    <span>{{assetsHouses.address}}</span>
 
                                 </li>
                                 <li>
                                     <span>当前估价</span>
-                                    <span>{{item.naturalData.assetsHouses.currEvaluation}}</span>
+                                    <span>{{assetsHouses.currEvaluation}}</span>
                                 </li>
                                 <li>
                                     <span>所有权人</span>
-                                    <span>{{item.naturalData.assetsHouses.owner}}</span>
+                                    <span>{{assetsHouses.owner}}</span>
 
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{item.naturalData.assetsHouses.mortgage}}</span>
+                                    <span>{{assetsHouses.mortgage}}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>土地（含代收代耕）</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="assetsLands in item.assetsLands">
                                 <li>
                                     <span>土地类型</span>
                                     <span>
@@ -116,31 +116,31 @@
                                 </li>
                                 <li>
                                     <span>面积（㎡）</span>
-                                    <span>{{item.naturalData.assetsLands.acreage}}</span>
+                                    <span>{{assetsLands.acreage}}</span>
                                 </li>
                                 <li>
                                     <span>房产地址/坐落</span>
-                                    <span>{{item.naturalData.assetsLands.address}}</span>
+                                    <span>{{assetsLands.address}}</span>
 
                                 </li>
                                 <li>
                                     <span>价值</span>
-                                    <span>{{item.naturalData.assetsLands.value}}</span>
+                                    <span>{{assetsLands.value}}</span>
                                 </li>
                                 <li>
                                     <span>承包期限</span>
-                                    <span>{{item.naturalData.assetsLands.contractLife}}</span>
+                                    <span>{{assetsLands.contractLife}}</span>
 
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{item.naturalData.assetsLands.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>车产情况</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="assetsVehicles in item.assetsVehicles">
                                 <li>
                                     <span>车产类型</span>
                                     <span>
@@ -149,29 +149,29 @@
                                 </li>
                                 <li>
                                     <span>购买时间</span>
-                                    <span>{{item.naturalData.assetsVehicles.buyTime}}</span>
+                                    <span>{{assetsVehicles.buyTime}}</span>
                                 </li>
                                 <li>
                                     <span>当前估价</span>
-                                    <span>{{item.naturalData.assetsVehicles.currEvaluation}}</span>
+                                    <span>{{assetsVehicles.currEvaluation}}</span>
                                 </li>
                                 <li>
                                     <span>所有权人</span>
-                                    <span>{{item.naturalData.assetsVehicles.owner}}</span>
+                                    <span>{{assetsVehicles.owner}}</span>
                                 </li>
                                 <li>
                                     <span>车辆号牌</span>
-                                    <span>{{item.naturalData.assetsVehicles.serialNo}}</span>
+                                    <span>{{assetsVehicles.serialNo}}</span>
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{item.naturalData.assetsVehicles.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsVehicles.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>农机具</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="assetsFarmTools in item.assetsFarmTools">
                                 <li>
                                     <span>农机具类型</span>
                                     <span>
@@ -180,56 +180,56 @@
                                 </li>
                                 <li>
                                     <span>购买时间</span>
-                                    <span>{{item.naturalData.assetsFarmTools.buyTime}}</span>
+                                    <span>{{assetsFarmTools.buyTime}}</span>
                                 </li>
                                 <li>
                                     <span>当前估价</span>
-                                    <span>{{item.naturalData.assetsFarmTools.currEvaluation}}</span>
+                                    <span>{{assetsFarmTools.currEvaluation}}</span>
                                 </li>
                                 <li>
                                     <span>所有权人</span>
-                                    <span>{{item.naturalData.assetsFarmTools.owner}}</span>
+                                    <span>{{assetsFarmTools.owner}}</span>
                                 </li>
                                 <li>
                                     <span>号牌/车架号</span>
-                                    <span>{{item.naturalData.assetsFarmTools.serialNo}}</span>
+                                    <span>{{assetsFarmTools.serialNo}}</span>
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{item.naturalData.assetsFarmTools.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsFarmTools.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>其他资产</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="assetsOthers in item.assetsOthers">
                                 <li>
                                     <span>其他资产</span>
                                     <span>
-                                        {{item.naturalData.assetsOthers.serialNo}}
+                                        {{assetsOthers.serialNo}}
                                     </span>
                                 </li>
                                 <li>
                                     <span>购买时间</span>
-                                    <!-- <span>{{item.naturalData.assetsOthers.serialNo}}</span> -->
+                                    <span></span>
                                 </li>
                                 <li>
                                     <span>价值</span>
-                                    <span>{{item.naturalData.assetsOthers.value}}</span>
+                                    <span>{{assetsOthers.value}}</span>
 
                                 </li>
                                 <li>
                                     <span>所有权人</span>
-                                    <span>{{item.naturalData.assetsOthers.owner}}</span>
+                                    <span>{{assetsOthers.owner}}</span>
                                 </li>
                                 <li>
                                     <span>备注</span>
-                                    <span>{{item.naturalData.assetsOthers.remark}}</span>
+                                    <span>{{assetsOthers.remark}}</span>
 
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{item.naturalData.assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -240,73 +240,73 @@
                         <componentitle :message="message='负债情况'" />
                         <div class="assetsinfoul">
                             <h3>房产信息</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="debtSituations in item.debtSituations">
                                 <li>
                                     <span>债务情况</span>
                                     <span>
-                                        {{item.naturalData.debtSituations.debtSituation}}
+                                        {{debtSituations.debtSituation}}
                                     </span>
                                 </li>
                                 <li>
                                     <span>债务种类</span>
-                                    <span>{{item.naturalData.debtSituations.debtType}}</span>
+                                    <span>{{debtSituations.debtType}}</span>
                                 </li>
                                 <li>
                                     <span>债务人</span>
-                                    <span>{{item.naturalData.debtSituations.debtPerson}}</span>
+                                    <span>{{debtSituations.debtPerson}}</span>
 
                                 </li>
                                 <li>
                                     <span>债务余额</span>
-                                    <span>{{item.naturalData.debtSituations.debtBalance}}</span>
+                                    <span>{{debtSituations.debtBalance}}</span>
                                 </li>
                                 <li>
                                     <span>债务期限</span>
-                                    <span>{{item.naturalData.debtSituations.debtTerm}}</span>
+                                    <span>{{debtSituations.debtTerm}}</span>
 
                                 </li>
                                 <li>
                                     <span>备注</span>
-                                    <span>{{item.naturalData.debtSituations.remark}}</span>
+                                    <span>{{debtSituations.remark}}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>对外担保</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="debtGuarantees in item.externalGuarantee">
                                 <li>
                                     <span>对外担保</span>
                                     <span>
-                                        {{item.naturalData.debtGuarantees.externalGuarantee}}
+                                        {{debtGuarantees.externalGuarantee}}
                                     </span>
                                 </li>
                                 <li>
                                     <span>债权人</span>
-                                    <span>{{item.naturalData.debtGuarantees.creditor}}</span>
+                                    <span>{{debtGuarantees.creditor}}</span>
                                 </li>
                                 <li>
                                     <span>担保余额</span>
-                                    <span>{{item.naturalData.debtGuarantees.guaranteeBalance}}</span>
+                                    <span>{{debtGuarantees.guaranteeBalance}}</span>
 
                                 </li>
                                 <li>
                                     <span>被担保人</span>
-                                    <span>{{item.naturalData.debtGuarantees.warrantee}}</span>
+                                    <span>{{debtGuarantees.warrantee}}</span>
                                 </li>
                                 <li>
                                     <span>承租人与被担保人关系</span>
-                                    <span>{{item.naturalData.debtGuarantees.withWarranteeRelation}}</span>
+                                    <span>{{debtGuarantees.withWarranteeRelation}}</span>
 
                                 </li>
                                 <li>
                                     <span>备注</span>
-                                    <span>{{item.naturalData.debtGuarantees.remark}}</span>
+                                    <span>{{debtGuarantees.remark}}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>其他负债</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="debtOthers in item.debtOthers">
                                 <li>
                                     <span>其他负债</span>
                                     <span>
@@ -315,11 +315,11 @@
                                 </li>
                                 <li>
                                     <span>债权人</span>
-                                    <span>{{item.naturalData.debtOthers.creditor}}</span>
+                                    <span>{{debtOthers.creditor}}</span>
                                 </li>
                                 <li>
                                     <span>余额</span>
-                                    <span>{{item.naturalData.debtOthers.debtBalance}}</span>
+                                    <span>{{debtOthers.debtBalance}}</span>
 
                                 </li>
                                 <li>
@@ -328,12 +328,12 @@
                                 </li>
                                 <li>
                                     <span>有无担保</span>
-                                    <span>{{item.naturalData.debtOthers.isGuarantee}}</span>
+                                    <span>{{debtOthers.isGuarantee}}</span>
 
                                 </li>
                                 <li>
                                     <span>备注</span>
-                                    <span>{{item.naturalData.debtOthers.remark}}</span>
+                                    <span>{{debtOthers.remark}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -344,7 +344,7 @@
                         <componentitle :message="message='收入情况'" />
                         <div class="assetsinfoul">
                             <h3>种植收入</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="incomePlants in item.incomePlants">
                                 <li>
                                     <span>收入名称</span>
                                     <span>
@@ -353,31 +353,31 @@
                                 </li>
                                 <li>
                                     <span>种植类别</span>
-                                    <span>{{item.naturalData.incomePlants.plantType}}</span>
+                                    <span>{{incomePlants.plantType}}</span>
                                 </li>
                                 <li>
                                     <span>种植面积/亩</span>
-                                    <span>{{item.naturalData.incomePlants.plantArea}}</span>
+                                    <span>{{incomePlants.plantArea}}</span>
 
                                 </li>
                                 <li>
                                     <span>单亩成本</span>
-                                    <span>{{item.naturalData.incomePlants.oneCost}}</span>
+                                    <span>{{incomePlants.oneCost}}</span>
                                 </li>
                                 <li>
                                     <span>亩产收入</span>
-                                    <span>{{item.naturalData.incomePlants.oneIncome}}</span>
+                                    <span>{{incomePlants.oneIncome}}</span>
 
                                 </li>
                                 <li>
                                     <span>结余</span>
-                                    <span>{{item.naturalData.incomePlants.surplus}}</span>
+                                    <span>{{incomePlants.surplus}}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>农机作业收入</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="incomeFarmMachineryWork in item.incomeFarmMachineryWork">
                                 <li>
                                     <span>收入名称</span>
                                     <span>
@@ -386,31 +386,31 @@
                                 </li>
                                 <li>
                                     <span>作业类别</span>
-                                    <span>{{item.naturalData.incomeFarmMachineryWork.plantType}}</span>
+                                    <span>{{incomeFarmMachineryWork.plantType}}</span>
                                 </li>
                                 <li>
                                     <span>作业面积/亩</span>
-                                    <span>{{item.naturalData.incomeFarmMachineryWork.plantArea}}</span>
+                                    <span>{{incomeFarmMachineryWork.plantArea}}</span>
 
                                 </li>
                                 <li>
                                     <span>单亩成本</span>
-                                    <span>{{item.naturalData.incomeFarmMachineryWork.oneCost}}</span>
+                                    <span>{{incomeFarmMachineryWork.oneCost}}</span>
                                 </li>
                                 <li>
                                     <span>亩产收入</span>
-                                    <span>{{item.naturalData.incomeFarmMachineryWork.oneIncome}}</span>
+                                    <span>{{incomeFarmMachineryWork.oneIncome}}</span>
 
                                 </li>
                                 <li>
                                     <span>结余</span>
-                                    <span>{{item.naturalData.incomeFarmMachineryWork.surplus}}</span>
+                                    <span>{{incomeFarmMachineryWork.surplus}}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>其他收入</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="incomeOthers in item.incomeOthers">
                                 <li>
                                     <span>收入名称</span>
                                     <span>
@@ -419,31 +419,31 @@
                                 </li>
                                 <li>
                                     <span>上年收入</span>
-                                    <span>{{item.naturalData.incomeOthers.prevYearIncome}}</span>
+                                    <span>{{incomeOthers.prevYearIncome}}</span>
                                 </li>
                                 <li>
                                     <span>上年支出</span>
-                                    <span>{{item.naturalData.incomeOthers.prevYearPay}}</span>
+                                    <span>{{incomeOthers.prevYearPay}}</span>
 
                                 </li>
                                 <li>
                                     <span>本年收入</span>
-                                    <span>{{item.naturalData.incomeOthers.currYearIncome}}</span>
+                                    <span>{{incomeOthers.currYearIncome}}</span>
                                 </li>
                                 <li>
                                     <span>本年支出</span>
-                                    <span>{{item.naturalData.incomeOthers.currYearPay}}</span>
+                                    <span>{{incomeOthers.currYearPay}}</span>
 
                                 </li>
                                 <li>
                                     <span>结余</span>
-                                    <span>{{item.naturalData.incomeOthers.surplus}}</span>
+                                    <span>{{incomeOthers.surplus}}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>收入偿债比</h3>
-                            <ul class="infolist">
+                            <ul class="infolist" v-for="incomeDebtRatios in item.incomeDebtRatios">
                                 <li>
                                     <span>收入偿债比</span>
                                     <span>
@@ -452,25 +452,25 @@
                                 </li>
                                 <li>
                                     <span>结余合计</span>
-                                    <span>{{item.naturalData.incomeDebtRatios.total_surplus}}</span>
+                                    <span>{{incomeDebtRatios.total_surplus}}</span>
                                 </li>
                                 <li>
                                     <span>年租金支出</span>
-                                    <span>{{item.naturalData.incomeDebtRatios.annual_rental_expense}}</span>
+                                    <span>{{incomeDebtRatios.annual_rental_expense}}</span>
 
                                 </li>
                                 <li>
                                     <span>其他负债支出</span>
-                                    <span>{{item.naturalData.incomeDebtRatios.other_debt_expense}}</span>
+                                    <span>{{incomeDebtRatios.other_debt_expense}}</span>
                                 </li>
                                 <li>
                                     <span>年支出合计</span>
-                                    <span>{{item.naturalData.incomeDebtRatios.total_annual_expense}}</span>
+                                    <span>{{incomeDebtRatios.total_annual_expense}}</span>
 
                                 </li>
                                 <li>
                                     <span>偿债比</span>
-                                    <span>{{item.naturalData.incomeDebtRatios.income_debt_ratio}}</span>
+                                    <span>{{incomeDebtRatios.income_debt_ratio}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -597,14 +597,16 @@ export default {
         }
     },
     created() {
-        this.$post('/api/warrantor/info').then( res => {
-            this.guarantordata = res.data.data;
+        this.$post('/warrantor/info',{
+            bussNo: 'CON_ZZ02_0000_201904_0001'
+        }).then( res => {
+            this.guarantordata = res.data.data.naturalData;
         });
-        this.$post('/imageslist').then((response) => {
-            this.images = response.data.dataName;
-            this.$previewRefresh() // 异步生成图片调用插件方法
-            // console.log(this.images);
-        })
+        // this.$post('/imageslist').then((response) => {
+        //     this.images = response.data.dataName;
+        //     this.$previewRefresh() // 异步生成图片调用插件方法
+        //     // console.log(this.images);
+        // })
     },
     components: {
         componentitle,
@@ -664,26 +666,26 @@ export default {
                     &:last-child {
                         margin-bottom: 30px;
                     }
-                    li {
-                        width: 100%;
-                        height: 100px;
-                        text-align: center;
-                        clear: both;
-                        div {
-                            float: left;
-                            border-bottom: 1px solid #EBEEF5;
-                            height: 100px;
-                            color: #606266;
-                            &:first-child {
-                                width: 29.8%;
-                                border-right: 1px solid #EBEEF5;
-                                line-height: 100px;
-                            }
-                            &:last-child {
-                                width: 70%;
-                            }
-                        }
-                    }
+                    // li {
+                    //     width: 100%;
+                    //     height: 100px;
+                    //     text-align: center;
+                    //     clear: both;
+                    //     div {
+                    //         float: left;
+                    //         border-bottom: 1px solid #EBEEF5;
+                    //         height: 100px;
+                    //         color: #606266;
+                    //         &:first-child {
+                    //             width: 29.8%;
+                    //             border-right: 1px solid #EBEEF5;
+                    //             line-height: 100px;
+                    //         }
+                    //         &:last-child {
+                    //             width: 70%;
+                    //         }
+                    //     }
+                    // }
                 }
             }
         }

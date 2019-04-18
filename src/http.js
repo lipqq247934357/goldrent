@@ -4,15 +4,15 @@ import {Message} from 'element-ui';
 
 axios.defaults.timeout = 5000;
 if (process.env.NODE_ENV === 'development') {// 根据不同的环境使用不同的接口
-    axios.defaults.baseURL = '/api';
+    axios.defaults.baseURL = '/web';
 } else {
-    axios.defaults.baseURL = '/api';
+    axios.defaults.baseURL = '/web';
 }
 //http request 拦截器
 axios.interceptors.request.use(
     config => {
         config.headers = {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json;charset=UTF-8'//'application/x-www-form-urlencoded'
         };
         return config;
     },
@@ -36,14 +36,14 @@ axios.interceptors.response.use(
     }
 );
 
-export const get = (url, data = {}) => {
+export const get = (url, data) => {
     let method = 'get';
-    return axios({method, url, data});
+    console.log(data);
+    return axios.get(url, data);
 }
 
 
-export const post = (url, data = {}) => {
+export const post = (url, data) => {
     let method = 'post';
-    data = Qs.stringify(data);
-    return axios({method, url, data});
+    return axios.post(url, data);
 }

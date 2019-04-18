@@ -98,8 +98,13 @@ export default {
         }
     },
     created() {
-        this.$post('/surveyinformation/info').then( res => {
-            this.textarea = res.data.data;
+        this.$post('/surveyinformation/info',{
+            bussNo: 'CON_ZZ02_0000_201904_0001'
+        }).then( res => {
+            if(res.data.data.surveyInformation == null) {
+                return;
+            }
+            this.textarea = res.data.data.surveyInformation;
             console.log(this.textarea,'外部信息');
         })
         console.log();

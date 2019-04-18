@@ -228,11 +228,11 @@
         </div>
 
         <div class="bottombutton">
-            <el-button type="primary">保存</el-button>
-            <el-button type="primary">上会审议</el-button>
+            <el-button type="primary" disabled>保存</el-button>
+            <el-button type="primary" disabled>上会审议</el-button>
             <el-button type="primary">终审通过</el-button>
-            <el-button type="primary">拒绝</el-button>
-            <el-button type="primary">退回</el-button>
+            <el-button type="primary" disabled>拒绝</el-button>
+            <el-button type="primary" disabled>退回</el-button>
         </div>
     </div>
 </div>

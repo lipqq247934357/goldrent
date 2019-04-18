@@ -87,23 +87,23 @@
                 border
                 style="width: 100%">
                 <el-table-column
-                    prop="date"
+                    prop="period"
                     label="租金期数">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="dueAmout"
                     label="租金总额">
                 </el-table-column>
                 <el-table-column
-                    prop="address"
+                    prop="dueDate"
                     label="支付日期">
                 </el-table-column>
                 <el-table-column
-                    prop="date"
+                    prop="principal"
                     label="租赁本金">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="moneyRate"
                     label="租赁利息">
                 </el-table-column>
             </el-table>
@@ -123,9 +123,17 @@ export default {
         }
     },
     created() {
-        this.$post('/lease/queryElement').then( res => {
+        this.$post('/leaseinfo/queryElement',{
+            bussNo: 'test33'
+        }).then( res => {
             console.log(res);
             this.wantfactor = res.data.data;
+        });
+        this.$post('/leaseinfo/querySchedule',{
+            bussNo: 'test33'
+        }).then( res => {
+            console.log(res);
+            this.tableData = res.data.data;
         });
     },
     components: {

@@ -3,94 +3,106 @@
     <componentitle :message="message='其他增信措施'" />
     <div class="assetsinfoul">
         <h3>房产抵押</h3>
-        <ul class="infolist">
+        <ul class="infolist" v-for="item in houseMortgager">
             <li>
                 <span>房屋产权人(抵押人)</span>
                 <span>
-                    {{investigation.houseMortgager.mortgager}}
+                    {{item.mortgager}}
                 </span>
             </li>
             <li>
                 <span>与承租人关系</span>
-                <span>{{investigation.houseMortgager.relation}}</span>
+                <span>{{item.relation}}</span>
             </li>
 
             <li>
                 <span>房屋产权证号</span>
-                <span>{{investigation.houseMortgager.certificate}}</span>
+                <span>{{item.certificate}}</span>
             </li>
             <li>
                 <span>建筑面积（平方米）</span>
-                <span>{{investigation.houseMortgager.area}}</span>
+                <span>{{item.area}}</span>
 
             </li>
             <li>
                 <span>建筑结构</span>
-                <span>{{investigation.houseMortgager.structure}}</span>
+                <span>{{item.structure}}</span>
             </li>
             <li>
                 <span>评估价值（万元）</span>
-                <span>{{investigation.houseMortgager.evaluateValue}}</span>
+                <span>{{item.evaluateValue}}</span>
             </li>
             <li>
                 <span>备注</span>
-                <span>{{investigation.houseMortgager.remark}}</span>
+                <span>{{item.remark}}</span>
             </li>
         </ul>
     </div>
     <div class="assetsinfoul">
         <h3>土地使用权抵押</h3>
-        <ul class="infolist">
+        <ul class="infolist" v-for="item in landMortgager">
             <li>
                 <span>土地使用权人（抵押人）</span>
                 <span>
-                    {{investigation.landMortgager.mortgager}}
+                    {{item.mortgager}}
                 </span>
             </li>
             <li>
                 <span>与承租人关系</span>
-                <span>{{investigation.landMortgager.relation}}</span>
+                <span>{{item.relation}}</span>
             </li>
             <li>
                 <span>土地使用证号</span>
-                <span>{{investigation.landMortgager.certificate}}</span>
+                <span>{{item.certificate}}</span>
             </li>
             <li>
                 <span>土地使用权类型</span>
-                <span>{{investigation.landMortgager.landType}}</span>
+                <span>{{item.landType}}</span>
             </li>
             <li>
                 <span>土地使用权期限</span>
-                <span>{{investigation.landMortgager.landTerm}}</span>
+                <span>{{item.landTerm}}</span>
             </li>
             <li>
                 <span>面积（平方米）</span>
-                <span>{{investigation.landMortgager.area}}</span>
+                <span>{{item.area}}</span>
             </li>
             <li>
                 <span>坐落</span>
-                <span>{{investigation.landMortgager.location}}</span>
+                <span>{{item.location}}</span>
             </li>
             <li>
                 <span>评估价值（万元）</span>
-                <span>{{investigation.landMortgager.evaluateValue}}</span>
+                <span>{{item.evaluateValue}}</span>
             </li>
             <li>
                 <span>备注</span>
-                <span>{{investigation.landMortgager.remark}}</span>
+                <span>{{item.remark}}</span>
             </li>
         </ul>
     </div>
 
     <div class="bottombox">
         <componentitle :message="message='调查结论及风险评价'" />
+        <h3>主办人</h3>
         <el-input
+            v-for="item in sponsor"
             type="textarea"
             :rows="4"
             placeholder="请输入内容"
             class="inputtext"
             disabled
-            v-model="investigation.conclusion">
+            v-model="item.conclusion">
+        </el-input>
+        <h3>协办人</h3>
+        <el-input
+            v-for="item in assist"
+            type="textarea"
+            :rows="4"
+            placeholder="请输入内容"
+            class="inputtext"
+            disabled
+            v-model="item.conclusion == '' ? '' : item.conclusion">
         </el-input>
     </div>
 </div>
@@ -103,15 +115,34 @@ export default {
         return {
             message: '',
             textarea: '',
-            investigation: {
-                houseMortgager: {},
-                landMortgager: {}
-            }
+            houseMortgager: [],
+            landMortgager: [],
+            sponsor: '', //主办人
+            assist: '' //协办人
         }
     },
     created() {
-        this.$post('/app/api/getSurveyConclusion').then( res => {
-            this.investigation = res.data.data;
+        this.$post('/getSurveyConclusion',{
+            bussNo: '14w2255',
+            ownerType: 'ZB'
+        }).then( res => {
+            console.log(res,'主办人');
+            this.sponsor = res.data.data;
+            // this.investigation = res.data.data;
+        });
+        this.$post('/getSurveyConclusion',{
+            bussNo: '14w2255',
+            ownerType: 'XB'
+        }).then( res => {
+            console.log(res,'协办人');
+            this.assist = res.data.data;
+            // this.investigation = res.data.data;
+        });
+        this.$post('/additioncredit/info',{
+            bussNo: 'CON_ZZ02_0000_201904_0001'
+        }).then(res => {
+            this.houseMortgager = res.data.data.houseMortgager;
+            this.landMortgager = res.data.data.landMortgager;
         });
     },
     components: {

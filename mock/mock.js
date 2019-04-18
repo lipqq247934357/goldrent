@@ -672,8 +672,8 @@ const queryElement = Mock.mock('/lease/queryElement',queryData);
 const queryDatas = Mock.mock('api/lease/query',leasequery);
 const ternalinfo = Mock.mock('/surveyinformation/info',externalinfo);
 const tigation = Mock.mock('/app/api/getSurveyConclusion',investigation);
-const backpeople = Mock.mock('/api/repurchase/info',buybackpeople);
-const lesseeinfos = Mock.mock('/api/leasee/info',lesseeinfo);
-const guarantorprople = Mock.mock('/api/warrantor/info',guarantor);
+// const backpeople = Mock.mock('/api/repurchase/info',buybackpeople);
+// const lesseeinfos = Mock.mock('/api/leasee/info',lesseeinfo);
+// const guarantorprople = Mock.mock('/api/warrantor/info',guarantor);
 
-export default {data, dataName, list, imageslist, queryData, leasequery, ternalinfo, investigation, lesseeinfos, guarantorprople};
+export default {};
