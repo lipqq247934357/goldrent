@@ -180,7 +180,6 @@ export default {
         },
         handleClick(val) {
             //查看按钮
-            console.log(val);
             this.$router.push({
                 path: '/layout/loadapprovaldetail',
                 query: {
@@ -192,7 +191,6 @@ export default {
         },
         edit(val) {
             // 编辑按钮
-            console.log(val);
             this.$router.push({
                 path: '/layout/loadapprovaldetail',
                 query: {
