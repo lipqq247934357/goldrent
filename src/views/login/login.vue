@@ -3,11 +3,15 @@
         <img alt="" src="./logo.png">
         <div class="inputText">
             <div class="subTextdiv">
-                <span>登录名：</span>
+                <div class="title">
+                    <span>登录名：</span>
+                </div>
                 <input type="text" v-model="name">
             </div>
             <div class="subTextdiv">
-                <span class="passwordText">密&nbsp;&nbsp;&nbsp;码：</span>
+                <div class="title">
+                    <span class="passwordText">密码：</span>
+                </div>
                 <input type="password" v-model="pwd">
             </div>
             <el-button @click="login" class="loginbutton" type="primary">登录</el-button>
@@ -67,8 +71,12 @@
                 height: 50px;
                 line-height: 30px;
 
-                .passwordText {
+                .title {
+                    float: left;
+                    width: 80px;
+                    text-align: right;
                 }
+
 
                 input {
                     width: 200px;

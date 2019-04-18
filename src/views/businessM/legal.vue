@@ -318,10 +318,10 @@
                 }
             },
             async getRelationId() { // 保存用户信息
-                // let data = await this.$post('/bussPartner/getPartnerId');
-                // if (data.data.code === '2000000') {
-                //     this.data.id = this.id = data.data.data;
-                this.data.id = this.id = '1111';
+                let data = await this.$post('/bussPartner/getPartnerId');
+                if (data.data.code === '2000000') {
+                    this.data.id = this.id = data.data.data;
+                }
             },
             async imgData() {
                 let data = await this.$post('/materialTree', {

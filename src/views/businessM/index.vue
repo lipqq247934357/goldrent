@@ -12,17 +12,14 @@
         </div>
 
         <div class="content">
-            <div class="titletop">
-                <div class="topbox">
-                    <span>任务信息</span>
-                    <label @click="add" class="search" style="background: #9c87d9;">新增</label>
-                </div>
-            </div>
-
             <!-- 表格 -->
             <div class="grouptables">
+
                 <el-tabs @tab-click="tabClick" type="border-card">
                     <el-tab-pane label="自然人">
+                        <div class="add-btn">
+                            <div class="button" @click="add">新增</div>
+                        </div>
                         <template>
                             <el-table
                                     :data="naturalData"
@@ -90,6 +87,9 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="法人">
+                        <div class="add-btn">
+                            <div class="button" @click="add">新增</div>
+                        </div>
                         <template>
                             <el-table
                                     :data="legalData"
@@ -272,7 +272,17 @@
         }
     }
 
-    .search {
-        cursor: pointer;
+
+    .add-btn {
+        width: 100%;
+        .button{
+            cursor: pointer;
+            float: right;
+            margin: 4px 30px 4px 0;
+            padding: 6px 10px;
+            background: rgb(156, 135, 217);;
+            border-radius: 4px;
+            color: #fff;
+        }
     }
 </style>
