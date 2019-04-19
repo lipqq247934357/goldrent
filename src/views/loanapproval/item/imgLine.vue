@@ -11,6 +11,8 @@
                      height="100"
                      v-for="item in fileList"
                      width="100">
+                     <!-- preview="0" preview编号一致为一组 -->
+
             </div>
         </div>
 
@@ -46,6 +48,7 @@
                         obj.id = val;
                         obj.url = '/web/fileView?fileId=' + val;
                         this.fileList.push(obj);
+                        this.$previewRefresh() // 异步调用放大组件方法
                     });
                 }
             }
