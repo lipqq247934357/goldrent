@@ -8,65 +8,62 @@
                 <label>商业伙伴名称：</label>
                 <el-input class="contentinout" placeholder="请输入内容" v-model="partnerName"></el-input>
             </div>
-            <button class="search" name="button" type="button" @click="queryFunc">查询</button>
+            <button @click="queryFunc" class="search" name="button" type="button">查询</button>
         </div>
 
         <div class="content">
-            <div class="titletop">
-                <div class="topbox">
-                    <span>任务信息</span>
-                    <label @click="add" class="search" style="background: #9c87d9;">新增</label>
-                </div>
-            </div>
-
             <!-- 表格 -->
             <div class="grouptables">
+
                 <el-tabs @tab-click="tabClick" type="border-card">
                     <el-tab-pane label="自然人">
+                        <div class="add-btn">
+                            <div class="button" @click="add">新增</div>
+                        </div>
                         <template>
                             <el-table
                                     :data="naturalData"
                                     border
+                                    row-key="id"
                                     style="width: 100%">
                                 <el-table-column
                                         label="ID"
-                                        prop="date">
+                                        prop="id">
                                 </el-table-column>
                                 <el-table-column
-                                        label="供应商名称"
-                                        prop="name">
+                                        label="全称"
+                                        prop="custName">
                                 </el-table-column>
                                 <el-table-column
-                                        label="企业性质"
-                                        prop="address">
+                                        :formatter="formatCusType"
+                                        label="客户类别"
+                                        prop="partnerType">
                                 </el-table-column>
                                 <el-table-column
-                                        label="负责人姓名"
-                                        prop="date">
+                                        label="性别"
+                                        :formatter="formatSex"
+                                        prop="custSex">
                                 </el-table-column>
                                 <el-table-column
-                                        label="负责人电话"
-                                        prop="name">
+                                        label="年龄"
+                                        prop="custAge">
                                 </el-table-column>
                                 <el-table-column
-                                        label="债务种类"
-                                        prop="address">
+                                        label="婚姻状况"
+                                        :formatter="formatMariage"
+                                        prop="custMarriage">
                                 </el-table-column>
                                 <el-table-column
-                                        label="年营业额（万）"
-                                        prop="date">
+                                        label="种植年限"
+                                        prop="culture_years">
                                 </el-table-column>
                                 <el-table-column
-                                        label="担保余额（万）"
-                                        prop="name">
+                                        label="身份证号码"
+                                        prop="certNo">
                                 </el-table-column>
                                 <el-table-column
-                                        label="被担保人"
-                                        prop="address">
-                                </el-table-column>
-                                <el-table-column
-                                        label="最后更新时间"
-                                        prop="date">
+                                        label="户籍地址"
+                                        prop="custHomeplace">
                                 </el-table-column>
                                 <el-table-column
                                         label="操作"
@@ -86,17 +83,21 @@
                                     :page-size="naturalPagInfo.pageSize"
                                     :page-sizes="[10, 20, 30, 40]"
                                     :total="naturalPagInfo.total"
-                                    @current-change="queryNatural"
-                                    @size-change="queryNatural"
+                                    @current-change="queryNaturalCurrentChange"
+                                    @size-change="queryNaturalSizeChange"
                                     layout="sizes, prev, pager, next">
                             </el-pagination>
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="法人">
+                        <div class="add-btn">
+                            <div class="button" @click="add">新增</div>
+                        </div>
                         <template>
                             <el-table
                                     :data="legalData"
                                     border
+                                    row-key="id"
                                     style="width: 100%">
                                 <el-table-column
                                         label="ID"
@@ -104,35 +105,35 @@
                                 </el-table-column>
                                 <el-table-column
                                         label="全称"
-                                        prop="date">
+                                        prop="comFullname">
                                 </el-table-column>
                                 <el-table-column
                                         label="统一社会信用代码"
-                                        prop="date">
+                                        prop="socialSerial">
                                 </el-table-column>
                                 <el-table-column
                                         label="证件生效时间"
-                                        prop="name">
+                                        prop="certStartDate">
                                 </el-table-column>
                                 <el-table-column
                                         label="营业收入(万)"
-                                        prop="name">
+                                        prop="comIncome">
                                 </el-table-column>
                                 <el-table-column
                                         label="注册资本(万)"
-                                        prop="address">
+                                        prop="comRegisteredCapital">
                                 </el-table-column>
                                 <el-table-column
                                         label="法定代表人"
-                                        prop="address">
+                                        prop="legalPerson">
                                 </el-table-column>
                                 <el-table-column
                                         label="法人证件类型"
-                                        prop="address">
+                                        prop="legalCertType">
                                 </el-table-column>
                                 <el-table-column
                                         label="法人证件号码"
-                                        prop="address">
+                                        prop="legalCertNo">
                                 </el-table-column>
                                 <el-table-column
                                         label="操作"
@@ -152,8 +153,8 @@
                                     :page-size="legalPagInfo.pageSize"
                                     :page-sizes="[10, 20, 30, 40]"
                                     :total="legalPagInfo.total"
-                                    @current-change="queryLegal"
-                                    @size-change="queryLegal"
+                                    @current-change="queryLegalCurrentChange"
+                                    @size-change="queryLegalSizeChange"
                                     layout="sizes, prev, pager, next">
                             </el-pagination>
                         </div>
@@ -166,11 +167,13 @@
 
 <script type="text/ecmascript-6">
     import componentTitle from '../../components/title/title.vue';
+    import formatter from '../../components/mixins/formatter';
 
     export default {
         components: {
             componentTitle,
         },
+        mixins:[formatter],
         data() {
             return {
                 firstTitle: '筛选条件', // 第一个标题
@@ -192,13 +195,13 @@
                 ],
                 naturalData: [],
                 naturalPagInfo: {
-                    total: 100,
+                    total: 10,
                     currentPage: 1,
                     pageSize: 10
                 },
                 legalData: [],
                 legalPagInfo: {
-                    total: 100,
+                    total: 10,
                     currentPage: 1,
                     pageSize: 10
                 },
@@ -206,30 +209,41 @@
                 queryFunc: this.queryNatural // 查询的类型
             }
         },
+        mounted() {
+            this.queryNatural();
+        },
         methods: {
-            async query(partnerType, pagInfo) {
-                let data = await this.$post('/bussPartner/listPartnerInfo', {
-                    partnerName: this.partnerName,
-                    partnerType: partnerType,
-                    currentPage: pagInfo.currentPage,
-                    pageSize: pagInfo.pageSize
-                });
-                //TODO 增加对回来的参数进行解析
-
-                if (data.data.data.code === '2000000') { // 状态正确，执行更新操作
-                    data = data.data.data;
-                    this.tableData = data.data;
-                    this.pagInfo.total = data.total;
+            async queryNatural() { // 分页查询自然人数据
+                let data = await this.$get(`/bussPartner/listPartnerInfo?partnerName=${this.partnerName}&partnerType=1&currentPage=${this.naturalPagInfo.currentPage}&pageSize=${this.naturalPagInfo.pageSize}`);
+                if (data.data.code === '2000000') { // 状态正确，执行更新操作
+                    this.naturalData = data.data.data.recordList;
+                    this.naturalPagInfo.total = data.data.data.totalCount;
                 }
-
             },
-            queryNatural() { // 分页查询自然人数据
-                this.query(1, this.naturalPagInfo);
+            async queryLegal() { // 分页查询法人数据
+                let data = await this.$get(`/bussPartner/listPartnerInfo?partnerName=${this.partnerName}&partnerType=2&currentPage=${this.legalPagInfo.currentPage}&pageSize=${this.legalPagInfo.pageSize}`);
+                if (data.data.code === '2000000') { // 状态正确，执行更新操作
+                    this.legalData = data.data.data.recordList;
+                    this.legalPagInfo.total = data.data.data.totalCount;
+                }
             },
-            queryLegal() { // 分页查询法人数据
-                this.query(2, this.legalPagInfo);
+            queryNaturalSizeChange(val) {
+                this.naturalPagInfo.pageSize = val;
+                this.queryNatural();
             },
-            detail(row) { //查看详情
+            queryNaturalCurrentChange(val) {
+                this.naturalPagInfo.currentPage = val;
+                this.queryNatural();
+            },
+            queryLegalSizeChange(val) {
+                this.legalPagInfo.pageSize = val;
+                this.queryLegal();
+            },
+            queryLegalCurrentChange(val) {
+                this.legalPagInfo.currentPage = val;
+                this.queryLegal();
+            },
+            detail(row) { // 查看详情
                 this.$router.push({path: this.path, query: {id: row.id, type: 'detail'}});
             },
             update(row) { // 编辑页面
@@ -241,7 +255,10 @@
             tabClick(tab) { // 0代表自然人 1代表法人
                 this.path = tab.index === "0" ? '/layout/natural' : '/layout/legal';
                 this.queryFunc = tab.index === "0" ? this.queryNatural : this.queryLegal;
-            }
+                this.$nextTick(() => {
+                    this.queryFunc();
+                });
+            },
         },
     }
 </script>
@@ -266,7 +283,17 @@
         }
     }
 
-    .search {
-        cursor: pointer;
+
+    .add-btn {
+        width: 100%;
+        .button{
+            cursor: pointer;
+            float: right;
+            margin: 4px 30px 4px 0;
+            padding: 6px 10px;
+            background: rgb(156, 135, 217);;
+            border-radius: 4px;
+            color: #fff;
+        }
     }
 </style>

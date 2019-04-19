@@ -3,12 +3,13 @@ module.exports = {
     // 选项...
     devServer: {
         proxy: {
-            '/api': {
-                target: 'http://172.16.5.170:8080/',
-                ws: true,
+            '/web': {
+                // target: 'http://172.16.162.159:8081/',
+                target: 'http://172.16.5.183:8081/',  // 
+                ws: false,
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': ''
+                    // '^/api': ''
                 }
             }
         }

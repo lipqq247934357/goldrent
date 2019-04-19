@@ -34,7 +34,7 @@
                     </el-select>
                 </template>
             </div>
-            <button @click="search" class="search" name="button" type="button">查询</button>
+            <button @click="queryclick" class="search" name="button" type="button">查询</button>
         </div>
 
         <div class="content">
@@ -87,13 +87,13 @@
             <!-- 分页 -->
             <div class="block">
                 <el-pagination
-                        :current-page.sync="pagInfo.currentPage"
-                        :page-size="pagInfo.pageSize"
-                        :page-sizes="[10, 20, 30, 40]"
-                        :total="pagInfo.total"
-                        @current-change="search"
-                        @size-change="search"
-                        layout="sizes, prev, pager, next">
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage2"
+                    :page-sizes="[10, 20, 30, 40]"
+                    :page-size="10"
+                    layout="sizes, prev, pager, next"
+                    :total="parseInt(allpage)">
                 </el-pagination>
             </div>
         </div>
@@ -170,38 +170,50 @@
                     }
                 ],
                 tableData: [],
-                pagInfo: {
-                    currentPage: 1,
-                    pageSize: 10,
-                    total: 100
-                },
+                pagesothen: 10,
+                nowpage: 1,
+                currentPage2: 1,
+                allpage: ''
 
             }
         },
         created() {
-            this.search();
+            this.pages();
         },
         methods: {
-            async search() {
-                let data = await this.$post('/buss/listBussInfo', {
+            handleSizeChange(val) {
+                this.pagesothen = val;
+                console.log(this.pagesothen,'页大小');
+                this.pages();
+            },
+            handleCurrentChange(val) {
+                this.nowpage = val;
+                console.log(this.nowpage,'当前页');
+                this.pages();
+            },
+            queryclick() {
+                this.pages();
+            },
+            pages() {
+                this.$post('/buss/listBussInfo',{
                     bussNo: this.bussNo,
                     custName: this.custName,
-                    owner_name: '',
-                    task_name: this.task_name,
+                    ownerName: '',
+                    taskName: this.task_name,
                     status: this.status,
-                    currentPage: this.pagInfo.currentPage,
-                    pageSize: this.pagInfo.pageSize
-                });
+                    currentPage: this.nowpage,
+                    numPerPage: this.pagesothen
+                }).then(res => {
+                    if(res.data.code == '2000000') {
+                        this.tableData = res.data.data.recordList;
+                        this.allpage = res.data.data.totalCount;
+                    }
 
-                if (data.data.data.code === '2000000') { // 状态正确，执行更新操作
-                    data = data.data.data;
-                    this.tableData = data.data;
-                    this.pagInfo.total = data.total;
-                }
+                });
             },
             handleClick(row) {
                 this.$router.push({
-                    path: '/layout/businessdetail',query: {bussNo:row.bussNo}
+                    path: '/layout/businessdetail',query: {task_id:row.custId}
                 });
             }
         },

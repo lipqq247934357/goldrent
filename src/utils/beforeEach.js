@@ -8,10 +8,10 @@ router.beforeEach((to, from, next) => {
         return item === to.path;
     })) {
         next();
-    } else if (Cookies.get('session') === undefined) {
+    } else if (Cookies.get('token') === undefined) {
         next({path: '/login', replace: true});
+        // next();
     } else {
         next();
     }
 });
-

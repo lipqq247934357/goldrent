@@ -5,7 +5,7 @@
         </div>
         <div class="tableinfo">
             <template>
-                <el-table
+                <!-- <el-table
                         :data="task"
                         border
                         style="width: 100%">
@@ -29,7 +29,23 @@
                             label="任务结束时间"
                             prop="finishTime">
                     </el-table-column>
-                </el-table>
+                </el-table> -->
+                <ul class="toplist">
+                    <li>
+                        <span>业务编号</span>
+                        <span>任务名称</span>
+                        <span>任务创建时间</span>
+                        <span>任务开始时间</span>
+                        <span>任务结束时间</span>
+                    </li>
+                    <li>
+                        <span>{{task.task.bussNo}}</span>
+                        <span>{{task.task.taskName}}</span>
+                        <span>{{task.task.createTime}}</span>
+                        <span>{{task.task.beginTime}}</span>
+                        <span>{{task.task.finishTime}}</span>
+                    </li>
+                </ul>
             </template>
         </div>
 
@@ -43,63 +59,63 @@
             <ul class="infolist">
                 <li>
                     <span>业务编号</span>
-                    <span>{{custNature.bussNo}}</span>
+                    <span>{{task.custNature.bussNo}}</span>
                 </li>
                 <li>
                     <span>客户类别</span>
-                    <span>{{custNature.partnerType}}</span>
+                    <span>{{task.custNature.partnerType}}</span>
                 </li>
                 <li>
                     <span>姓名</span>
-                    <span>{{custNature.custName}}</span>
+                    <span>{{task.custNature.custName}}</span>
 
                 </li>
                 <li>
                     <span>与承租人关系</span>
-                    <span>{{custNature.custRelation}}</span>
+                    <span>{{task.custNature.custRelation}}</span>
                 </li>
                 <li>
                     <span>性别</span>
-                    <span>{{custNature.custSex}}</span>
+                    <span>{{task.custNature.custSex}}</span>
 
                 </li>
                 <li>
                     <span>年龄</span>
-                    <span>{{custNature.custAge}}</span>
+                    <span>{{task.custNature.custAge}}</span>
                 </li>
                 <li>
                     <span>身份证号码</span>
-                    <span>{{custNature.certNo}}</span>
+                    <span>{{task.custNature.certNo}}</span>
                 </li>
                 <li>
                     <span>婚姻状况</span>
-                    <span>{{custNature.custMarriage}}</span>
+                    <span>{{task.custNature.custMarriage}}</span>
                 </li>
                 <li>
                     <span>户籍地址</span>
-                    <span>{{custNature.custHomeplace}}</span>
+                    <span>{{task.custNature.custHomeplace}}</span>
 
                 </li>
                 <li>
                     <span>现住址</span>
-                    <span>{{custNature.custAddress}}</span>
+                    <span>{{task.custNature.custAddress}}</span>
                 </li>
                 <li>
                     <span>种植年限</span>
-                    <span>{{custNature.cultureYears}}</span>
+                    <span>{{task.custNature.cultureYears}}</span>
                 </li>
                 <li>
                     <span>申请地居住年限（年）</span>
-                    <span>{{custNature.residenceYears}}</span>
+                    <span>{{task.custNature.residenceYears}}</span>
                 </li>
                 <li>
                     <span>联系电话</span>
-                    <span>{{custNature.custMobile}}</span>
+                    <span>{{task.custNature.custMobile}}</span>
 
                 </li>
                 <li>
                     <span>微信号</span>
-                    <span>{{custNature.custWechat}}</span>
+                    <span>{{task.custNature.custWechat}}</span>
                 </li>
             </ul>
 
@@ -111,24 +127,24 @@
             <ul class="infolist">
                 <li>
                     <span>名称</span>
-                    <span>{{leaseInfo.bussNo}}</span>
+                    <span>{{task.leaseInfo.bussNo}}</span>
                 </li>
                 <li>
                     <span>规格型号</span>
-                    <span>{{leaseInfo.leaseName}}</span>
+                    <span>{{task.leaseInfo.leaseName}}</span>
                 </li>
                 <li>
                     <span>购置价格</span>
-                    <span>{{leaseInfo.purchasePrice}}</span>
+                    <span>{{task.leaseInfo.purchasePrice}}</span>
 
                 </li>
                 <li>
                     <span>唯一识别码</span>
-                    <span>{{leaseInfo.serialNo}}</span>
+                    <span>{{task.leaseInfo.serialNo}}</span>
                 </li>
                 <li>
                     <span>能否抵押受理</span>
-                    <span>{{leaseInfo.mortgage}}</span>
+                    <span>{{task.leaseInfo.mortgage}}</span>
 
                 </li>
                 <li>
@@ -144,7 +160,7 @@
 
                 <template>
                     <el-table
-                            :data="leasePlan"
+                            :data="task.leasePlan"
                             border
                             style="width: 100%">
                         <el-table-column
@@ -187,7 +203,12 @@
                 message: '任务信息',
                 titletext: '业务信息',
                 contenttext: '任务信息',
-                task: [],
+                task: {
+                    task: {},
+                    custNature: {},
+                    leaseInfo: {},
+                    leasePlan: []
+                },
                 custNature: {},
                 leaseInfo: {},
                 leasePlan: [],
@@ -196,7 +217,14 @@
         },
         created() {
             let data = urlParse();
-            this.query(data.bussNo);
+            // this.query(data.bussNo);
+            this.$get(`buss/getBussInfo?task_id=${this.$route.query.task_id}`).then(res => {
+                if(res.data.code == '2000000') {
+                    this.task = res.data.data;
+                    // console.log(this.task);
+                }
+
+            });
         },
         methods: {
             async query(bussNo) {
@@ -208,9 +236,6 @@
                     this.leaseInfo = data.leaseInfo;
                     this.leasePlan = data.leasePlan;
                 }
-            },
-            handleClick(val) {
-                console.log(val);
             }
         },
     }
@@ -267,6 +292,25 @@
                             display: inline-block;
                         }
                     }
+                }
+            }
+        }
+    }
+    .toplist {
+        li {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #EBEEF5;
+            color: #606266;
+            font-size: 12px;
+            span {
+                display: inline-block;
+                width: 19.8%;
+                text-align: center;
+                border-right: 1px solid #EBEEF5;
+                line-height: 50px;
+                &:last-child {
+                    border-right: 0;
                 }
             }
         }

@@ -9,81 +9,124 @@
                 <li>
                     <div>商业伙伴全称</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custName"/>
                     </div>
                 </li>
                 <li>
                     <div>客户类别</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" />
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.partnerType"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in partnerTypeOptions">
+                            </el-option>
+                        </el-select>
                     </div>
                 </li>
                 <li>
                     <div>性别</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.custSex"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in sexOptions">
+                            </el-option>
+                        </el-select>
                     </div>
-
                 </li>
                 <li>
                     <div>年龄</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custAge"/>
                     </div>
                 </li>
                 <li>
                     <div>联系电话</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custMobile"/>
                     </div>
 
                 </li>
                 <li>
                     <div>微信</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custWechat"/>
                     </div>
                 </li>
                 <li>
                     <div>身份证号码</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.certNo"/>
                     </div>
                 </li>
                 <li>
                     <div>教育程度</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.custEducation"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in custEducationOptions">
+                            </el-option>
+                        </el-select>
                     </div>
                 </li>
                 <li>
                     <div>婚姻状况</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
+                                   size="mini"
+                                   style="width: 100%;"
+                                   v-model="data.custMarriage"
+                        >
+                            <el-option
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                                    v-for="item in custMarriageOptions">
+                            </el-option>
+                        </el-select>
                     </div>
                 </li>
                 <li>
                     <div>申请地居住年限</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.residenceYears"/>
                     </div>
                 </li>
                 <li>
                     <div>种植年限</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.culture_years"/>
                     </div>
                 </li>
                 <li>
                     <div>户籍地址</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custHomeplace"/>
                     </div>
                 </li>
                 <li>
                     <div>现住地</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custAddress"/>
                     </div>
                 </li>
                 <li>
@@ -102,158 +145,16 @@
             </div>
 
             <div class="imgbox">
-                <h3 class="img-box-title">基础资料</h3>
-
-                <ul class="img-box-content">
-                    <li>
-                        <div>营业执照副本原件</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-                        </div>
-                    </li>
-                    <li>
-                        <div>开户许可证原件</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-                        </div>
-                    </li>
-                    <li>
-                        <div>公司章程工商调档原件</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>法人、实际控制人身份证原件</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>法人、实际控制人户口簿原件</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>法人、实际控制人婚姻状况证明材料原件</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-
-
-                        </div>
-                    </li>
-                </ul>
-
-                <h3 class="img-box-title">财务资料</h3>
-                <ul class="img-box-content">
-                    <li>
-                        <div>审计报告（财务报表）</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-
-
-                        </div>
-                    </li>
-                    <li>
-                        <div>纳税申请表</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-
-
-                        </div>
-                    </li>
-                </ul>
-
-                <h3 class="img-box-title">征信证明务资料</h3>
-                <ul class="img-box-content">
-                    <li>
-                        <div>人行征信报告</div>
-                        <div class="edit-pic">
-                            <el-upload
-                                    :disabled="type === 'detail'"
-                                    :file-list="fileList"
-                                    :on-preview="handlePictureCardPreview"
-                                    :on-remove="handleRemove"
-                                    action="https://jsonplaceholder.typicode.com/posts/"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                            </el-upload>
-
-
-                        </div>
-                    </li>
-                </ul>
+                <div v-if="imgFile">
+                    <template v-for="value in imgFile">
+                        <h3>{{value.nodeName}}</h3>
+                        <ul>
+                            <upload :disabled="type === 'detail'" :name="val" :relationId="22222" :type="key"
+                                    @handlePictureCardPreview="handlePictureCardPreview"
+                                    v-for="(val,key) in value.nodes"/>
+                        </ul>
+                    </template>
+                </div>
             </div>
             <div class="bottombut" v-if="type !== 'detail'">
                 <el-button @click="save" type="primary">保存</el-button>
@@ -269,50 +170,150 @@
 <script type="text/ecmascript-6">
     import componentitle from '../../components/title/title.vue';
     import {urlParse} from '../../utils/utils';
+    import upload from './upload';
 
     export default {
         components: {
-            componentitle,
+            componentitle, upload
         },
         data() {
             return {
                 message: '1  基本信息',
                 titletext: '商业伙伴维护',
-                data:{},
+                id: '',
+                data: {},
                 dialogImageUrl: '',
                 dialogVisible: false,
-                fileList: [{
-                    name: 'food.jpeg',
-                    url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-                }],
-                type: ''
+                type: '',
+                imgFile: {},
+                partnerTypeOptions: [
+                    {
+                        value: 'NAT',
+                        label: '自然人'
+                    },
+                    {
+                        value: 'LEG',
+                        label: '法人'
+                    }
+                ],
+                sexOptions: [
+                    {
+                        value: 'M',
+                        label: '男'
+                    },
+                    {
+                        value: 'F',
+                        label: '女'
+                    }
+                ],
+                custEducationOptions: [
+                    {
+                        value: 'college',
+                        label: '大专及以上'
+                    },
+                    {
+                        value: 'senior',
+                        label: '高中'
+                    },
+                    {
+                        value: 'middle',
+                        label: '初中'
+                    },
+                    {
+                        value: 'primary',
+                        label: '初中以下'
+                    }
+                ],
+                custMarriageOptions: [
+                    {
+                        value: "married",
+                        label: "已婚"
+                    },
+                    {
+                        value: "widowed",
+                        label: "丧偶"
+                    },
+                    {
+                        value: "unmarried",
+                        label: "未婚"
+                    },
+                    {
+                        value: "divorced",
+                        label: "离异"
+                    },
+                ]
             }
         },
         created() {
             let params = urlParse();
             if (params.id) {
+                this.id = params.id;
                 if (params.type === 'detail') { // 设置元素不可被更改
                     this.type = 'detail';
                 } else { // 更新
                     this.type = 'update';
                 }
+                this.query(this.id);
             } else { // 新增
                 this.type = 'add';
+                this.getRelationId();
             }
+
+            this.imgData();
+
         },
         methods: {
-            save() {
+            async query(id) {
+                // 添加信息
+                let data = await this.$get(`/bussPartner/getPartnerInfo?partnerType=1&partnerId=${id}`);
+                if (data.data.code === '2000000') { // 状态正确，执行更新操作
+                    this.data = data.data.data;
+                }
+            },
+            async imgData() {
+                let data = await this.$post('/materialTree', {
+                    materialType: 'NATURE_MATERIAL',
+                });
+                if (data.data.code === '2000000') { // 状态正确，执行更新操作
+                    let treeInfo = data.data.data;
+                    let tempArr = [];
+                    Object.keys(treeInfo).forEach((key) => {
+                        tempArr.push(treeInfo[key]);
+                    });
+                    this.imgFile = tempArr;
+                }
+            },
+            async getRelationId() { // 保存用户信息
+                // let data = await this.$post('/bussPartner/getPartnerId');
+                // if (data.data.code === '2000000') {
+                //     this.data.id = this.id = data.data.data;
+                // }
+                this.data.id = this.id = '1111';
+            },
+            async save() { // 保存用户信息
+
+                if (this.type === 'add') { // 新增
+                    let data = await this.$post('/bussPartner/addPartnerNature', this.data);
+                    if (data.data.code === '2000000') {
+                        this.$router.push('/layout/businessM');
+                    }
+                } else { // 修改
+                    let data = await this.$post('/bussPartner/updatePartnerNature', this.data);
+                    if (data.data.code === '2000000') {
+                        this.$router.push('/layout/businessM');
+                    }
+                }
             },
             submit() {
+                this.save();
             },
             handleRemove(file, fileList) { // 删除回调
-                console.log(file, fileList);
             },
             handlePictureCardPreview(file) { // 图片浏览功能
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             }
-        },
+        }
     }
 </script>
 <style lang="less" scoped>
