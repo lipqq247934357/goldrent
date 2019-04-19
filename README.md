@@ -1,5 +1,13 @@
 # goldrent
 
+
+
+http://wiki.i.beebank.com/pages/viewpage.action?pageId=22513807
+
+
+
+
+
 ## Project setup
 ```
 npm install

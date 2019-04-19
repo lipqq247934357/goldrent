@@ -479,100 +479,11 @@
                     <!-- 承租人相关影像资料 -->
                     <div class="div3">
                         <componentitle :message="message='承租人相关影像资料'" />
-                        <div class="imgbox">
-                            <h3>身份证明材料</h3>
+
+                        <div class="imgbox" v-for="value in imgFile">
+                            <h3>{{value.nodeName}}</h3>
                             <ul>
-                                <li>
-                                    <div>身份证原件</div>
-                                    <div class="imgeslist">
-                                        <img
-                                            v-for="(item,index) in images"
-                                            :src="item.images"
-                                            preview="1"
-                                            preview-text="身份证原件"
-                                            width="100"
-                                            height="100"
-                                            >
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>户口簿原件</div>
-                                    <div class="imgeslist">
-                                        <img
-                                            src="../../../assets/logo0.png"
-                                            preview="2"
-                                            preview-text="户口簿原件"
-                                            width="100"
-                                            height="100"
-                                            >
-                                        <img
-                                            src="../../../assets/logo.png"
-                                            preview="2"
-                                            preview-text="户口簿原件"
-                                            width="100"
-                                            height="100"
-                                            >
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <h3>婚姻证明材料</h3>
-                            <ul>
-                                <li>
-                                    <div>单身证明原件</div>
-                                    <div class="">
-
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <h3>资产证明材料</h3>
-                            <ul>
-                                <li>
-                                    <div>房产证/购房合同</div>
-                                    <div class="">
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>土地承包合同原件</div>
-                                    <div class="">
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>机动车辆行驶原件</div>
-                                    <div class="">
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>补贴账户流水近一年流水</div>
-                                    <div class="">
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>农机具购置合同原件</div>
-                                    <div class="">
-
-                                    </div>
-                                </li>
-                                <li>
-                                    <div>主要结算账户近一年流水</div>
-                                    <div class="">
-
-                                    </div>
-                                </li>
-                            </ul>
-                            <h3>征信证明材料</h3>
-                            <ul>
-                                <li>
-                                    <div>人行征信报告</div>
-                                    <div class="">
-
-                                    </div>
-                                </li>
+                                <imgLine :name="val" :type="key" :relationId="id" :bussNo="bussNo" v-for="(val,key) in value.nodes"/>
                             </ul>
                         </div>
                     </div>
@@ -587,31 +498,73 @@
 import componentitle from '../../../components/title/title.vue';
 import ulinfolist from './ulinfolist.vue'; // 基本信息 暂时废弃不引用移到assetsinfo组件
 import assetsinfo from './assetsinfo.vue'; //资产信息
+import imgLine from './imgLine';
+import {urlParse} from "../../../utils/utils";
 export default {
     data() {
         return {
             message: '',
             tableData: [],
             images: [],
-            guarantordata: []
+            guarantordata: [],
+            partner: '',
+            id: '',
+            bussNo:'',
+            imgFile: [],
         }
     },
     created() {
-        this.$post('/warrantor/info',{
-            bussNo: 'CON_ZZ02_0000_201904_0001'
-        }).then( res => {
-            this.guarantordata = res.data.data.naturalData;
-        });
-        // this.$post('/imageslist').then((response) => {
-        //     this.images = response.data.dataName;
-        //     this.$previewRefresh() // 异步生成图片调用插件方法
-        //     // console.log(this.images);
-        // })
+        let data = urlParse();
+            this.id = data.id;
+            this.bussNo = data.bussNo;
+            this.getStockPriceByNames();
+    },
+    methods: {
+        async getStockPriceByNames(res) {
+          this.partner = await (() =>
+              this.$post('/warrantor/info',{
+                  // bussNo: 'CON_ZZ02_0000_201904_0001'
+                 bussNo: this.$route.query.bussNo
+              }).then( res => {
+                  if(res.data.code == '2000000') {
+                      this.guarantordata = res.data.data.naturalData;
+
+                      for(let i = 0 ; i < this.guarantordata.length ; i ++ ) {
+                          return this.guarantordata[i].partnerType;
+                      }
+                  }
+              })
+          )();
+          const stockPrice = await (() => {
+
+              const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
+              if (!matType[this.partner]) {
+                  this.$message.error('无保证人信息');
+                  return;
+              }
+              return this.$post('/materialTree',{
+                  materialType: matType[this.partner]
+              }).then( res => {
+                  if(res.data.code == '2000000') {
+                      this.imageslist = res.data.data;
+                      let treeInfo = res.data.data;
+                      // console.log(this.partner,'<<<<<<<<??????保证人');
+                      let tempArr = [];
+                      Object.keys(treeInfo).forEach((key) => {
+                         tempArr.push(treeInfo[key]);
+                      });
+                      this.imgFile = tempArr;
+                  }
+              })
+          })();
+
+        },
     },
     components: {
         componentitle,
         ulinfolist,
-        assetsinfo
+        assetsinfo,
+        imgLine
     }
 }
 </script>
@@ -666,26 +619,26 @@ export default {
                     &:last-child {
                         margin-bottom: 30px;
                     }
-                    // li {
-                    //     width: 100%;
-                    //     height: 100px;
-                    //     text-align: center;
-                    //     clear: both;
-                    //     div {
-                    //         float: left;
-                    //         border-bottom: 1px solid #EBEEF5;
-                    //         height: 100px;
-                    //         color: #606266;
-                    //         &:first-child {
-                    //             width: 29.8%;
-                    //             border-right: 1px solid #EBEEF5;
-                    //             line-height: 100px;
-                    //         }
-                    //         &:last-child {
-                    //             width: 70%;
-                    //         }
-                    //     }
-                    // }
+                    li {
+                        width: 100%;
+                        // height: 100px;
+                        text-align: center;
+                        clear: both;
+                        div {
+                            // float: left;
+                            border-bottom: 1px solid #EBEEF5;
+                            height: 100px;
+                            color: #606266;
+                            // &:first-child {
+                            //     width: 29.8%;
+                            //     border-right: 1px solid #EBEEF5;
+                            //     line-height: 100px;
+                            // }
+                            // &:last-child {
+                            //     width: 70%;
+                            // }
+                        }
+                    }
                 }
             }
         }

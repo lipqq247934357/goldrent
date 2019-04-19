@@ -99,15 +99,17 @@ export default {
     },
     created() {
         this.$post('/surveyinformation/info',{
-            bussNo: 'CON_ZZ02_0000_201904_0001'
+            // bussNo: 'CON_ZZ02_0000_201904_0001'
+            bussNo: this.$route.query.bussNo
         }).then( res => {
-            if(res.data.data.surveyInformation == null) {
-                return;
+            if(res.data.code == '2000000') {
+                if(res.data.data.surveyInformation == null) {
+                    return;
+                }
+                this.textarea = res.data.data.surveyInformation;
+                // console.log(this.textarea,'外部信息');
             }
-            this.textarea = res.data.data.surveyInformation;
-            console.log(this.textarea,'外部信息');
-        })
-        console.log();
+        });
         if(this.$route.query.disabled == 1) {
             this.inputdisabled = true;
         } else {

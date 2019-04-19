@@ -1,29 +1,29 @@
 <template>
 <div class="operation">
     <componentitle :message="message='评分卡结果'" />
-    <el-button type="primary" class="againbutton" @click="again">重评</el-button>
+    <el-button type="primary" class="againbutton" @click="again" :disabled="inputdisabled">重评</el-button>
     <div class="presentation">
         <i>征信报告：</i>
         <template>
-            <el-radio v-model="radio" label="Y">有</el-radio>
-            <el-radio v-model="radio" label="N">无</el-radio>
+            <el-radio v-model="radio" label="Y" :disabled="inputdisabled">有</el-radio>
+            <el-radio v-model="radio" label="N" :disabled="inputdisabled">无</el-radio>
         </template>
         <ul class="nothingshow" v-show="radio == 'Y'">
             <li>
                 <span>信用卡及贷款24个月最大逾期期数：</span>
-                <input type="text" name="" v-model:value="overdue" class="inputinfo">
+                <input type="text" name="" v-model:value="overdue" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span>信用卡及贷款24个月累计逾期次数：</span>
-                <input type="text" name="" v-model:value="overdueNo" class="inputinfo">
+                <input type="text" name="" v-model:value="overdueNo" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span>最近1个月内的查询机构数(贷款审批)：</span>
-                <input type="text" name="" v-model:value="oneMonth" class="inputinfo">
+                <input type="text" name="" v-model:value="oneMonth" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span>涉诉：</span>
-                <el-select v-model="value2" placeholder="请选择" class="choiceselect">
+                <el-select v-model="value2" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="item in options"
                         :key="item.value"
@@ -34,7 +34,7 @@
             </li>
             <li>
                 <span>被执行信息：</span>
-                <el-select v-model="value3" placeholder="请选择" class="choiceselect">
+                <el-select v-model="value3" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="item in options"
                         :key="item.value"
@@ -47,15 +47,15 @@
         <ul class="nothingshow" v-show="radio == 'N'">
             <li>
                 <span>同盾贷前查询：</span>
-                <input type="text" name="" v-model:value="tongdunQuery" class="inputinfo">
+                <input type="text" name="" v-model:value="tongdunQuery" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span>同盾信用评分：</span>
-                <input type="text" name="" v-model:value="tongdunCredit" class="inputinfo">
+                <input type="text" name="" v-model:value="tongdunCredit" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span>涉诉：</span>
-                <el-select v-model="value2" placeholder="请选择" class="choiceselect">
+                <el-select v-model="value2" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="item in options"
                         :key="item.value"
@@ -66,7 +66,7 @@
             </li>
             <li>
                 <span>被执行信息：</span>
-                <el-select v-model="value3" placeholder="请选择" class="choiceselect">
+                <el-select v-model="value3" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="item in options"
                         :key="item.value"
@@ -109,6 +109,7 @@
                     type="checkbox"
                     name=""
                     @click="handelcheckbox(item,index)"
+                    :disabled="inputdisabled"
                     :value="item.contractName">
                 <span>{{item.contractName}}</span>
             </div>
@@ -117,8 +118,8 @@
         <div class="subone opinionsdiv" style="clear:both">
             <p>审批意见：</p>
             <template>
-                <el-radio v-model="radio1" label="1">同意该笔申请</el-radio>
-                <el-radio v-model="radio1" label="0">不同意该笔申请</el-radio>
+                <el-radio v-model="radio1" label="1" :disabled="inputdisabled">同意该笔申请</el-radio>
+                <el-radio v-model="radio1" label="0" :disabled="inputdisabled">不同意该笔申请</el-radio>
             </template>
         </div>
         <div class="subone">
@@ -128,6 +129,7 @@
                 class="textareawidth"
                 :rows="3"
                 placeholder="请输入内容"
+                :disabled="inputdisabled"
                 v-model="textarea">
             </el-input>
         </div>
@@ -135,7 +137,7 @@
         <div class="bottombutton">
             <el-button type="primary" disabled>保存</el-button>
             <el-button type="primary" disabled>上会审议</el-button>
-            <el-button type="primary" @click="adopt">终审通过</el-button>
+            <el-button type="primary" @click="adopt" :disabled="inputdisabled">终审通过</el-button>
             <el-button type="primary" disabled>拒绝</el-button>
             <el-button type="primary" disabled>退回</el-button>
         </div>
@@ -176,25 +178,37 @@ export default {
             tongdunCredit: '', // 同盾信用,
             rowspanlength: [],
             proposaltotalScore: '',
-            proposalsuggestResult: ''
+            proposalsuggestResult: '',
+            inputdisabled: false
         }
     },
     created() {
-        this.$get(`/LoanApprove/queryApproveDetail?bussNo=t0001`,{
-            bussNo: 't0001'
-        }).then( res => {
+        this.$get(`/LoanApprove/queryApproveDetail?bussNo=${this.$route.query.bussNo}`).then( res => {
+            // console.log(res,':::::::');
+
+            if(res.data.data == null ) {
+                return;
+            }
             this.checkboxlist = res.data.data.allContracts;
             this.radio1 = res.data.data.approvalComments;
             this.textarea = res.data.data.reasonDescription;
-            console.log(this.radio1);
         });
-        this.$get('/decisionCreditScore/queryCreditScore?bussNo=BUSS_NO_20190411_123456&custId=person2019041188881113',{
+        this.$get(`/decisionCreditScore/queryCreditScore?bussNo=${this.$route.query.bussNo}&custId=${this.$route.query.custId}`,{
         }).then(res => {
+            if(res.data.data == null || res.data.data.decisionCreditScoreResult == null || res.data.data.decisionCreditScoreResult == null) {
+                return;
+            }
             this.tableData = res.data.data.decisionCreditScoreResultItem;
             this.proposaltotalScore = res.data.data.decisionCreditScoreResult.totalScore;
             this.proposalsuggestResult = res.data.data.decisionCreditScoreResult.suggestResult;
-            console.log(this.proposalsuggestResult);
+
         });
+
+        if(this.$route.query.disabled == 1) {
+            this.inputdisabled = true;
+        } else {
+            this.inputdisabled = false;
+        }
     },
     methods: {
         handelcheckbox(item,index) {
@@ -227,8 +241,8 @@ export default {
             // tongdunCredit: '' // 同盾信用
             //
             this.$post('/decisionCreditScore/creditGrade',{
-                bussNo: 'BUSS_NO_20190411_123456 ',
-                custId: 'person2019041188881113aaa',
+                bussNo: this.$route.query.bussNo,
+                custId: this.$route.query.custId,
                 haveCreditReport: this.radio, //Y/N Y时提交征信类参数, N时提交同盾参数
                 overdueNum24m: this.overdue,//最大逾期数
                 continueOverdueNum24m: this.overdueNo ,//24个月累计逾期次数
@@ -242,12 +256,16 @@ export default {
         },
         adopt() {
             this.$post('/LoanApprove/submitApprove',{
-                bussNo: 't0001', //单号
+                bussNo: this.$route.query.bussNo, //单号
                 approvalComments: this.radio1, //1同意 0 不同意
                 reasonDescription: this.textarea, // 原因描述
                 selectContracts: this.loanFaceContracts
             }).then( res => {
-                console.log(res);
+                if(res.data.code == '2000000') {
+                    this.$router.push({
+                        path: '/layout/loadapproval'
+                    })
+                }
             })
         }
     },

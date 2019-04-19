@@ -4,79 +4,79 @@
     <ul class="factorlist">
         <li>
             <span>业务编号</span>
-            <span>{{wantfactor.bussNo}}</span>
+            <span>{{wantfactor.bussNo && wantfactor.bussNo}}</span>
         </li>
         <li>
             <span>租赁模式</span>
-            <span>{{wantfactor.leaseMode}}</span>
+            <span>{{wantfactor.leaseMode && wantfactor.leaseMode}}</span>
         </li>
         <li>
             <span>租赁物名称</span>
-            <span>{{wantfactor.leaseName}}</span>
+            <span>{{wantfactor.leaseName && wantfactor.leaseName}}</span>
         </li>
         <li>
             <span>租赁物金额</span>
-            <span>{{wantfactor.purchaseAmt}}</span>
+            <span>{{wantfactor.purchaseAmt && wantfactor.purchaseAmt}}</span>
         </li>
         <li>
             <span>首付款金额</span>
-            <span>{{wantfactor.firstPayAmt}}</span>
+            <span>{{wantfactor.firstPayAmt && wantfactor.firstPayAmt}}</span>
         </li>
         <li>
             <span>租金金额</span>
-            <span>{{wantfactor.leaseAmount}}</span>
+            <span>{{wantfactor.leaseAmount && wantfactor.leaseAmount}}</span>
         </li>
         <li>
             <span>补贴金额</span>
-            <span>{{wantfactor.allowanceAmt}}</span>
+            <span>{{wantfactor.allowanceAmt && wantfactor.allowanceAmt}}</span>
         </li>
         <li>
             <span>补贴时间</span>
-            <span>{{wantfactor.allowanceDate}}</span>
+            <span>{{wantfactor.allowanceDate && wantfactor.allowanceDate}}</span>
         </li>
         <li>
             <span>租赁期限</span>
-            <span>{{wantfactor.leaseTerm}}</span>
+            <span>{{wantfactor.leaseTerm && wantfactor.leaseTerm}}</span>
         </li>
         <li>
             <span>合同利率</span>
-            <span>{{wantfactor.leaseRate}}</span>
+            <span>{{wantfactor.leaseRate && wantfactor.leaseRate}}</span>
         </li>
         <li>
             <span>厂商返利金额</span>
-            <span>{{wantfactor.rebateAmt}}</span>
+            <span>{{wantfactor.rebateAmt && wantfactor.rebateAmt}}</span>
         </li>
         <li>
             <span>风险金</span>
-            <span>{{wantfactor.riskAmt}}</span>
+            <span>{{wantfactor.riskAmt && wantfactor.riskAmt}}</span>
         </li>
         <li>
             <span>内部收益率</span>
-            <span>{{wantfactor.earningRate}}</span>
+            <span>{{wantfactor.earningRate && wantfactor.earningRate}}</span>
         </li>
         <li>
             <span>租金支付方式</span>
-            <span>{{wantfactor.payWay}}</span>
+            <span>{{wantfactor.payWay && wantfactor.payWay}}</span>
         </li>
         <li>
             <span>使用地点</span>
-            <span>{{wantfactor.placeUse}}</span>
+            <span>{{wantfactor.placeUse && wantfactor.placeUse}}</span>
         </li>
         <li>
             <span>起租日</span>
-            <span>{{wantfactor.startDate}}</span>
+            <span>{{wantfactor.startDate && wantfactor.startDate}}</span>
         </li>
         <li>
             <span>止租日</span>
-            <span>{{wantfactor.endDate}}</span>
+            <span>{{wantfactor.endDate && wantfactor.endDate}}</span>
         </li>
         <li>
             <span>留购价款</span>
-            <span>{{wantfactor.depositAmt}}</span>
+            <span>{{wantfactor.depositAmt && wantfactor.depositAmt}}</span>
         </li>
         <li>
             <span>提前结清手续费</span>
-            <span>{{wantfactor.settleAhead}}</span>
+            <span>{{wantfactor.settleAhead && wantfactor.settleAhead}}</span>
         </li>
     </ul>
     <componentitle :message="message='租金计划表'" />
@@ -123,17 +123,25 @@ export default {
         }
     },
     created() {
+        // 请求租赁要素结构
         this.$post('/leaseinfo/queryElement',{
-            bussNo: 'test33'
+            bussNo: this.$route.query.bussNo
+            // bussNo: 'CON_ZZ02_0000_201904_0043'
         }).then( res => {
-            console.log(res);
-            this.wantfactor = res.data.data;
+            if(res.data.code == '2000000') {
+                this.wantfactor = res.data.data;
+                // console.log(res,':::::::::::');
+            }
         });
-        this.$post('/leaseinfo/querySchedule',{
-            bussNo: 'test33'
+        // 租金计划表
+        this.$post('/leaseinfo/querySchedule', {
+            bussNo: this.$route.query.bussNo
+            // bussNo: 'CON_ZZ02_0000_201904_0043'
         }).then( res => {
-            console.log(res);
-            this.tableData = res.data.data;
+            if(res.data.code == '2000000') {
+                // this.tableData = res.data.data;
+                // console.log(res,'<<<<<<<<<<');
+            }
         });
     },
     components: {

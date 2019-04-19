@@ -123,26 +123,34 @@ export default {
     },
     created() {
         this.$post('/getSurveyConclusion',{
-            bussNo: '14w2255',
+            // bussNo: '14w2255',
+            bussNo: this.$route.query.bussNo,
             ownerType: 'ZB'
         }).then( res => {
-            console.log(res,'主办人');
-            this.sponsor = res.data.data;
-            // this.investigation = res.data.data;
+            // console.log(res,'主办人');
+            if(res.data.code == '2000000') {
+                this.sponsor = res.data.data;
+            }
         });
         this.$post('/getSurveyConclusion',{
-            bussNo: '14w2255',
+            // bussNo: '14w2255',
+            bussNo: this.$route.query.bussNo,
             ownerType: 'XB'
         }).then( res => {
-            console.log(res,'协办人');
-            this.assist = res.data.data;
-            // this.investigation = res.data.data;
+            // console.log(res,'协办人');
+            if(res.data.code == '2000000') {
+                this.assist = res.data.data;
+            }
         });
         this.$post('/additioncredit/info',{
-            bussNo: 'CON_ZZ02_0000_201904_0001'
+            // bussNo: 'CON_ZZ02_0000_201904_0001',
+            bussNo: this.$route.query.bussNo
         }).then(res => {
-            this.houseMortgager = res.data.data.houseMortgager;
-            this.landMortgager = res.data.data.landMortgager;
+            if(res.data.code == '2000000') {
+                this.houseMortgager = res.data.data.houseMortgager;
+                this.landMortgager = res.data.data.landMortgager;
+            }
+
         });
     },
     components: {

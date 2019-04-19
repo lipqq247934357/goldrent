@@ -83,10 +83,13 @@ export default {
     },
     created() {
         this.$post('/leaseinfo/query',{
-             bussNo: 'CON_ZZ02_0000_201904_0084'
+             // bussNo: 'CON_ZZ02_0000_201904_0084'
+             bussNo: this.$route.query.bussNo
         }).then( res => {
-            this.rentinfo = res.data.data.lists;
-            console.log(res.data.data.lists,'租赁物信息');
+            if(res.data.code == '2000000') {
+                this.rentinfo = res.data.data.lists;
+            }
+            // console.log(res.data.data.lists,'租赁物信息');
         });
     },
     components: {

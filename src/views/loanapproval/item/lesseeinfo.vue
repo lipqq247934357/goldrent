@@ -519,74 +519,48 @@ export default {
         }
     },
     created() {
-        this.getStockPriceByName();
-        this.fileData();
         let data = urlParse();
-            this.id = data.id;
-            this.bussNo = data.bussNo;
-            this.getStockPriceByName();
+        this.id = data.id;
+        this.bussNo = data.bussNo;
+        this.getStockPriceByNames();
     },
     methods: {
-        async getStockPriceByName(res) {
+        async getStockPriceByNames(res) {
           this.partner = await (() =>
               this.$post('/leasee/info',{
-                  bussNo: 'CON_ZZ02_0000_201904_0001'
+                  // bussNo: 'CON_ZZ02_0000_201904_0001'
+                 bussNo: this.$route.query.bussNo
               }).then( res => {
-                  this.lesseeinfolist = res.data.data.naturalData;
-                  for(let i = 0 ; i < this.lesseeinfolist.length ; i ++ ) {
-                      return this.lesseeinfolist[i].partnerType;
+                  if(res.data.code == '2000000') {
+                      this.lesseeinfolist = res.data.data.naturalData;
+                      for(let i = 0 ; i < this.lesseeinfolist.length ; i ++ ) {
+                          return this.lesseeinfolist[i].partnerType;
+                      }
                   }
               })
           )();
-          // const stockPrice = await (() => {
-          //     const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
-          //     return this.$post('/materialTree',{
-          //         materialType: matType[this.partner]
-          //     }).then( res => {
-          //         // this.imageslist = res.data.data;
-          //         let treeInfo = res.data.data;
-          //
-          //         let tempArr = [];
-          //         Object.keys(treeInfo).forEach((key) => {
-          //            tempArr.push(treeInfo[key]);
-          //         });
-          //         this.imageslist = tempArr;
-          //     })
-          // })();
+          const stockPrice = await (() => {
+              const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
+              if (!matType[this.partner]) {
+                  this.$message.error('无承租人信息')
+                  return;
+              }
+              return this.$post('/materialTree',{
+                  materialType: matType[this.partner]
+              }).then( res => {
+                  if(res.data.code == '2000000') {
+                      this.imageslist = res.data.data;
+                      let treeInfo = res.data.data;
 
+                      let tempArr = [];
+                      Object.keys(treeInfo).forEach((key) => {
+                         tempArr.push(treeInfo[key]);
+                      });
+                      this.imgFile = tempArr;
+                  }
+              })
+          })();
         },
-        async getStockPriceByName(res) {
-            let data = await this.$post('/materialTree', {
-                materialType: 'LEGAL_MATERIAL',
-            });
-            if (data.data.code === '2000000') { // 状态正确，执行更新操作
-                let treeInfo = data.data.data;
-                let tempArr = [];
-                Object.keys(treeInfo).forEach((key) => {
-                    tempArr.push(treeInfo[key]);
-                });
-                this.imgFile = tempArr;
-            }
-        },
-        async fileData(res) {
-            this.fileId = await (() =>
-                this.$post('/getFileIdByType',{
-                    "bussNo": "test20190417xw",
-                    "relationId": "xiaowei",
-                    "dataType": "10001",
-                }).then( res => {
-                    for(let a = 0 ; a < res.data.data.length; a++) {
-                        return res.data.data[a];
-                    }
-                })
-            )();
-            const imgesData = await(() => {
-                this.$get(`/fileView?fileId=${this.fileId}`, {
-                }).then( res => {
-                    this.imageUrl = `/web/fileView?fileId=${this.fileId}`
-                });
-            })();
-         }
     },
     mounted() {
     },

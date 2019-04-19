@@ -3,31 +3,31 @@
     <div class="content">
         <h3>贷款审批</h3>
         <el-tabs type="border-card">
-            <el-tab-pane>
+            <el-tab-pane :lazy="true">
                 <span slot="label">
                     {{list.lease}}
                 </span>
                 <wantfactor />
             </el-tab-pane>
-            <el-tab-pane :label="list.rentpeople">
+            <el-tab-pane :lazy="true" :label="list.rentpeople">
                 <lesseeinfo />
             </el-tab-pane>
-            <el-tab-pane :label="list.guarantor">
+            <el-tab-pane :lazy="true" :label="list.guarantor">
                 <guarantor />
             </el-tab-pane>
-            <el-tab-pane :label="list.repurchase">
+            <el-tab-pane :lazy="true" :label="list.repurchase">
                 <buybackpeople />
             </el-tab-pane>
-            <el-tab-pane :label="list.leasegoods">
+            <el-tab-pane :lazy="true" :label="list.leasegoods">
                 <leasehold />
             </el-tab-pane>
-            <el-tab-pane :label="list.externalnews">
+            <el-tab-pane :lazy="true" :label="list.externalnews">
                 <externalinfo />
             </el-tab-pane>
-            <el-tab-pane :label="list.investigation">
+            <el-tab-pane :lazy="true" :label="list.investigation">
                 <investigation />
             </el-tab-pane>
-            <el-tab-pane :label="list.loan">
+            <el-tab-pane :lazy="true" :label="list.loan">
                 <operation />
             </el-tab-pane>
         </el-tabs>

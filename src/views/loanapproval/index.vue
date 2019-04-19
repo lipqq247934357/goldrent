@@ -154,8 +154,10 @@ export default {
         //进入页面获取数据展示在表格中
         query(numbers){
             this.$post('/LoanApprove/queryApproveList',{}).then(res => {
-                this.alldata = res.data.data;
-                this.tableData = res.data.data.recordList;
+                if(res.data.code == '2000000') {
+                    this.alldata = res.data.data;
+                    this.tableData = res.data.data.recordList;
+                }
             });
         },
         handleSizeChange(val) {
@@ -164,18 +166,22 @@ export default {
                 currentPage: this.nowPage,
                 numPerPage: this.alsoSize
             }).then(res => {
-                this.alldata = res.data.data;
-                this.tableData = res.data.data.recordList;
+                if(res.data.code == '2000000') {
+                    this.alldata = res.data.data;
+                    this.tableData = res.data.data.recordList;
+                }
             });
         },
         handleCurrentChange(val) {
-            console.log('页大小',this.alsoSize);
+            // console.log('页大小',this.alsoSize);
             this.$post('/LoanApprove/queryApproveList',{
                 currentPage: val,
                 numPerPage: this.alsoSize
             }).then(res => {
-                this.alldata = res.data.data;
-                this.tableData = res.data.data.recordList;
+                if(res.data.code == '2000000') {
+                    this.alldata = res.data.data;
+                    this.tableData = res.data.data.recordList;
+                }
             });
         },
         handleClick(val) {
@@ -185,7 +191,8 @@ export default {
                 query: {
                     disabled: 1, // 1为子页面input不可以编辑，2为可以
                     id:val.id,
-                    bussNo:val.bussNo
+                    bussNo:val.bussNo,
+                    custId: val.custId
                 }
             })
         },
@@ -196,7 +203,8 @@ export default {
                 query: {
                     disabled: 2, // 1为子页面input不可以编辑，2为可以
                     id:val.id,
-                    bussNo:val.bussNo
+                    bussNo:val.bussNo,
+                    custId: val.custId
                 }
             })
         },
@@ -212,8 +220,10 @@ export default {
                 numPerPage: this.alsoSize, // 每页多少条
                 currentPage: '1' // 每次点击查询按钮都是第一页
             }).then(res => {
-                this.alldata = res.data.data;
-                this.tableData = res.data.data.recordList;
+                if(res.data.code == '2000000') {
+                    this.alldata = res.data.data;
+                    this.tableData = res.data.data.recordList;
+                }
             });
         }
     },
