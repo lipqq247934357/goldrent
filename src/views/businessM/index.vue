@@ -209,6 +209,9 @@
                 queryFunc: this.queryNatural // 查询的类型
             }
         },
+        mounted() {
+            this.queryNatural();
+        },
         methods: {
             async queryNatural() { // 分页查询自然人数据
                 let data = await this.$get(`/bussPartner/listPartnerInfo?partnerName=${this.partnerName}&partnerType=1&currentPage=${this.naturalPagInfo.currentPage}&pageSize=${this.naturalPagInfo.pageSize}`);
@@ -252,6 +255,9 @@
             tabClick(tab) { // 0代表自然人 1代表法人
                 this.path = tab.index === "0" ? '/layout/natural' : '/layout/legal';
                 this.queryFunc = tab.index === "0" ? this.queryNatural : this.queryLegal;
+                this.$nextTick(() => {
+                    this.queryFunc();
+                });
             },
         },
     }

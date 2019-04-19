@@ -44,16 +44,16 @@
     export default {
         data() {
             return {
-                opends: ['1'],
+                opends: [],
                 opendsone: true,
             }
         },
         methods: {
             handleOpen(key, keyPath) {
-                console.log(key, keyPath);
+                // console.log(key, keyPath);
             },
             handleClose(key, keyPath) {
-                console.log(key, keyPath);
+                // console.log(key, keyPath);
             }
         }
     }
