@@ -46,13 +46,29 @@
                 <li>
                     <div>证件生效时间</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.socialSerial"/>
+                        <!-- <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.certStartDate"/> -->
+                        <el-date-picker
+                            v-model="data.certStartDate"
+                            :disabled="type === 'detail'"
+                            type="date"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="yyyy-MM-dd"
+                            placeholder="选择日期">
+                        </el-date-picker>
                     </div>
                 </li>
                 <li>
                     <div>证件失效时间</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.certEndDate"/>
+                        <!-- <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.certEndDate"/> -->
+                        <el-date-picker
+                            v-model="data.certEndDate"
+                            :disabled="type === 'detail'"
+                            type="date"
+                            format="yyyy 年 MM 月 dd 日"
+                            value-format="yyyy-MM-dd"
+                            placeholder="选择日期">
+                        </el-date-picker>
                     </div>
                 </li>
                 <li>

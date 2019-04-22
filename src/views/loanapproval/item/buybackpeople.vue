@@ -83,14 +83,22 @@
                             <span>备注</span>
                             <span>
                                 <!-- {{item.debtInfo == null ? '' : item.debtInfo.remark}} -->
-                                <textarea
+                                <!-- <textarea
                                     name="name"
                                     rows="2"
                                     cols="80"
                                     :value="otherpeople.remark"
                                     class="textareavalues"
                                     disabled>
-                                </textarea>
+                                </textarea> -->
+                                <el-input
+                                    type="textarea"
+                                    :rows="2"
+                                    placeholder=""
+                                    class="inputtext"
+                                    disabled
+                                    v-model="otherpeople.remark">
+                                </el-input>
                             </span>
                         </li>
                     </ul>

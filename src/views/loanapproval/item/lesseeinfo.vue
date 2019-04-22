@@ -120,7 +120,7 @@
                             <li>
                                 <span>性别</span>
                                 <span>
-                                    <select class="" name="" disabled>
+                                    <select class="" name="" disabled v-if="spouse.custSex != ''">
                                         <option value="" v-for="sex in statuslist.custSex" :selected="spouse.custSex == spouse.custSex ? true : false">
                                             {{spouse.custSex == '' ? '' : sex.optionName}}
                                         </option>
@@ -160,7 +160,7 @@
                                 <span>婚姻状况</span>
                                 <span>
                                     <!-- {{spouse.custMarriage}} -->
-                                    <select class="" name="" disabled>
+                                    <select class="" name="" disabled v-if="spouse.custMarriage != ''">
                                         <option value="" v-for="marriagestatus in statuslist.marriage" :selected="spouse.custMarriage ==marriagestatus.optionCode ? true : false">
                                             {{spouse.custMarriage == '' ? '' : marriagestatus.optionName}}
                                         </option>
@@ -388,14 +388,22 @@
                                             disabled
                                             v-model="assetsOthers.remark">
                                         </el-input> -->
-                                        <textarea
+                                        <!-- <textarea
                                             name="name"
                                             rows="2"
                                             cols="80"
                                             :value="assetsOthers.remark"
                                             class="textareavalues"
                                             disabled>
-                                        </textarea>
+                                        </textarea> -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="assetsOthers.remark">
+                                        </el-input>
                                     </span>
                                 </li>
                                 <li>
@@ -447,14 +455,22 @@
                                             disabled
                                             v-model="debtSituations.remark">
                                         </el-input> -->
-                                        <textarea
+                                        <!-- <textarea
                                             name="name"
                                             rows="2"
                                             cols="80"
                                             :value="debtSituations.remark"
                                             class="textareavalues"
                                             disabled>
-                                        </textarea>
+                                        </textarea> -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="debtSituations.remark">
+                                        </el-input>
                                     </span>
                                 </li>
                             </ul>
@@ -497,14 +513,22 @@
                                             disabled
                                             v-model="debtGuarantees.remark">
                                         </el-input> -->
-                                        <textarea
+                                        <!-- <textarea
                                             name="name"
                                             rows="2"
                                             cols="80"
                                             :value="debtGuarantees.remark"
                                             class="textareavalues"
                                             disabled>
-                                        </textarea>
+                                        </textarea> -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="debtGuarantees.remark">
+                                        </el-input>
                                     </span>
                                 </li>
                             </ul>
@@ -539,14 +563,22 @@
                                 <li>
                                     <span>备注</span>
                                     <span>
-                                        <textarea
+                                        <!-- <textarea
                                             name="name"
                                             rows="2"
                                             cols="80"
                                             :value="debtOthers.remark"
                                             class="textareavalues"
                                             disabled>
-                                        </textarea>
+                                        </textarea> -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="debtOthers.remark">
+                                        </el-input>
                                     </span>
                                 </li>
                             </ul>
@@ -589,7 +621,17 @@
                                 </li>
                                 <li>
                                     <span>种植经验描述</span>
-                                    <span>{{incomePlants.remark}}</span>
+                                    <span>
+                                        <!-- {{incomePlants.remark}} -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="incomePlants.remark">
+                                        </el-input>
+                                    </span>
                                 </li>
                             </ul>
                         </div>

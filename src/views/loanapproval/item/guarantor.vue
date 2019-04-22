@@ -332,14 +332,22 @@
                                     <span>备注</span>
                                     <span>
                                         <!-- {{assetsOthers.remark}} -->
-                                        <textarea
+                                        <!-- <textarea
                                             name="name"
                                             rows="2"
                                             cols="80"
                                             :value="assetsOthers.remark"
                                             class="textareavalues"
                                             disabled>
-                                        </textarea>
+                                        </textarea> -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="assetsOthers.remark">
+                                        </el-input>
                                     </span>
 
                                 </li>
@@ -385,14 +393,22 @@
                                     <span>备注</span>
                                     <span>
                                         <!-- {{debtSituations.remark}} -->
-                                        <textarea
+                                        <!-- <textarea
                                             name="name"
                                             rows="2"
                                             cols="80"
                                             :value="debtSituations.remark"
                                             class="textareavalues"
                                             disabled>
-                                        </textarea>
+                                        </textarea> -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="debtSituations.remark">
+                                        </el-input>
                                     </span>
                                 </li>
                             </ul>
@@ -428,14 +444,22 @@
                                     <span>备注</span>
                                     <span>
                                         <!-- {{debtGuarantees.remark}} -->
-                                        <textarea
+                                        <!-- <textarea
                                             name="name"
                                             rows="2"
                                             cols="80"
                                             :value="debtGuarantees.remark"
                                             class="textareavalues"
                                             disabled>
-                                        </textarea>
+                                        </textarea> -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="debtGuarantees.remark">
+                                        </el-input>
                                     </span>
                                 </li>
                             </ul>
@@ -477,14 +501,22 @@
                                     <span>备注</span>
                                     <span>
                                         <!-- {{debtOthers.remark}} -->
-                                        <textarea
+                                        <!-- <textarea
                                             name="name"
                                             rows="2"
                                             cols="80"
                                             :value="debtOthers.remark"
                                             class="textareavalues"
                                             disabled>
-                                        </textarea>
+                                        </textarea> -->
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder=""
+                                            class="inputtext"
+                                            disabled
+                                            v-model="debtOthers.remark">
+                                        </el-input>
                                     </span>
                                 </li>
                             </ul>

@@ -151,7 +151,7 @@
                         <ul>
                             <upload :disabled="type === 'detail'"
                                     :name="val"
-                                    :relationId="this.$route.query.id"
+                                    :relationId="relationId"
                                     :type="key"
                                     @handlePictureCardPreview="handlePictureCardPreview"
                                     v-for="(val,key) in value.nodes"/>
@@ -244,11 +244,13 @@
                         value: "divorced",
                         label: "离异"
                     },
-                ]
+                ],
+                relationId: '' //
             }
         },
         created() {
-            alert(this.$route.query.id);
+            var id = this.$route.query.id;
+            this.relationId = id;
             let params = urlParse();
             if (params.id) {
                 this.id = params.id;
