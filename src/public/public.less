@@ -108,12 +108,12 @@ h3 {
         width: 49.9%;
         height: 50px;
         border-bottom: 1px solid #EBEEF5;
-        display: inline-block;
         border-right: 1px solid #EBEEF5;
         text-align: center;
         line-height: 50px;
         color: #606266;
         font-size: 14px;
+        float: left;
         .infolistchoiceselect {
             .el-input--suffix {
                 span {
@@ -125,17 +125,22 @@ h3 {
             border-right: 0;
         }
         span {
+            height: 50px;
             &:first-child {
                 min-width: 30%;
                 display: inline-block;
                 border-right: 1px solid #EBEEF5;
+                float: left;
             }
             &:last-child {
                 width: 69%;
-
                 display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
+
     }
 }
 .block {
@@ -164,4 +169,12 @@ html .pswp {
     .pswp__counter {
         display: none;
     }
+}
+.textareavalues {
+    width: 98%;
+    height: 45px;
+    border: 1px solid #2d78f4;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-top: 2px;
 }

@@ -8,26 +8,34 @@
         </li>
         <li>
             <span>租赁模式</span>
-            <span>{{wantfactor.leaseMode && wantfactor.leaseMode}}</span>
+            <!-- <span>{{wantfactor.leaseMode && wantfactor.leaseMode}}</span> -->
+            <span>
+                <!-- {{wantfactor.leaseMode}} -->
+                <select class="" name="" disabled>
+                    <option value="" v-for="leaseMode in statuslist.leaseMode" :selected="wantfactor.leaseMode == leaseMode.optionCode ? true : false">
+                        {{leaseMode.optionName}}
+                    </option>
+                </select>
+            </span>
         </li>
         <li>
             <span>租赁物名称</span>
             <span>{{wantfactor.leaseName && wantfactor.leaseName}}</span>
         </li>
         <li>
-            <span>租赁物金额</span>
+            <span>租赁物金额（元）</span>
             <span>{{wantfactor.purchaseAmt && wantfactor.purchaseAmt}}</span>
         </li>
         <li>
-            <span>首付款金额</span>
+            <span>首付款金额（元）</span>
             <span>{{wantfactor.firstPayAmt && wantfactor.firstPayAmt}}</span>
         </li>
         <li>
-            <span>租金金额</span>
+            <span>租金金额（元）</span>
             <span>{{wantfactor.leaseAmount && wantfactor.leaseAmount}}</span>
         </li>
         <li>
-            <span>补贴金额</span>
+            <span>补贴金额（元）</span>
             <span>{{wantfactor.allowanceAmt && wantfactor.allowanceAmt}}</span>
         </li>
         <li>
@@ -35,28 +43,35 @@
             <span>{{wantfactor.allowanceDate && wantfactor.allowanceDate}}</span>
         </li>
         <li>
-            <span>租赁期限</span>
+            <span>租赁期限（天）</span>
             <span>{{wantfactor.leaseTerm && wantfactor.leaseTerm}}</span>
         </li>
         <li>
-            <span>合同利率</span>
+            <span>合同利率（%）</span>
             <span>{{wantfactor.leaseRate && wantfactor.leaseRate}}</span>
         </li>
         <li>
-            <span>厂商返利金额</span>
+            <span>厂商返利金额（元）</span>
             <span>{{wantfactor.rebateAmt && wantfactor.rebateAmt}}</span>
         </li>
         <li>
-            <span>风险金</span>
+            <span>风险金（元）</span>
             <span>{{wantfactor.riskAmt && wantfactor.riskAmt}}</span>
         </li>
         <li>
-            <span>内部收益率</span>
+            <span>内部收益率（%）</span>
             <span>{{wantfactor.earningRate && wantfactor.earningRate}}</span>
         </li>
         <li>
             <span>租金支付方式</span>
-            <span>{{wantfactor.payWay && wantfactor.payWay}}</span>
+                <span>
+                    <select class="" name="" disabled>
+                        <option value="" v-for="payWay in statuslist.payWay" :selected="wantfactor.payWay == payWay.optionCode ? true : false">
+                            {{payWay.optionName}}
+                        </option>
+                    </select>
+                </span>
+            </span>
         </li>
         <li>
             <span>使用地点</span>
@@ -71,11 +86,11 @@
             <span>{{wantfactor.endDate && wantfactor.endDate}}</span>
         </li>
         <li>
-            <span>留购价款</span>
+            <span>留购价款（元）</span>
             <span>{{wantfactor.depositAmt && wantfactor.depositAmt}}</span>
         </li>
         <li>
-            <span>提前结清手续费</span>
+            <span>提前结清手续费（%）</span>
             <span>{{wantfactor.settleAhead && wantfactor.settleAhead}}</span>
         </li>
     </ul>
@@ -92,7 +107,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="dueAmout"
-                    label="租金总额">
+                    label="租金总额(元)">
                 </el-table-column>
                 <el-table-column
                     prop="dueDate"
@@ -100,11 +115,11 @@
                 </el-table-column>
                 <el-table-column
                     prop="principal"
-                    label="租赁本金">
+                    label="租赁本金(元)">
                 </el-table-column>
                 <el-table-column
                     prop="moneyRate"
-                    label="租赁利息">
+                    label="租赁利息(%)">
                 </el-table-column>
             </el-table>
         </template>
@@ -119,10 +134,21 @@ export default {
         return {
             message: '',
             tableData: [],
-            wantfactor: {}
+            wantfactor: {},
+            statuslist: {
+                payWay: [],
+                leaseMode: []
+            }
         }
     },
     created() {
+        this.$post('/getConstantConfig',{
+            dictionaryCode: ['payWay','leaseMode']
+        }).then(res => {
+            this.statuslist.payWay = res.data.data.payWay;
+            this.statuslist.leaseMode = res.data.data.leaseMode;
+            console.log(this.statuslist.leaseMode,'222');
+        })
         // 请求租赁要素结构
         this.$post('/leaseinfo/queryElement',{
             bussNo: this.$route.query.bussNo
@@ -139,7 +165,7 @@ export default {
             // bussNo: 'CON_ZZ02_0000_201904_0043'
         }).then( res => {
             if(res.data.code == '2000000') {
-                // this.tableData = res.data.data;
+                this.tableData = res.data.data;
                 // console.log(res,'<<<<<<<<<<');
             }
         });

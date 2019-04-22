@@ -12,7 +12,11 @@
             </li>
             <li>
                 <span>与承租人关系</span>
-                <span>{{item.relation}}</span>
+                <select class="" name="" disabled>
+                    <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.relation == custRelation.optionCode ? true : false">
+                        {{custRelation.optionName}}
+                    </option>
+                </select>
             </li>
 
             <li>
@@ -49,7 +53,14 @@
             </li>
             <li>
                 <span>与承租人关系</span>
-                <span>{{item.relation}}</span>
+                <span>
+                    <!-- {{item.relation}} -->
+                <select class="" name="" disabled>
+                    <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.relation == custRelation.optionCode ? true : false">
+                        {{item.relation == '' ? '' :custRelation.optionName}}
+                    </option>
+                </select>
+                </span>
             </li>
             <li>
                 <span>土地使用证号</span>
@@ -60,7 +71,7 @@
                 <span>{{item.landType}}</span>
             </li>
             <li>
-                <span>土地使用权期限</span>
+                <span>土地使用权期限（年）</span>
                 <span>{{item.landTerm}}</span>
             </li>
             <li>
@@ -118,10 +129,19 @@ export default {
             houseMortgager: [],
             landMortgager: [],
             sponsor: '', //主办人
-            assist: '' //协办人
+            assist: '', //协办人
+            statuslist: {
+                custRelation: []
+            }
         }
     },
     created() {
+        this.$post('/getConstantConfig',{
+            dictionaryCode: ['custRelation']
+        }).then(res => {
+            this.statuslist.custRelation = res.data.data.custRelation;
+            console.log(this.statuslist.houseType,'222');
+        })
         this.$post('/getSurveyConclusion',{
             // bussNo: '14w2255',
             bussNo: this.$route.query.bussNo,

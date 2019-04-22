@@ -9,6 +9,7 @@
                 <li>
                     <div>商业伙伴全称</div>
                     <div>
+                        <!-- <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comFullname"/> -->
                         <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comFullname"/>
                     </div>
                 </li>
@@ -16,6 +17,7 @@
                     <div>商业伙伴编码</div>
                     <div>
                         <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.partnerSerial"/>
+                        <!-- <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.partnerSerial"/> -->
                     </div>
                 </li>
                 <li>
@@ -326,7 +328,7 @@
         methods: {
             async query(id) {
                 // 添加信息`
-                let data = await this.$get(`/bussPartner/getPartnerInfo?partnerType=2&partnerId=${id}`);
+                let data = await this.$get(`/bussPartner/getPartnerInfo?partnerType=2&partnerId=${this.$route.query.id}`);
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
                     this.data = data.data.data;
                 }

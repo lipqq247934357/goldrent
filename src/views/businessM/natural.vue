@@ -9,6 +9,7 @@
                 <li>
                     <div>商业伙伴全称</div>
                     <div>
+                        <!-- <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custName"/> -->
                         <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custName"/>
                     </div>
                 </li>
@@ -267,6 +268,9 @@
                 // 添加信息
                 let data = await this.$get(`/bussPartner/getPartnerInfo?partnerType=1&partnerId=${id}`);
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
+
+                    console.log(data.data);
+
                     this.data = data.data.data;
                 }
             },
@@ -284,11 +288,11 @@
                 }
             },
             async getRelationId() { // 保存用户信息
-                // let data = await this.$post('/bussPartner/getPartnerId');
-                // if (data.data.code === '2000000') {
-                //     this.data.id = this.id = data.data.data;
-                // }
-                this.data.id = this.id = '1111';
+                let data = await this.$post('/bussPartner/getPartnerId');
+                if (data.data.code === '2000000') {
+                    this.data.id = this.id = data.data.data;
+                }
+                // this.data.id = this.id = this.$route;
             },
             async save() { // 保存用户信息
 
