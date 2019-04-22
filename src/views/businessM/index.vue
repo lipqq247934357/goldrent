@@ -206,7 +206,8 @@
                     pageSize: 10
                 },
                 path: '/layout/natural', // 增删改地址
-                queryFunc: this.queryNatural // 查询的类型
+                queryFunc: this.queryNatural, // 查询的类型
+                imgId: ''
             }
         },
         mounted() {
@@ -250,7 +251,7 @@
                 this.$router.push({path: this.path, query: {id: row.id, type: 'update'}});
             },
             add() { // 新增页面
-                this.$router.push({path: this.path, query: {}});
+                this.$router.push({path: this.path});
             },
             tabClick(tab) { // 0代表自然人 1代表法人
                 this.path = tab.index === "0" ? '/layout/natural' : '/layout/legal';

@@ -5,17 +5,18 @@
                 {{name}}
             </div>
             <div class="imgRelevant">
-                <img :src="item.url"
-                     alt=""
-                     class="imagescss"
-                     height="100"
-                     v-for="item in fileList"
-                     width="100">
-                     <!-- preview="0" preview编号一致为一组 -->
-
+                <div class="imglist">
+                    <img :src="item.url"
+                         alt=""
+                         class="imagescss"
+                         height="100"
+                         v-for="item in fileList"
+                         preview="0"
+                         width="100">
+                </div>
+                 <!-- preview="0" preview编号一致为一组 -->
             </div>
         </div>
-
     </li>
 </template>
 
@@ -28,10 +29,14 @@
         },
         data() {
             return {
-                fileList: []
+                fileList: [],
+                marginLeftPx: 0,
+                marginRightPx: 0,
+                b: '',
+                dataNum: 0
             }
         },
-        props: ['name', 'type', 'relationId', 'bussNo'],
+        props: ['name', 'type', 'relationId', 'bussNo','index'],
         created() {
             this.getList();
         },
@@ -44,16 +49,42 @@
                 });
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
                     data.data.data.forEach((val) => {
+
                         let obj = {};
                         obj.id = val;
                         obj.url = '/web/fileView?fileId=' + val;
                         this.fileList.push(obj);
-                        this.$previewRefresh() // 异步调用放大组件方法
+                        this.$nextTick( () => {
+                            // 异步调用放大组件方法
+                            this.$previewRefresh();
+                        });
                     });
                 }
+            },
+            left(index) {
+                var imglist = document.querySelectorAll(".imglist");
+                imglist[this.index].setAttribute('data-num',this.dataNum += 100);
+                let nownum = parseInt(imglist[this.index].getAttribute('data-num'));
+                let a = this.marginLeftPx -= 100;
+                imglist[this.index].style.marginLeft = -nownum +"px";
+                this.b = parseInt(imglist[this.index].style.marginLeft.split('px')[0])
+
+            },
+            right(item) {
+                let rightrun = this.dataNum -= 100;
+                var imglist = document.querySelectorAll(".imglist");
+                imglist[this.index].setAttribute('data-num',rightrun);
+
+                if(imglist[this.index].style.marginLeft == '' || imglist[this.index].style.marginLeft == '0px') {
+                    return;
+                }
+                let a = this.b += 100;
+                imglist[this.index].style.marginLeft = a +"px";
+
             }
         },
     }
 </script>
 <style lang="less">
+
 </style>

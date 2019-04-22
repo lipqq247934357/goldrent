@@ -185,7 +185,6 @@ export default {
     created() {
         this.$get(`/LoanApprove/queryApproveDetail?bussNo=${this.$route.query.bussNo}`).then( res => {
             // console.log(res,':::::::');
-
             if(res.data.data == null ) {
                 return;
             }

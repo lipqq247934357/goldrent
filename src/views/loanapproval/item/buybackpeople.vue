@@ -4,6 +4,7 @@
     <div class="alldata">
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in backpeople" :label="'回购人' + parseInt(index+1)">
+                <!-- <h1>{{item.basicInfo.id}}</h1> -->
                 <ul class="infolist">
                     <li>
                         <span>回购人名称</span>
@@ -13,11 +14,18 @@
                     </li>
                     <li>
                         <span>企业性质</span>
-                        <span>{{item.basicInfo == null ? '' : item.basicInfo.comNature}}</span>
+                        <!-- <span>{{item.basicInfo == null ? '' : item.basicInfo.comNature}}</span> -->
+                        <span>
+                            <select class="" name="" disabled>
+                                <option value="" v-for="agencyLevel in statuslist.comNature" :selected="item.basicInfo == agencyLevel.optionCode ? true : false">
+                                    {{agencyLevel.optionName}}
+                                </option>
+                            </select>
+                        </span>
                     </li>
                     <li>
                         <span>注册资本金</span>
-                        <span>{{item.basicInfo == null ? '' : item.basicInfo.comRegisterdCapital}}</span>
+                        <span>{{item.basicInfo == null ? '' : item.basicInfo.comRegisteredCapital}}</span>
 
                     </li>
                     <li>
@@ -26,8 +34,14 @@
                     </li>
                     <li>
                         <span>经销商层级</span>
-                        <span>{{item.basicInfo == null ? '' : item.basicInfo.agencyLevel}}</span>
-
+                        <!-- <span>{{item.basicInfo == null ? '' : item.basicInfo.agencyLevel}}</span> -->
+                        <span>
+                            <select class="" name="" disabled>
+                                <option value="" v-for="comNature in statuslist.agencyLevel" :selected="item.basicInfo.agencyLevel == comNature.optionCode ? true : false">
+                                    {{comNature.optionName}}
+                                </option>
+                            </select>
+                        </span>
                     </li>
                     <li>
                         <span>回购方负责人</span>
@@ -39,75 +53,54 @@
                     </li>
                 </ul>
                 <componentitle :message="message='负债及对外担保情况'"/>
-                <div class="assetsinfoul">
-                    <h3>回购人</h3>
+                <div class="assetsinfoul" v-for="otherpeople in item.debtInfo">
+                    <h3>{{otherpeople.repurchaseType == '1' ? '回购人' : '回购方实际控制人'}}</h3>
                     <ul class="infolist">
                         <li>
                             <span>回购人</span>
                             <span>
-                                {{item.debtInfo == null ? '' : item.debtInfo.personName}}
+                                {{otherpeople.personName}}
                             </span>
                         </li>
                         <li>
                             <span>债务种类</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.debtType}}</span>
+                            <span>{{otherpeople.debtType}}</span>
                         </li>
                         <li>
-                            <span>债务余额</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.debtBalance}}</span>
+                            <span>债务余额（元）</span>
+                            <span>{{otherpeople.debtBalance}}</span>
                         </li>
                         <li>
-                            <span>担保余额</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.comMobile}}</span>
+                            <span>担保余额（元）</span>
+                            <span>{{otherpeople.guaranteeBalance}}</span>
                         </li>
                         <li>
                             <span>被担保人</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.warrantee}}</span>
+                            <span>{{otherpeople.warrantee}}</span>
 
                         </li>
                         <li>
                             <span>备注</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.remark}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="assetsinfoul">
-                    <h3>回购方实际控制人</h3>
-                    <ul class="infolist" v-if="item.debtInfo != null">
-                        <li>
-                            <span>回购方实际控制人</span>
                             <span>
-                                {{item.debtInfo == null ? '' : item.debtInfo.personName}}
+                                <!-- {{item.debtInfo == null ? '' : item.debtInfo.remark}} -->
+                                <textarea
+                                    name="name"
+                                    rows="2"
+                                    cols="80"
+                                    :value="otherpeople.remark"
+                                    class="textareavalues"
+                                    disabled>
+                                </textarea>
                             </span>
-                        </li>
-                        <li>
-                            <span>债务种类</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.debtType}}</span>
-                        </li>
-                        <li>
-                            <span>债务余额</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.debtBalance}}</span>
-                        </li>
-                        <li>
-                            <span>担保余额</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.comMobile}}</span>
-                        </li>
-                        <li>
-                            <span>被担保人</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.warrantee}}</span>
-
-                        </li>
-                        <li>
-                            <span>备注</span>
-                            <span>{{item.debtInfo == null ? '' : item.debtInfo.remark}}</span>
                         </li>
                     </ul>
                 </div>
+
                 <componentitle :message="message='回购人相关影像资料'"/>
                 <div class="imgbox" v-for="value in imgFile">
                     <h3>{{value.nodeName}}</h3>
                     <ul>
-                        <imgLine :name="val" :type="key" :relationId="id" :bussNo="bussNo" v-for="(val,key) in value.nodes"/>
+                        <imgLine :name="val" :type="key" :relationId="item.basicInfo.id" :bussNo="bussNo" v-for="(val,key) in value.nodes"/>
                     </ul>
                 </div>
             </el-tab-pane>
@@ -132,7 +125,11 @@ export default {
             partner: '',
             imgFile: [],
             id: '',
-            bussNo:''
+            bussNo:'',
+            statuslist: {
+                agencyLevel: [],
+                comNature: []
+            }
         }
     },
     created() {
@@ -145,10 +142,16 @@ export default {
         //
         //     console.log(res.data.data.debtInfo,'回购人');
         // });
-        // let data = urlParse();
-        // this.id = data.id;
-        // this.bussNo = data.bussNo;
+        let data = urlParse();
+        this.id = data.id;
+        this.bussNo = data.bussNo;
         this.getStockPriceByNames();
+        this.$post('/getConstantConfig',{
+            dictionaryCode: ['agencyLevel','comNature']
+        }).then(res => {
+            this.statuslist.agencyLevel = res.data.data.agencyLevel;
+            this.statuslist.comNature = res.data.data.comNature;
+        })
     },
     methods: {
         async getStockPriceByNames(res) {
@@ -159,11 +162,14 @@ export default {
               }).then( res => {
                   if(res.data.code == '2000000') {
                       this.backpeople = res.data.data;
+                      console.log(this.backpeople,'11111110-0');
                       for(let i = 0 ; i < this.backpeople.length ; i ++ ) {
-                          if(this.backpeople[i].partnerType == null) {
+                          console.log(this.backpeople[i].basicInfo.partnerType);
+                          if(this.backpeople[i].basicInfo.partnerType == null) {
                               this.$message.error('回购人当前没有影像资料');
+                              console.log(this.backpeople[i].basicInfo,'回购人')
                           }
-                          return this.backpeople[i].partnerType;
+                          return this.backpeople[i].basicInfo.partnerType;
                       }
                   }
               })
@@ -204,32 +210,38 @@ export default {
         padding-left: 15px;
     }
     .imgbox {
+        clear: both;
         h3 {
             font-size: 16px;
             margin: 35px 0 35px 15px;
             font-weight: bold;
         }
+        .imgeslist {
+            img {
+                float: left;
+                margin-left: 15px;
+            }
+        }
         ul {
             width: 95%;
             margin: 0 auto;
             border: 1px solid #EBEEF5;
+            clear:both;
+            &:last-child {
+                margin-bottom: 30px;
+            }
             li {
                 width: 100%;
-                height: 100px;
+                // height: 100px;
                 text-align: center;
                 clear: both;
+                border-bottom: 1px solid #EBEBF5;
+                border-bottom: 1px solid #EBEBF5;
+                overflow: hidden;
+                position: relative;
+                min-height: 100px;
                 div {
-                    float: left;
-                    border-bottom: 1px solid #EBEEF5;
-                    height: 100px;
-                    &:first-child {
-                        width: 29.8%;
-                        border-right: 1px solid #EBEEF5;
-                        line-height: 100px;
-                    }
-                    &:last-child {
-                        width: 70%;
-                    }
+                    color: #606266;
                 }
             }
         }

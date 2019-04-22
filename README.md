@@ -7,6 +7,11 @@ http://wiki.i.beebank.com/pages/viewpage.action?pageId=22513807
 
 18523287491 123
 
+APP接口地址:172.16.162.159:8080
+
+    WEB接口地址:172.16.162.159:8081
+
+    数据库地址:172.16.162.159:3306(root:hrbbwx.com)
 
 ## Project setup
 ```

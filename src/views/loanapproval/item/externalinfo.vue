@@ -8,7 +8,7 @@
             :rows="2"
             placeholder="请输入内容"
             class="inputtext"
-            :disabled="inputdisabled"
+            disabled
             v-model="textarea.lesseeCredit">
         </el-input>
     </div>

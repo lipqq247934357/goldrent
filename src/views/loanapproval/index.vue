@@ -120,6 +120,10 @@ export default {
             loanName: '', // 承租人姓名
             options: [
                 {
+                    value: '全部',
+                    label: '全部'
+                },
+                {
                     value: '待处理',
                     label: '待处理'
                 },
@@ -153,10 +157,19 @@ export default {
     methods: {
         //进入页面获取数据展示在表格中
         query(numbers){
-            this.$post('/LoanApprove/queryApproveList',{}).then(res => {
+            this.$post('/LoanApprove/queryApproveList',{
+                bussNo: this.bussNumber, // 业务编号
+                custName: this.loanName, // 承租人姓名
+                status: this.value, //任务状态
+                createTimeStart: this.beginTime, // 任务开始时间
+                createTimeEnd: this.endTime, // 任务结束时间
+                numPerPage: this.alsoSize, // 每页多少条
+                currentPage: '1' // 每次点击查询按钮都是第一页
+            }).then(res => {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
+
                 }
             });
         },
@@ -164,7 +177,14 @@ export default {
             this.alsoSize = val;
             this.$post('/LoanApprove/queryApproveList',{
                 currentPage: this.nowPage,
-                numPerPage: this.alsoSize
+                numPerPage: this.alsoSize,
+
+                bussNo: this.bussNumber, // 业务编号
+                custName: this.loanName, // 承租人姓名
+                status: this.value, //任务状态
+                createTimeStart: this.beginTime, // 任务开始时间
+                createTimeEnd: this.endTime, // 任务结束时间
+
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
@@ -173,10 +193,15 @@ export default {
             });
         },
         handleCurrentChange(val) {
-            // console.log('页大小',this.alsoSize);
+            this.nowPage = val;
             this.$post('/LoanApprove/queryApproveList',{
-                currentPage: val,
-                numPerPage: this.alsoSize
+                currentPage: this.nowPage, //当前页
+                numPerPage: this.alsoSize, // 页大小
+                bussNo: this.bussNumber, // 业务编号
+                custName: this.loanName, // 承租人姓名
+                status: this.value, //任务状态
+                createTimeStart: this.beginTime, // 任务开始时间
+                createTimeEnd: this.endTime, // 任务结束时间
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;

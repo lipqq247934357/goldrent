@@ -13,10 +13,16 @@
                                     {{item.bussNo}}
                                 </span>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <span>客户类别</span>
-                                <span>{{item.custType}}</span>
-                            </li>
+                                <span>
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="custType in statuslist.custType" :selected="item.custType == custType.optionCode ? true : false">
+                                            {{item.custType == '' ? '' : custType.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </li> -->
                             <li>
                                 <span>姓名</span>
                                 <span>{{item.custName}}</span>
@@ -24,11 +30,23 @@
                             </li>
                             <li>
                                 <span>与承租人关系</span>
-                                <span>本人</span>
+                                <span>
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.custRelation == custRelation.optionCode ? true : false">
+                                            {{item.custRelation == '' ? '本人' : custRelation.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
                             </li>
                             <li>
                                 <span>性别</span>
-                                <span>{{item.custSex}}</span>
+                                <span>
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == sex.optionCode ? true : false">
+                                            {{sex.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
 
                             </li>
                             <li>
@@ -41,7 +59,13 @@
                             </li>
                             <li>
                                 <span>婚姻状况</span>
-                                <span>{{item.custMarriage}}</span>
+                                <span>
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="marriagestatus in statuslist.marriage" :selected="item.custMarriage ==marriagestatus.optionCode ? true : false">
+                                            {{marriagestatus.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
                             </li>
                             <li>
                                 <span>户籍地址</span>
@@ -69,6 +93,84 @@
                             </li>
                         </ul>
                     </div>
+                    <!-- 配偶信息 -->
+                    <!-- <div class="assetsinfoul">
+                        <h3>配偶情况</h3>
+                        <ul class="infolist" v-for="spouse in item.mateInfo">
+                            <li>
+                                <span>姓名</span>
+                                <span>
+                                    {{spouse.custName}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>性别</span>
+                                <span>
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == spouse.custSex ? true : false">
+                                            {{sex.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>户籍地址</span>
+                                <span>{{spouse.custHomeplace}}</span>
+
+                            </li>
+                            <li>
+                                <span>年龄</span>
+                                <span>{{spouse.custAge}}</span>
+                            </li>
+                            <li>
+                                <span>现住址</span>
+                                <span>{{spouse.custAddress}}</span>
+                            </li>
+                            <li>
+                                <span>身份证号</span>
+                                <span>{{spouse.certNo}}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="assetsinfoul">
+                        <h3>子女情况</h3>
+                        <ul class="infolist" v-for="childrenInfo in item.childrenInfo">
+                            <li>
+                                <span>姓名</span>
+                                <span>
+                                    {{childrenInfo.custName}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>性别</span>
+                                <span>
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == childrenInfo.custSex ? true : false">
+                                            {{sex.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>户籍地址</span>
+                                <span>{{childrenInfo.custHomeplace}}</span>
+
+                            </li>
+                            <li>
+                                <span>年龄</span>
+                                <span>{{childrenInfo.custAge}}</span>
+                            </li>
+                            <li>
+                                <span>现住址</span>
+                                <span>{{childrenInfo.custAddress}}</span>
+                            </li>
+                            <li>
+                                <span>身份证号</span>
+                                <span>{{childrenInfo.certNo}}</span>
+                            </li>
+                        </ul>
+                    </div> -->
                     <!-- 资产情况 -->
                     <div class="div1">
                         <componentitle :message="message='资产情况'" />
@@ -78,7 +180,11 @@
                                 <li>
                                     <span>房产类型</span>
                                     <span>
-                                        {{assetsHouses.type}}
+                                        <select class="" name="" disabled>
+                                            <option value="" v-for="housrType in statuslist.houseType" :selected="assetsHouses.type == housrType.optionCode ? true : false">
+                                                {{housrType.optionName}}
+                                            </option>
+                                        </select>
                                     </span>
                                 </li>
                                 <li>
@@ -91,7 +197,7 @@
 
                                 </li>
                                 <li>
-                                    <span>当前估价</span>
+                                    <span>当前估价（元）</span>
                                     <span>{{assetsHouses.currEvaluation}}</span>
                                 </li>
                                 <li>
@@ -101,7 +207,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsHouses.mortgage}}</span>
+                                    <span>{{assetsHouses.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -115,7 +221,7 @@
                                     </span>
                                 </li>
                                 <li>
-                                    <span>面积（㎡）</span>
+                                    <span>面积（亩）</span>
                                     <span>{{assetsLands.acreage}}</span>
                                 </li>
                                 <li>
@@ -124,11 +230,11 @@
 
                                 </li>
                                 <li>
-                                    <span>价值</span>
+                                    <span>价值（元）</span>
                                     <span>{{assetsLands.value}}</span>
                                 </li>
                                 <li>
-                                    <span>承包期限</span>
+                                    <span>承包期限（年）</span>
                                     <span>{{assetsLands.contractLife}}</span>
 
                                 </li>
@@ -152,7 +258,7 @@
                                     <span>{{assetsVehicles.buyTime}}</span>
                                 </li>
                                 <li>
-                                    <span>当前估价</span>
+                                    <span>当前估价（元）</span>
                                     <span>{{assetsVehicles.currEvaluation}}</span>
                                 </li>
                                 <li>
@@ -183,7 +289,7 @@
                                     <span>{{assetsFarmTools.buyTime}}</span>
                                 </li>
                                 <li>
-                                    <span>当前估价</span>
+                                    <span>当前估价（元）</span>
                                     <span>{{assetsFarmTools.currEvaluation}}</span>
                                 </li>
                                 <li>
@@ -214,7 +320,7 @@
                                     <span></span>
                                 </li>
                                 <li>
-                                    <span>价值</span>
+                                    <span>价值（元）</span>
                                     <span>{{assetsOthers.value}}</span>
 
                                 </li>
@@ -224,7 +330,17 @@
                                 </li>
                                 <li>
                                     <span>备注</span>
-                                    <span>{{assetsOthers.remark}}</span>
+                                    <span>
+                                        <!-- {{assetsOthers.remark}} -->
+                                        <textarea
+                                            name="name"
+                                            rows="2"
+                                            cols="80"
+                                            :value="assetsOthers.remark"
+                                            class="textareavalues"
+                                            disabled>
+                                        </textarea>
+                                    </span>
 
                                 </li>
                                 <li>
@@ -257,23 +373,33 @@
 
                                 </li>
                                 <li>
-                                    <span>债务余额</span>
+                                    <span>债务余额（元）</span>
                                     <span>{{debtSituations.debtBalance}}</span>
                                 </li>
                                 <li>
-                                    <span>债务期限</span>
+                                    <span>债务期限（月）</span>
                                     <span>{{debtSituations.debtTerm}}</span>
 
                                 </li>
                                 <li>
                                     <span>备注</span>
-                                    <span>{{debtSituations.remark}}</span>
+                                    <span>
+                                        <!-- {{debtSituations.remark}} -->
+                                        <textarea
+                                            name="name"
+                                            rows="2"
+                                            cols="80"
+                                            :value="debtSituations.remark"
+                                            class="textareavalues"
+                                            disabled>
+                                        </textarea>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>对外担保</h3>
-                            <ul class="infolist" v-for="debtGuarantees in item.externalGuarantee">
+                            <ul class="infolist" v-for="debtGuarantees in item.debtGuarantees">
                                 <li>
                                     <span>对外担保</span>
                                     <span>
@@ -285,7 +411,7 @@
                                     <span>{{debtGuarantees.creditor}}</span>
                                 </li>
                                 <li>
-                                    <span>担保余额</span>
+                                    <span>担保余额（元）</span>
                                     <span>{{debtGuarantees.guaranteeBalance}}</span>
 
                                 </li>
@@ -300,7 +426,17 @@
                                 </li>
                                 <li>
                                     <span>备注</span>
-                                    <span>{{debtGuarantees.remark}}</span>
+                                    <span>
+                                        <!-- {{debtGuarantees.remark}} -->
+                                        <textarea
+                                            name="name"
+                                            rows="2"
+                                            cols="80"
+                                            :value="debtGuarantees.remark"
+                                            class="textareavalues"
+                                            disabled>
+                                        </textarea>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
@@ -318,22 +454,38 @@
                                     <span>{{debtOthers.creditor}}</span>
                                 </li>
                                 <li>
-                                    <span>余额</span>
+                                    <span>余额（元）</span>
                                     <span>{{debtOthers.debtBalance}}</span>
 
                                 </li>
                                 <li>
-                                    <span>至今赊龄（月）</span>
+                                    <span>至今账龄（月）</span>
                                     <span></span>
                                 </li>
                                 <li>
                                     <span>有无担保</span>
-                                    <span>{{debtOthers.isGuarantee}}</span>
+                                    <span>
+                                        <select class="" name="" disabled>
+                                            <option value="" v-for="isGuarantee in statuslist.isGuarantee" :selected="debtOthers.isGuarantee == isGuarantee.optionCode ? true : false">
+                                                {{isGuarantee.optionName}}
+                                            </option>
+                                        </select>
+                                    </span>
 
                                 </li>
                                 <li>
                                     <span>备注</span>
-                                    <span>{{debtOthers.remark}}</span>
+                                    <span>
+                                        <!-- {{debtOthers.remark}} -->
+                                        <textarea
+                                            name="name"
+                                            rows="2"
+                                            cols="80"
+                                            :value="debtOthers.remark"
+                                            class="textareavalues"
+                                            disabled>
+                                        </textarea>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
@@ -361,50 +513,17 @@
 
                                 </li>
                                 <li>
-                                    <span>单亩成本</span>
+                                    <span>单亩成本（元）</span>
                                     <span>{{incomePlants.oneCost}}</span>
                                 </li>
                                 <li>
-                                    <span>亩产收入</span>
+                                    <span>亩产收入（元）</span>
                                     <span>{{incomePlants.oneIncome}}</span>
 
                                 </li>
                                 <li>
-                                    <span>结余</span>
+                                    <span>结余（元）</span>
                                     <span>{{incomePlants.surplus}}</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="assetsinfoul">
-                            <h3>农机作业收入</h3>
-                            <ul class="infolist" v-for="incomeFarmMachineryWork in item.incomeFarmMachineryWork">
-                                <li>
-                                    <span>收入名称</span>
-                                    <span>
-                                        <!-- {{item.naturalData.incomeFarmMachineryWork.surplus}} -->
-                                    </span>
-                                </li>
-                                <li>
-                                    <span>作业类别</span>
-                                    <span>{{incomeFarmMachineryWork.plantType}}</span>
-                                </li>
-                                <li>
-                                    <span>作业面积/亩</span>
-                                    <span>{{incomeFarmMachineryWork.plantArea}}</span>
-
-                                </li>
-                                <li>
-                                    <span>单亩成本</span>
-                                    <span>{{incomeFarmMachineryWork.oneCost}}</span>
-                                </li>
-                                <li>
-                                    <span>亩产收入</span>
-                                    <span>{{incomeFarmMachineryWork.oneIncome}}</span>
-
-                                </li>
-                                <li>
-                                    <span>结余</span>
-                                    <span>{{incomeFarmMachineryWork.surplus}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -418,53 +537,53 @@
                                     </span>
                                 </li>
                                 <li>
-                                    <span>上年收入</span>
+                                    <span>上年收入（元）</span>
                                     <span>{{incomeOthers.prevYearIncome}}</span>
                                 </li>
                                 <li>
-                                    <span>上年支出</span>
+                                    <span>上年支出（元）</span>
                                     <span>{{incomeOthers.prevYearPay}}</span>
 
                                 </li>
                                 <li>
-                                    <span>本年收入</span>
+                                    <span>本年收入（元）</span>
                                     <span>{{incomeOthers.currYearIncome}}</span>
                                 </li>
                                 <li>
-                                    <span>本年支出</span>
+                                    <span>本年支出（元）</span>
                                     <span>{{incomeOthers.currYearPay}}</span>
 
                                 </li>
                                 <li>
-                                    <span>结余</span>
+                                    <span>结余（元）</span>
                                     <span>{{incomeOthers.surplus}}</span>
                                 </li>
                             </ul>
                         </div>
-                        <div class="assetsinfoul">
+                        <!-- <div class="assetsinfoul">
                             <h3>收入偿债比</h3>
                             <ul class="infolist" v-for="incomeDebtRatios in item.incomeDebtRatios">
                                 <li>
                                     <span>收入偿债比</span>
                                     <span>
-                                        <!-- {{item.naturalData.incomeDebtRatios.surplus}} -->
+                                        {{item.naturalData.incomeDebtRatios.surplus}}
                                     </span>
                                 </li>
                                 <li>
-                                    <span>结余合计</span>
+                                    <span>结余合计（元）</span>
                                     <span>{{incomeDebtRatios.total_surplus}}</span>
                                 </li>
                                 <li>
-                                    <span>年租金支出</span>
+                                    <span>年租金支出（元）</span>
                                     <span>{{incomeDebtRatios.annual_rental_expense}}</span>
 
                                 </li>
                                 <li>
-                                    <span>其他负债支出</span>
+                                    <span>其他负债支出（元）</span>
                                     <span>{{incomeDebtRatios.other_debt_expense}}</span>
                                 </li>
                                 <li>
-                                    <span>年支出合计</span>
+                                    <span>年支出合计（元）</span>
                                     <span>{{incomeDebtRatios.total_annual_expense}}</span>
 
                                 </li>
@@ -473,17 +592,17 @@
                                     <span>{{incomeDebtRatios.income_debt_ratio}}</span>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- 承租人相关影像资料 -->
                     <div class="div3">
-                        <componentitle :message="message='承租人相关影像资料'" />
+                        <componentitle :message="message='保证人相关影像资料'" />
 
                         <div class="imgbox" v-for="value in imgFile">
                             <h3>{{value.nodeName}}</h3>
                             <ul>
-                                <imgLine :name="val" :type="key" :relationId="id" :bussNo="bussNo" v-for="(val,key) in value.nodes"/>
+                                <imgLine  v-for="(val,key) in value.nodes" :name="val" :type="key" :relationId="item.id" :bussNo="bussNo"/>
                             </ul>
                         </div>
                     </div>
@@ -511,25 +630,45 @@ export default {
             id: '',
             bussNo:'',
             imgFile: [],
+            statuslist: {
+                marriage: [],
+                custSex: [],
+                custRelation: [],
+                custType: [],
+                houseType: [],
+                isGuarantee: []
+            }
         }
     },
     created() {
         let data = urlParse();
-            this.id = data.id;
-            this.bussNo = data.bussNo;
-            this.getStockPriceByNames();
+
+        this.bussNo = data.bussNo;
+        this.getStockPriceByNames();
+        console.log(data,'relationId');
     },
     methods: {
         async getStockPriceByNames(res) {
           this.partner = await (() =>
               this.$post('/warrantor/info',{
-                  // bussNo: 'CON_ZZ02_0000_201904_0001'
+                  // bussNo: 'CON_ZZ02_0000_201904_0096'
                  bussNo: this.$route.query.bussNo
               }).then( res => {
                   if(res.data.code == '2000000') {
                       this.guarantordata = res.data.data.naturalData;
-
+                      this.id = res.data.data.naturalData[0].id;
                       for(let i = 0 ; i < this.guarantordata.length ; i ++ ) {
+                          this.$post('/getConstantConfig',{
+                              dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee']
+                          }).then(res => {
+                              this.statuslist.marriage = res.data.data.custMarriage;
+                              this.statuslist.custSex = res.data.data.custSex;
+                              this.statuslist.custRelation = res.data.data.custRelation;
+                              this.statuslist.custType = res.data.data.custType;
+                              this.statuslist.houseType = res.data.data.houseType;
+                              this.statuslist.isGuarantee = res.data.data.isGuarantee;
+                              console.log(this.statuslist.houseType,'222');
+                          })
                           return this.guarantordata[i].partnerType;
                       }
                   }
@@ -548,11 +687,12 @@ export default {
                   if(res.data.code == '2000000') {
                       this.imageslist = res.data.data;
                       let treeInfo = res.data.data;
-                      // console.log(this.partner,'<<<<<<<<??????保证人');
                       let tempArr = [];
                       Object.keys(treeInfo).forEach((key) => {
+                          console.log(key);
                          tempArr.push(treeInfo[key]);
                       });
+
                       this.imgFile = tempArr;
                   }
               })
@@ -600,47 +740,7 @@ export default {
             }
         }
         .div3 {
-            .imgbox {
-                h3 {
-                    font-size: 16px;
-                    margin: 35px 0 35px 15px;
-                    font-weight: bold;
-                }
-                .imgeslist {
-                    img {
-                        float: left;
-                        margin-left: 15px;
-                    }
-                }
-                ul {
-                    width: 95%;
-                    margin: 0 auto;
-                    border: 1px solid #EBEEF5;
-                    &:last-child {
-                        margin-bottom: 30px;
-                    }
-                    li {
-                        width: 100%;
-                        // height: 100px;
-                        text-align: center;
-                        clear: both;
-                        div {
-                            // float: left;
-                            border-bottom: 1px solid #EBEEF5;
-                            height: 100px;
-                            color: #606266;
-                            // &:first-child {
-                            //     width: 29.8%;
-                            //     border-right: 1px solid #EBEEF5;
-                            //     line-height: 100px;
-                            // }
-                            // &:last-child {
-                            //     width: 70%;
-                            // }
-                        }
-                    }
-                }
-            }
+
         }
     }
 }

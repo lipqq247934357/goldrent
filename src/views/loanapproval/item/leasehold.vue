@@ -49,12 +49,12 @@
                 <span>{{item.insurance.insuranceCompany}}</span>
             </li>
             <li>
-                <span>保险金额/坐落</span>
-                <span></span>
+                <span>保额（元）</span>
+                <span>{{item.insurance.conerage}}</span>
 
             </li>
             <li>
-                <span>保险期限</span>
+                <span>保险期限（月）</span>
                 <span>{{item.insurance.insuranceTerm}}</span>
             </li>
             <li>
