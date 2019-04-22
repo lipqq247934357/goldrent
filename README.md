@@ -2,7 +2,7 @@
 
 
 
-http://wiki.i.beebank.com/pages/viewpage.action?pageId=22513807
+http://wiki.i.beebank.com/pages/viewpage.action?pageId=22513807 接口文档
 
 
 18523287491 123

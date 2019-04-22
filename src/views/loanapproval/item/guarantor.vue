@@ -72,7 +72,7 @@
                                 <span>{{item.custHomeplace}}</span>
                             </li>
                             <li>
-                                <span>现住地</span>
+                                <span>现住址</span>
                                 <span>{{item.custAddress}}</span>
                             </li>
                             <li>

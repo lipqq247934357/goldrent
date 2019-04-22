@@ -22,10 +22,9 @@
                                    v-model="data.partnerType"
                         >
                             <el-option
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
-                                    v-for="item in partnerTypeOptions">
+                                :label="item.optionName"
+                                :value="item.optionCode"
+                                v-for="item in partnerTypeOptions">
                             </el-option>
                         </el-select>
                     </div>
@@ -150,7 +149,10 @@
                     <template v-for="value in imgFile">
                         <h3>{{value.nodeName}}</h3>
                         <ul>
-                            <upload :disabled="type === 'detail'" :name="val" :relationId="22222" :type="key"
+                            <upload :disabled="type === 'detail'"
+                                    :name="val"
+                                    :relationId="this.$route.query.id"
+                                    :type="key"
                                     @handlePictureCardPreview="handlePictureCardPreview"
                                     v-for="(val,key) in value.nodes"/>
                         </ul>
@@ -246,6 +248,7 @@
             }
         },
         created() {
+            alert(this.$route.query.id);
             let params = urlParse();
             if (params.id) {
                 this.id = params.id;
@@ -261,6 +264,14 @@
             }
 
             this.imgData();
+
+            // 获取编码后台约定
+            this.$post('/getConstantConfig',{
+                dictionaryCode: ['custType']
+            }).then(res => {
+                this.partnerTypeOptions = res.data.data.custType;
+                console.log(this.partnerTypeOptions,'字典编码')
+            })
 
         },
         methods: {

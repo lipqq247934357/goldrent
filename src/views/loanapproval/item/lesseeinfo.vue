@@ -101,17 +101,28 @@
                         <h3>配偶情况</h3>
                         <ul class="infolist" v-for="spouse in item.mateInfo">
                             <li>
-                                <span>姓名</span>
+                                <span>配偶姓名</span>
                                 <span>
                                     {{spouse.custName}}
                                 </span>
                             </li>
+                            <!-- <li>
+                                <span>客户类别</span>
+                                <span>
+                                    {{spouse.custType}}
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="custType in statuslist.custType" :selected="spouse.custType == custType.optionCode ? true : false">
+                                            {{spouse.custType == '' ? '' : custType.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </li> -->
                             <li>
                                 <span>性别</span>
                                 <span>
                                     <select class="" name="" disabled>
-                                        <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == spouse.custSex ? true : false">
-                                            {{sex.optionName}}
+                                        <option value="" v-for="sex in statuslist.custSex" :selected="spouse.custSex == spouse.custSex ? true : false">
+                                            {{spouse.custSex == '' ? '' : sex.optionName}}
                                         </option>
                                     </select>
                                 </span>
@@ -132,6 +143,41 @@
                             <li>
                                 <span>身份证号</span>
                                 <span>{{spouse.certNo}}</span>
+                            </li>
+                            <li>
+                                <span>联系电话/微信</span>
+                                <span>
+                                    {{spouse.custWechat}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>教育程度</span>
+                                <span>
+                                    {{spouse.custEducation}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>婚姻状况</span>
+                                <span>
+                                    <!-- {{spouse.custMarriage}} -->
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="marriagestatus in statuslist.marriage" :selected="spouse.custMarriage ==marriagestatus.optionCode ? true : false">
+                                            {{spouse.custMarriage == '' ? '' : marriagestatus.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>申请地居住年限</span>
+                                <span>
+                                    {{spouse.residenceYears}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>种植年限</span>
+                                <span>
+                                    {{spouse.cultureYears}}
+                                </span>
                             </li>
                         </ul>
                     </div>

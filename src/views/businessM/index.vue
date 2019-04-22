@@ -35,9 +35,8 @@
                                         prop="custName">
                                 </el-table-column>
                                 <el-table-column
-                                        :formatter="formatCusType"
                                         label="客户类别"
-                                        prop="partnerType">
+                                        prop="custType">
                                 </el-table-column>
                                 <el-table-column
                                         label="性别"
@@ -55,7 +54,7 @@
                                 </el-table-column>
                                 <el-table-column
                                         label="种植年限"
-                                        prop="culture_years">
+                                        prop="cultureYears">
                                 </el-table-column>
                                 <el-table-column
                                         label="身份证号码"

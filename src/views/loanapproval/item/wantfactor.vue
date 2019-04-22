@@ -147,7 +147,6 @@ export default {
         }).then(res => {
             this.statuslist.payWay = res.data.data.payWay;
             this.statuslist.leaseMode = res.data.data.leaseMode;
-            console.log(this.statuslist.leaseMode,'222');
         })
         // 请求租赁要素结构
         this.$post('/leaseinfo/queryElement',{
@@ -197,7 +196,7 @@ export default {
                     border-right: 1px solid #EBEEF5;
                 }
                 &:last-child {
-                    width: 69.9%;
+                    width: 69%;
                 }
             }
             &:nth-child(even) {

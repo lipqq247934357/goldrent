@@ -6,7 +6,7 @@
             <h3>租赁物情况</h3>
             <ul class="infolist">
                 <li>
-                    <span>名称</span>
+                    <span>租赁物名称及规格型号</span>
                     <span>
                         {{item.condition.leaseName}}
                     </span>
