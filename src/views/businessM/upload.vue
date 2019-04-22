@@ -5,12 +5,13 @@
             <div class="edit-pic">
                 <el-upload
                         :limit="Number(6)"
-                        :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type,token:this.token}"
+                        :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
                         :disabled="disabled"
                         :file-list="fileList"
                         :on-preview="handlePictureCardPreview"
                         :on-remove="handleRemove"
                         action="/web/fileUploadSingle"
+                        :headers="{token:this.token}"
                         :on-exceed="onExceed"
                         list-type="picture-card">
                     <i class="el-icon-plus"></i>
