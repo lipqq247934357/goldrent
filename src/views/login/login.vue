@@ -36,7 +36,6 @@
                 let data = await this.$post('/user/login', {name: this.name, pwd: this.pwd});
                 if (data.data.code === '2000000') {
                     //跳首页，保存用户数据
-                    console.log(data.data);
                     let user = data.data.data.user;
                     setStore('loginName', user.loginName || '');
                     setStore('userName', user.userName || '');

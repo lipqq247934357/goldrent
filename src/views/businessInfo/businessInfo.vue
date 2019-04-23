@@ -34,7 +34,14 @@
                     </el-select>
                 </template>
             </div>
-            <button @click="queryclick" class="search" name="button" type="button">查询</button>
+            <button
+                @click="queryclick"
+                class="search queryButton" 
+                name="button"
+                @keyup.enter="queryclick"
+                :autofocus="true"
+                type="button">查询
+            </button>
         </div>
 
         <div class="content">

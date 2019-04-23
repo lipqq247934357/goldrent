@@ -41,7 +41,7 @@
                 </el-select>
             </template>
         </div>
-        <button type="button" name="button" class="search" @click="search">查询</button>
+        <button type="button" name="button" class="search" @keyup.enter="search" @click="search" :autofocus="true">查询</button>
     </div>
 
     <div class="content">
@@ -145,7 +145,7 @@ export default {
             beginTime: '', // 开始控件时间
             endTime: '',  // 结束控件时间
             alsoSize: 10,
-            nowPage: 1
+            nowPage: 1,
         }
     },
     created() {
@@ -155,6 +155,10 @@ export default {
         componentitle,
     },
     methods: {
+        // 下拉框事件
+        selectchange(val) {
+
+        },
         //进入页面获取数据展示在表格中
         query(numbers){
             this.$post('/LoanApprove/queryApproveList',{

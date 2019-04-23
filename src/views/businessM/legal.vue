@@ -104,8 +104,16 @@
                 <li>
                     <div>成立日期</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"
-                                  v-model="data.comEstablishDate"/>
+                        <!-- <el-input :disabled="type === 'detail'" size="mini" type="text"
+                                  v-model="data.comEstablishDate"/> -->
+                          <el-date-picker
+                              v-model="data.comEstablishDate"
+                              :disabled="type === 'detail'"
+                              type="date"
+                              format="yyyy 年 MM 月 dd 日"
+                              value-format="yyyy-MM-dd"
+                              placeholder="选择日期">
+                          </el-date-picker>
                     </div>
                 </li>
                 <li>
@@ -165,8 +173,16 @@
                 <li>
                     <div>法人证件失效时间</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text"
-                                  v-model="data.legalCertDeadline"/>
+                        <!-- <el-input :disabled="type === 'detail'" size="mini" type="text"
+                                  v-model="data.legalCertDeadline"/> -->
+                          <el-date-picker
+                              v-model="data.legalCertDeadline"
+                              :disabled="type === 'detail'"
+                              type="date"
+                              format="yyyy 年 MM 月 dd 日"
+                              value-format="yyyy-MM-dd"
+                              placeholder="选择日期">
+                          </el-date-picker>
                     </div>
                 </li>
                 <li>

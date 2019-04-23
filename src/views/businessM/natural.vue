@@ -19,7 +19,7 @@
                         <el-select :disabled="type === 'detail'" class="infolistchoiceselect" placeholder="请选择"
                                    size="mini"
                                    style="width: 100%;"
-                                   v-model="data.partnerType"
+                                   v-model="data.custType"
                         >
                             <el-option
                                 :label="item.optionName"
@@ -114,7 +114,7 @@
                 <li>
                     <div>种植年限</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.culture_years"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.cultureYears"/>
                     </div>
                 </li>
                 <li>

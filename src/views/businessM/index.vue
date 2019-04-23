@@ -8,7 +8,14 @@
                 <label>商业伙伴名称：</label>
                 <el-input class="contentinout" placeholder="请输入内容" v-model="partnerName"></el-input>
             </div>
-            <button @click="queryFunc" class="search" name="button" type="button">查询</button>
+            <button
+                @click="queryFunc"
+                class="search queryButton"
+                name="button"
+                type="button"
+                @keyup.enter="queryFunc"
+                :autofocus="true">查询
+            </button>
         </div>
 
         <div class="content">
