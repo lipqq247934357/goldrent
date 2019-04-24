@@ -1,6 +1,10 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import {Message} from 'element-ui';
+import router from './router';
+
+
+
 
 axios.defaults.timeout = 5000;
 if (process.env.NODE_ENV === 'development') {// 根据不同的环境使用不同的接口
@@ -29,6 +33,10 @@ axios.interceptors.response.use(
         if (response.data.code !== '2000000') {
             //业务异常
             Message.error({message: response.data.msg, duration: 5 * 1000});
+        }
+        if(response.data.code == '5000050') {
+            Cookies.remove('token');
+            window.location.hash = '/login';
         }
         return response;
     },

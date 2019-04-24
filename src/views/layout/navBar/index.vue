@@ -142,6 +142,10 @@
                 });
                 if (data.data.code === '2000000') {
                     this.handlePwdClose();
+                    // 修改成功返回登录页
+                    this.$router.push({
+                        path: '/login',
+                    })
                 }
             },
             handleInfoClose() {

@@ -36,9 +36,20 @@
                 <span>评估价值（万元）</span>
                 <span>{{item.evaluateValue}}</span>
             </li>
-            <li>
-                <span>备注</span>
-                <span>{{item.remark}}</span>
+            <li class="subliWidth">
+                <p class="bz">备注</p>
+                <div class="batextarrear">
+                    <!-- {{item.remark}} -->
+                        <!-- {{item.insurance.remark}} -->
+                    <el-input
+                        type="textarea"
+                        :rows="2"
+                        placeholder=""
+                        class="inputtext"
+                        disabled
+                        v-model="item.remark">
+                    </el-input>
+                </div>
             </li>
         </ul>
     </div>
@@ -86,9 +97,19 @@
                 <span>评估价值（万元）</span>
                 <span>{{item.evaluateValue}}</span>
             </li>
-            <li>
-                <span>备注</span>
-                <span>{{item.remark}}</span>
+            <li class="subliWidth">
+                <p class="bz">备注</p>
+                <div class="batextarrear">
+                    <!-- {{item.remark}} -->
+                    <el-input
+                        type="textarea"
+                        :rows="2"
+                        placeholder=""
+                        class="inputtext"
+                        disabled
+                        v-model="item.remark">
+                    </el-input>
+                </div>
             </li>
         </ul>
     </div>

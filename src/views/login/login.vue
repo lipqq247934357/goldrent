@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="login" @keyup.enter="login">
         <img alt="" src="./logo.png">
         <div class="inputText">
             <div class="subTextdiv">

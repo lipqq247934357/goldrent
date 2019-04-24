@@ -79,9 +79,10 @@
                             <span>{{otherpeople.warrantee}}</span>
 
                         </li>
-                        <li>
-                            <span>备注</span>
-                            <span>
+                        <br>
+                        <li class="subliWidth">
+                            <p class="bz">备注</p>
+                            <div class="batextarrear">
                                 <!-- {{item.debtInfo == null ? '' : item.debtInfo.remark}} -->
                                 <!-- <textarea
                                     name="name"
@@ -99,7 +100,7 @@
                                     disabled
                                     v-model="otherpeople.remark">
                                 </el-input>
-                            </span>
+                            </div>
                         </li>
                     </ul>
                 </div>

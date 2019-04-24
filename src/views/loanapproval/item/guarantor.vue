@@ -94,21 +94,32 @@
                         </ul>
                     </div>
                     <!-- 配偶信息 -->
-                    <!-- <div class="assetsinfoul">
+                    <div class="assetsinfoul">
                         <h3>配偶情况</h3>
                         <ul class="infolist" v-for="spouse in item.mateInfo">
                             <li>
-                                <span>姓名</span>
+                                <span>配偶姓名</span>
                                 <span>
                                     {{spouse.custName}}
                                 </span>
                             </li>
+                            <!-- <li>
+                                <span>客户类别</span>
+                                <span>
+                                    {{spouse.custType}}
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="custType in statuslist.custType" :selected="spouse.custType == custType.optionCode ? true : false">
+                                            {{spouse.custType == '' ? '' : custType.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </li> -->
                             <li>
                                 <span>性别</span>
                                 <span>
-                                    <select class="" name="" disabled>
-                                        <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == spouse.custSex ? true : false">
-                                            {{sex.optionName}}
+                                    <select class="" name="" disabled v-if="spouse.custSex != ''">
+                                        <option value="" v-for="sex in statuslist.custSex" :selected="spouse.custSex == spouse.custSex ? true : false">
+                                            {{spouse.custSex == '' ? '' : sex.optionName}}
                                         </option>
                                     </select>
                                 </span>
@@ -130,6 +141,42 @@
                                 <span>身份证号</span>
                                 <span>{{spouse.certNo}}</span>
                             </li>
+                            <li>
+                                <span>联系电话/微信</span>
+                                <span>
+                                    {{spouse.custWechat}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>教育程度</span>
+                                <span>
+                                    {{spouse.custEducation}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>婚姻状况</span>
+                                <span>
+                                    <!-- {{spouse.custMarriage}} -->
+                                    <select class="" name="" disabled v-if="spouse.custMarriage != ''">
+                                        <option value="" v-for="marriagestatus in statuslist.marriage" :selected="spouse.custMarriage ==marriagestatus.optionCode ? true : false">
+                                            {{spouse.custMarriage == '' ? '' : marriagestatus.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
+                            </li>
+                            <li>
+                                <span>申请地居住年限</span>
+                                <span>
+                                    {{spouse.residenceYears}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>种植年限</span>
+                                <span>
+                                    {{spouse.cultureYears}}
+                                </span>
+                            </li>
+
                         </ul>
                     </div>
 
@@ -170,7 +217,7 @@
                                 <span>{{childrenInfo.certNo}}</span>
                             </li>
                         </ul>
-                    </div> -->
+                    </div>
                     <!-- 资产情况 -->
                     <div class="div1">
                         <componentitle :message="message='资产情况'" />
@@ -329,8 +376,13 @@
                                     <span>{{assetsOthers.owner}}</span>
                                 </li>
                                 <li>
-                                    <span>备注</span>
-                                    <span>
+                                    <span>是否抵押</span>
+                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                </li>
+                                <br>
+                                <li class="subliWidth">
+                                    <p class="bz">备注</p>
+                                    <div class="batextarrear">
                                         <!-- {{assetsOthers.remark}} -->
                                         <!-- <textarea
                                             name="name"
@@ -348,12 +400,8 @@
                                             disabled
                                             v-model="assetsOthers.remark">
                                         </el-input>
-                                    </span>
+                                    </div>
 
-                                </li>
-                                <li>
-                                    <span>是否抵押</span>
-                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -389,9 +437,10 @@
                                     <span>{{debtSituations.debtTerm}}</span>
 
                                 </li>
-                                <li>
-                                    <span>备注</span>
-                                    <span>
+                                <br>
+                                <li class="subliWidth">
+                                    <p class="bz">备注</p>
+                                    <div class="batextarrear">
                                         <!-- {{debtSituations.remark}} -->
                                         <!-- <textarea
                                             name="name"
@@ -409,7 +458,7 @@
                                             disabled
                                             v-model="debtSituations.remark">
                                         </el-input>
-                                    </span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -440,9 +489,10 @@
                                     <span>{{debtGuarantees.withWarranteeRelation}}</span>
 
                                 </li>
-                                <li>
-                                    <span>备注</span>
-                                    <span>
+                                <br>
+                                <li class="subliWidth">
+                                    <p class="bz">备注</p>
+                                    <div class="batextarrear">
                                         <!-- {{debtGuarantees.remark}} -->
                                         <!-- <textarea
                                             name="name"
@@ -460,7 +510,7 @@
                                             disabled
                                             v-model="debtGuarantees.remark">
                                         </el-input>
-                                    </span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -497,9 +547,10 @@
                                     </span>
 
                                 </li>
-                                <li>
-                                    <span>备注</span>
-                                    <span>
+                                <br>
+                                <li class="subliWidth">
+                                    <p class="bz">备注</p>
+                                    <div class="batextarrear">
                                         <!-- {{debtOthers.remark}} -->
                                         <!-- <textarea
                                             name="name"
@@ -517,7 +568,7 @@
                                             disabled
                                             v-model="debtOthers.remark">
                                         </el-input>
-                                    </span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

@@ -249,6 +249,9 @@ export default {
                 loanApprovalQueryNum1m: this.oneMonth,
                 lawsuit: this.value2,//涉诉
                 enforced: this.value3, // 被执行信息
+                tongDunLoanBefore : this.tongdunQuery,
+                tongDunScore: this.tongdunCredit
+
             }).then(res => {
                 this.tableData = res.data.data.decisionCreditScoreResultItem;
             });

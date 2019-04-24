@@ -63,7 +63,14 @@
                 </li>
                 <li>
                     <span>客户类别</span>
-                    <span>{{task.custNature.partnerType}}</span>
+                    <span>
+                        <!-- {{task.custNature.partnerType}} -->
+                        <select class="" name="" disabled>
+                            <option value="" v-for="custType in statuslist.custType" :selected="task.custNature.partnerType == custType.optionCode ? true : false">
+                                {{custType.optionName}}
+                            </option>
+                        </select>
+                    </span>
                 </li>
                 <li>
                     <span>姓名</span>
@@ -76,7 +83,14 @@
                 </li>
                 <li>
                     <span>性别</span>
-                    <span>{{task.custNature.custSex}}</span>
+                    <span>
+                        <!-- {{task.custNature.custSex}} -->
+                        <select class="" name="" disabled>
+                            <option value="" v-for="sex in statuslist.custSex" :selected="task.custNature.custSex == sex.optionCode ? true : false">
+                                {{sex.optionName}}
+                            </option>
+                        </select>
+                    </span>
 
                 </li>
                 <li>
@@ -89,7 +103,14 @@
                 </li>
                 <li>
                     <span>婚姻状况</span>
-                    <span>{{task.custNature.custMarriage}}</span>
+                    <span>
+                        <!-- {{task.custNature.custMarriage}} -->
+                        <select class="" name="" disabled>
+                            <option value="" v-for="marriagestatus in statuslist.marriage" :selected="task.custNature.custMarriage ==marriagestatus.optionCode ? true : false">
+                                {{marriagestatus.optionName}}
+                            </option>
+                        </select>
+                    </span>
                 </li>
                 <li>
                     <span>户籍地址</span>
@@ -212,8 +233,17 @@
                 custNature: {},
                 leaseInfo: {},
                 leasePlan: [],
-                currentPage2: 1
+                currentPage2: 1,
+                // 字典编码
+                statuslist: {
+                    marriage: [],
+                    custSex: [],
+                    custRelation: [],
+                    custType: []
+                }
             }
+
+
         },
         created() {
             let data = urlParse();
@@ -221,10 +251,18 @@
             this.$get(`buss/getBussInfo?task_id=${this.$route.query.task_id}`).then(res => {
                 if(res.data.code == '2000000') {
                     this.task = res.data.data;
+                    console.log(this.task);
                     // console.log(this.task);
                 }
-
             });
+            this.$post('/getConstantConfig',{
+                dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee']
+            }).then(res => {
+                this.statuslist.marriage = res.data.data.custMarriage;
+                this.statuslist.custSex = res.data.data.custSex;
+                this.statuslist.custRelation = res.data.data.custRelation;
+                this.statuslist.custType = res.data.data.custType;
+            })
         },
         methods: {
             async query(bussNo) {

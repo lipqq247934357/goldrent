@@ -1,5 +1,5 @@
 <template>
-<div class="businfo">
+<div class="businfo" @keyup.enter="search">
     <div class="topTitle">
         <componentitle :message="message" :titletext="titletext" />
     </div>
@@ -128,12 +128,20 @@ export default {
                     label: '待处理'
                 },
                  {
-                    value: '进行中',
-                    label: '进行中'
+                    value: '处理中',
+                    label: '处理中'
                 },
                 {
                     value: '已提交',
                     label: '已提交'
+                },
+                {
+                    value: '已拒绝',
+                    label: '已拒绝'
+                },
+                {
+                    value: '已终止',
+                    label: '已终止'
                 },
                 {
                     value: '已退回',
@@ -155,6 +163,9 @@ export default {
         componentitle,
     },
     methods: {
+        asd() {
+            alert(1);
+        },
         // 下拉框事件
         selectchange(val) {
 

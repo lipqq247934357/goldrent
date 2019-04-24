@@ -1,5 +1,5 @@
 <template>
-    <div class="businfo">
+    <div class="businfo" @keyup.enter="queryFunc">
         <div class="topTitle">
             <componentTitle :message="firstTitle" :titletext="maxTitle"/>
         </div>

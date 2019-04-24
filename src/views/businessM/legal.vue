@@ -392,7 +392,7 @@
                         this.$router.push('/layout/businessM');
                     }
                 } else { // 修改
-                    let data = await this.$post('/bussPartner/updatePartnerLegal', this.data);
+                    let data = await this.$post('/bussPartner/update/PartnerLegal', this.data);
                     if (data.data.code === '2000000') {
                         this.$router.push('/layout/businessM');
                     }

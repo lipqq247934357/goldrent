@@ -1,5 +1,5 @@
 <template>
-    <div class="businfo">
+    <div class="businfo" @keyup.enter="queryclick">
         <div class="topTitle">
             <componentitle :message="message" :titletext="titletext"/>
         </div>
@@ -24,7 +24,7 @@
                 </template>
                 <label class="rightlabel">任务状态：</label>
                 <template>
-                    <el-select class="choiceselect" placeholder="请选择" v-model="status">
+                    <el-select class="choiceselect" placeholder="请选择" v-model="selectstatus" >
                         <el-option
                                 :key="item.value"
                                 :label="item.label"
@@ -36,7 +36,7 @@
             </div>
             <button
                 @click="queryclick"
-                class="search queryButton" 
+                class="search queryButton"
                 name="button"
                 @keyup.enter="queryclick"
                 :autofocus="true"
@@ -67,7 +67,7 @@
                     </el-table-column>
                     <el-table-column
                             label="任务名称"
-                            prop="taskname">
+                            prop="taskName">
                     </el-table-column>
                     <el-table-column
                             label="任务状态"
@@ -123,8 +123,12 @@
                 bussNo: '',
                 custName: '',
                 task_name: '',
-                status: '',
+                selectstatus: '',
                 statusOptions: [
+                    {
+                        value: '全部',
+                        label: '全部'
+                    },
                     {
                         value: '00',
                         label: '待处理'
@@ -148,32 +152,32 @@
                 ],
                 choiceoptions: [
                     {
-                        value: '选项1',
-                        label: '报单申请'
+                        value: '全部',
+                        label: '全部'
                     },
                     {
-                        value: '选项2',
+                        value: '协办处理',
+                        label: '协办处理'
+                    },
+                    {
+                        value: '贷款审批',
                         label: '贷款审批'
                     },
                     {
-                        value: '选项3',
-                        label: '合同签约'
+                        value: '贷款申请',
+                        label: '贷款申请'
                     },
                     {
-                        value: '选项4',
-                        label: '公证登记'
+                        value: '借款合同',
+                        label: '借款合同'
                     },
                     {
-                        value: '选项5',
+                        value: '放款审批',
                         label: '放款审批'
                     },
                     {
-                        value: '选项6',
+                        value: '放款确认',
                         label: '放款确认'
-                    },
-                    {
-                        value: '选项7',
-                        label: '结清确认'
                     }
                 ],
                 tableData: [],
@@ -186,6 +190,7 @@
         },
         created() {
             this.pages();
+
         },
         methods: {
             handleSizeChange(val) {
@@ -202,12 +207,14 @@
                 this.pages();
             },
             pages() {
+                // console.log(this.selectstatus);
+                // return;
                 this.$post('/buss/listBussInfo',{
                     bussNo: this.bussNo,
                     custName: this.custName,
                     ownerName: '',
-                    taskName: this.task_name,
-                    status: this.status,
+                    taskName: this.task_name == '全部' ? '' : this.task_name,
+                    status: this.selectstatus == '全部' ? '': this.selectstatus,
                     currentPage: this.nowpage,
                     numPerPage: this.pagesothen
                 }).then(res => {
@@ -220,7 +227,7 @@
             },
             handleClick(row) {
                 this.$router.push({
-                    path: '/layout/businessdetail',query: {task_id:row.custId}
+                    path: '/layout/businessdetail',query: {task_id:row.id}
                 });
             }
         },

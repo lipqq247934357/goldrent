@@ -11,12 +11,12 @@
                         {{item.condition.leaseName}}
                     </span>
                 </li>
-                <li>
+                <!-- <li>
                     <span>规格型号</span>
                     <span>{{item.condition.leaseName}}</span>
-                </li>
+                </li> -->
                 <li>
-                    <span>购置价格/坐落</span>
+                    <span>购置价格</span>
                     <span>{{item.condition.purchasePrice}}</span>
 
                 </li>
@@ -62,9 +62,20 @@
                 <span>{{item.insurance.firstBeneficiary}}</span>
 
             </li>
-            <li>
-                <span>备注</span>
-                <span>{{item.insurance.remark}}</span>
+            <br>
+            <li class="subliWidth">
+                <p class="bz">备注</p>
+                <div class="batextarrear">
+                    <!-- {{item.insurance.remark}} -->
+                    <el-input
+                        type="textarea"
+                        :rows="2"
+                        placeholder=""
+                        class="inputtext"
+                        disabled
+                        v-model="item.insurance.remark">
+                    </el-input>
+                </div>
             </li>
         </ul>
     </div>

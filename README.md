@@ -1,6 +1,7 @@
 # goldrent
 
-
+// 原型图
+https://tkaqul.axshare.com/#g=1&p=%E5%95%86%E4%B8%9A%E4%BC%99%E4%BC%B4%E7%AE%A1%E7%90%86%EF%BC%88%E5%88%97%E8%A1%A8%E9%A1%B5%EF%BC%89
 
 http://wiki.i.beebank.com/pages/viewpage.action?pageId=22513807 接口文档
 

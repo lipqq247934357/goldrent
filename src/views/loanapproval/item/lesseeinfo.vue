@@ -377,9 +377,15 @@
                                     <span>所有权人</span>
                                     <span>{{assetsOthers.owner}}</span>
                                 </li>
+
                                 <li>
-                                    <span>备注</span>
-                                    <span>
+                                    <span>是否抵押</span>
+                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                </li>
+                                <br>
+                                <li class="subliWidth">
+                                    <p class="bz">备注</p>
+                                    <div class="batextarrear">
                                         <!-- <el-input
                                             type="textarea"
                                             :rows="2"
@@ -404,11 +410,7 @@
                                             disabled
                                             v-model="assetsOthers.remark">
                                         </el-input>
-                                    </span>
-                                </li>
-                                <li>
-                                    <span>是否抵押</span>
-                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -444,9 +446,10 @@
                                     <span>{{debtSituations.debtTerm}}</span>
 
                                 </li>
-                                <li>
-                                    <span>备注</span>
-                                    <span>
+                                <br>
+                                <li class="subliWidth">
+                                    <p class="bz">备注</p>
+                                    <div class="batextarrear">
                                         <!-- <el-input
                                             type="textarea"
                                             :rows="2"
@@ -471,7 +474,7 @@
                                             disabled
                                             v-model="debtSituations.remark">
                                         </el-input>
-                                    </span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -502,9 +505,10 @@
                                     <span>{{debtGuarantees.withWarranteeRelation}}</span>
 
                                 </li>
-                                <li>
-                                    <span>备注</span>
-                                    <span>
+                                <br>
+                                <li class="subliWidth">
+                                    <p class="bz">备注</p>
+                                    <div class="batextarrear">
                                         <!-- <el-input
                                             type="textarea"
                                             :rows="2"
@@ -529,7 +533,7 @@
                                             disabled
                                             v-model="debtGuarantees.remark">
                                         </el-input>
-                                    </span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -560,9 +564,10 @@
                                     <span>{{debtOthers.isGuarantee}}</span>
 
                                 </li>
-                                <li>
-                                    <span>备注</span>
-                                    <span>
+                                <br>
+                                <li class="subliWidth">
+                                    <p class="bz">备注</p>
+                                    <div class="batextarrear">
                                         <!-- <textarea
                                             name="name"
                                             rows="2"
@@ -579,7 +584,7 @@
                                             disabled
                                             v-model="debtOthers.remark">
                                         </el-input>
-                                    </span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -595,6 +600,7 @@
                                     <span>收入名称</span>
                                     <span>
                                         <!-- {{item.naturalData.incomePlants.remark}} -->
+                                        种植收入
                                     </span>
                                 </li>
                                 <li>
@@ -619,10 +625,11 @@
                                     <span>结余（元）</span>
                                     <span>{{incomePlants.surplus}}</span>
                                 </li>
-                                <li>
-                                    <span>种植经验描述</span>
-                                    <span>
-                                        <!-- {{incomePlants.remark}} -->
+
+                                <!-- <li class="subliWidth" v-if="incomePlants.remark != ''">
+                                    <p class="bz">种植经验描述</p>
+                                    <div class="batextarrear">
+                                        {{incomePlants.remark}}
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -631,9 +638,35 @@
                                             disabled
                                             v-model="incomePlants.remark">
                                         </el-input>
-                                    </span>
-                                </li>
+                                    </div>
+                                </li> -->
                             </ul>
+                            <div class="describeText">
+                                <h3>种植经验描述</h3>
+                                <div class=""
+                                    v-for="(incomePlants,index) in item.incomePlants"
+                                    >
+                                    <el-input
+                                        v-if="incomePlants.remark != ''"
+                                        type="textarea"
+                                        :rows="2"
+                                        placeholder=""
+                                        class="describetext"
+                                        disabled
+                                        v-model="incomePlants.remark">
+                                    </el-input>
+                                    <el-input
+                                        v-if="incomePlants.remark == '' ? index == 1 : ''"
+                                        type="textarea"
+                                        :rows="2"
+                                        placeholder=""
+                                        class="describetext"
+                                        disabled
+                                        v-model="incomePlantsRemark">
+                                    </el-input>
+                                </div>
+
+                            </div>
                         </div>
                         <div class="assetsinfoul">
                             <h3>农机作业收入</h3>
@@ -642,6 +675,7 @@
                                     <span>收入名称</span>
                                     <span>
                                         <!-- {{item.naturalData.incomeFarmMachineryWork.surplus}} -->
+                                        农机作业收入
                                     </span>
                                 </li>
                                 <li>
@@ -676,6 +710,7 @@
                                     <span>收入名称</span>
                                     <span>
                                         <!-- {{item.naturalData.incomeOthers.surplus}} -->
+                                        其他收入
                                     </span>
                                 </li>
                                 <li>
@@ -705,13 +740,13 @@
                         <div class="assetsinfoul">
                             <h3>收入偿债比</h3>
                             <ul class="infolist" v-for="incomeDebtRatios in item.incomeDebtRatios">
-                                <li>
+                                <!-- <li>
                                     <span>收入偿债比</span>
                                     <span>
-                                        <!-- {{incomeDebtRatios.income_debt_ratio}} -->
+                                        {{incomeDebtRatios.income_debt_ratio}}
                                         {{incomeDebtRatios.incomeDebtRatio}}
                                     </span>
-                                </li>
+                                </li> -->
                                 <li>
                                     <span>结余合计（元）</span>
                                     <span>{{incomeDebtRatios.totalSurplus}}</span>
@@ -782,7 +817,8 @@ export default {
                 custRelation: [],
                 custType: [],
                 houseType: []
-            }
+            },
+            incomePlantsRemark: '' // 种植经验描述
         }
     },
     created() {
@@ -804,6 +840,7 @@ export default {
               }).then( res => {
                   if(res.data.code == '2000000') {
                       this.lesseeinfolist = res.data.data.naturalData;
+                      console.log(this.lesseeinfolist[0].incomePlants,'种植经验描述');
                       for(let i = 0 ; i < this.lesseeinfolist.length ; i ++ ) {
                           // 获取各种option的默认选项匹配
                           this.$post('/getConstantConfig',{
@@ -953,6 +990,25 @@ export default {
     .imagescss {
         float: left;
         margin-left: 10px;
+    }
+}
+.bz {
+    width: 15%;
+    float: left;
+    border-right: 1px solid #EBEEF5;
+}
+.batextarrear {
+    width: 84%;
+    float: left;
+    .el-textarea__inner {
+        padding: 0 15px;
+    }
+}
+.describeText {
+    .describetext {
+        width: 95%;
+        margin: 0 auto;
+        display: block;
     }
 }
 </style>
