@@ -13,16 +13,6 @@
                                     {{item.bussNo}}
                                 </span>
                             </li>
-                            <!-- <li>
-                                <span>客户类别</span>
-                                <span>
-                                    <select class="" name="" disabled>
-                                        <option value="" v-for="custType in statuslist.custType" :selected="item.custType == custType.optionCode ? true : false">
-                                            {{item.custType == '' ? '' : custType.optionName}}
-                                        </option>
-                                    </select>
-                                </span>
-                            </li> -->
                             <li>
                                 <span>姓名</span>
                                 <span>{{item.custName}}</span>
@@ -103,17 +93,6 @@
                                     {{spouse.custName}}
                                 </span>
                             </li>
-                            <!-- <li>
-                                <span>客户类别</span>
-                                <span>
-                                    {{spouse.custType}}
-                                    <select class="" name="" disabled>
-                                        <option value="" v-for="custType in statuslist.custType" :selected="spouse.custType == custType.optionCode ? true : false">
-                                            {{spouse.custType == '' ? '' : custType.optionName}}
-                                        </option>
-                                    </select>
-                                </span>
-                            </li> -->
                             <li>
                                 <span>性别</span>
                                 <span>
@@ -156,7 +135,6 @@
                             <li>
                                 <span>婚姻状况</span>
                                 <span>
-                                    <!-- {{spouse.custMarriage}} -->
                                     <select class="" name="" disabled v-if="spouse.custMarriage != ''">
                                         <option value="" v-for="marriagestatus in statuslist.marriage" :selected="spouse.custMarriage ==marriagestatus.optionCode ? true : false">
                                             {{spouse.custMarriage == '' ? '' : marriagestatus.optionName}}
@@ -264,7 +242,6 @@
                                 <li>
                                     <span>土地类型</span>
                                     <span>
-                                        <!-- {{item.naturalData.assetsLands.mortgage}} -->
                                     </span>
                                 </li>
                                 <li>
@@ -297,7 +274,6 @@
                                 <li>
                                     <span>车产类型</span>
                                     <span>
-                                        <!-- {{item.naturalData.assetsVehicles.contractLife}} -->
                                     </span>
                                 </li>
                                 <li>
@@ -328,7 +304,6 @@
                                 <li>
                                     <span>农机具类型</span>
                                     <span>
-                                        <!-- {{item.naturalData.assetsFarmTools.serialNo}} -->
                                     </span>
                                 </li>
                                 <li>
@@ -383,15 +358,6 @@
                                 <li class="subliWidth">
                                     <p class="bz">备注</p>
                                     <div class="batextarrear">
-                                        <!-- {{assetsOthers.remark}} -->
-                                        <!-- <textarea
-                                            name="name"
-                                            rows="2"
-                                            cols="80"
-                                            :value="assetsOthers.remark"
-                                            class="textareavalues"
-                                            disabled>
-                                        </textarea> -->
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -441,15 +407,6 @@
                                 <li class="subliWidth">
                                     <p class="bz">备注</p>
                                     <div class="batextarrear">
-                                        <!-- {{debtSituations.remark}} -->
-                                        <!-- <textarea
-                                            name="name"
-                                            rows="2"
-                                            cols="80"
-                                            :value="debtSituations.remark"
-                                            class="textareavalues"
-                                            disabled>
-                                        </textarea> -->
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -493,15 +450,6 @@
                                 <li class="subliWidth">
                                     <p class="bz">备注</p>
                                     <div class="batextarrear">
-                                        <!-- {{debtGuarantees.remark}} -->
-                                        <!-- <textarea
-                                            name="name"
-                                            rows="2"
-                                            cols="80"
-                                            :value="debtGuarantees.remark"
-                                            class="textareavalues"
-                                            disabled>
-                                        </textarea> -->
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -520,7 +468,6 @@
                                 <li>
                                     <span>其他负债</span>
                                     <span>
-                                        <!-- {{item.naturalData.debtOthers.remark}} -->
                                     </span>
                                 </li>
                                 <li>
@@ -551,15 +498,6 @@
                                 <li class="subliWidth">
                                     <p class="bz">备注</p>
                                     <div class="batextarrear">
-                                        <!-- {{debtOthers.remark}} -->
-                                        <!-- <textarea
-                                            name="name"
-                                            rows="2"
-                                            cols="80"
-                                            :value="debtOthers.remark"
-                                            class="textareavalues"
-                                            disabled>
-                                        </textarea> -->
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -583,7 +521,7 @@
                                 <li>
                                     <span>收入名称</span>
                                     <span>
-                                        <!-- {{item.naturalData.incomePlants.remark}} -->
+                                        种植收入
                                     </span>
                                 </li>
                                 <li>
@@ -616,7 +554,7 @@
                                 <li>
                                     <span>收入名称</span>
                                     <span>
-                                        <!-- {{item.naturalData.incomeOthers.surplus}} -->
+                                        其他收入
                                     </span>
                                 </li>
                                 <li>
@@ -643,39 +581,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- <div class="assetsinfoul">
-                            <h3>收入偿债比</h3>
-                            <ul class="infolist" v-for="incomeDebtRatios in item.incomeDebtRatios">
-                                <li>
-                                    <span>收入偿债比</span>
-                                    <span>
-                                        {{item.naturalData.incomeDebtRatios.surplus}}
-                                    </span>
-                                </li>
-                                <li>
-                                    <span>结余合计（元）</span>
-                                    <span>{{incomeDebtRatios.total_surplus}}</span>
-                                </li>
-                                <li>
-                                    <span>年租金支出（元）</span>
-                                    <span>{{incomeDebtRatios.annual_rental_expense}}</span>
-
-                                </li>
-                                <li>
-                                    <span>其他负债支出（元）</span>
-                                    <span>{{incomeDebtRatios.other_debt_expense}}</span>
-                                </li>
-                                <li>
-                                    <span>年支出合计（元）</span>
-                                    <span>{{incomeDebtRatios.total_annual_expense}}</span>
-
-                                </li>
-                                <li>
-                                    <span>偿债比</span>
-                                    <span>{{incomeDebtRatios.income_debt_ratio}}</span>
-                                </li>
-                            </ul>
-                        </div> -->
                     </div>
 
                     <!-- 承租人相关影像资料 -->

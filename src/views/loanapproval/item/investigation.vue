@@ -39,8 +39,6 @@
             <li class="subliWidth">
                 <p class="bz">备注</p>
                 <div class="batextarrear">
-                    <!-- {{item.remark}} -->
-                        <!-- {{item.insurance.remark}} -->
                     <el-input
                         type="textarea"
                         :rows="2"
@@ -65,7 +63,6 @@
             <li>
                 <span>与承租人关系</span>
                 <span>
-                    <!-- {{item.relation}} -->
                 <select class="" name="" disabled>
                     <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.relation == custRelation.optionCode ? true : false">
                         {{item.relation == '' ? '' :custRelation.optionName}}
@@ -100,7 +97,6 @@
             <li class="subliWidth">
                 <p class="bz">备注</p>
                 <div class="batextarrear">
-                    <!-- {{item.remark}} -->
                     <el-input
                         type="textarea"
                         :rows="2"
@@ -164,27 +160,22 @@ export default {
             console.log(this.statuslist.houseType,'222');
         })
         this.$post('/getSurveyConclusion',{
-            // bussNo: '14w2255',
             bussNo: this.$route.query.bussNo,
             ownerType: 'ZB'
         }).then( res => {
-            // console.log(res,'主办人');
             if(res.data.code == '2000000') {
                 this.sponsor = res.data.data;
             }
         });
         this.$post('/getSurveyConclusion',{
-            // bussNo: '14w2255',
             bussNo: this.$route.query.bussNo,
             ownerType: 'XB'
         }).then( res => {
-            // console.log(res,'协办人');
             if(res.data.code == '2000000') {
                 this.assist = res.data.data;
             }
         });
         this.$post('/additioncredit/info',{
-            // bussNo: 'CON_ZZ02_0000_201904_0001',
             bussNo: this.$route.query.bussNo
         }).then(res => {
             if(res.data.code == '2000000') {

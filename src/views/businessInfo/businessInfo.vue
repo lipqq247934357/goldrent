@@ -190,25 +190,21 @@
         },
         created() {
             this.pages();
-
         },
         methods: {
             handleSizeChange(val) {
                 this.pagesothen = val;
-                console.log(this.pagesothen,'页大小');
                 this.pages();
             },
             handleCurrentChange(val) {
                 this.nowpage = val;
-                console.log(this.nowpage,'当前页');
                 this.pages();
             },
             queryclick() {
                 this.pages();
             },
+            //查询 点击分页 一页多少 统一调用这一函数
             pages() {
-                // console.log(this.selectstatus);
-                // return;
                 this.$post('/buss/listBussInfo',{
                     bussNo: this.bussNo,
                     custName: this.custName,

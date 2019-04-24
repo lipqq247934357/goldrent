@@ -11,10 +11,6 @@
                         {{item.condition.leaseName}}
                     </span>
                 </li>
-                <!-- <li>
-                    <span>规格型号</span>
-                    <span>{{item.condition.leaseName}}</span>
-                </li> -->
                 <li>
                     <span>购置价格</span>
                     <span>{{item.condition.purchasePrice}}</span>
@@ -66,7 +62,6 @@
             <li class="subliWidth">
                 <p class="bz">备注</p>
                 <div class="batextarrear">
-                    <!-- {{item.insurance.remark}} -->
                     <el-input
                         type="textarea"
                         :rows="2"
@@ -94,13 +89,11 @@ export default {
     },
     created() {
         this.$post('/leaseinfo/query',{
-             // bussNo: 'CON_ZZ02_0000_201904_0084'
              bussNo: this.$route.query.bussNo
         }).then( res => {
             if(res.data.code == '2000000') {
                 this.rentinfo = res.data.data.lists;
             }
-            // console.log(res.data.data.lists,'租赁物信息');
         });
     },
     components: {

@@ -61,6 +61,7 @@
                     });
                 }
             },
+            // 左切换 暂时废弃
             left(index) {
                 var imglist = document.querySelectorAll(".imglist");
                 imglist[this.index].setAttribute('data-num',this.dataNum += 100);
@@ -70,6 +71,7 @@
                 this.b = parseInt(imglist[this.index].style.marginLeft.split('px')[0])
 
             },
+            // 右切换 暂时废弃
             right(item) {
                 let rightrun = this.dataNum -= 100;
                 var imglist = document.querySelectorAll(".imglist");

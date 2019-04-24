@@ -4,7 +4,6 @@
     <div class="alldata">
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in backpeople" :label="'回购人' + parseInt(index+1)">
-                <!-- <h1>{{item.basicInfo.id}}</h1> -->
                 <ul class="infolist">
                     <li>
                         <span>回购人名称</span>
@@ -14,7 +13,6 @@
                     </li>
                     <li>
                         <span>企业性质</span>
-                        <!-- <span>{{item.basicInfo == null ? '' : item.basicInfo.comNature}}</span> -->
                         <span>
                             <select class="" name="" disabled>
                                 <option value="" v-for="agencyLevel in statuslist.comNature" :selected="item.basicInfo == agencyLevel.optionCode ? true : false">
@@ -34,7 +32,6 @@
                     </li>
                     <li>
                         <span>经销商层级</span>
-                        <!-- <span>{{item.basicInfo == null ? '' : item.basicInfo.agencyLevel}}</span> -->
                         <span>
                             <select class="" name="" disabled>
                                 <option value="" v-for="comNature in statuslist.agencyLevel" :selected="item.basicInfo.agencyLevel == comNature.optionCode ? true : false">
@@ -83,15 +80,6 @@
                         <li class="subliWidth">
                             <p class="bz">备注</p>
                             <div class="batextarrear">
-                                <!-- {{item.debtInfo == null ? '' : item.debtInfo.remark}} -->
-                                <!-- <textarea
-                                    name="name"
-                                    rows="2"
-                                    cols="80"
-                                    :value="otherpeople.remark"
-                                    class="textareavalues"
-                                    disabled>
-                                </textarea> -->
                                 <el-input
                                     type="textarea"
                                     :rows="2"
@@ -142,15 +130,6 @@ export default {
         }
     },
     created() {
-        // this.$post('/repurchase/info',{
-        //     bussNo: 'CON_ZZ02_0000_201904_0001'
-        //     // bussNo: this.$route.query.bussNo
-        // }).then( res => {
-        //
-        //     this.backpeople = res.data.data;
-        //
-        //     console.log(res.data.data.debtInfo,'回购人');
-        // });
         let data = urlParse();
         this.id = data.id;
         this.bussNo = data.bussNo;
@@ -166,7 +145,6 @@ export default {
         async getStockPriceByNames(res) {
           this.partner = await (() =>
               this.$post('/repurchase/info',{
-                  // bussNo: 'CON_ZZ02_0000_201904_0001'
                  bussNo: this.$route.query.bussNo
               }).then( res => {
                   if(res.data.code == '2000000') {
@@ -241,7 +219,6 @@ export default {
             }
             li {
                 width: 100%;
-                // height: 100px;
                 text-align: center;
                 clear: both;
                 border-bottom: 1px solid #EBEBF5;

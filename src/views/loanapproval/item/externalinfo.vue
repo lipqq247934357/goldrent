@@ -99,7 +99,6 @@ export default {
     },
     created() {
         this.$post('/surveyinformation/info',{
-            // bussNo: 'CON_ZZ02_0000_201904_0001'
             bussNo: this.$route.query.bussNo
         }).then( res => {
             if(res.data.code == '2000000') {
@@ -107,7 +106,6 @@ export default {
                     return;
                 }
                 this.textarea = res.data.data.surveyInformation;
-                // console.log(this.textarea,'外部信息');
             }
         });
         if(this.$route.query.disabled == 1) {

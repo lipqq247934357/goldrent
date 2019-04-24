@@ -98,7 +98,7 @@
                     </div>
                     <!-- 配偶信息 -->
                     <div class="assetsinfoul">
-                        <h3>配偶情况</h3>
+                        <h3 v-if="item.custMarriage != 'unmarried'">配偶情况</h3>
                         <ul class="infolist" v-for="spouse in item.mateInfo">
                             <li>
                                 <span>配偶姓名</span>
@@ -106,17 +106,6 @@
                                     {{spouse.custName}}
                                 </span>
                             </li>
-                            <!-- <li>
-                                <span>客户类别</span>
-                                <span>
-                                    {{spouse.custType}}
-                                    <select class="" name="" disabled>
-                                        <option value="" v-for="custType in statuslist.custType" :selected="spouse.custType == custType.optionCode ? true : false">
-                                            {{spouse.custType == '' ? '' : custType.optionName}}
-                                        </option>
-                                    </select>
-                                </span>
-                            </li> -->
                             <li>
                                 <span>性别</span>
                                 <span>
@@ -159,7 +148,6 @@
                             <li>
                                 <span>婚姻状况</span>
                                 <span>
-                                    <!-- {{spouse.custMarriage}} -->
                                     <select class="" name="" disabled v-if="spouse.custMarriage != ''">
                                         <option value="" v-for="marriagestatus in statuslist.marriage" :selected="spouse.custMarriage ==marriagestatus.optionCode ? true : false">
                                             {{spouse.custMarriage == '' ? '' : marriagestatus.optionName}}
@@ -266,7 +254,6 @@
                                 <li>
                                     <span>土地类型</span>
                                     <span>
-                                        <!-- {{item.naturalData.assetsLands.mortgage}} -->
                                     </span>
                                 </li>
                                 <li>
@@ -299,7 +286,6 @@
                                 <li>
                                     <span>车产类型</span>
                                     <span>
-                                        <!-- {{item.naturalData.assetsVehicles.contractLife}} -->
                                     </span>
                                 </li>
                                 <li>
@@ -330,7 +316,6 @@
                                 <li>
                                     <span>农机具类型</span>
                                     <span>
-                                        <!-- {{item.naturalData.assetsFarmTools.serialNo}} -->
                                     </span>
                                 </li>
                                 <li>
@@ -386,22 +371,6 @@
                                 <li class="subliWidth">
                                     <p class="bz">备注</p>
                                     <div class="batextarrear">
-                                        <!-- <el-input
-                                            type="textarea"
-                                            :rows="2"
-                                            placeholder="请输入内容"
-                                            class="inputtext"
-                                            disabled
-                                            v-model="assetsOthers.remark">
-                                        </el-input> -->
-                                        <!-- <textarea
-                                            name="name"
-                                            rows="2"
-                                            cols="80"
-                                            :value="assetsOthers.remark"
-                                            class="textareavalues"
-                                            disabled>
-                                        </textarea> -->
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -450,22 +419,6 @@
                                 <li class="subliWidth">
                                     <p class="bz">备注</p>
                                     <div class="batextarrear">
-                                        <!-- <el-input
-                                            type="textarea"
-                                            :rows="2"
-                                            placeholder="请输入内容"
-                                            class="inputtext"
-                                            disabled
-                                            v-model="debtSituations.remark">
-                                        </el-input> -->
-                                        <!-- <textarea
-                                            name="name"
-                                            rows="2"
-                                            cols="80"
-                                            :value="debtSituations.remark"
-                                            class="textareavalues"
-                                            disabled>
-                                        </textarea> -->
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -509,22 +462,6 @@
                                 <li class="subliWidth">
                                     <p class="bz">备注</p>
                                     <div class="batextarrear">
-                                        <!-- <el-input
-                                            type="textarea"
-                                            :rows="2"
-                                            placeholder="请输入内容"
-                                            class="inputtext"
-                                            disabled
-                                            v-model="debtGuarantees.remark">
-                                        </el-input> -->
-                                        <!-- <textarea
-                                            name="name"
-                                            rows="2"
-                                            cols="80"
-                                            :value="debtGuarantees.remark"
-                                            class="textareavalues"
-                                            disabled>
-                                        </textarea> -->
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -543,7 +480,6 @@
                                 <li>
                                     <span>其他负债</span>
                                     <span>
-                                        <!-- {{item.naturalData.debtOthers.remark}} -->
                                     </span>
                                 </li>
                                 <li>
@@ -568,14 +504,7 @@
                                 <li class="subliWidth">
                                     <p class="bz">备注</p>
                                     <div class="batextarrear">
-                                        <!-- <textarea
-                                            name="name"
-                                            rows="2"
-                                            cols="80"
-                                            :value="debtOthers.remark"
-                                            class="textareavalues"
-                                            disabled>
-                                        </textarea> -->
+
                                         <el-input
                                             type="textarea"
                                             :rows="2"
@@ -599,7 +528,6 @@
                                 <li>
                                     <span>收入名称</span>
                                     <span>
-                                        <!-- {{item.naturalData.incomePlants.remark}} -->
                                         种植收入
                                     </span>
                                 </li>
@@ -625,21 +553,6 @@
                                     <span>结余（元）</span>
                                     <span>{{incomePlants.surplus}}</span>
                                 </li>
-
-                                <!-- <li class="subliWidth" v-if="incomePlants.remark != ''">
-                                    <p class="bz">种植经验描述</p>
-                                    <div class="batextarrear">
-                                        {{incomePlants.remark}}
-                                        <el-input
-                                            type="textarea"
-                                            :rows="2"
-                                            placeholder=""
-                                            class="inputtext"
-                                            disabled
-                                            v-model="incomePlants.remark">
-                                        </el-input>
-                                    </div>
-                                </li> -->
                             </ul>
                             <div class="describeText">
                                 <h3>种植经验描述</h3>
@@ -674,7 +587,6 @@
                                 <li>
                                     <span>收入名称</span>
                                     <span>
-                                        <!-- {{item.naturalData.incomeFarmMachineryWork.surplus}} -->
                                         农机作业收入
                                     </span>
                                 </li>
@@ -709,7 +621,6 @@
                                 <li>
                                     <span>收入名称</span>
                                     <span>
-                                        <!-- {{item.naturalData.incomeOthers.surplus}} -->
                                         其他收入
                                     </span>
                                 </li>
@@ -740,13 +651,6 @@
                         <div class="assetsinfoul">
                             <h3>收入偿债比</h3>
                             <ul class="infolist" v-for="incomeDebtRatios in item.incomeDebtRatios">
-                                <!-- <li>
-                                    <span>收入偿债比</span>
-                                    <span>
-                                        {{incomeDebtRatios.income_debt_ratio}}
-                                        {{incomeDebtRatios.incomeDebtRatio}}
-                                    </span>
-                                </li> -->
                                 <li>
                                     <span>结余合计（元）</span>
                                     <span>{{incomeDebtRatios.totalSurplus}}</span>
@@ -835,14 +739,12 @@ export default {
         async getStockPriceByNames(res) {
           this.partner = await (() =>
               this.$post('/leasee/info',{
-                  // bussNo: 'CON_ZZ02_0000_201904_0001'
                  bussNo: this.$route.query.bussNo
               }).then( res => {
                   if(res.data.code == '2000000') {
                       this.lesseeinfolist = res.data.data.naturalData;
-                      console.log(this.lesseeinfolist[0].incomePlants,'种植经验描述');
                       for(let i = 0 ; i < this.lesseeinfolist.length ; i ++ ) {
-                          // 获取各种option的默认选项匹配
+                          // 获取各种option的默认选项匹配字典编码
                           this.$post('/getConstantConfig',{
                               dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee']
                           }).then(res => {
@@ -851,7 +753,6 @@ export default {
                               this.statuslist.custRelation = res.data.data.custRelation;
                               this.statuslist.custType = res.data.data.custType;
                               this.statuslist.houseType = res.data.data.houseType;
-                              console.log(res.data.data.isGuarantee,'222');
                           })
                           return this.lesseeinfolist[i].partnerType;
                       }
@@ -944,7 +845,6 @@ export default {
                     }
                     li {
                         width: 100%;
-                        // height: 100px;
                         text-align: center;
                         clear: both;
                         border-bottom: 1px solid #EBEBF5;
@@ -953,18 +853,7 @@ export default {
                         position: relative;
                         min-height: 100px;
                         div {
-                            // float: left;
-                            // border-bottom: 1px solid #EBEEF5;
-                            // height: 100px;
                             color: #606266;
-                            // &:first-child {
-                            //     width: 29.8%;
-                            //     border-right: 1px solid #EBEEF5;
-                            //     line-height: 100px;
-                            // }
-                            // &:last-child {
-                            //     width: 70%;
-                            // }
                         }
                     }
                 }

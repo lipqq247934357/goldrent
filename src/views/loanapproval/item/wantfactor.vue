@@ -8,9 +8,7 @@
         </li>
         <li>
             <span>租赁模式</span>
-            <!-- <span>{{wantfactor.leaseMode && wantfactor.leaseMode}}</span> -->
             <span>
-                <!-- {{wantfactor.leaseMode}} -->
                 <select class="" name="" disabled>
                     <option value="" v-for="leaseMode in statuslist.leaseMode" :selected="wantfactor.leaseMode == leaseMode.optionCode ? true : false">
                         {{leaseMode.optionName}}
@@ -151,21 +149,17 @@ export default {
         // 请求租赁要素结构
         this.$post('/leaseinfo/queryElement',{
             bussNo: this.$route.query.bussNo
-            // bussNo: 'CON_ZZ02_0000_201904_0043'
         }).then( res => {
             if(res.data.code == '2000000') {
                 this.wantfactor = res.data.data;
-                // console.log(res,':::::::::::');
             }
         });
         // 租金计划表
         this.$post('/leaseinfo/querySchedule', {
             bussNo: this.$route.query.bussNo
-            // bussNo: 'CON_ZZ02_0000_201904_0043'
         }).then( res => {
             if(res.data.code == '2000000') {
                 this.tableData = res.data.data;
-                // console.log(res,'<<<<<<<<<<');
             }
         });
     },
