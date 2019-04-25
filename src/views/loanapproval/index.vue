@@ -114,8 +114,8 @@ export default {
             message: '筛选条件',
             titletext: '贷款审批列表',
             contenttext: '任务信息',
-            tableData: [],
-            alldata: '',
+            tableData: [], // 表格
+            alldata: '', // 总页数
             bussNumber: '', //业务编号
             loanName: '', // 承租人姓名
             options: [
@@ -148,12 +148,12 @@ export default {
                     label: '已退回'
                 }
             ],
-            value: '',
+            value: '', // 储存任务状态
             currentPage2: 1,
             beginTime: '', // 开始控件时间
             endTime: '',  // 结束控件时间
-            alsoSize: 10,
-            nowPage: 1,
+            alsoSize: 10, // 默认10条
+            nowPage: 1, // 当前页
         }
     },
     created() {

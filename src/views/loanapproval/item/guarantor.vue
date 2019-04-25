@@ -611,12 +611,12 @@ export default {
             message: '',
             tableData: [],
             images: [],
-            guarantordata: [],
-            partner: '',
-            id: '',
-            bussNo:'',
-            imgFile: [],
-            statuslist: {
+            guarantordata: [], // 保证人的list主数组用于循环
+            partner: '', // 储存法人还是自然人NAT自然人	 LEG法人
+            id: '', // 当前ID
+            bussNo:'', // 订单号
+            imgFile: [], //预览图片文件
+            statuslist: { // 字典编码
                 marriage: [],
                 custSex: [],
                 custRelation: [],

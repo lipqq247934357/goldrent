@@ -184,7 +184,7 @@
             return {
                 firstTitle: '筛选条件', // 第一个标题
                 maxTitle: '商业伙伴管理', // 大标题
-                partnerName: '',
+                partnerName: '', // 商业伙伴名称
                 statusOptions: [ // 任务状态
                     {
                         value: '1',
@@ -199,13 +199,13 @@
                         label: '进行中'
                     }
                 ],
-                naturalData: [],
+                naturalData: [], // 自然人表格
                 naturalPagInfo: {
                     total: 10,
                     currentPage: 1,
                     pageSize: 10
                 },
-                legalData: [],
+                legalData: [], // 法人表格
                 legalPagInfo: {
                     total: 10,
                     currentPage: 1,
@@ -213,7 +213,7 @@
                 },
                 path: '/layout/natural', // 增删改地址
                 queryFunc: this.queryNatural, // 查询的类型
-                imgId: ''
+                imgId: '' 
             }
         },
         mounted() {

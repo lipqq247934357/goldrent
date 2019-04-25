@@ -93,7 +93,7 @@ export default {
     data() {
         return {
             message: '',
-            textarea: {},
+            textarea: {}, // ajax获取的主对象
             inputdisabled: false
         }
     },

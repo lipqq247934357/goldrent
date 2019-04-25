@@ -143,11 +143,11 @@ export default {
         return {
             message: '',
             textarea: '',
-            houseMortgager: [],
-            landMortgager: [],
+            houseMortgager: [], //房产抵押
+            landMortgager: [], //土地抵押
             sponsor: '', //主办人
             assist: '', //协办人
-            statuslist: {
+            statuslist: { // 字典编码
                 custRelation: []
             }
         }

@@ -9,7 +9,6 @@
                 <li>
                     <div>商业伙伴全称</div>
                     <div>
-                        <!-- <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custName"/> -->
                         <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custName"/>
                     </div>
                 </li>

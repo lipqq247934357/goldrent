@@ -120,10 +120,10 @@
                 message: '筛选条件',
                 titletext: '业务信息列表',
                 contenttext: '任务信息',
-                bussNo: '',
-                custName: '',
-                task_name: '',
-                selectstatus: '',
+                bussNo: '', // 订单号
+                custName: '', // 承租人姓名
+                task_name: '', // 储存任务名称
+                selectstatus: '', // 储存任务状态
                 statusOptions: [
                     {
                         value: '全部',

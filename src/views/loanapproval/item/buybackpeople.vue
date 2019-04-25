@@ -117,13 +117,13 @@ export default {
     data() {
         return {
             message: '',
-            backpeople: [],
+            backpeople: [], // 获取回购人list这是主数组用于循环回购人
             tableNull: '',
-            partner: '',
-            imgFile: [],
-            id: '',
-            bussNo:'',
-            statuslist: {
+            partner: '', // 储存法人还是自然人NAT自然人	 LEG法人
+            imgFile: [], //预览图片文件
+            id: '', //当前id
+            bussNo:'', // 订单号
+            statuslist: { // 字典编码
                 agencyLevel: [],
                 comNature: []
             }
@@ -182,12 +182,9 @@ export default {
                   //   remark	备注	String
                   if(res.data.code == '2000000') {
                       this.backpeople = res.data.data;
-                      console.log(this.backpeople,'11111110-0');
                       for(let i = 0 ; i < this.backpeople.length ; i ++ ) {
-                          console.log(this.backpeople[i].basicInfo.partnerType);
                           if(this.backpeople[i].basicInfo.partnerType == null) {
                               this.$message.error('回购人当前没有影像资料');
-                              console.log(this.backpeople[i].basicInfo,'回购人')
                           }
                           return this.backpeople[i].basicInfo.partnerType;
                       }

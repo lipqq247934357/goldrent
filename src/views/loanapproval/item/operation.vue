@@ -151,9 +151,9 @@ export default {
     data() {
         return {
             message: '',
-            radio: 'Y',
-            radio1: '',
-            tableData: [],
+            radio: 'Y', // 是否有征信报告
+            radio1: '', //1同意 0不同意
+            tableData: [], // 表格
             textarea: '', //文本域绑定
             checklist: [], // 合同按钮
             options: [
@@ -166,10 +166,10 @@ export default {
                     label: '无'
                 },
             ],
-            value2: '',
-            value3: '',
-            checkboxlist: [],
-            loanFaceContracts: [],
+            value2: '', // 储存涉诉
+            value3: '', // 储存被执行信息
+            checkboxlist: [], // 面签合同
+            loanFaceContracts: [], //储存点击面签合同
             checked: false,
             overdue: '', // 最大逾期数
             overdueNo: '', //累计逾期数
@@ -177,8 +177,8 @@ export default {
             tongdunQuery: '', //同盾查询
             tongdunCredit: '', // 同盾信用,
             rowspanlength: [],
-            proposaltotalScore: '',
-            proposalsuggestResult: '',
+            proposaltotalScore: '', // 评分卡得分展示
+            proposalsuggestResult: '', // 评分卡得分结论
             inputdisabled: false
         }
     },

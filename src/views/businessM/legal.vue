@@ -290,7 +290,7 @@
                 message: '基本信息',
                 titletext: '商业伙伴维护',
                 id: '',
-                data: {},
+                data: {}, // 储存ajaxdata
                 partnerTypeOptions: [
                     {
                         value: 'NAT',
@@ -328,7 +328,7 @@
                     url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
                 }],
                 dialogVisible: false,
-                dialogImageUrl: '',
+                dialogImageUrl: '', // 图片url
                 type: '',
                 imgFile: {},
                 token:''

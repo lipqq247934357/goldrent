@@ -701,17 +701,17 @@ import {urlParse} from "../../../utils/utils";
 export default {
     data() {
         return {
-            message: '',
+            message: '', //title文字
             tableData: [],
-            lesseeinfolist: [],
+            lesseeinfolist: [], //承租人列表
             images: [],
-            partner: '',
-            imageslist: {},
+            partner: '', // 储存法人还是自然人NAT自然人	 LEG法人
+            imageslist: {}, //
             fileId: [], //文件ID
             imageUrl: '',
-            imgFile: [],
-            id: '',
-            bussNo:'',
+            imgFile: [], // 储存数学结构key
+            id: '', //当前ID
+            bussNo:'', //订单号
             statuslist: {
                 marriage: [],
                 custSex: [],
@@ -1177,7 +1177,6 @@ export default {
                   if(res.data.code == '2000000') {
                       this.imageslist = res.data.data;
                       let treeInfo = res.data.data;
-
                       let tempArr = [];
                       Object.keys(treeInfo).forEach((key) => {
                          tempArr.push(treeInfo[key]);

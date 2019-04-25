@@ -131,9 +131,9 @@ export default {
     data() {
         return {
             message: '',
-            tableData: [],
-            wantfactor: {},
-            statuslist: {
+            tableData: [], // 租金计划表
+            wantfactor: {}, // 租赁要素
+            statuslist: { // 字典编码
                 payWay: [],
                 leaseMode: []
             }

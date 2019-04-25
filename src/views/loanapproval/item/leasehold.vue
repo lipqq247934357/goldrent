@@ -84,7 +84,7 @@ export default {
     data() {
         return {
             message: '',
-            rentinfo: []
+            rentinfo: [] //租赁物
         }
     },
     created() {
