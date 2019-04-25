@@ -1,6 +1,6 @@
 <template>
 <div class="welcome">
-    <p>欢迎登录金租业务管理系统！</p>
+    <p>欢迎登录哈银租赁农机零售系统！</p>
 </div>
 </template>
 

@@ -180,7 +180,23 @@
                         label: '放款确认'
                     }
                 ],
-                tableData: [],
+                tableData: [
+                    // id	该业务对应的当前审核状态的id	string
+                    // bussNo业务编号String
+                    //
+                    // custName租承租人姓名String
+                    //
+                    // taskname任务名称String
+                    //
+                    // ownerName任务员姓名String
+                    // status任务状态String
+                    //
+                    // beginTime	任务开始时间	Timestamp
+                    //
+                    // finishTime	任务结束时间	Timestamp
+                    //
+                    // createTime	任务创建时间	Timestamp
+                ],
                 pagesothen: 10,
                 nowpage: 1,
                 currentPage2: 1,

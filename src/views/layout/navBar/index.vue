@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="top">
-            <img alt="" height="20" src="logo.png" width="20">
-            <span>金租业务管理系统</span>
+            <img alt="" height="20" src="./logo.png" width="20">
+            <span>哈银租赁农机零售系统</span>
             <span @click="showUserInfo" class="username">{{userName}}</span>
         </div>
         <div class="userInfo" v-show="userInfoPop">

@@ -140,16 +140,44 @@ export default {
         }
     },
     created() {
+        //字典编码
         this.$post('/getConstantConfig',{
             dictionaryCode: ['payWay','leaseMode']
         }).then(res => {
             this.statuslist.payWay = res.data.data.payWay;
             this.statuslist.leaseMode = res.data.data.leaseMode;
         })
-        // 请求租赁要素结构
+        // 请求租赁要素
         this.$post('/leaseinfo/queryElement',{
             bussNo: this.$route.query.bussNo
         }).then( res => {
+            // 返回示例
+            // {
+            //     "msg": "success",
+            //     "code": "2000000",
+            //     "data": {
+            //         "leaseTerm": 12,
+            //         "allowanceAmt": 88,
+            //         "endDate": "2019-10-01",
+            //         "leaseName": "租赁物名称01",
+            //         "financeAmt": 1000,
+            //         "payWay": "01",
+            //         "settleAhead": 0,
+            //         "depositAmt": 100,
+            //         "leaseInfoId": "f41f9ff7831648d2a37f78671898f7f7",
+            //         "rebateAmt": 500,
+            //         "firstPayAmt": 30000,
+            //         "bussNo": "buss_no201904110002",
+            //         "purchaseAmt": 2000,
+            //         "id": "e83ef3935c314b89b5a3bc13b3fa26a8",
+            //         "otherRiskAmt": 300,
+            //         "leaseMode": "02",
+            //         "startDate": "2019-04-12",
+            //         "lesseeRiskAmt": 600,
+            //         "allowanceDate": "2019-04-30",
+            //         "leaseRate": "0.023000"
+            //     }
+            // }
             if(res.data.code == '2000000') {
                 this.wantfactor = res.data.data;
             }
@@ -158,6 +186,117 @@ export default {
         this.$post('/leaseinfo/querySchedule', {
             bussNo: this.$route.query.bussNo
         }).then( res => {
+            // 返回示例
+            // {
+            //     "msg": "success",
+            //     "code": "2000000",
+            //     "data": [
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10550984.8,
+            //             "period": 1,
+            //             "interest": 550984.8,
+            //             "dueDate": "2019-05-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10412030.3,
+            //             "period": 2,
+            //             "interest": 412030.3,
+            //             "dueDate": "2019-06-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10362490,
+            //             "period": 3,
+            //             "interest": 362490,
+            //             "dueDate": "2019-07-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10337115.7,
+            //             "period": 4,
+            //             "interest": 337115.7,
+            //             "dueDate": "2019-08-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10299658.4,
+            //             "period": 5,
+            //             "interest": 299658.4,
+            //             "dueDate": "2019-09-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10253743,
+            //             "period": 6,
+            //             "interest": 253743,
+            //             "dueDate": "2019-10-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10224743.8,
+            //             "period": 7,
+            //             "interest": 224743.8,
+            //             "dueDate": "2019-11-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10181245,
+            //             "period": 8,
+            //             "interest": 181245,
+            //             "dueDate": "2019-12-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10149829.2,
+            //             "period": 9,
+            //             "interest": 149829.2,
+            //             "dueDate": "2020-01-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10112371.9,
+            //             "period": 10,
+            //             "interest": 112371.9,
+            //             "dueDate": "2020-02-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10070081.4,
+            //             "period": 11,
+            //             "interest": 70081.4,
+            //             "dueDate": "2020-03-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 10000000,
+            //             "dueAmout": 10037457.3,
+            //             "period": 12,
+            //             "interest": 37457.3,
+            //             "dueDate": "2020-04-20",
+            //             "moneyRate": 0.0435
+            //         },
+            //         {
+            //             "principal": 0,
+            //             "dueAmout": 100,
+            //             "period": 12,
+            //             "interest": 0,
+            //             "dueDate": "2020-04-20",
+            //             "moneyRate": 0.0435
+            //         }
+            //     ]
+            // }
             if(res.data.code == '2000000') {
                 this.tableData = res.data.data;
             }

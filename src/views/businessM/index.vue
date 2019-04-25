@@ -223,6 +223,54 @@
             async queryNatural() { // 分页查询自然人数据
                 let data = await this.$get(`/bussPartner/listPartnerInfo?partnerName=${this.partnerName}&partnerType=1&currentPage=${this.naturalPagInfo.currentPage}&pageSize=${this.naturalPagInfo.pageSize}`);
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
+                    // 示例
+                    // data(自然人)
+                    //
+                    //     id	数据ID	String
+                    //     partnerType 商业伙伴类型 String
+                    //
+                    //     certNo 身份证号 String
+                    //
+                    //     custName 商业伙伴全称 String
+                    //
+                    //     custSex 性别 String
+                    //
+                    //     custHomeplace 户籍地址 String
+                    //
+                    //     custAge 年龄 String
+                    //
+                    //     custMobile 联系电话 String
+                    //
+                    //     custWechat 微信 String
+                    //
+                    //     custEducation教育程度 String
+                    //
+                    //     custMarriage 婚姻状况 String
+                    //
+                    //     residenceYears 申请地居住年限 String
+                    //
+                    //     company 工作单位 String
+                    //
+                    //     custAddress 现住址 String
+                    //
+                    //     creditRating 征信报告 String
+                    //     cultureYears	种植年限
+                    // data(法人)
+                    //
+                    //     bussNo String业务编号
+                    //
+                    //     com_fullname String客户姓名
+                    //
+                    //
+                    //     com_nature String企业性质
+                    //
+                    //     com_industry String公司所属行业
+                    //
+                    //     com_registered_capital Decimal注册资本（万元）
+                    //
+                    //     total_assets Decimal营业总额（万元）
+                    //
+                    //     creator String创建人
                     this.naturalData = data.data.data.recordList;
                     this.naturalPagInfo.total = data.data.data.totalCount;
                 }

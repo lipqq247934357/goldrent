@@ -5,31 +5,6 @@
         </div>
         <div class="tableinfo">
             <template>
-                <!-- <el-table
-                        :data="task"
-                        border
-                        style="width: 100%">
-                    <el-table-column
-                            label="业务编号"
-                            prop="bussNo">
-                    </el-table-column>
-                    <el-table-column
-                            label="任务名称"
-                            prop="taskname">
-                    </el-table-column>
-                    <el-table-column
-                            label="任务创建时间"
-                            prop="createTime">
-                    </el-table-column>
-                    <el-table-column
-                            label="任务开始时间"
-                            prop="beginTime">
-                    </el-table-column>
-                    <el-table-column
-                            label="任务结束时间"
-                            prop="finishTime">
-                    </el-table-column>
-                </el-table> -->
                 <ul class="toplist">
                     <li>
                         <span>业务编号</span>
@@ -229,6 +204,28 @@
                     custNature: {},
                     leaseInfo: {},
                     leasePlan: []
+
+                    // task: {
+                    //     bussNo业务编号String
+                    //
+                    //     custName租承租人姓名String
+                    //
+                    //     taskname任务名称String
+                    //
+                    //     ownerName任务员姓名String
+                    //
+                    //     status任务状态String
+                    //
+                    //     beginTime	任务开始时间	Timestamp
+                    //
+                    //     finishTime	任务结束时间	Timestamp
+                    //
+                    //     createTime	任创建时间 Timestamp
+                    // }
+                    // custNature: {}
+                    // leaseInfo: {},
+                    // leasePlan: []
+
                 },
                 custNature: {},
                 leaseInfo: {},
@@ -247,12 +244,9 @@
         },
         created() {
             let data = urlParse();
-            // this.query(data.bussNo);
             this.$get(`buss/getBussInfo?task_id=${this.$route.query.task_id}`).then(res => {
                 if(res.data.code == '2000000') {
                     this.task = res.data.data;
-                    console.log(this.task);
-                    // console.log(this.task);
                 }
             });
             this.$post('/getConstantConfig',{

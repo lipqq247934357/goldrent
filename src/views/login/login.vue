@@ -1,6 +1,7 @@
 <template>
     <div class="login" @keyup.enter="login">
         <img alt="" src="./logo.png">
+        <p class="logintext">哈银租赁农机零售系统</p>
         <div class="inputText">
             <div class="subTextdiv">
                 <div class="title">
@@ -58,10 +59,13 @@
         bottom: 0;
 
         img {
-            margin: 10% auto 30px;
+            margin: 10% auto 20px;
             display: block;
         }
-
+        .logintext {
+            text-align: center;
+            font-size: 20px;
+        }
         .inputText {
             width: 350px;
             padding: 10px;

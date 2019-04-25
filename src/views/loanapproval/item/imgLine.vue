@@ -41,6 +41,7 @@
             this.getList();
         },
         methods: {
+            // 获取图片
             async getList() {
                 let data = await this.$post('/getFileIdByType', {
                     relationId: this.relationId + '',

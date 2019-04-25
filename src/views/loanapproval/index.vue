@@ -181,6 +181,69 @@ export default {
                 numPerPage: this.alsoSize, // 每页多少条
                 currentPage: '1' // 每次点击查询按钮都是第一页
             }).then(res => {
+                // 返回示例
+                // {
+                //   "msg": "success",
+                //   "code": "2000000",
+                //   "data": {
+                //     "currentPage": 1,
+                //     "numPerPage": 10,
+                //     "totalCount": 3,
+                //     "recordList": [
+                //       {
+                //         "id": "1",
+                //         "version": 0,
+                //         "status": "03",
+                //         "creator": "1",
+                //         "createTime": "2019-04-10T03:17:21.000+0000",
+                //         "editor": "1",
+                //         "editTime": "2019-04-12T07:19:49.000+0000",
+                //         "bussNo": "demoData2",
+                //         "custId": "cust1",
+                //         "custName": "name1",
+                //         "taskType": "20",
+                //         "isCurrent": "Y"
+                //       },
+                //       {
+                //         "id": "2",
+                //         "version": 0,
+                //         "status": "00",
+                //         "creator": "cre1",
+                //         "createTime": "2019-04-13T05:51:07.000+0000",
+                //         "editor": "edi1",
+                //         "editTime": "2019-04-13T05:51:07.000+0000",
+                //         "bussNo": "task1",
+                //         "custId": "cust2",
+                //         "custName": "name2",
+                //         "taskType": "20",
+                //         "taskName": "张三",
+                //         "ownerId": "oid1",
+                //         "ownerName": "oname1",
+                //         "isCurrent": "Y"
+                //       },
+                //       {
+                //         "id": "3",
+                //         "version": 0,
+                //         "status": "00",
+                //         "creator": "cre2",
+                //         "createTime": "2019-04-13T05:52:16.000+0000",
+                //         "editor": "edi2",
+                //         "editTime": "2019-04-13T05:52:16.000+0000",
+                //         "bussNo": "task2",
+                //         "custId": "cust2",
+                //         "custName": "name2",
+                //         "taskType": "20",
+                //         "taskName": "李四",
+                //         "ownerId": "oid2",
+                //         "ownerName": "oname2",
+                //         "isCurrent": "Y"
+                //       }
+                //     ],
+                //     "totalPage": 1,
+                //     "beginPageIndex": 1,
+                //     "endPageIndex": 1
+                //   }
+                // }
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;

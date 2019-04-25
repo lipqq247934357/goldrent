@@ -153,20 +153,28 @@ export default {
         }
     },
     created() {
+        // 字典编码约定
         this.$post('/getConstantConfig',{
             dictionaryCode: ['custRelation']
         }).then(res => {
             this.statuslist.custRelation = res.data.data.custRelation;
-            console.log(this.statuslist.houseType,'222');
         })
+        // 主办人
         this.$post('/getSurveyConclusion',{
             bussNo: this.$route.query.bussNo,
             ownerType: 'ZB'
         }).then( res => {
+            // 返回data
+            // data
+            // id	数据唯一ID	String
+            // ownerId	所属人ID	String
+            // ownerType	所属人身份	String
+            // conclusion	调查结论	String
             if(res.data.code == '2000000') {
                 this.sponsor = res.data.data;
             }
         });
+        // 协办人
         this.$post('/getSurveyConclusion',{
             bussNo: this.$route.query.bussNo,
             ownerType: 'XB'
@@ -175,9 +183,36 @@ export default {
                 this.assist = res.data.data;
             }
         });
+        // 外部信息 input 填充
         this.$post('/additioncredit/info',{
             bussNo: this.$route.query.bussNo
         }).then(res => {
+            // 示例
+            // {
+            //     "msg": "success",
+            //     "code": "2000000",
+            //     "data": {
+            //         "surveyInformation": {
+            //             "id": "8932f859056048379bdf60c2b1a5b182",
+            //             "version": 0,
+            //             "status": null,
+            //             "creator": "",
+            //             "createTime": "2019-04-12T02:19:36.000+0000",
+            //             "editor": "",
+            //             "editTime": "2019-04-12T02:19:36.000+0000",
+            //             "remark": null,
+            //             "bussNo": "test_data_for_app_0411_02",
+            //             "lesseeCredit": "someone1",
+            //             "guarantorCredit": "rela",
+            //             "repurchaseCredit": "",
+            //             "lesseeCreditZhongdeng": "",
+            //             "lesseeCreditExternal": "",
+            //             "guarantorCreditExternal": "",
+            //             "repurchaseCreditExternal": ""
+            //         },
+            //         "bussNo": "test_data_for_app_0411_02"
+            //     }
+            // }
             if(res.data.code == '2000000') {
                 this.houseMortgager = res.data.data.houseMortgager;
                 this.landMortgager = res.data.data.landMortgager;

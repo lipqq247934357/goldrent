@@ -91,6 +91,62 @@ export default {
         this.$post('/leaseinfo/query',{
              bussNo: this.$route.query.bussNo
         }).then( res => {
+            // 返回示例
+            // {
+            //     "msg": "success",
+            //     "code": "2000000",
+            //     "data": {
+            //         "bussNo": "1111111111",
+            //         "lists": [
+            //             {
+            //                 "insurance": {
+            //                     "firstBeneficiary": "老子",
+            //                     "insuranceBuyTime": "2019-04-11T16:00:00.000+0000",
+            //                     "insuranceTerm": "20",
+            //                     "remark": "该吃吃,该喝喝,该玩玩",
+            //                     "id": "d4c208f026464838a8302ba31b62bc43",
+            //                     "insuranceType": "失身险",
+            //                     "coverage": "0.000000",
+            //                     "insuranceCompany": "中国人寿保险"
+            //                 },
+            //                 "condition": {
+            //                     "serialNoType": "01",
+            //                     "mortgage": "Y",
+            //                     "bussNo": "1111111111",
+            //                     "leaseName": "租赁物名称",
+            //                     "id": "d4c208f026464838a8302ba31b62bc43",
+            //                     "purchasePrice": 1000,
+            //                     "mortgageAgency": "金融机构",
+            //                     "serialNo": "only0001",
+            //                     "deliveryPlace": "北京市朝阳区高碑店"
+            //                 }
+            //             },
+            //             {
+            //                 "insurance": {
+            //                     "firstBeneficiary": "老子",
+            //                     "insuranceBuyTime": "2019-04-11T16:00:00.000+0000",
+            //                     "insuranceTerm": "20",
+            //                     "remark": "该吃吃,该喝喝,该玩玩",
+            //                     "id": "ece09b7d8cf1467b88900c0104750671",
+            //                     "insuranceType": "失身险2",
+            //                     "coverage": "0.000000",
+            //                     "insuranceCompany": "中国人寿保险"
+            //                 },
+            //                 "condition": {
+            //                     "serialNoType": "01",
+            //                     "mortgage": "Y",
+            //                     "bussNo": "1111111111",
+            //                     "leaseName": "租赁物名称2",
+            //                     "id": "ece09b7d8cf1467b88900c0104750671",
+            //                     "purchasePrice": 1000,
+            //                     "mortgageAgency": "金融机构",
+            //                     "serialNo": "only0001",
+            //                     "deliveryPlace": "北京市朝阳区高碑店"
+            //                 }
+            //             }
+            //         ]
+            //     }
+            // }
             if(res.data.code == '2000000') {
                 this.rentinfo = res.data.data.lists;
             }

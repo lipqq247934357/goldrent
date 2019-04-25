@@ -362,6 +362,49 @@
                 // 添加信息`
                 let data = await this.$get(`/bussPartner/getPartnerInfo?partnerType=2&partnerId=${this.$route.query.id}`);
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
+                    // 示例
+                    // basicInfo
+                    //         基本信息
+                    //
+                    //         id	数据ID	String
+                    //         bussNo	业务编号	String
+                    //         partnerType	商业伙伴类型, NAT - 自然人， LEG - 法人	String
+                    //         bussType	伙伴类型 BZ -保证人， HG - 回购人	String
+                    //         comFullname	商业伙伴全称/回购人名称	string
+                    //         partnerSerial	伙伴编码	String
+                    //         socialSerial	统一信息社会代码	String
+                    //         certStartDate	证件生效时间	timestamp
+                    //         feeRequire	是否收取服务费	String
+                    //         serviceFee	咨询服务费	decimal
+                    //         certEndDate	证件失效时间	timestamp
+                    //         comNature	公司性质	String
+                    //         comIndustry	公司所属行业	String
+                    //         comRegisteredCapital	注册资本（万元）	decimal
+                    //         comEstablishDate	公司成立日期	timestamp
+                    //         comIncome	营业收入/年营业额（万元）	decimal
+                    //         comAddress	营业地址	String
+                    //         comMembers	从业人数	int
+                    //         agencyLevel	回购方经销商层级	String
+                    //         comManager	回购方负责人	String
+                    //         actualController	实际控制人（评分卡使用）	String
+                    //         comMobile	回购方联系电话/联系地址	String
+                    //         serviceFee	回购方咨询服务费金	decimal
+                    //         totalAssets	资产总额（万元）	decimal
+                    //         comScale	企业规模	String
+                    //         legalPerson	法人代表	String
+                    //         legalCertType	法人证件类型	String
+                    //         legalCertNo	法人证件号	String
+                    //         legalCertDeadline	法人证件失效时间	String
+                    //         legalMobile	法人电话	String
+                    //         legalAddress	法人地址	String
+                    //         accountHolder	管户人	String
+                    //         bankAccount	借款卡号	String
+                    //         partnerId	伙伴ID	String
+                    //         creator	创建人	String
+                    //         editor	编辑人	String
+                    //         createTime	记录创建时间	timestamp
+                    //         editTime	记录修改时间	timestamp
+                    //         comScope	经营范围	string
                     this.data = data.data.data;
                 }
             },

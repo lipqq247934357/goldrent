@@ -101,6 +101,32 @@ export default {
         this.$post('/surveyinformation/info',{
             bussNo: this.$route.query.bussNo
         }).then( res => {
+            // 返回示例
+            // {
+            //     "msg": "success",
+            //     "code": "2000000",
+            //     "data": {
+            //         "surveyInformation": {
+            //             "id": "8932f859056048379bdf60c2b1a5b182",
+            //             "version": 0,
+            //             "status": null,
+            //             "creator": "",
+            //             "createTime": "2019-04-12T02:19:36.000+0000",
+            //             "editor": "",
+            //             "editTime": "2019-04-12T02:19:36.000+0000",
+            //             "remark": null,
+            //             "bussNo": "test_data_for_app_0411_02",
+            //             "lesseeCredit": "someone1",
+            //             "guarantorCredit": "rela",
+            //             "repurchaseCredit": "",
+            //             "lesseeCreditZhongdeng": "",
+            //             "lesseeCreditExternal": "",
+            //             "guarantorCreditExternal": "",
+            //             "repurchaseCreditExternal": ""
+            //         },
+            //         "bussNo": "test_data_for_app_0411_02"
+            //     }
+            // }
             if(res.data.code == '2000000') {
                 if(res.data.data.surveyInformation == null) {
                     return;

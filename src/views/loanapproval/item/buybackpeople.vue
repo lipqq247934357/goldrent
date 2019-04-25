@@ -147,6 +147,39 @@ export default {
               this.$post('/repurchase/info',{
                  bussNo: this.$route.query.bussNo
               }).then( res => {
+                  // basicInfo
+                  //   基本信息
+                  //
+                  //   id	数据ID	String
+                  //   comFullname	回购人名称	String
+                  //   comNature	企业性质	String
+                  //   comRegisterdCapital	注册资金	double
+                  //   comIncome	年营业额	double
+                  //   agencyLevel	经销商层级	String
+                  //   comManager	回购方负责人姓名	String
+                  //   comMobile	回购方负责人电话	String
+                  //   feeRequire	是否收取服务费	String
+                  //   serviceFee	咨询服务费	double
+                  //   Object
+                  //   debtInfo
+                  //   负债及对外担保情况
+                  //
+                  //   id	数据ID	String
+                  //   repurchaseType
+                  //   回购人类型
+                  //
+                  //   1:回购人
+                  //
+                  //   2:回购方实际控制人
+                  //
+                  //   String
+                  //
+                  //   personName	姓名	String
+                  //   debtType	债务种类	String
+                  //   debtBalance	债务余额	double
+                  //   warrantee	被担保人	String
+                  //   guaranteeBalance	担保余额	double
+                  //   remark	备注	String
                   if(res.data.code == '2000000') {
                       this.backpeople = res.data.data;
                       console.log(this.backpeople,'11111110-0');
@@ -162,6 +195,7 @@ export default {
               })
 
           )();
+          // 图片树形结构
           const stockPrice = await (() => {
               const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
               if (!matType[this.partner]) {

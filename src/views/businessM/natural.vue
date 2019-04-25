@@ -272,7 +272,6 @@
                 dictionaryCode: ['custType']
             }).then(res => {
                 this.partnerTypeOptions = res.data.data.custType;
-                console.log(this.partnerTypeOptions,'字典编码')
             })
 
         },
@@ -280,10 +279,39 @@
             async query(id) {
                 // 添加信息
                 let data = await this.$get(`/bussPartner/getPartnerInfo?partnerType=1&partnerId=${id}`);
+                // data
+                //     id	数据ID	String
+                //     partnerType 商业伙伴类型 String
+                //
+                //     certNo 身份证号 String
+                //
+                //     custName 商业伙伴全称 String
+                //
+                //     custSex 性别 String
+                //
+                //     custHomeplace 户籍地址 String
+                //
+                //     custAge 年龄 String
+                //
+                //     custMobile 联系电话 String
+                //
+                //     custWechat 微信 String
+                //
+                //     custEducation 教育程度 String
+                //
+                //     custMarriage 婚姻状况 String
+                //
+                //     residenceYears 申请地居住年限 String
+                //
+                //     company 工作单位 String
+                //
+                //     custAddress 现住址 String
+                //
+                //     creditRating 征信报告 String
+                //
+                //     cultureYears	种植年限
+                //     custType	客户渠道
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
-
-                    console.log(data.data);
-
                     this.data = data.data.data;
                 }
             },
