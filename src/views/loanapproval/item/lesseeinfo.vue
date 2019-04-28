@@ -15,7 +15,6 @@
                             </li>
                             <li>
                                 <span>客户类别</span>
-                                <!-- <span>{{item.custType}}</span> -->
                                 <span>
                                     <select class="" name="" disabled>
                                         <option value="" v-for="custType in statuslist.custType" :selected="item.custType == custType.optionCode ? true : false">
@@ -41,7 +40,6 @@
                             </li>
                             <li>
                                 <span>性别</span>
-                                <!-- <span>{{item.custSex}}</span> -->
                                 <span>
                                     <select class="" name="" disabled>
                                         <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == sex.optionCode ? true : false">

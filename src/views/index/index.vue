@@ -1,6 +1,6 @@
 <template>
 <div class="welcome">
-    <p>欢迎登录哈银租赁农机零售系统！</p>
+    <img src="./text.png" alt="" width="174" height="50">
 </div>
 </template>
 
@@ -11,11 +11,15 @@ export default {
 </script>
 <style lang="less">
 .welcome {
-    p {
-        font-size: 30px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 500px;
+    background: url('./welcome.png') no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    width: calc(100% - 200px);
+    height: calc(100% - 50px);
+    img {
+        position: absolute;
+        top: 104px;
+        left: 25%;
     }
 }
 </style>

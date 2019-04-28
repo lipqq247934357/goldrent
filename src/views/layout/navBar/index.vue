@@ -7,12 +7,41 @@
         </div>
         <div class="userInfo" v-show="userInfoPop">
             <ul class="first" v-Clickoutside="closeUserInfoPop">
-                <li><span class="iconfont">&#xe7ae;</span>&nbsp;管理员</li>
+                <!-- <li><span class="iconfont">&#xe7ae;</span>&nbsp;管理员</li>
                 <li @click="showUpdateInfoPop"><span class="iconfont">&#xe7e4;</span>&nbsp;个人信息</li>
-                <li @click="showUpdatePasswordPop"><span class="iconfont">&#xe7e1;</span>&nbsp;更改密码</li>
+                <li @click="showUpdatePasswordPop"><span class="iconfont">&#xe7e1;</span>&nbsp;更改密码</li> -->
+                <li @mouseover="admin" @mouseout="admin1">
+                    <span class="iconfont">
+                        <img :src="admina" alt="">
+                    </span>
+                    &nbsp;管理员
+                </li>
+                <li @mouseover="personalimg" @mouseout="personalhover"
+                    @click="showUpdateInfoPop">
+                    <span class="iconfont">
+
+                        <img :src="personal" alt="">
+                    </span>
+                    &nbsp;个人信息
+                </li>
+                <li
+                    @mouseover="passwordiconl" @mouseout="passwordicona"
+                    @click="showUpdatePasswordPop">
+                    <span class="iconfont">
+                        <img :src="password" alt="">
+                    </span>
+                    &nbsp;更改密码
+                </li>
             </ul>
             <ul class="second">
-                <li @click="logout"><span class="iconfont">&#xe78c;</span>&nbsp;登出</li>
+                <li
+                    @mouseover="outl" @mouseout="outa"
+                    @click="logout">
+                    <span class="iconfont">
+                        <img :src="out" alt="">
+                    </span>
+                    &nbsp;登出
+                </li>
             </ul>
         </div>
         <el-dialog
@@ -86,7 +115,11 @@
                 userPhone: '',
                 oldPwd: '',
                 newPwd: '',
-                rnewPwd: ''
+                rnewPwd: '',
+                admina: require('./iconadmina.png'),
+                personal: require('./icongerena.png'),
+                password: require('./passworda.png'),
+                out: require('./outa.png')
             }
         },
         directives: {Clickoutside},
@@ -96,6 +129,34 @@
             this.userPhone = getStore('userPhone') || '';
         },
         methods: {
+            // 登出
+            outl() {
+                this.out = require('./outl.png');
+            },
+            outa() {
+                this.out = require('./outa.png');
+            },
+            // 修改密码
+            passwordiconl() {
+                this.password = require('./passwordl.png');
+            },
+            passwordicona() {
+                this.password = require('./passworda.png');
+            },
+            // 个人信息
+            personalimg() {
+                this.personal = require('./icongerenl.png');
+            },
+            personalhover() {
+                this.personal = require('./icongerena.png');
+            },
+            // 管理员
+            admin() {
+                this.admina = require('./iconadminl.png');
+            },
+            admin1() {
+                this.admina = require('./iconadmina.png');
+            },
             showUserInfo() {
                 this.userInfoPop = !this.userInfoPop;
                 this.clickPos = 1;
@@ -207,6 +268,9 @@
 
         .first {
             border-bottom: 1px solid #ccc;
+            img {
+                vertical-align:middle
+            }
         }
 
         li {
@@ -214,7 +278,8 @@
             padding-left: 20px;
 
             &:hover {
-                background: linear-gradient(to bottom, #ffffff, #dddddd);
+                background: #f0f0f0;
+                color: #ff8f2b;
             }
         }
 
