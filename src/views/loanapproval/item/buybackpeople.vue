@@ -1,6 +1,6 @@
 <template>
-<div class="buybackpeople">
-    <div class="alldata">
+<div class="buybackpeople tabsinfo">
+    <div class="subtabs">
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in backpeople" :label="'回购人' + parseInt(index+1)">
                 <componentitle :message="message='基本信息'" />
@@ -224,6 +224,7 @@ export default {
 </script>
 <style lang="less">
 .buybackpeople {
+    margin: 15px 0;
     .alldata {
         margin-top: 15px;
     }

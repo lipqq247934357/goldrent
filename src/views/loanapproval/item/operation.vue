@@ -10,6 +10,10 @@
         </template>
         <ul class="nothingshow" v-show="radio == 'Y'">
             <li>
+                <span class="lefttext">农贷记录年数</span>
+                <input type="text" name="" v-model:value="years" class="inputinfo" :disabled="inputdisabled">
+            </li>
+            <li>
                 <span class="lefttext">信用卡及贷款24个月最大逾期期数</span>
                 <input type="text" name="" v-model:value="overdue" class="inputinfo" :disabled="inputdisabled">
             </li>
@@ -46,6 +50,10 @@
         </ul>
         <ul class="nothingshow" v-show="radio == 'N'">
             <li>
+                <span class="lefttext">农贷记录年数</span>
+                <input type="text" name="" v-model:value="tongdunQuery" class="inputinfo" :disabled="inputdisabled">
+            </li>
+            <li>
                 <span class="lefttext">同盾贷前查询</span>
                 <input type="text" name="" v-model:value="tongdunQuery" class="inputinfo" :disabled="inputdisabled">
             </li>
@@ -77,7 +85,7 @@
             </li>
         </ul>
         <h3 class="score">累计得分：<span>{{proposaltotalScore}}</span> <span>{{proposalsuggestResult}}</span> </h3>
-        <table style="width: 100%" border="1">
+        <table class="operationtable" style="width: 100%" border="1">
             <tr>
                 <th>指标大类</th>
                 <th>指标名称</th>
@@ -118,12 +126,14 @@
         <div class="subone opinionsdiv" style="clear:both">
             <p>审批意见：</p>
             <template>
-                <el-radio v-model="radio1" label="1" :disabled="inputdisabled">同意该笔申请</el-radio>
-                <el-radio v-model="radio1" label="0" :disabled="inputdisabled">不同意该笔申请</el-radio>
+                <el-radio v-model="radio1" label="1" :disabled="inputdisabled">终审同意</el-radio>
+                <el-radio v-model="radio1" label="0" :disabled="inputdisabled">同意业务并提交资深审批</el-radio>
+                <el-radio v-model="radio1" label="2" :disabled="inputdisabled">同意业务并提交会议审批</el-radio>
+                <el-radio v-model="radio1" label="3" :disabled="inputdisabled">否决</el-radio>
             </template>
         </div>
         <div class="subone">
-            <p>原因描述：</p>
+            <p>意见描述：</p>
             <el-input
                 type="textarea"
                 class="textareawidth"
@@ -136,9 +146,7 @@
 
         <div class="bottombutton">
             <el-button type="primary" disabled>保存</el-button>
-            <el-button type="primary" disabled>上会审议</el-button>
-            <el-button type="primary" @click="adopt" :disabled="inputdisabled">终审通过</el-button>
-            <el-button type="primary" disabled>拒绝</el-button>
+            <el-button type="primary" @click="adopt" :disabled="inputdisabled">提交</el-button>
             <el-button type="primary" disabled>退回</el-button>
         </div>
     </div>
@@ -176,6 +184,7 @@ export default {
             oneMonth: '', //一个月
             tongdunQuery: '', //同盾查询
             tongdunCredit: '', // 同盾信用,
+            years: '', // 农贷记录年数
             rowspanlength: [],
             proposaltotalScore: '', // 评分卡得分展示
             proposalsuggestResult: '', // 评分卡得分结论
@@ -812,12 +821,12 @@ export default {
         float: right;
         margin: 20px 13% 20px 0;
         .el-button--primary {
-            background: #f68e58;
+            background: #ff8f2b;
             border: 0;
         }
     }
 }
-table {
+.operationtable {
     text-align: center;
     border: 1px solid #EBEEF5;
     color: #909399;

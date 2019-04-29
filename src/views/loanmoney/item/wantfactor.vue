@@ -114,6 +114,11 @@
             <el-table
                 :data="tableData"
                 border
+                :header-cell-style="{
+                    'color': '#212121',
+                    'font-size': '14px',
+                    'font-weight': 'bold'
+                }"
                 style="width: 100%">
                 <el-table-column
                     prop="period"
@@ -329,10 +334,10 @@ export default {
     width: 100%;
     .factorlist {
         width: 99.8%;
-        border: 1px solid #EBEEF5;
+        border: 1px solid #afafaf;
         margin: 0 auto 20px;
         li {
-            border-bottom: 1px solid #EBEEF5;
+            border-bottom: 1px solid #afafaf;
             text-align: center;
             height: 50px;
             line-height: 50px;
@@ -340,9 +345,12 @@ export default {
             font-size: 14px;
             span {
                 display: inline-block;
+                color: #212121;
                 &:first-child {
                     width: 30%;
-                    border-right: 1px solid #EBEEF5;
+                    border-right: 1px solid #afafaf;
+                    font-size: 14px;
+                    font-weight: bold;
                 }
                 &:last-child {
                     width: 69%;

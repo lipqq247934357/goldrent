@@ -126,7 +126,7 @@ export default {
             parenTtext: '贷款审批',
             url: '/layout/loadapproval',
             message: '筛选条件',
-            titletext: '贷款审批列表',
+            titletext: '资深审批',
             contenttext: '任务信息',
             tableData: [], // 表格
             alldata: '', // 总页数

@@ -77,7 +77,7 @@
             </li>
         </ul>
         <h3 class="score">累计得分：<span>{{proposaltotalScore}}</span> <span>{{proposalsuggestResult}}</span> </h3>
-        <table style="width: 100%" border="1">
+        <table class="operationtable" style="width: 100%" border="1">
             <tr>
                 <th>指标大类</th>
                 <th>指标名称</th>
@@ -812,12 +812,12 @@ export default {
         float: right;
         margin: 20px 13% 20px 0;
         .el-button--primary {
-            background: #f68e58;
+            background: #ff8f2b;
             border: 0;
         }
     }
 }
-table {
+.operationtable {
     text-align: center;
     border: 1px solid #EBEEF5;
     color: #909399;

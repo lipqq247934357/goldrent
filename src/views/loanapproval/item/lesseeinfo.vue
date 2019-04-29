@@ -1,5 +1,5 @@
 <template>
-<div class="businfosss">
+<div class="businfosss tabsinfo">
     <div class="subtabs">
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in lesseeinfolist" :label="'承租人' + parseInt(index + 1)">
@@ -1227,8 +1227,6 @@ export default {
             color: #585858;
             border: 1px solid #afafaf;
         }
-        .infolist {
-        }
         .assetsinfoul {
             ul {
                 margin-top: -1px;
@@ -1304,13 +1302,14 @@ export default {
 .bz {
     width: 16%;
     float: left;
-    border-right: 1px solid #afafaf;
     color: #212121;
     font-weight: bold;
 }
 .batextarrear {
     width: 83%;
     float: left;
+    margin-left: -1px;
+    border-left: 1px solid #afafaf;
     .el-textarea__inner {
         padding: 0 15px;
     }
@@ -1322,9 +1321,7 @@ export default {
         display: block;
     }
 }
-.div0 .infolist {
-    margin-top: 0;
-}
+
 .titlecomponent {
     margin-top: 10px;
 }
@@ -1332,4 +1329,5 @@ export default {
     vertical-align: middle;
     margin-left: 5px;
 }
+
 </style>

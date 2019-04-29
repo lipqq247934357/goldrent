@@ -133,6 +133,32 @@ export default {
     .el-tabs--border-card>.el-tabs__header {
         background: #fff;
     }
+    .tabsinfo .el-tabs--border-card > .el-tabs__header {
+        border-bottom: 0;
+    }
+    .tabsinfo .subtabs .el-tabs__nav {
+        border-top: 0;
+        // border-right: #DCDFE6 1px solid;
+        margin-left: 10px;
+    }
+    .tabsinfo .subtabs .el-tabs__nav .is-top {
+        border-right: 1px solid #DCDFE6 !important;
+    }
+    .tabsinfo .subtabs .el-tabs__nav .el-tabs__item {
+        border: 0;
+        padding: 0;
+        height: 16px;
+        line-height: 16px;
+        padding: 0 10px 0 10px;
+        border-left: 0;
+        border-top: 0;
+        border-right: #DCDFE6 1px solid;
+    }
+    .tabsinfo .subtabs .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+        border: 0;
+        color: #d76500;
+        background: #fff !important;
+    }
 }
 
 </style>

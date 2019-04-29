@@ -1014,9 +1014,9 @@ export default {
             padding-left: 15px;
         }
         .assetsinfoul {
-            ul {
-                margin-top: 0;
-            }
+            /* ul {
+                 margin-top: 0;
+            }*/ 
         }
         .div3 {
 

@@ -1304,13 +1304,13 @@ export default {
 .bz {
     width: 16%;
     float: left;
-    border-right: 1px solid #afafaf;
     color: #212121;
     font-weight: bold;
 }
 .batextarrear {
     width: 83%;
     float: left;
+    margin-left: -1px;
     .el-textarea__inner {
         padding: 0 15px;
     }
@@ -1321,9 +1321,6 @@ export default {
         margin: 10px auto;
         display: block;
     }
-}
-.div0 .infolist {
-    margin-top: 0;
 }
 .titlecomponent {
     margin-top: 10px;

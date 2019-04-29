@@ -1,5 +1,5 @@
 <template>
-<div class="businfosss">
+<div class="businfosss tabsinfo">
     <div class="subtabs">
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in guarantordata" :label="'保证人' + parseInt(index + 1)">
