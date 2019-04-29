@@ -5,7 +5,7 @@
     </div>
     <div class="topcontent">
         <div>
-            <label>业务编号：</label>
+            <label>业务编号111：</label>
             <el-input placeholder="请输入内容" class="contentinout" v-model="bussNumber"></el-input>
             <label class="rightlabel">承租人姓名：</label>
             <el-input placeholder="请输入内容" class="contentinout" v-model="loanName"></el-input>
@@ -126,7 +126,7 @@ export default {
             parenTtext: '贷款审批',
             url: '/layout/loadapproval',
             message: '筛选条件',
-            titletext: '贷款审批列表',
+            titletext: '放款审批列表',
             contenttext: '任务信息',
             tableData: [], // 表格
             alldata: '', // 总页数

@@ -4,6 +4,9 @@ import index from './views/index/index.vue';
 import layout from './views/layout/index';
 import login from './views/login/login.vue'; // 登陆页面
 import loanapproval from './views/loanapproval/index.vue'; //贷款审批列表
+import upper from './views/loanapproval/upper.vue'; //上会审议 upper director senior
+import director from './views/loanapproval/director.vue'; //主任审批
+import senior from './views/loanapproval/senior.vue'; //资深审批
 import loanapprovaldetail from './views/loanapproval/loanApprovalDetail.vue'; // 贷款审批
 import businfo from './views/businessInfo/businessInfo.vue'; // 业务信息列表
 import businessadmin from './views/businessM/index.vue'; //商业伙伴管理
@@ -11,6 +14,12 @@ import businessdetail from './views/businessInfo/businessDetail.vue'; // 业务�
 import legal from './views/businessM/legal.vue'; //添加商业伙伴
 import natural from './views/businessM/natural.vue'; //添加商业伙伴
 import error404 from './views/404'; // 404
+
+import loanmoney from './views/loanmoney/index.vue'; // 放款审批列表
+import download from './views/loanmoney/download.vue'; // 下载放款审批
+import loanmoneyconfirm from './views/loanmoney/loanmoneyconfirm.vue'; // 放款确认列表
+import confirmhandle from './views/loanmoney/confirmhandle.vue'; // 放款确认详情
+import loanmoneydetail from './views/loanmoney/loanmoneydetail.vue';
 Vue.use(Router)
 
 export default new Router({
@@ -57,6 +66,21 @@ export default new Router({
                     component: loanapproval
                 },
                 {
+                    path: 'upper', // 审批列表
+                    name: 'upper',
+                    component: upper
+                },
+                {
+                    path: 'director', // 审批列表
+                    name: 'director',
+                    component: director
+                },
+                {
+                    path: 'senior', // 审批列表
+                    name: 'senior',
+                    component: senior
+                },
+                {
                     path: 'loadapprovaldetail', //审批详情
                     name: 'loadapprovaldetail',
                     component: loanapprovaldetail
@@ -75,6 +99,36 @@ export default new Router({
                     path: 'natural', //修改删除
                     name: 'natural',
                     component: natural
+                },
+                {
+
+                    path: 'loanmoney', //放款审批列表
+                    name: 'loanmoney',
+                    component: loanmoney
+                },
+                {
+
+                    path: 'download', //下载审批列表
+                    name: 'download',
+                    component: download
+                },
+                {
+
+                    path: 'loanmoneyconfirm', //放款确认列表
+                    name: 'loanmoneyconfirm',
+                    component: loanmoneyconfirm
+                },
+                {
+
+                    path: 'confirmhandle', //放款确认列表
+                    name: 'confirmhandle',
+                    component: confirmhandle
+                },
+                {
+
+                    path: 'loanmoneydetail', //放款审批列表详情
+                    name: 'loanmoneydetail',
+                    component: loanmoneydetail
                 }
             ]
         },

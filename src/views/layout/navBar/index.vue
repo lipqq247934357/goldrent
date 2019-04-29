@@ -7,9 +7,6 @@
         </div>
         <div class="userInfo" v-show="userInfoPop">
             <ul class="first" v-Clickoutside="closeUserInfoPop">
-                <!-- <li><span class="iconfont">&#xe7ae;</span>&nbsp;管理员</li>
-                <li @click="showUpdateInfoPop"><span class="iconfont">&#xe7e4;</span>&nbsp;个人信息</li>
-                <li @click="showUpdatePasswordPop"><span class="iconfont">&#xe7e1;</span>&nbsp;更改密码</li> -->
                 <li @mouseover="admin" @mouseout="admin1">
                     <span class="iconfont">
                         <img :src="admina" alt="">
@@ -231,7 +228,7 @@
         right: 0;
         width: 100%;
         height: 50px;
-        background: #f68e58;
+        background: #ff8f2b;
         font-size: 16px;
         color: #fff;
         line-height: 50px;

@@ -4,12 +4,6 @@
         <componentitle :message="message" :titletext="titletext" :parenTtext="parenTtext" :url="url"/>
     </div>
     <div class="topcontent">
-        <div>
-            <label>业务编号：</label>
-            <el-input placeholder="请输入内容" class="contentinout" v-model="bussNumber"></el-input>
-            <label class="rightlabel">承租人姓名：</label>
-            <el-input placeholder="请输入内容" class="contentinout" v-model="loanName"></el-input>
-        </div>
         <div class="timeChoice">
             <label>任务创建时间：</label>
             <el-date-picker
@@ -55,6 +49,7 @@
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
+                <el-button type="primary" class="againbutton" @click="downloadfirl">批量放款确认</el-button>
             </div>
         </div>
 
@@ -126,7 +121,7 @@ export default {
             parenTtext: '贷款审批',
             url: '/layout/loadapproval',
             message: '筛选条件',
-            titletext: '贷款审批列表',
+            titletext: '放款审批列表',
             contenttext: '任务信息',
             tableData: [], // 表格
             alldata: '', // 总页数
@@ -177,7 +172,7 @@ export default {
         componentitle,
     },
     methods: {
-        asd() {
+        downloadfirl() {
             alert(1);
         },
         // 下拉框事件
@@ -368,5 +363,21 @@ export default {
         width: 18px;
         position: relative;
         margin-left: 25px;
+    }
+    .topbox {
+        .againbutton {
+            position: absolute;
+            top: 7px;
+            right: 15px;
+            height: 30px;
+            line-height: 0px;
+            color: #d76500;
+            background: #fff;
+            border: 1px solid #ffcb9d;
+            text-align: center;
+            span {
+                margin: 0;
+            }
+        }
     }
 </style>

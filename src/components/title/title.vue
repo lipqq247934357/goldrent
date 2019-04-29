@@ -1,6 +1,9 @@
 <template>
     <div class="titletop">
-        <p class="titletext">{{titletext}}</p>
+        <p class="titletext">
+            <span class="parenTtext">{{parenTtext}} <i class="el-icon-arrow-right" v-if="parenTtext != null"></i></span>
+            <router-link :to="{ path: url}">{{titletext}}</router-link>
+        </p>
         <div class="topbox">
             <span>{{message}}</span>
         </div>
@@ -14,6 +17,12 @@ export default {
         message: {
             type: String
         },
+        url: {
+            type: String
+        },
+        parenTtext: {
+            type: String
+        },
         titletext: {
             type: String
         }
@@ -23,20 +32,28 @@ export default {
 <style lang="less">
 .titletop {
     .titletext {
-        font-size: 20px;
-        font-weight: bold;
+        font-size: 14px;
         line-height: 50px;
-        color: #f68e58;
+        color: #d76500;
+        .parenTtext {
+            color: #333;
+            font-size: 14px;
+        }
+        a {
+            text-decoration: none;
+            color: #d76500;
+        }
     }
     .topbox {
-        width: 100%;
-        height: 50px;
-        color: #fff;
-        background: #f68e58;
-        border-top: 3px solid rgb(255, 95, 0);
-        border-radius: 2px;
-        line-height: 50px;
+        width: 99.8%;
+        height: 38px;
+        color: #d76500;
+        background: #fff3e9;
+        border: 1px solid #ffcb9d;
+        line-height: 38px;
         position: relative;
+        padding-bottom: 5px;
+        margin-top: 20px;
         span {
             margin-left: 15px;
         }

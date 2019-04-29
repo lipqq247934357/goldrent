@@ -1,11 +1,11 @@
 <template>
-<div class="businfo" @keyup.enter="search">
+<div class="businfo loanmoney" @keyup.enter="search">
     <div class="topTitle">
         <componentitle :message="message" :titletext="titletext" :parenTtext="parenTtext" :url="url"/>
     </div>
     <div class="topcontent">
         <div>
-            <label>业务编号：</label>
+            <label>业务编号确认：</label>
             <el-input placeholder="请输入内容" class="contentinout" v-model="bussNumber"></el-input>
             <label class="rightlabel">承租人姓名：</label>
             <el-input placeholder="请输入内容" class="contentinout" v-model="loanName"></el-input>
@@ -55,9 +55,30 @@
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
+                <el-button type="primary" class="againbutton" @click="loanconfirm">批量放款确认</el-button>
+
             </div>
         </div>
-
+        <!-- 弹出框 -->
+        <el-dialog
+            title="放款确认"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+                <span>放款日期：</span>
+                <el-date-picker
+                    v-model="endTime"
+                    type="date"
+                    format="yyyy 年 MM 月 dd 日"
+                    value-format="yyyy-MM-dd"
+                    placeholder="选择日期">
+                </el-date-picker>
+                <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="dialogVisible = false">确认</el-button>
+                <el-button @click="dialogVisible = false">关闭</el-button>
+                </span>
+            </el-dialog>
+        <!-- 弹出框end -->
         <!-- 表格 -->
         <template>
             <el-table
@@ -126,7 +147,7 @@ export default {
             parenTtext: '贷款审批',
             url: '/layout/loadapproval',
             message: '筛选条件',
-            titletext: '贷款审批列表',
+            titletext: '放款审批列表',
             contenttext: '任务信息',
             tableData: [], // 表格
             alldata: '', // 总页数
@@ -168,6 +189,7 @@ export default {
             endTime: '',  // 结束控件时间
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
+            dialogVisible: false, // 弹出框
         }
     },
     created() {
@@ -177,8 +199,15 @@ export default {
         componentitle,
     },
     methods: {
-        asd() {
-            alert(1);
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+            .then(_ => {
+                done();
+            })
+            .catch(_ => {});
+        },
+        loanconfirm() {
+            this.dialogVisible = true;
         },
         // 下拉框事件
         selectchange(val) {
@@ -304,7 +333,7 @@ export default {
         handleClick(val) {
             //查看按钮
             this.$router.push({
-                path: '/layout/loadapprovaldetail',
+                path: '/layout/confirmhandle',
                 query: {
                     disabled: 1, // 1为子页面input不可以编辑，2为可以
                     id:val.id,
@@ -316,7 +345,7 @@ export default {
         edit(val) {
             // 编辑按钮
             this.$router.push({
-                path: '/layout/loadapprovaldetail',
+                path: '/layout/confirmhandle',
                 query: {
                     disabled: 2, // 1为子页面input不可以编辑，2为可以
                     id:val.id,
@@ -358,15 +387,28 @@ export default {
         margin: 0 auto;
     }
 }
-    .search {
-        cursor: pointer;
+.search {
+    cursor: pointer;
+}
+.divborder {
+    display: inline-block;
+    border-top: 1px solid #DCDFE6;
+    height: 3px;
+    width: 18px;
+    position: relative;
+    margin-left: 25px;
+}
+.loanmoney .againbutton {
+    position: absolute;
+    top: 7px;
+    right: 15px;
+    height: 30px;
+    line-height: 0px;
+    color: #d76500;
+    background: #fff;
+    border: 1px solid #ffcb9d;
+    span {
+        margin: 0;
     }
-    .divborder {
-        display: inline-block;
-        border-top: 1px solid #DCDFE6;
-        height: 3px;
-        width: 18px;
-        position: relative;
-        margin-left: 25px;
-    }
+}
 </style>

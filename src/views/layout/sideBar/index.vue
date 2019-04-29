@@ -18,21 +18,33 @@
                             <i class="el-icon-location"></i>
                             <span>业务信息</span>
                         </template>
-                        <el-menu-item index="/layout/businfo">业务信息列表页</el-menu-item>
+                        <el-menu-item index="/layout/businfo">&nbsp;&nbsp;&nbsp;业务信息列表页</el-menu-item>
                     </el-submenu>
                     <el-submenu index="2">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>贷款审批管理</span>
                         </template>
-                        <el-menu-item index="/layout/loadapproval">贷款审批</el-menu-item>
+                        <el-menu-item index="/layout/loadapproval">&nbsp;&nbsp;&nbsp;贷款审批</el-menu-item>
+                        <el-menu-item index="/layout/upper">&nbsp;&nbsp;&nbsp;上会审议</el-menu-item>
+                        <el-menu-item index="/layout/director">&nbsp;&nbsp;&nbsp;主任审批</el-menu-item>
+                        <el-menu-item index="/layout/senior">&nbsp;&nbsp;&nbsp;资深审批</el-menu-item>
+                    </el-submenu>
+                    <el-submenu index="3">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>放款管理</span>
+                        </template>
+                        <el-menu-item index="/layout/loanmoney">&nbsp;&nbsp;&nbsp;放款审批</el-menu-item>
+                        <el-menu-item index="/layout/download">&nbsp;&nbsp;&nbsp;下载放款审批</el-menu-item>
+                        <el-menu-item index="/layout/loanmoneyconfirm">&nbsp;&nbsp;&nbsp;放款确认列表</el-menu-item>
                     </el-submenu>
                     <el-submenu index="5">
                         <template slot="title">
                             <i class="el-icon-location"></i>
                             <span>业务管理</span>
                         </template>
-                        <el-menu-item index="/layout/businessM">商业伙伴管理</el-menu-item>
+                        <el-menu-item index="/layout/businessM">&nbsp;&nbsp;&nbsp;商业伙伴管理</el-menu-item>
                     </el-submenu>
                 </el-menu>
             </el-col>
@@ -60,7 +72,7 @@
 </script>
 <style lang="less">
     .menu {
-        width: 200px;
+        width: 250px;
         height: 100%;
         position: fixed;
         top: 50px;

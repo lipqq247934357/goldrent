@@ -39,7 +39,6 @@
                 <li>
                     <span>客户类别</span>
                     <span>
-                        <!-- {{task.custNature.partnerType}} -->
                         <select class="" name="" disabled>
                             <option value="" v-for="custType in statuslist.custType" :selected="task.custNature.partnerType == custType.optionCode ? true : false">
                                 {{custType.optionName}}
@@ -158,6 +157,11 @@
                     <el-table
                             :data="task.leasePlan"
                             border
+                            :header-cell-style="{
+                                'color': '#212121',
+                                'font-size': '14px',
+                                'font-weight': 'bold'
+                            }"
                             style="width: 100%">
                         <el-table-column
                                 label="租金期数"
@@ -284,7 +288,7 @@
 
         .tableinfo {
             width: 95%;
-            margin: 20px auto 50px;
+            margin: 0px auto 50px;
         }
 
         .content {
@@ -294,15 +298,15 @@
             .infolist {
                 width: 100%;
                 display: inline-block;
-                border: 1px solid #EBEEF5;
-                margin: 20px auto;
+                border: 1px solid #afafaf;
+                margin: 0 auto 20px;
 
                 li {
                     width: 49.9%;
                     height: 50px;
-                    border-bottom: 1px solid #EBEEF5;
+                    border-bottom: 1px solid #afafaf;
                     display: inline-block;
-                    border-right: 1px solid #EBEEF5;
+                    border-right: 1px solid #afafaf;
                     text-align: center;
                     line-height: 50px;
                     color: #606266;
@@ -320,7 +324,6 @@
 
                         &:last-child {
                             width: 69%;
-                            border-left: 1px solid #EBEEF5;
                             display: inline-block;
                         }
                     }
@@ -332,14 +335,14 @@
         li {
             width: 100%;
             height: 50px;
-            border: 1px solid #EBEEF5;
+            border: 1px solid #afafaf;
             color: #606266;
             font-size: 12px;
             span {
                 display: inline-block;
                 width: 19.8%;
                 text-align: center;
-                border-right: 1px solid #EBEEF5;
+                border-right: 1px solid #afafaf;
                 line-height: 50px;
                 &:last-child {
                     border-right: 0;

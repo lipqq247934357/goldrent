@@ -1,17 +1,17 @@
 <template>
     <div class="businfo" @keyup.enter="queryclick">
         <div class="topTitle">
-            <componentitle :message="message" :titletext="titletext"/>
+            <componentitle :message="message" :titletext="titletext" :parenTtext="parenTtext" :url="url"/>
         </div>
         <div class="topcontent">
             <div>
-                <label>业务编号：</label>
+                <label>业务编号</label>
                 <el-input class="contentinout" placeholder="请输入内容" v-model="bussNo"></el-input>
-                <label class="rightlabel">承租人姓名：</label>
+                <label class="rightlabel">承租人姓名</label>
                 <el-input class="contentinout" placeholder="请输入内容" v-model="custName"></el-input>
             </div>
             <div>
-                <label>任务名称：</label>
+                <label>任务名称</label>
                 <template>
                     <el-select class="choiceselect" placeholder="请选择" v-model="task_name">
                         <el-option
@@ -22,7 +22,7 @@
                         </el-option>
                     </el-select>
                 </template>
-                <label class="rightlabel">任务状态：</label>
+                <label class="rightlabel">任务状态</label>
                 <template>
                     <el-select class="choiceselect" placeholder="请选择" v-model="selectstatus" >
                         <el-option
@@ -36,11 +36,12 @@
             </div>
             <button
                 @click="queryclick"
-                class="search queryButton"
+                class="search queryButton el-icon-search"
                 name="button"
                 @keyup.enter="queryclick"
                 :autofocus="true"
-                type="button">查询
+                type="button">
+                查询
             </button>
         </div>
 
@@ -56,8 +57,14 @@
                 <el-table
                         :data="tableData"
                         border
-                        style="width: 100%">
+                        :header-cell-style="{
+                            'color': '#212121',
+                            'font-size': '14px',
+                            'font-weight': 'bold'
+                        }"
+                        style="width: 100%;">
                     <el-table-column
+                            min-width="150px"
                             label="业务编号"
                             prop="bussNo">
                     </el-table-column>
@@ -74,10 +81,12 @@
                             prop="status">
                     </el-table-column>
                     <el-table-column
+                            min-width="150px"
                             label="任务创建时间"
                             prop="createTime">
                     </el-table-column>
                     <el-table-column
+                            min-width="150px"
                             label="任务结束时间"
                             prop="finishTime">
                     </el-table-column>
@@ -85,7 +94,7 @@
                             label="操作"
                             prop="name">
                         <template slot-scope="scope">
-                            <el-button @click="handleClick(scope.row)" size="small" type="text">详情</el-button>
+                            <el-button @click="handleClick(scope.row)" size="small" type="text" class="elmbutton">详情</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -117,6 +126,8 @@
         },
         data() {
             return {
+                url: '/layout/businfo',
+                parenTtext: '业务信息',
                 message: '筛选条件',
                 titletext: '业务信息列表',
                 contenttext: '任务信息',
@@ -261,6 +272,11 @@
 
         .search {
             cursor: pointer;
+            height: 27px;
+            color: #d76500;
+            font-weight: bold;
+            background: #fff3e9;
+            border:1px solid  #ffcb9d;
         }
     }
 </style>
