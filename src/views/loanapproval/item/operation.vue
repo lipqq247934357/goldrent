@@ -860,6 +860,7 @@ export default {
     .nothingshow {
         margin: 15px 0;
         border: 1px solid #afafaf;
+        font-size: 0;
         li {
             height: 50px;
             line-height: 50px;

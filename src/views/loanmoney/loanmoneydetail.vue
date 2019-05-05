@@ -88,7 +88,7 @@ export default {
 </script>
 <style lang="less">
 .content {
-    width: 95%;
+    width: 96%;
     margin: 0 auto;
     .titleh3 {
         font-size: 14px;
