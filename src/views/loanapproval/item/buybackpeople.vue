@@ -48,6 +48,10 @@
                         <span>回购方联系电话</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comMobile}}</span>
                     </li>
+                    <li>
+                        <span>咨询服务费</span>
+                        <span></span>
+                    </li>
                 </ul>
                 <componentitle :message="message='负债及对外担保情况'"/>
                 <div class="assetsinfoul" v-for="otherpeople in item.debtInfo">
@@ -196,7 +200,7 @@ export default {
           const stockPrice = await (() => {
               const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
               if (!matType[this.partner]) {
-                  this.$message.error('无回购人信息');
+                  this.$message.error('无回购人图片信息');
                   return;
               }
               return this.$post('/materialTree',{
@@ -204,7 +208,7 @@ export default {
               }).then( res => {
                   if(res.data.code == '2000000') {
                       this.imageslist = res.data.data;
-                      let treeInfo = res.data.data;
+                      let treeInfo = res.data.data.NATURE_MATERIAL;
                       let tempArr = [];
                       Object.keys(treeInfo).forEach((key) => {
                          tempArr.push(treeInfo[key]);

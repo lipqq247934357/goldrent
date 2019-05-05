@@ -1,6 +1,6 @@
 <template>
-<div class="buybackpeople">
-    <div class="alldata">
+<div class="buybackpeople tabsinfo">
+    <div class="subtabs">
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in backpeople" :label="'回购人' + parseInt(index+1)">
                 <componentitle :message="message='基本信息'" />
@@ -47,6 +47,10 @@
                     <li>
                         <span>回购方联系电话</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comMobile}}</span>
+                    </li>
+                    <li>
+                        <span>咨询服务费</span>
+                        <span></span>
                     </li>
                 </ul>
                 <componentitle :message="message='负债及对外担保情况'"/>
@@ -223,59 +227,5 @@ export default {
 }
 </script>
 <style lang="less">
-.buybackpeople {
-    .alldata {
-        margin-top: 15px;
-    }
-    h3 {
-        padding-left: 15px;
-        background: #f5f5f5;
-        margin: 0;
-        margin-top: -5px;
-        position: relative;
-        height: 50px;
-        line-height: 50px;
-        color: #585858;
-        border: 1px solid #afafaf;
-    }
-    .imgbox {
-        clear: both;
-        h3 {
-            font-size: 16px;
-            // margin: 35px 0 35px 15px;
-            font-weight: bold;
-        }
-        .imglist {
-            margin-top: 16px;
-        }
-        .imgeslist {
-            img {
-                float: left;
-                margin-left: 15px;
-            }
-        }
-        ul {
-            width: 99.9%;
-            margin: 0 auto;
-            border: 1px solid #afafaf;
-            clear:both;
-            &:last-child {
-                margin-bottom: 30px;
-            }
-            li {
-                width: 100%;
-                text-align: center;
-                clear: both;
-                border-bottom: 1px solid #afafaf;
-                border-bottom: 1px solid #afafaf;
-                overflow: hidden;
-                position: relative;
-                min-height: 100px;
-                div {
-                    color: #606266;
-                }
-            }
-        }
-    }
-}
+
 </style>

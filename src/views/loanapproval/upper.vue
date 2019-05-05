@@ -309,7 +309,8 @@ export default {
                     disabled: 1, // 1为子页面input不可以编辑，2为可以
                     id:val.id,
                     bussNo:val.bussNo,
-                    custId: val.custId
+                    custId: val.custId,
+                    arrangement: 2
                 }
             })
         },
@@ -321,7 +322,8 @@ export default {
                     disabled: 2, // 1为子页面input不可以编辑，2为可以
                     id:val.id,
                     bussNo:val.bussNo,
-                    custId: val.custId
+                    custId: val.custId,
+                    arrangement: 2
                 }
             })
         },
@@ -350,7 +352,7 @@ export default {
 .businfo {
     background: #fff;
     .topTitle {
-        width: 95%;
+        width: 96%;
         margin: 0 auto;
     }
     .content {

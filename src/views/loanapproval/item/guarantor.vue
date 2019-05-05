@@ -590,7 +590,8 @@
                         <div class="imgbox" v-for="value in imgFile">
                             <h3>{{value.nodeName}}</h3>
                             <ul>
-                                <imgLine  v-for="(val,key) in value.nodes" :name="val" :type="key" :relationId="item.id" :bussNo="bussNo"/>
+                                <imgLine v-for="(val,key,index) in value.nodes" :name="val" :type="key" :relationId="item.id" :bussNo="bussNo" :index="index"/>
+                                <!-- <imgLine v-for="(val,key,index) in value.nodes" :name="val" :type="key" :relationId="item.id" :bussNo="bussNo" :index="index"/> -->
                             </ul>
                         </div>
                     </div>
@@ -947,7 +948,6 @@ export default {
                               this.statuslist.custType = res.data.data.custType;
                               this.statuslist.houseType = res.data.data.houseType;
                               this.statuslist.isGuarantee = res.data.data.isGuarantee;
-                              console.log(this.statuslist.houseType,'222');
                           })
                           return this.guarantordata[i].partnerType;
                       }
@@ -959,7 +959,7 @@ export default {
 
               const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
               if (!matType[this.partner]) {
-                  this.$message.error('无保证人信息');
+                  this.$message.error('无保证人图片信息');
                   return;
               }
               return this.$post('/materialTree',{
@@ -967,10 +967,9 @@ export default {
               }).then( res => {
                   if(res.data.code == '2000000') {
                       this.imageslist = res.data.data;
-                      let treeInfo = res.data.data;
+                      let treeInfo = res.data.data.NATURE_MATERIAL;
                       let tempArr = [];
                       Object.keys(treeInfo).forEach((key) => {
-                          console.log(key);
                          tempArr.push(treeInfo[key]);
                       });
 

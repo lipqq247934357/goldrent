@@ -49,7 +49,7 @@
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
-                <el-button type="primary" class="againbutton" @click="downloadfirl">批量放款确认</el-button>
+                <el-button type="primary" class="againbutton" @click="downloadfirl">下载待放款清单</el-button>
             </div>
         </div>
 
@@ -57,14 +57,21 @@
         <template>
             <el-table
                 :data="tableData"
+                tooltip-effect="dark"
                 border
                 size="small"
+                ref="multipleTable"
+                @selection-change="handleSelectionChange"
                 :header-cell-style="{
                     'color': '#212121',
                     'font-size': '14px',
                     'font-weight': 'bold'
                 }"
                 style="width: 100%">
+                <el-table-column
+                    type="selection"
+                    width="55">
+                </el-table-column>
                 <el-table-column
                     prop="bussNo"
                     label="业务编号">
@@ -84,14 +91,6 @@
                 <el-table-column
                     prop="status"
                     label="任务状态">
-                </el-table-column>
-                <el-table-column
-                    prop="name"
-                    label="操作">
-                    <template slot-scope="scope">
-                        <el-button @click="edit(scope.row)" type="text" size="small">处理</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
-                    </template>
                 </el-table-column>
             </el-table>
         </template>
@@ -175,15 +174,16 @@ export default {
         downloadfirl() {
             alert(1);
         },
+        handleSelectionChange() {
+            alert('全选')
+        },
         // 下拉框事件
         selectchange(val) {
 
         },
         //进入页面获取数据展示在表格中
         query(numbers){
-            this.$post('/LoanApprove/queryApproveList',{
-                bussNo: this.bussNumber, // 业务编号
-                custName: this.loanName, // 承租人姓名
+            this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 status: this.value, //任务状态
                 createTimeStart: this.beginTime, // 任务开始时间
                 createTimeEnd: this.endTime, // 任务结束时间
@@ -262,12 +262,9 @@ export default {
         },
         handleSizeChange(val) {
             this.alsoSize = val;
-            this.$post('/LoanApprove/queryApproveList',{
+            this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 currentPage: this.nowPage,
                 numPerPage: this.alsoSize,
-
-                bussNo: this.bussNumber, // 业务编号
-                custName: this.loanName, // 承租人姓名
                 status: this.value, //任务状态
                 createTimeStart: this.beginTime, // 任务开始时间
                 createTimeEnd: this.endTime, // 任务结束时间
@@ -281,11 +278,9 @@ export default {
         },
         handleCurrentChange(val) {
             this.nowPage = val;
-            this.$post('/LoanApprove/queryApproveList',{
+            this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 currentPage: this.nowPage, //当前页
                 numPerPage: this.alsoSize, // 页大小
-                bussNo: this.bussNumber, // 业务编号
-                custName: this.loanName, // 承租人姓名
                 status: this.value, //任务状态
                 createTimeStart: this.beginTime, // 任务开始时间
                 createTimeEnd: this.endTime, // 任务结束时间
@@ -296,36 +291,9 @@ export default {
                 }
             });
         },
-        handleClick(val) {
-            //查看按钮
-            this.$router.push({
-                path: '/layout/loadapprovaldetail',
-                query: {
-                    disabled: 1, // 1为子页面input不可以编辑，2为可以
-                    id:val.id,
-                    bussNo:val.bussNo,
-                    custId: val.custId
-                }
-            })
-        },
-        edit(val) {
-            // 编辑按钮
-            this.$router.push({
-                path: '/layout/loadapprovaldetail',
-                query: {
-                    disabled: 2, // 1为子页面input不可以编辑，2为可以
-                    id:val.id,
-                    bussNo:val.bussNo,
-                    custId: val.custId
-                }
-            })
-        },
         // 查询按钮
         search() {
-            console.log(this.alsoSize);
-            this.$post('/LoanApprove/queryApproveList',{
-                bussNo: this.bussNumber, // 业务编号
-                custName: this.loanName, // 承租人姓名
+            this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 status: this.value, //任务状态
                 createTimeStart: this.beginTime, // 任务开始时间
                 createTimeEnd: this.endTime, // 任务结束时间
@@ -345,7 +313,7 @@ export default {
 .businfo {
     background: #fff;
     .topTitle {
-        width: 95%;
+        width: 96%;
         margin: 0 auto;
     }
     .content {

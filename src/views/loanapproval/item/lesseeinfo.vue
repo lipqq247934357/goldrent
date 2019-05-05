@@ -15,13 +15,15 @@
                             </li>
                             <li>
                                 <span>客户类别</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="custType in statuslist.custType" v-if="item.custType == custType.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="custType in statuslist.custType" :selected="item.custType == custType.optionCode ? true : false">
                                             {{custType.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{custType.optionName}}
                                 </span>
+                                <span v-if="item.custType == ''"></span>
                             </li>
                             <li>
                                 <span>姓名</span>
@@ -30,23 +32,27 @@
                             </li>
                             <li>
                                 <span>与承租人关系</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="custRelation in statuslist.custRelation" v-if="item.custRelation == custRelation.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.custRelation == custRelation.optionCode ? true : false">
                                             {{item.custRelation == '' ? '本人' : custRelation.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{item.custRelation == '' ? '本人' : custRelation.optionName}}
                                 </span>
+                                <span v-if="!item.custRelation"></span>
                             </li>
                             <li>
                                 <span>性别</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="sex in statuslist.custSex" v-if="item.custSex == sex.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == sex.optionCode ? true : false">
                                             {{sex.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{sex.optionName}}
                                 </span>
+                                <span v-if="!item.custSex"></span>
                             </li>
                             <li>
                                 <span>年龄</span>
@@ -58,14 +64,15 @@
                             </li>
                             <li ref="custMarriage">
                                 <span>婚姻状况</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="marriagestatus in statuslist.marriage" v-if="item.custMarriage ==marriagestatus.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="marriagestatus in statuslist.marriage" :selected="item.custMarriage ==marriagestatus.optionCode ? true : false">
                                             {{marriagestatus.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{marriagestatus.optionName}}
                                 </span>
-                                </span>
+                                <span v-if="!item.custMarriage"></span>
                             </li>
                             <li>
                                 <span>户籍地址</span>
@@ -213,13 +220,15 @@
                             <ul class="infolist" v-for="assetsinfouls in item.assetsHouses">
                                 <li>
                                     <span>房产类型</span>
-                                    <span>
-                                        <select class="" name="" disabled>
+                                    <span v-for="housrType in statuslist.houseType" v-if="assetsinfouls.type == housrType.optionCode">
+                                        <!-- <select class="" name="" disabled>
                                             <option value="" v-for="housrType in statuslist.houseType" :selected="assetsinfouls.type == housrType.optionCode ? true : false">
                                                 {{housrType.optionName}}
                                             </option>
-                                        </select>
+                                        </select> -->
+                                        {{housrType.optionName}}
                                     </span>
+                                    <span v-if="!assetsinfouls.type"></span>
                                 </li>
                                 <li>
                                     <span>面积（㎡）</span>
@@ -1181,7 +1190,6 @@ export default {
                          tempArr.push(treeInfo[key]);
                       });
                       this.imgFile = tempArr;
-                      console.log(this.imgFile,'1');
                   }
               })
           })();
@@ -1289,10 +1297,12 @@ export default {
     width: 69.9%;
     float: right;
     overflow: hidden;
+    border-left: 1px solid #afafaf;
+    min-height: 134px;
     /*
     border-right: 1px solid #afafaf;
-    border-left: 1px solid #afafaf;
-    height: 134px;
+
+
     */
     .imagescss {
         float: left;

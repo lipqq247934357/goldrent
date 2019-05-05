@@ -90,33 +90,43 @@
                     'font-size': '14px',
                     'font-weight': 'bold'
                 }"
+                ref="multipleTable"
+                @selection-change="handleSelectionChange"
                 style="width: 100%">
+                <el-table-column
+                    type="selection"
+                    width="55">
+                </el-table-column>
                 <el-table-column
                     prop="bussNo"
                     label="业务编号">
                 </el-table-column>
                 <el-table-column
                     prop="custName"
-                    label="租赁人姓名">
+                    label="承租人">
                 </el-table-column>
                 <el-table-column
                     prop="createTime"
-                    label="任务创建时间">
+                    label="计划投放日">
                 </el-table-column>
                 <el-table-column
                     prop="ownerName"
-                    label="任务员姓名">
+                    label="主办人员">
+                </el-table-column>
+                <el-table-column
+                    prop="ownerName"
+                    label="融资金额">
                 </el-table-column>
                 <el-table-column
                     prop="status"
                     label="任务状态">
                 </el-table-column>
                 <el-table-column
-                    prop="name"
+                    prop="status"
                     label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="edit(scope.row)" type="text" size="small">处理</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
+                        <el-button @click="look(scope.row)" type="text" size="small" v-if="scope.row.status == '已放款'">查看</el-button>
+                        <el-button @click="loanconfirm(scope.row)" type="text" size="small" v-if="scope.row.status != '已放款'">放款确认</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -215,7 +225,7 @@ export default {
         },
         //进入页面获取数据展示在表格中
         query(numbers){
-            this.$post('/LoanApprove/queryApproveList',{
+            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
                 bussNo: this.bussNumber, // 业务编号
                 custName: this.loanName, // 承租人姓名
                 status: this.value, //任务状态
@@ -296,7 +306,7 @@ export default {
         },
         handleSizeChange(val) {
             this.alsoSize = val;
-            this.$post('/LoanApprove/queryApproveList',{
+            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
                 currentPage: this.nowPage,
                 numPerPage: this.alsoSize,
 
@@ -315,7 +325,7 @@ export default {
         },
         handleCurrentChange(val) {
             this.nowPage = val;
-            this.$post('/LoanApprove/queryApproveList',{
+            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
                 currentPage: this.nowPage, //当前页
                 numPerPage: this.alsoSize, // 页大小
                 bussNo: this.bussNumber, // 业务编号
@@ -330,20 +340,8 @@ export default {
                 }
             });
         },
-        handleClick(val) {
-            //查看按钮
-            this.$router.push({
-                path: '/layout/confirmhandle',
-                query: {
-                    disabled: 1, // 1为子页面input不可以编辑，2为可以
-                    id:val.id,
-                    bussNo:val.bussNo,
-                    custId: val.custId
-                }
-            })
-        },
-        edit(val) {
-            // 编辑按钮
+        look(val) {
+            // 查看按钮
             this.$router.push({
                 path: '/layout/confirmhandle',
                 query: {
@@ -354,10 +352,12 @@ export default {
                 }
             })
         },
+        loanconfirm() {
+            // 放款确认
+        },
         // 查询按钮
         search() {
-            console.log(this.alsoSize);
-            this.$post('/LoanApprove/queryApproveList',{
+            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
                 bussNo: this.bussNumber, // 业务编号
                 custName: this.loanName, // 承租人姓名
                 status: this.value, //任务状态
@@ -371,6 +371,9 @@ export default {
                     this.tableData = res.data.data.recordList;
                 }
             });
+        },
+        handleSelectionChange(val) {
+            console.log(val);
         }
     },
 }
@@ -379,7 +382,7 @@ export default {
 .businfo {
     background: #fff;
     .topTitle {
-        width: 95%;
+        width: 96%;
         margin: 0 auto;
     }
     .content {

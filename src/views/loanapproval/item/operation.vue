@@ -104,50 +104,130 @@
     </div>
     <componentitle :message="message='审批意见'" />
     <div class="opinion">
-        <div class="subone">
-            <p>审批报告：</p>
-            <el-button type="primary" style="background: rgb(67,68,140);border: 1px solid rgb(67,68,140);">查看调查报告</el-button>
-            <el-button type="primary">生成审批报告</el-button>
-        </div>
-        <div class="subone">
-            <p class="contract">面签合同：</p>
-            <div class="checkbox" v-for="(item,index) in checkboxlist" >
-                <input
-                    :id="index"
-                    type="checkbox"
-                    name=""
-                    @click="handelcheckbox(item,index)"
-                    :disabled="inputdisabled"
-                    :value="item.contractName">
-                <span>{{item.contractName}}</span>
+        <!-- 贷款审批 -->
+        <div class="loanval" v-if="this.$route.query.arrangement == 1">
+            <div class="subone">
+                <p>审批报告：</p>
+                <el-button type="primary" style="background: rgb(67,68,140);border: 1px solid rgb(67,68,140);">查看调查报告</el-button>
+                <el-button type="primary">生成审批报告</el-button>
             </div>
+            <div class="subone">
+                <p class="contract">面签合同：</p>
+                <div class="checkbox" v-for="(item,index) in checkboxlist" >
+                    <input
+                        :id="index"
+                        type="checkbox"
+                        name=""
+                        @click="handelcheckbox(item,index)"
+                        :disabled="inputdisabled"
+                        :value="item.contractName">
+                    <span>{{item.contractName}}</span>
+                </div>
 
+            </div>
+            <div class="subone opinionsdiv" style="clear:both">
+                <p>审批意见：</p>
+                <template>
+                    <el-radio v-model="radio1" label="1" :disabled="inputdisabled">终审同意</el-radio>
+                    <el-radio v-model="radio1" label="0" :disabled="inputdisabled">同意业务并提交资深审批</el-radio>
+                    <el-radio v-model="radio1" label="2" :disabled="inputdisabled">同意业务并提交会议审批</el-radio>
+                    <el-radio v-model="radio1" label="3" :disabled="inputdisabled">否决</el-radio>
+                </template>
+            </div>
+            <div class="subone">
+                <p>意见描述：</p>
+                <el-input
+                    type="textarea"
+                    class="textareawidth"
+                    :rows="3"
+                    placeholder="请输入内容"
+                    :disabled="inputdisabled"
+                    v-model="textarea">
+                </el-input>
+            </div>
         </div>
-        <div class="subone opinionsdiv" style="clear:both">
-            <p>审批意见：</p>
-            <template>
-                <el-radio v-model="radio1" label="1" :disabled="inputdisabled">终审同意</el-radio>
-                <el-radio v-model="radio1" label="0" :disabled="inputdisabled">同意业务并提交资深审批</el-radio>
-                <el-radio v-model="radio1" label="2" :disabled="inputdisabled">同意业务并提交会议审批</el-radio>
-                <el-radio v-model="radio1" label="3" :disabled="inputdisabled">否决</el-radio>
-            </template>
+        <!-- 贷款审批end -->
+        <!-- 上会审议 -->
+        <div class="upper" v-if="this.$route.query.arrangement == 2">
+            <el-input
+                type="textarea"
+                class="uppertextareaup"
+                :rows="3"
+                placeholder="上会审议内容"
+                :disabled="inputdisabled"
+                v-model="upper">
+            </el-input>
+            <componentitle :message="message='上会审议结论'" />
+            <p class="uppertext">结论描述：</p>
+            <el-input
+                type="textarea"
+                class="uppertextarea"
+                :rows="3"
+                placeholder="上会审议内容"
+                :disabled="inputdisabled"
+                v-model="conclusion">
+            </el-input>
         </div>
-        <div class="subone">
-            <p>意见描述：</p>
+        <!-- 上会审议 end-->
+
+        <!-- 主任意见 -->
+        <div class="upper director" v-if="this.$route.query.arrangement == 3">
+            <el-input
+                type="textarea"
+                class="uppertextareaup"
+                :rows="3"
+                placeholder="审批提交的意见"
+                :disabled="inputdisabled"
+                v-model="upper">
+            </el-input>
+            <componentitle :message="message='上会审议结论'" />
             <el-input
                 type="textarea"
                 class="textareawidth"
                 :rows="3"
-                placeholder="请输入内容"
+                placeholder="上会审议的结论"
                 :disabled="inputdisabled"
-                v-model="textarea">
+                v-model="director">
+            </el-input>
+            <componentitle :message="message='主任意见'" />
+            <p class="uppertext">意见描述：</p>
+            <el-input
+                type="textarea"
+                class="uppertextarea"
+                :rows="3"
+                placeholder="主任意见描述"
+                :disabled="inputdisabled"
+                v-model="director">
             </el-input>
         </div>
+        <!-- 主任意见end -->
+        <!-- 资深审批 -->
+        <div class="upper" v-if="this.$route.query.arrangement == 4">
+            <el-input
+                type="textarea"
+                class="uppertextareaup"
+                :rows="3"
+                placeholder="审批提交的意见"
+                :disabled="inputdisabled"
+                v-model="upper">
+            </el-input>
+            <componentitle :message="message='资深审批意见'" />
+            <p class="uppertext">意见描述：</p>
+            <el-input
+                type="textarea"
+                class="uppertextarea"
+                :rows="3"
+                placeholder="资深内容"
+                :disabled="inputdisabled"
+                v-model="senior">
+            </el-input>
+        </div>
+        <!-- 资深审批end -->
 
         <div class="bottombutton">
-            <el-button type="primary" disabled>保存</el-button>
+            <el-button type="primary" :disabled="inputdisabled" @click="save">保存</el-button>
             <el-button type="primary" @click="adopt" :disabled="inputdisabled">提交</el-button>
-            <el-button type="primary" disabled>退回</el-button>
+            <el-button type="primary" :disabled="inputdisabled">退回</el-button>
         </div>
     </div>
 </div>
@@ -188,10 +268,16 @@ export default {
             rowspanlength: [],
             proposaltotalScore: '', // 评分卡得分展示
             proposalsuggestResult: '', // 评分卡得分结论
-            inputdisabled: false
+            inputdisabled: false,
+            upper: '', //上会审议
+            director: '', //  主任意见
+            senior: '', // 资深审批
+            conclusion: '', //上会审议结论
         }
     },
     created() {
+        // this.$route.query.arrangement 1 默认贷款审批 2 上会审议 3 主任审批 4 资深审批
+
         this.$get(`/LoanApprove/queryApproveDetail?bussNo=${this.$route.query.bussNo}`).then( res => {
             if(res.data.data == null ) {
                 return;
@@ -724,6 +810,23 @@ export default {
                     })
                 }
             })
+        },
+        // 保存按钮
+        save() {
+            this.$post('/LoanApprove/saveApprove',{
+                bussNo: this.$route.query.bussNo, //单号
+                approvalComments: this.radio1, //1同意 0 不同意
+                reasonDescription: this.textarea, // 原因描述
+                selectContracts: this.loanFaceContracts
+            }).then( res => {
+                console.log(res);
+                return;
+                if(res.data.code == '2000000') {
+                    this.$router.push({
+                        path: '/layout/loadapproval'
+                    })
+                }
+            })
         }
     },
     components: {
@@ -819,7 +922,7 @@ export default {
     }
     .bottombutton {
         float: right;
-        margin: 20px 13% 20px 0;
+        margin: 20px 0 20px 0;
         .el-button--primary {
             background: #ff8f2b;
             border: 0;
@@ -843,6 +946,7 @@ export default {
     font-size: 14px;
     margin-top: 30px;
     margin-right: 10px;
+    color: #606266;
     input {
         margin-right: 5px;
     }
@@ -852,5 +956,19 @@ export default {
 }
 .score {
     margin: 15px 0;
+}
+.upper {
+    .uppertext {
+        float: left;
+        margin-top: 15px;
+    }
+    .uppertextareaup {
+        margin-top: 15px;
+    }
+    .uppertextarea {
+        width: 93%;
+        float: right;
+        margin-top: 15px;
+    }
 }
 </style>

@@ -229,6 +229,7 @@
             },
             queryclick() {
                 this.pages();
+                this.currentPage2 = 1;
             },
             //查询 点击分页 一页多少 统一调用这一函数
             pages() {
@@ -261,7 +262,7 @@
         background: #fff;
 
         .topTitle {
-            width: 95%;
+            width: 96%;
             margin: 0 auto;
         }
 

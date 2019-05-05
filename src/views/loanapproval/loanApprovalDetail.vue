@@ -69,6 +69,12 @@ export default {
 
         }
     },
+    mounted() {
+        let arrangementType = this.$route.query.arrangement;
+        if(arrangementType == 2 || arrangementType == 3 || arrangementType == 4) {
+            this.bindText = this.list.loan;
+        }
+    },
     methods: {
         handleClicktas() {
 

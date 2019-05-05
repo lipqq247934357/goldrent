@@ -40,7 +40,6 @@
         props: ['name', 'type', 'relationId', 'bussNo','index'],
         created() {
             this.getList();
-            console.log(this.name.key);
         },
         methods: {
             // 获取图片

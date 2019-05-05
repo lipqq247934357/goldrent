@@ -226,18 +226,5 @@ export default {
 }
 </script>
 <style lang="less">
-.externalinfo {
-    h3 {
-        padding-left: 15px;
-        font-size: 14px;
-    }
-    .bottombox {
-        .inputtext {
-            width: 100%;
-            display: block;
-            vertical-align: middle;
-        }
-    }
 
-}
 </style>

@@ -8,12 +8,13 @@
         </li>
         <li>
             <span>租赁模式</span>
-            <span>
-                <select class="" name="" disabled>
+            <span v-for="leaseMode in statuslist.leaseMode" v-if="wantfactor.leaseMode == leaseMode.optionCode">
+                <!-- <select class="" name="" disabled>
                     <option value="" v-for="leaseMode in statuslist.leaseMode" :selected="wantfactor.leaseMode == leaseMode.optionCode ? true : false">
                         {{leaseMode.optionName}}
                     </option>
-                </select>
+                </select> -->
+                {{leaseMode.optionName}}
             </span>
         </li>
         <li>
@@ -74,12 +75,13 @@
         </li>
         <li>
             <span>租金支付方式</span>
-                <span>
-                    <select class="" name="" disabled>
+                <span v-for="payWay in statuslist.payWay" v-if="wantfactor.payWay == payWay.optionCode">
+                    <!-- <select class="" name="" disabled>
                         <option value="" v-for="payWay in statuslist.payWay" :selected="wantfactor.payWay == payWay.optionCode ? true : false">
                             {{payWay.optionName}}
                         </option>
-                    </select>
+                    </select> -->
+                    {{payWay.optionName}}
                 </span>
             </span>
         </li>

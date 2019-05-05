@@ -475,7 +475,7 @@
         background: #fff;
 
         .topTitle {
-            width: 95%;
+            width: 96%;
             margin: 0 auto;
         }
 

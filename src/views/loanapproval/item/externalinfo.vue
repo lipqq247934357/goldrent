@@ -5,7 +5,7 @@
         <h3>承租人征信状况描述（含配偶）</h3>
         <el-input
             type="textarea"
-            :rows="2"
+            :rows="3"
             placeholder="请输入内容"
             class="inputtext"
             disabled
@@ -16,7 +16,7 @@
         <h3>保证人征信状况描述（含配偶）</h3>
         <el-input
             type="textarea"
-            :rows="2"
+            :rows="3"
             placeholder="请输入内容"
             class="inputtext"
             disabled
@@ -27,7 +27,7 @@
         <h3>回购人人征信状况描述（含实际控制人）</h3>
         <el-input
             type="textarea"
-            :rows="2"
+            :rows="3"
             placeholder="请输入内容"
             class="inputtext"
             disabled
@@ -41,7 +41,7 @@
         <h3>承租人中登网查询描述</h3>
         <el-input
             type="textarea"
-            :rows="2"
+            :rows="3"
             placeholder="请输入内容"
             class="inputtext"
             disabled
@@ -55,7 +55,7 @@
         <h3>承租人征信状况描述（含配偶）</h3>
         <el-input
             type="textarea"
-            :rows="2"
+            :rows="3"
             placeholder="请输入内容"
             class="inputtext"
             disabled
@@ -66,7 +66,7 @@
         <h3>保证人征信状况描述（含配偶）</h3>
         <el-input
             type="textarea"
-            :rows="2"
+            :rows="3"
             placeholder="请输入内容"
             class="inputtext"
             disabled
@@ -77,7 +77,7 @@
         <h3>回购人人征信状况描述（含实际控制人）</h3>
         <el-input
             type="textarea"
-            :rows="2"
+            :rows="3"
             placeholder="请输入内容"
             class="inputtext"
             disabled

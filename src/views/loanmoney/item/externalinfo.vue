@@ -147,27 +147,5 @@ export default {
 }
 </script>
 <style lang="less">
-.externalinfo {
-    h3 {
-        padding-left: 15px;
-        background: #f5f5f5;
-        margin: 0;
-        margin-top: -5px;
-        position: relative;
-        height: 50px;
-        line-height: 50px;
-        color: #585858;
-        border: 1px solid #afafaf;
-        padding-left: 15px;
-        font-size: 14px;
-    }
-    .inputtext {
-        width: 100%;
-        display: block;
-        margin: 0 auto 20px;
-        textarea {
-            border-radius: 0px;
-        }
-    }
-}
+
 </style>

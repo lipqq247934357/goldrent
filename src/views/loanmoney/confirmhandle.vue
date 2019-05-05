@@ -56,7 +56,7 @@
                 查询
             </button> -->
             <el-button type="primary"
-                class="search el-icon-search"
+                class="search"
                 @keyup.enter="confirm"
                 @click="confirm"
                 :autofocus="true">
@@ -73,6 +73,7 @@ export default {
     data() {
         return {
             message: '', //title文字
+            endTime: ''
         }
     },
     components: {
@@ -86,20 +87,11 @@ export default {
 }
 </script>
 <style lang="less">
-.confirm {
-    .bottomdate {
-        margin: 20px 10px;
-        .datetext {
-            font-size: 14px;
-            font-weight: bold;
-            color: #212121;
-        }
-        .search {
-            display: block;
-            background: rgb(251,124,17);
-            border: 0;
-            margin: 30px auto;
-        }
-    }
+.bottomdate {
+    margin-top: 25px;
+}
+.search {
+    display: block;
+    margin: 20px auto;
 }
 </style>

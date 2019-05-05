@@ -1,5 +1,5 @@
 <template>
-<div class="businfosss">
+<div class="businfosss tabsinfo">
     <div class="subtabs">
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in guarantordata" :label="'保证人' + parseInt(index + 1)">
@@ -988,39 +988,5 @@ export default {
 }
 </script>
 <style lang="less">
-.businfosss {
-    background: #fff;
-    width: 100%;
-    .subtabs {
-        margin: 15px 0;
-        .el-tabs__nav {
-            border-top: 1px solid #DCDFE6;
-        }
-        .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
-            border-top: 1px solid #DCDFE6;
-        }
-        .el-tabs__item {
-            &:last-child {
-                border-right: 1px solid #DCDFE6;
-            }
-        }
-        .el-tabs--border-card {
-            border-top: 0;
 
-        }
-    }
-    .assetsinfo {
-        h3 {
-            padding-left: 15px;
-        }
-        .assetsinfoul {
-            /* ul {
-                 margin-top: 0;
-            }*/ 
-        }
-        .div3 {
-
-        }
-    }
-}
 </style>
