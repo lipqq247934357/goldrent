@@ -262,24 +262,26 @@ export default {
         handleClick(val) {
             //查看按钮
             this.$router.push({
-                path: '/layout/loanmoneydetail',
+                path: '/layout/loadapprovaldetail',
                 query: {
                     disabled: 1, // 1为子页面input不可以编辑，2为可以
                     id:val.id,
                     bussNo:val.bussNo,
-                    custId: val.custId
+                    custId: val.custId,
+                    arrangement: 1 // 默认贷款审批 2 上会审议 3 主任审批 4 资深审批
                 }
             })
         },
         edit(val) {
             // 编辑按钮
             this.$router.push({
-                path: '/layout/loanmoneydetail',
+                path: '/layout/loadapprovaldetail',
                 query: {
                     disabled: 2, // 1为子页面input不可以编辑，2为可以
                     id:val.id,
                     bussNo:val.bussNo,
-                    custId: val.custId
+                    custId: val.custId,
+                    arrangement: 1 //1 默认贷款审批 2 上会审议 3 主任审批 4 资深审批
                 }
             })
         },

@@ -19,7 +19,7 @@ import loanmoney from './views/loanmoney/index.vue'; // 放款审批列表
 import download from './views/loanmoney/download.vue'; // 下载放款审批
 import loanmoneyconfirm from './views/loanmoney/loanmoneyconfirm.vue'; // 放款确认列表
 import confirmhandle from './views/loanmoney/confirmhandle.vue'; // 放款确认详情
-import loanmoneydetail from './views/loanmoney/loanmoneydetail.vue';
+// import loanmoneydetail from './views/loanmoney/loanmoneydetail.vue';
 Vue.use(Router)
 
 export default new Router({
@@ -124,12 +124,12 @@ export default new Router({
                     name: 'confirmhandle',
                     component: confirmhandle
                 },
-                {
-
-                    path: 'loanmoneydetail', //放款审批列表详情
-                    name: 'loanmoneydetail',
-                    component: loanmoneydetail
-                }
+                // {
+                //
+                //     path: 'loanmoneydetail', //放款审批列表详情
+                //     name: 'loanmoneydetail',
+                //     component: loanmoneydetail
+                // }
             ]
         },
         {

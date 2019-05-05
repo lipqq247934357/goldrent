@@ -122,7 +122,7 @@
                         heightlight: require('./loanl.png'),
                         url: [
                             {
-                                path: '/layout/businfo',
+                                path: '/layout/loanmoney',
                                 name: '放款审批'
                             },
                             {
