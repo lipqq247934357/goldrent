@@ -310,7 +310,7 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
-                    arrangement: 1
+                    arrangement: 20 // 默认贷款审批20 上会审议22 主任审批23 资深审批21
                 }
             })
         },
@@ -323,13 +323,12 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
-                    arrangement: 1
+                    arrangement: 20 // 默认贷款审批20 上会审议22 主任审批23 资深审批21
                 }
             })
         },
         // 查询按钮
         search() {
-            console.log(this.alsoSize);
             this.$post('/LoanApprove/queryApproveList',{
                 bussNo: this.bussNumber, // 业务编号
                 custName: this.loanName, // 承租人姓名

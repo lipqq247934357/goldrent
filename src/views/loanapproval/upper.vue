@@ -310,7 +310,10 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
-                    arrangement: 2
+                    arrangement: 22, // 默认贷款审批20 上会审议22 主任审批23 资深审批21
+                    nowpath: this.$route.path,
+                    nowurlName: '上会审议',
+                    custName: val.custName
                 }
             })
         },
@@ -323,7 +326,10 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
-                    arrangement: 2
+                    arrangement: 22, // 默认贷款审批20 上会审议22 主任审批23 资深审批21
+                    nowpath: this.$route.path,
+                    nowurlName: '上会审议',
+                    custName: val.custName
                 }
             })
         },

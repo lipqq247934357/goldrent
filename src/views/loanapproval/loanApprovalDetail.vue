@@ -4,8 +4,8 @@
         <h3 class="titleh3">
             <span class="urlTextt">贷款审批</span>
             <i class="el-icon-arrow-right"></i>
-            <router-link to="/layout/loadapproval" class="urlTextt">
-                贷款审批列表
+            <router-link :to="nowurl == undefined ? '/layout/loadapproval' : nowurl" class="urlTextt">
+                {{nowurlName == undefined ? '贷款审批列表' : nowurlName}}
                 <i class="el-icon-arrow-right"></i>
             </router-link>
             <span>&nbsp;{{bindText}}</span>
@@ -65,15 +65,21 @@ export default {
                 investigation: '调查环节综素',
                 loan: '贷款审批操作',
             },
-            bindText: '租赁要素'
+            bindText: '租赁要素',
+            nowurl: '',
+            nowurlName: ''
 
         }
     },
     mounted() {
         let arrangementType = this.$route.query.arrangement;
-        if(arrangementType == 2 || arrangementType == 3 || arrangementType == 4) {
+        if(arrangementType == 21 || arrangementType == 22 || arrangementType == 23) {
             this.bindText = this.list.loan;
         }
+    },
+    created() {
+        this.nowurl = this.$route.query.nowpath; // 当前路由
+        this.nowurlName = this.$route.query.nowurlName; // 当前路由名字
     },
     methods: {
         handleClicktas() {

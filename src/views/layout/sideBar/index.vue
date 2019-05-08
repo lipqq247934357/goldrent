@@ -26,46 +26,6 @@
                             v-for="subitem in item.url"
                             :index="subitem.path">&nbsp;&nbsp;&nbsp;{{subitem.name}}</el-menu-item>
                     </el-submenu>
-                    <!-- <el-submenu
-                        index="1" class="menugold">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span :class="{highlight: nowactive}">业务信息</span>
-                        </template>
-                        <el-menu-item index="/layout/businfo">&nbsp;&nbsp;&nbsp;业务信息列表页</el-menu-item>
-                    </el-submenu> -->
-                    <!-- <el-submenu index="2" class="menugold">
-                        <template slot="title">
-                            <i>
-                                <img :src="approval" alt="">
-                            </i>
-                            <span :class="{highlight: index == 2}">&nbsp;贷款审批管理</span>
-                        </template>
-                        <el-menu-item index="/layout/loadapproval">&nbsp;&nbsp;&nbsp;贷款审批</el-menu-item>
-                        <el-menu-item index="/layout/upper">&nbsp;&nbsp;&nbsp;上会审议</el-menu-item>
-                        <el-menu-item index="/layout/director">&nbsp;&nbsp;&nbsp;主任审批</el-menu-item>
-                        <el-menu-item index="/layout/senior">&nbsp;&nbsp;&nbsp;资深审批</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="3" class="menugold">
-                        <template slot="title">
-                            <i>
-                                <img :src="loan" alt="">
-                            </i>
-                            <span :class="{highlight: nowactive == 3}">&nbsp;放款管理</span>
-                        </template>
-                        <el-menu-item index="/layout/loanmoney">&nbsp;&nbsp;&nbsp;放款审批</el-menu-item>
-                        <el-menu-item index="/layout/download">&nbsp;&nbsp;&nbsp;下载放款审批</el-menu-item>
-                        <el-menu-item index="/layout/loanmoneyconfirm">&nbsp;&nbsp;&nbsp;放款确认列表</el-menu-item>
-                    </el-submenu>
-                    <el-submenu index="4" class="menugold">
-                        <template slot="title">
-                            <i>
-                                <img :src="business" alt="">
-                            </i>
-                            <span :class="{highlight: nowactive == 4}">&nbsp;业务管理</span>
-                        </template>
-                        <el-menu-item index="/layout/businessM">&nbsp;&nbsp;&nbsp;商业伙伴管理</el-menu-item>
-                    </el-submenu> -->
                 </el-menu>
             </el-col>
         </el-row>

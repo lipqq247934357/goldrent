@@ -55,7 +55,7 @@
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
-                <el-button type="primary" class="againbutton" @click="loanconfirm">批量放款确认</el-button>
+                <el-button type="primary" class="againbutton" @click="batchloanconfirm">批量放款确认</el-button>
 
             </div>
         </div>
@@ -209,6 +209,9 @@ export default {
         componentitle,
     },
     methods: {
+        batchloanconfirm() {
+            this.dialogVisible = true;
+        },
         handleClose(done) {
             this.$confirm('确认关闭？')
             .then(_ => {
