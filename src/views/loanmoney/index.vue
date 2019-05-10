@@ -268,7 +268,10 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
-                    arrangement: 1 // 默认贷款审批 2 上会审议 3 主任审批 4 资深审批
+                    arrangement: 5, // 默认贷款审批 2 上会审议 3 主任审批 4 资深审批
+                    nowpath: this.$route.path,
+                    nowurlName: '放款审批列表',
+                    loanmoneyOperation: '放款审批操作'
                 }
             })
         },
@@ -281,7 +284,10 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
-                    arrangement: 1 //1 默认贷款审批 2 上会审议 3 主任审批 4 资深审批
+                    arrangement: 5, //1 默认贷款审批 2 上会审议 3 主任审批 4 资深审批
+                    nowpath: this.$route.path,
+                    nowurlName: '放款审批列表',
+                    loanmoneyOperation: '放款审批操作'
                 }
             })
         },

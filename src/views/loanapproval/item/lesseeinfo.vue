@@ -1249,7 +1249,6 @@ export default {
                 }
                 h3 {
                     font-size: 16px;
-                    font-size: 14px;
                 }
                 .imgeslist {
                     img {
@@ -1269,7 +1268,6 @@ export default {
                         width: 100%;
                         text-align: center;
                         clear: both;
-                        border-bottom: 1px solid #afafaf;
                         border-bottom: 1px solid #afafaf;
                         overflow: hidden;
                         position: relative;

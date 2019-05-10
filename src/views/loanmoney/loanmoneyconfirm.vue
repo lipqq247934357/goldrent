@@ -74,7 +74,7 @@
                     placeholder="选择日期">
                 </el-date-picker>
                 <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="dialogVisible = false">确认</el-button>
+                <el-button type="primary" @click="batchConfirmation">确认</el-button>
                 <el-button @click="dialogVisible = false">关闭</el-button>
                 </span>
             </el-dialog>
@@ -114,7 +114,7 @@
                     label="主办人员">
                 </el-table-column>
                 <el-table-column
-                    prop="ownerName"
+                    prop="raiseFunds"
                     label="融资金额">
                 </el-table-column>
                 <el-table-column
@@ -126,7 +126,7 @@
                     label="操作">
                     <template slot-scope="scope">
                         <el-button @click="look(scope.row)" type="text" size="small" v-if="scope.row.status == '已放款'">查看</el-button>
-                        <el-button @click="loanconfirm(scope.row)" type="text" size="small" v-if="scope.row.status != '已放款'">放款确认</el-button>
+                        <el-button @click="tableloanconfirm(scope.row)" type="text" size="small" v-if="scope.row.status != '已放款'">放款确认</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -200,6 +200,7 @@ export default {
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
             dialogVisible: false, // 弹出框
+            bussNoarr: [] // 用于批量上传的bussNo
         }
     },
     created() {
@@ -210,6 +211,10 @@ export default {
     },
     methods: {
         batchloanconfirm() {
+            if(this.bussNoarr == 0) {
+                this.$message.error('至少应该选择一条信息');
+                return;
+            }
             this.dialogVisible = true;
         },
         handleClose(done) {
@@ -218,6 +223,19 @@ export default {
                 done();
             })
             .catch(_ => {});
+        },
+        batchConfirmation() {
+            this.$post('/LoanGrantConfirm/batchGrantConfirm',{
+                bussNos: this.bussNoarr,
+                loanGrantDate: this.endTime
+            }).then(res => {
+                console.log(res);
+                if(res.data.code == '2000000') {
+                    this.$message.success('批量放款成功');
+                    this.query();
+                    this.dialogVisible = false;
+                }
+            });
         },
         loanconfirm() {
             this.dialogVisible = true;
@@ -349,14 +367,23 @@ export default {
                 path: '/layout/confirmhandle',
                 query: {
                     disabled: 2, // 1为子页面input不可以编辑，2为可以
-                    id:val.id,
                     bussNo:val.bussNo,
-                    custId: val.custId
+                    // id:val.id,
+                    // custId: val.custId
                 }
             })
         },
-        loanconfirm() {
+        tableloanconfirm(val) {
             // 放款确认
+            this.$router.push({
+                path: '/layout/confirmhandle',
+                query: {
+                    disabled: 2, // 1为子页面input不可以编辑，2为可以
+                    bussNo:val.bussNo,
+                    // id:val.id,
+                    // custId: val.custId
+                }
+            })
         },
         // 查询按钮
         search() {
@@ -375,9 +402,17 @@ export default {
                 }
             });
         },
+        // 全选
         handleSelectionChange(val) {
-            console.log(val);
-        }
+            if(val) {
+                for(let a = 0 ; a < val.length; a++) {
+                    this.bussNoarr = [...new Set([...this.bussNoarr, val[a].bussNo])];
+                }
+            }
+            if(val.length == 0) {
+                this.bussNoarr = [];
+            }
+        },
     },
 }
 </script>

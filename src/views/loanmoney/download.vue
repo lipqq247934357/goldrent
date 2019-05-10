@@ -114,6 +114,7 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../components/title/title.vue';
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -162,6 +163,8 @@ export default {
             endTime: '',  // 结束控件时间
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
+            idlist: [],
+            fileName: ''
         }
     },
     created() {
@@ -171,11 +174,44 @@ export default {
         componentitle,
     },
     methods: {
+        // 下载待放款清单
         downloadfirl() {
-            alert(1);
+            axios({ // 用axios发送post请求
+                method: 'post',
+                url: '/LoanGrantOpinion/downLoadLoanGrant', // 请求地址
+                data: {
+                  ids: this.idlist
+                }, // 参数
+                responseType: 'blob' // 表明返回服务器返回的数据类型
+            })
+            .then((res) => { // 处理返回的文件流
+                const content = res;
+                const blob = new Blob([res.data], { type: 'application/vnd.ms-excel' });
+                const fileName = window.decodeURI(res.headers['content-disposition'].split('filename=')[1]);
+                if ('download' in document.createElement('a')) { // 非IE下载
+                    const elink = document.createElement('a')
+                    elink.download = fileName
+                    elink.style.display = 'none'
+                    elink.href = URL.createObjectURL(blob)
+                    document.body.appendChild(elink)
+                    elink.click()
+                    URL.revokeObjectURL(elink.href) // 释放URL 对象
+                    document.body.removeChild(elink)
+                } else { // IE10+下载
+                    navigator.msSaveBlob(blob, fileName)
+                }
+            })
         },
-        handleSelectionChange() {
-            alert('全选')
+        // 表格全选功能与单选功能
+        handleSelectionChange(val) {
+            if(val) {
+                for(let a = 0 ; a < val.length; a++) {
+                    this.idlist = [...new Set([...this.idlist, val[a].bussNo])];
+                }
+            }
+            if(val.length == 0) {
+                this.idlist = [];
+            }
         },
         // 下拉框事件
         selectchange(val) {
