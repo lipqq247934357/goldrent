@@ -176,7 +176,7 @@ export default {
     methods: {
         // 下载待放款清单
         downloadfirl() {
-            axios({ // 用axios发送post请求
+            axios({
                 method: 'post',
                 url: '/LoanGrantOpinion/downLoadLoanGrant', // 请求地址
                 data: {

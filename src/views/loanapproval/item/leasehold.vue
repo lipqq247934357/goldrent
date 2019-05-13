@@ -4,7 +4,7 @@
     <div class="leasegoodsinfo" v-for="item in rentinfo">
         <div class="assetsinfoul">
             <h3>租赁物情况</h3>
-            <ul class="infolist">
+            <ul class="infolist ulisthostcss">
                 <li>
                     <span>租赁物名称及规格型号</span>
                     <span>
@@ -33,7 +33,7 @@
         </div>
         <div class="assetsinfoul">
         <h3>租赁物保险</h3>
-        <ul class="infolist">
+        <ul class="infolist ulisthostcss">
             <li>
                 <span>险种</span>
                 <span>
@@ -173,6 +173,9 @@ export default {
             padding-left: 15px;
             font-size: 14px;
         }
+    }
+    .ulisthostcss {
+        margin-top: -1px;
     }
 }
 </style>

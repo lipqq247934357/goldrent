@@ -120,7 +120,7 @@
             placeholder="请输入内容"
             class="inputtext"
             disabled
-            v-model="item.conclusion">
+            v-model="item.conclusion == '' ? '' : item.conclusion">
         </el-input>
         <h3>协办人</h3>
         <el-input

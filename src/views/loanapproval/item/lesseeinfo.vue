@@ -102,7 +102,7 @@
                     </div>
                     <!-- 配偶信息 -->
                     <div class="assetsinfoul">
-                        <h3 v-if="item.custMarriage != 'unmarried'">配偶情况</h3>
+                        <h3 v-if="item.custMarriage != 'unmarried'">&nbsp;&nbsp;&nbsp;配偶情况</h3>
                         <ul class="infolist" v-for="spouse in item.mateInfo">
                             <li>
                                 <span>配偶姓名</span>
@@ -175,7 +175,7 @@
                     </div>
 
                     <div class="assetsinfoul">
-                        <h3>子女情况</h3>
+                        <h3>&nbsp;&nbsp;&nbsp;子女情况</h3>
                         <ul class="infolist" v-for="childrenInfo in item.childrenInfo">
                             <li>
                                 <span>姓名</span>
@@ -196,7 +196,6 @@
                             <li>
                                 <span>户籍地址</span>
                                 <span>{{childrenInfo.custHomeplace}}</span>
-
                             </li>
                             <li>
                                 <span>年龄</span>
@@ -216,7 +215,7 @@
                     <div class="div1">
                         <componentitle :message="message='资产情况'" />
                         <div class="assetsinfoul">
-                            <h3>房产信息</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;房产信息</h3>
                             <ul class="infolist" v-for="assetsinfouls in item.assetsHouses">
                                 <li>
                                     <span>房产类型</span>
@@ -255,7 +254,7 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>土地（含代收代耕）</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;土地（含代收代耕）</h3>
                             <ul class="infolist" v-for="assetsLands in item.assetsLands">
                                 <li>
                                     <span>土地类型</span>
@@ -287,7 +286,7 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>车产情况</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;车产情况</h3>
                             <ul class="infolist" v-for="car in item.assetsVehicles">
                                 <li>
                                     <span>车产类型</span>
@@ -317,7 +316,7 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>农机具</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;农机具</h3>
                             <ul class="infolist" v-for="assetsFarmTools in item.assetsFarmTools">
                                 <li>
                                     <span>农机具类型</span>
@@ -347,7 +346,7 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>其他资产</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;其他资产</h3>
                             <ul class="infolist" v-for="assetsOthers in item.assetsOthers">
                                 <li>
                                     <span>其他资产</span>
@@ -395,7 +394,7 @@
                     <div class="div2">
                         <componentitle :message="message='负债情况'" />
                         <div class="assetsinfoul">
-                            <h3>房产信息</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;房产信息</h3>
                             <ul class="infolist" v-for="debtSituations in item.debtSituations">
                                 <li>
                                     <span>债务情况</span>
@@ -438,7 +437,7 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>对外担保</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;对外担保</h3>
                             <ul class="infolist" v-for="debtGuarantees in item.debtGuarantees">
                                 <li>
                                     <span>对外担保</span>
@@ -481,7 +480,7 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>其他负债</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;其他负债</h3>
                             <ul class="infolist" v-for="debtOthers in item.debtOthers">
                                 <li>
                                     <span>其他负债</span>
@@ -529,7 +528,7 @@
                     <div class="div3">
                         <componentitle :message="message='收入情况'" />
                         <div class="assetsinfoul">
-                            <h3>种植收入</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;种植收入</h3>
                             <ul class="infolist" v-for="incomePlants in item.incomePlants">
                                 <li>
                                     <span>收入名称</span>
@@ -550,10 +549,9 @@
                                     <span>单亩成本（元）</span>
                                     <span>{{incomePlants.oneCost}}</span>
                                 </li>
-                                <li>
+                                <li style="border-bottom: 0;">
                                     <span>亩产收入（元）</span>
                                     <span>{{incomePlants.oneIncome}}</span>
-
                                 </li>
                                 <li>
                                     <span>结余（元）</span>
@@ -561,7 +559,7 @@
                                 </li>
                             </ul>
                             <div class="describeText">
-                                <h3>种植经验描述</h3>
+                                <h3>&nbsp;&nbsp;&nbsp;种植经验描述</h3>
                                 <div class=""
                                     v-for="(incomePlants,index) in item.incomePlants"
                                     >
@@ -588,7 +586,7 @@
                             </div>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>农机作业收入</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;农机作业收入</h3>
                             <ul class="infolist" v-for="incomeFarmMachineryWork in item.incomeFarmMachineryWork">
                                 <li>
                                     <span>收入名称</span>
@@ -622,7 +620,7 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>其他收入</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;其他收入</h3>
                             <ul class="infolist" v-for="incomeOthers in item.incomeOthers">
                                 <li>
                                     <span>收入名称</span>
@@ -655,7 +653,7 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>收入偿债比</h3>
+                            <h3>&nbsp;&nbsp;&nbsp;收入偿债比</h3>
                             <ul class="infolist" v-for="incomeDebtRatios in item.incomeDebtRatios">
                                 <li>
                                     <span>结余合计（元）</span>
@@ -1225,7 +1223,6 @@ export default {
     }
     .assetsinfo {
         h3 {
-            padding-left: 15px;
             background: #f5f5f5;
             margin: 0;
             margin-top: -5px;
@@ -1234,6 +1231,7 @@ export default {
             line-height: 50px;
             color: #585858;
             border: 1px solid #afafaf;
+            width: 99.8%;
         }
         .assetsinfoul {
             ul {
@@ -1308,7 +1306,7 @@ export default {
     }
 }
 .bz {
-    width: 16%;
+    width: 16.1%;
     float: left;
     color: #212121;
     font-weight: bold;

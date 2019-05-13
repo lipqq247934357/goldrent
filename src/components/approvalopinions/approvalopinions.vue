@@ -194,13 +194,13 @@ export default {
         }
     },
     created() {
+        // 1为不可编辑 2位可以编辑
         if(this.$route.query.disabled == 1) {
             this.inputdisabled = true;
         } else {
             this.inputdisabled = false;
         }
-        this.nowurl = this.$route.query.nowurl; // 获取上一页带过来的路由用于回退到不同的页面
-
+        this.nowurl = this.$route.query.nowpath; // 获取上一页带过来的路由用于回退到不同的页面
         // 获取角色用户列表
         this.$post('/role/queryUserList',{
             parType: "ROLE_PARAMS",
@@ -352,7 +352,6 @@ export default {
                     '23': this.director
                 }[role], // 原因描述
                 contracts: this.loanFaceContracts, // 合同数组
-                // role: String(role), //贷款审批：20 资深审批：21 上会审议：22 主任审批：23 暂时废弃
                 loanPrecondition: this.conditions,// 放款前提条件
                 postRentManage: this.requirements// 租后管理要求
             }).then( res => {

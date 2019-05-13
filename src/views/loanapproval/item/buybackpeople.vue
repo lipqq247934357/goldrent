@@ -4,7 +4,7 @@
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in backpeople" :label="'回购人' + parseInt(index+1)">
                 <componentitle :message="message='基本信息'" />
-                <ul class="infolist">
+                <ul class="infolist byinfolist">
                     <li>
                         <span>回购人名称</span>
                         <span>
@@ -44,7 +44,7 @@
                         <span>回购方负责人</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comManager}}</span>
                     </li>
-                    <li>
+                    <li style="border-bottom: 0;">
                         <span>回购方联系电话</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comMobile}}</span>
                     </li>
@@ -55,8 +55,8 @@
                 </ul>
                 <componentitle :message="message='负债及对外担保情况'"/>
                 <div class="assetsinfoul" v-for="otherpeople in item.debtInfo">
-                    <h3>{{otherpeople.repurchaseType == '1' ? '回购人' : '回购方实际控制人'}}</h3>
-                    <ul class="infolist">
+                    <h3>&nbsp;&nbsp;&nbsp;{{otherpeople.repurchaseType == '1' ? '回购人' : '回购方实际控制人'}}</h3>
+                    <ul class="infolist byinfolist">
                         <li>
                             <span>回购人</span>
                             <span>
@@ -233,7 +233,6 @@ export default {
         margin-top: 15px;
     }
     h3 {
-        padding-left: 15px;
         background: #f5f5f5;
         margin: 0;
         margin-top: -5px;
@@ -242,6 +241,9 @@ export default {
         line-height: 50px;
         color: #585858;
         border: 1px solid #afafaf;
+    }
+    .byinfolist {
+        margin-top: -1px;
     }
     .imgbox {
         clear: both;
