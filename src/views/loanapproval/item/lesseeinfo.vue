@@ -1270,7 +1270,6 @@ export default {
                         overflow: hidden;
                         position: relative;
                         min-height: 134px;
-
                         div {
                             color: #606266;
                         }

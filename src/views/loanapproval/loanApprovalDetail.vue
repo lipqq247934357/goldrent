@@ -34,7 +34,7 @@
             <el-tab-pane :lazy="true" :label="list.investigation" :name="list.investigation">
                 <investigation />
             </el-tab-pane>
-            <el-tab-pane :lazy="true" :label="loanmoneyOperation == undefined ? list.loan : loanmoneyOperation" :name="list.loan">
+            <el-tab-pane :lazy="true" :label="loanmoneyOperation == undefined ? list.loan : loanmoneyOperation" :name="loanmoneyOperation == undefined ? list.loan : loanmoneyOperation">
                 <operation />
             </el-tab-pane>
         </el-tabs>
@@ -62,7 +62,7 @@ export default {
                 repurchase: '回购人信息',
                 leasegoods: '租赁物信息',
                 externalnews: '外部信息',
-                investigation: '调查环节综素',
+                investigation: '增信措施及综述',
                 loan: '贷款审批操作',
             },
             bindText: '租赁要素',
@@ -84,8 +84,8 @@ export default {
         this.nowurlName = this.$route.query.nowurlName; // 当前路由名字
     },
     methods: {
-        handleClicktas() {
-
+        handleClicktas(val) {
+            
         }
     },
     components: {

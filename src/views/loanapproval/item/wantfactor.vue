@@ -335,9 +335,10 @@ export default {
     background: #fff;
     width: 100%;
     .factorlist {
-        width: 99.8%;
+        width: 99.7%;
         border: 1px solid #afafaf;
         margin: 0 auto 20px;
+        border-top: 0;
         li {
             border-bottom: 1px solid #afafaf;
             text-align: center;
@@ -359,7 +360,7 @@ export default {
                 }
             }
             &:nth-child(even) {
-                background: #f5f7fa;
+                background: #fbfbfb;
             }
             &:last-child {
                 border: 0;

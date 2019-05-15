@@ -5,7 +5,7 @@
         </div>
         <div class="tableinfo">
             <template>
-                <ul class="toplist">
+                <!-- <ul class="toplist">
                     <li>
                         <span>业务编号</span>
                         <span>任务名称</span>
@@ -20,7 +20,23 @@
                         <span>{{task.task.beginTime}}</span>
                         <span>{{task.task.finishTime}}</span>
                     </li>
-                </ul>
+                </ul> -->
+                <table class="toplist" border=1>
+                    <tr>
+                        <td>业务编号</td>
+                        <td>任务名称</td>
+                        <td>任务创建时间</td>
+                        <td>任务开始时间</td>
+                        <td>任务结束时间</td>
+                    </tr>
+                    <tr>
+                        <td>{{task.task.bussNo}}</td>
+                        <td>{{task.task.taskName}}</td>
+                        <td>{{task.task.createTime}}</td>
+                        <td>{{task.task.beginTime}}</td>
+                        <td>{{task.task.finishTime}}</td>
+                    </tr>
+                </table>
             </template>
         </div>
 
@@ -31,7 +47,7 @@
                     <span>承租人信息</span>
                 </div>
             </div>
-            <ul class="infolist">
+            <ul class="infolist infocss">
                 <li>
                     <span>业务编号</span>
                     <span>{{task.custNature.bussNo}}</span>
@@ -119,7 +135,7 @@
                     <span>租赁物信息</span>
                 </div>
             </div>
-            <ul class="infolist">
+            <ul class="infolist infocss">
                 <li>
                     <span>名称</span>
                     <span>{{task.leaseInfo.bussNo}}</span>
@@ -287,20 +303,29 @@
         }
 
         .tableinfo {
-            width: 95%;
+            width: 96%;
             margin: 0px auto 50px;
         }
 
         .content {
             width: 95%;
             margin: 0 auto;
-
+            .infocss {
+                li {
+                    &:last-child {
+                        border-bottom: 0;
+                    }
+                    &:nth-last-child(2) {
+                        border-bottom: 0;
+                    }
+                }
+            }
             .infolist {
-                width: 100%;
+                width: 99.8%;
                 display: inline-block;
                 border: 1px solid #afafaf;
                 margin: 0 auto 20px;
-
+                border-top: 0;
                 li {
                     width: 49.9%;
                     height: 50px;
@@ -311,11 +336,9 @@
                     line-height: 50px;
                     color: #606266;
                     font-size: 14px;
-
                     &:nth-child(even) {
                         border-right: 0;
                     }
-
                     span {
                         &:first-child {
                             width: 30%;
@@ -332,21 +355,17 @@
         }
     }
     .toplist {
-        li {
+        width: 100%;
+        border-top: 0;
+        tr {
             width: 100%;
             height: 50px;
             border: 1px solid #afafaf;
             color: #606266;
             font-size: 12px;
-            span {
-                display: inline-block;
-                width: 19.8%;
-                text-align: center;
-                border-right: 1px solid #afafaf;
-                line-height: 50px;
-                &:last-child {
-                    border-right: 0;
-                }
+            text-align: center;
+            &:first-child {
+                border-top: 0;
             }
         }
     }

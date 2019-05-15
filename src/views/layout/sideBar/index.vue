@@ -18,7 +18,7 @@
                         :index="String(index)" class="menugold">
                         <template slot="title">
                             <i>
-                                <img :src="nowactive == index ? item.heightlight : item.img" alt="icon加载失败">
+                                <img v-if="item.img != ''" :src="nowactive == index ? item.heightlight : item.img" alt="icon加载失败">
                             </i>
                             <span :class="nowactive == index ? 'highlight' : ''">&nbsp;{{item.title}}</span>
                         </template>
@@ -103,6 +103,28 @@
                             {
                                 path: '/layout/businessM',
                                 name: '商业伙伴管理'
+                            }
+                        ]
+                    },
+                    {
+                        title: 'banner图管理',
+                        img: '',
+                        heightlight: '',
+                        url: [
+                            {
+                                path: '/banner',
+                                name: 'banner图管理'
+                            }
+                        ]
+                    },
+                    {
+                        title: 'APP版本管理',
+                        img: '',
+                        heightlight: '',
+                        url: [
+                            {
+                                path: '/appversion',
+                                name: 'APP版本管理'
                             }
                         ]
                     }

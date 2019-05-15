@@ -11,19 +11,26 @@
     </div>
     <componentitle :message="message='放款审批意见'" />
     <div class="subone" style="clear:both">
-        <p>审批报告：</p>
+        <p class="titleloantext">审批报告：</p>
         <el-button type="primary" class="spreport" @click="viewreport">查看调查报告</el-button>
         <el-button type="primary" @click="surveyprot">生成审批报告</el-button>
     </div>
     <div class="subone opinionsdiv" style="clear:both">
-        <p>审批意见：</p>
+        <p class="titleloantext">后补租赁物识别号：</p>
+        <template>
+            <el-radio v-model="radio2" label="1" :disabled="inputdisabled">需要</el-radio>
+            <el-radio v-model="radio2" label="0" :disabled="inputdisabled">不需要</el-radio>
+        </template>
+    </div>
+    <div class="subone opinionsdiv" style="clear:both">
+        <p class="titleloantext">审批意见：</p>
         <template>
             <el-radio v-model="radio1" label="1" :disabled="inputdisabled">同意</el-radio>
             <el-radio v-model="radio1" label="0" :disabled="inputdisabled">不同意</el-radio>
         </template>
     </div>
     <div class="subone opinionsdiv" style="clear:both;margin-top:10px;">
-        <p style="line-height:normal;">原因描述：</p>
+        <p  class="titleloantext" style="line-height:normal;">原因描述：</p>
         <el-input
             type="textarea"
             class="uppertextarea"
@@ -54,10 +61,11 @@ export default {
             message: '',
             imgFile: [],
             id: '',
-            bussNo:'',
-            radio1: '',
-            inputdisabled: '',
-            describewhy: ''
+            bussNo:'', // 订单号
+            radio1: '', // 同意不同意
+            inputdisabled: '', // 判断是否是可编辑状态
+            describewhy: '', // 原因描述
+            radio2: '' // 后补租赁物识别号
         }
     },
     created() {
@@ -140,6 +148,11 @@ export default {
 </script>
 <style lang="less">
 .loanmoneycomp {
+    .subone {
+        .titleloantext {
+            min-width: 145px;
+        }
+    }
     .div3 {
         margin-top: 10px;
         .imgbox {
@@ -177,7 +190,9 @@ export default {
                     overflow: hidden;
                     position: relative;
                     min-height: 134px;
-
+                    &:last-child {
+                        border-bottom: 0;
+                    }
                     div {
                         color: #606266;
                     }
@@ -186,7 +201,7 @@ export default {
         }
     }
     .uppertextarea {
-        width: calc(100% - 140px);
+        width: calc(100% - 160px);
         float: right;
     }
 }

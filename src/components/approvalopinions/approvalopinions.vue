@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div>
         <!-- 审批意见组件 -->
         <componentitle :message="message='审批意见'" />
         <div class="opinion">

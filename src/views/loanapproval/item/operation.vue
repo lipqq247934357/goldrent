@@ -25,7 +25,6 @@ export default {
         }
     },
     created() {
-        console.log(this.$route.query.nowpath);
         this.arrangementtype  = this.$route.query.arrangement;
     },
     methods: {

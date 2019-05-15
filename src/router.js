@@ -19,6 +19,9 @@ import loanmoney from './views/loanmoney/index.vue'; // 放款审批列表
 import download from './views/loanmoney/download.vue'; // 下载放款审批
 import loanmoneyconfirm from './views/loanmoney/loanmoneyconfirm.vue'; // 放款确认列表
 import confirmhandle from './views/loanmoney/confirmhandle.vue'; // 放款确认详情
+
+import banner from './views/bannermanagement/bannermanagement.vue'; // banner图管理
+import appversion from './views/appversion/appversion.vue'; // app版本管理
 // import loanmoneydetail from './views/loanmoney/loanmoneydetail.vue';
 Vue.use(Router)
 
@@ -130,6 +133,16 @@ export default new Router({
                 //     name: 'loanmoneydetail',
                 //     component: loanmoneydetail
                 // }
+                {
+                    path: '/banner',
+                    name: 'banner',
+                    component: banner
+                },
+                {
+                    path: '/appversion',
+                    name: 'appversion',
+                    component: appversion
+                },
             ]
         },
         {
