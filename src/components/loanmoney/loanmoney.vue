@@ -18,8 +18,8 @@
     <div class="subone opinionsdiv" style="clear:both">
         <p class="titleloantext">后补租赁物识别号：</p>
         <template>
-            <el-radio v-model="radio2" label="1" :disabled="inputdisabled">需要</el-radio>
-            <el-radio v-model="radio2" label="0" :disabled="inputdisabled">不需要</el-radio>
+            <el-radio v-model="radio2" label="Y" :disabled="inputdisabled">需要</el-radio>
+            <el-radio v-model="radio2" label="N" :disabled="inputdisabled">不需要</el-radio>
         </template>
     </div>
     <div class="subone opinionsdiv" style="clear:both">
@@ -100,7 +100,8 @@ export default {
             this.$post('/LoanGrantOpinion/saveGrant',{
                 bussNo: this.$route.query.bussNo,
                 approvalComments: this.radio1,
-                reasonDescription: this.describewhy
+                reasonDescription: this.describewhy,
+                needSupplement: this.radio2
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('保存成功');
@@ -112,7 +113,8 @@ export default {
             this.$post('/LoanGrantOpinion/submitApprove',{
                 bussNo: this.$route.query.bussNo,
                 approvalComments: this.radio1,
-                reasonDescription: this.describewhy
+                reasonDescription: this.describewhy,
+                needSupplement: this.radio2
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('通过');
@@ -128,7 +130,8 @@ export default {
             this.$post('/LoanGrantOpinion/rejectGrant',{
                 bussNo: this.$route.query.bussNo,
                 approvalComments: this.radio1,
-                reasonDescription: this.describewhy
+                reasonDescription: this.describewhy,
+                needSupplement: this.radio2
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('退回');

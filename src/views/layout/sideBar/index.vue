@@ -15,16 +15,24 @@
                     router>
                     <el-submenu
                         v-for="(item , index) in menulist"
-                        :index="String(index)" class="menugold">
+                        :index="String(index)"
+                        v-if="item.authResource != null"
+                        class="menugold">
                         <template slot="title">
                             <i>
-                                <img v-if="item.img != ''" :src="nowactive == index ? item.heightlight : item.img" alt="icon加载失败">
+                                <img v-if="item.img != ''" :src="nowactive == index ? require(`.${item.highlightImg}`) : require(`.${item.defaultImg}`)" alt="icon加载失败">
+                                <!-- <img :src="require('.' + item.defaultImg)" alt=""> -->
                             </i>
-                            <span :class="nowactive == index ? 'highlight' : ''">&nbsp;{{item.title}}</span>
+                            <span :class="nowactive == index ? 'highlight' : ''">&nbsp;{{item.resourceName}}</span>
                         </template>
                         <el-menu-item
-                            v-for="subitem in item.url"
-                            :index="subitem.path">&nbsp;&nbsp;&nbsp;{{subitem.name}}</el-menu-item>
+                            v-if="item.authResource != null"
+                            :index="item.authResource.resourceUrl">
+                            {{item.authResource.resourceName}}
+                        </el-menu-item>
+                        <!-- <el-menu-item>
+                            {{item.authResource}}
+                        </el-menu-item> -->
                     </el-submenu>
                 </el-menu>
             </el-col>
@@ -42,94 +50,100 @@
                 loan: require('./loana.png'),
                 business: require('./admina.png'),
                 menulist: [
-                    {
-                        title: '业务信息',
-                        img: require('./bussinfoa.png'),
-                        heightlight: require('./bussinfol.png'),
-                        url: [
-                            {
-                                path: '/layout/businfo',
-                                name: '业务信息列表'
-                            }
-                        ]
-                    },
-                    {
-                        title: '贷款审批管理',
-                        img: require('./arropvala.png'),
-                        heightlight: require('./approvall.png'),
-                        url: [
-                            {
-                                path: '/layout/loadapproval',
-                                name: '贷款审批'
-                            },
-                            {
-                                path: '/layout/upper',
-                                name: '上会审议'
-                            },
-                            {
-                                path: '/layout/director',
-                                name: '主任审批'
-                            },
-                            {
-                                path: '/layout/senior',
-                                name: '资深审批'
-                            }
-                        ]
-                    },
-                    {
-                        title: '放款管理',
-                        img: require('./loana.png'),
-                        heightlight: require('./loanl.png'),
-                        url: [
-                            {
-                                path: '/layout/loanmoney',
-                                name: '放款审批'
-                            },
-                            {
-                                path: '/layout/download',
-                                name: '下载放款审批'
-                            },
-                            {
-                                path: '/layout/loanmoneyconfirm',
-                                name: '放款确认列表'
-                            }
-                        ]
-                    },
-                    {
-                        title: '业务管理',
-                        img: require('./admina.png'),
-                        heightlight: require('./adminl.png'),
-                        url: [
-                            {
-                                path: '/layout/businessM',
-                                name: '商业伙伴管理'
-                            }
-                        ]
-                    },
-                    {
-                        title: 'banner图管理',
-                        img: '',
-                        heightlight: '',
-                        url: [
-                            {
-                                path: '/banner',
-                                name: 'banner图管理'
-                            }
-                        ]
-                    },
-                    {
-                        title: 'APP版本管理',
-                        img: '',
-                        heightlight: '',
-                        url: [
-                            {
-                                path: '/appversion',
-                                name: 'APP版本管理'
-                            }
-                        ]
-                    }
+                    // {
+                    //     title: '业务信息',
+                    //     img: require('./bussinfoa.png'),
+                    //     heightlight: require('./bussinfol.png'),
+                    //     url: [
+                    //         {
+                    //             path: '/layout/businfo',
+                    //             name: '业务信息列表'
+                    //         }
+                    //     ]
+                    // },
+                    // {
+                    //     title: '贷款审批管理',
+                    //     img: require('./arropvala.png'),
+                    //     heightlight: require('./approvall.png'),
+                    //     url: [
+                    //         {
+                    //             path: '/layout/loadapproval',
+                    //             name: '贷款审批'
+                    //         },
+                    //         {
+                    //             path: '/layout/upper',
+                    //             name: '上会审议'
+                    //         },
+                    //         {
+                    //             path: '/layout/director',
+                    //             name: '主任审批'
+                    //         },
+                    //         {
+                    //             path: '/layout/senior',
+                    //             name: '资深审批'
+                    //         }
+                    //     ]
+                    // },
+                    // {
+                    //     title: '放款管理',
+                    //     img: require('./loana.png'),
+                    //     heightlight: require('./loanl.png'),
+                    //     url: [
+                    //         {
+                    //             path: '/layout/loanmoney',
+                    //             name: '放款审批'
+                    //         },
+                    //         {
+                    //             path: '/layout/download',
+                    //             name: '下载放款审批'
+                    //         },
+                    //         {
+                    //             path: '/layout/loanmoneyconfirm',
+                    //             name: '放款确认列表'
+                    //         }
+                    //     ]
+                    // },
+                    // {
+                    //     title: '业务管理',
+                    //     img: require('./admina.png'),
+                    //     heightlight: require('./adminl.png'),
+                    //     url: [
+                    //         {
+                    //             path: '/layout/businessM',
+                    //             name: '商业伙伴管理'
+                    //         }
+                    //     ]
+                    // },
+                    // {
+                    //     title: 'banner图管理',
+                    //     img: '',
+                    //     heightlight: '',
+                    //     url: [
+                    //         {
+                    //             path: '/banner',
+                    //             name: 'banner图管理'
+                    //         }
+                    //     ]
+                    // },
+                    // {
+                    //     title: 'APP版本管理',
+                    //     img: '',
+                    //     heightlight: '',
+                    //     url: [
+                    //         {
+                    //             path: '/appversion',
+                    //             name: 'APP版本管理'
+                    //         }
+                    //     ]
+                    // }
                 ]
             }
+        },
+        created() {
+            this.$post('/user/get/resource').then(res => {
+                console.log(res);
+                this.menulist = res.data.data;
+            });
         },
         mounted() {
         },

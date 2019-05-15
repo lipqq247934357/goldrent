@@ -84,6 +84,8 @@
             <el-table
                 :data="tableData"
                 border
+                v-loading="loading"
+                element-loading-text="拼命加载中"
                 size="small"
                 :header-cell-style="{
                     'color': '#212121',
@@ -154,6 +156,7 @@ import componentitle from '../../components/title/title.vue';
 export default {
     data() {
         return {
+            loading: false,
             parenTtext: '贷款审批',
             url: '/layout/loadapproval',
             message: '筛选条件',
@@ -246,6 +249,7 @@ export default {
         },
         //进入页面获取数据展示在表格中
         query(numbers){
+            this.loading = true;
             this.$post('/LoanGrantConfirm/queryLoanGrantList',{
                 bussNo: this.bussNumber, // 业务编号
                 custName: this.loanName, // 承租人姓名
@@ -321,11 +325,12 @@ export default {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
-
+                    this.loading = false;
                 }
             });
         },
         handleSizeChange(val) {
+            this.loading = true;
             this.alsoSize = val;
             this.$post('/LoanGrantConfirm/queryLoanGrantList',{
                 currentPage: this.nowPage,
@@ -341,10 +346,12 @@ export default {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
+                    this.loading = false;
                 }
             });
         },
         handleCurrentChange(val) {
+            this.loading = true;
             this.nowPage = val;
             this.$post('/LoanGrantConfirm/queryLoanGrantList',{
                 currentPage: this.nowPage, //当前页
@@ -358,6 +365,7 @@ export default {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
+                    this.loading = false;
                 }
             });
         },
@@ -387,6 +395,7 @@ export default {
         },
         // 查询按钮
         search() {
+            this.loading = true;
             this.$post('/LoanGrantConfirm/queryLoanGrantList',{
                 bussNo: this.bussNumber, // 业务编号
                 custName: this.loanName, // 承租人姓名
@@ -399,6 +408,7 @@ export default {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
+                    this.loading = false;
                 }
             });
         },

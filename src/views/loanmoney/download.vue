@@ -59,6 +59,8 @@
                 :data="tableData"
                 tooltip-effect="dark"
                 border
+                v-loading="loading"
+                element-loading-text="拼命加载中"
                 size="small"
                 ref="multipleTable"
                 @selection-change="handleSelectionChange"
@@ -118,6 +120,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            loading: false,
             parenTtext: '贷款审批',
             url: '/layout/loadapproval',
             message: '筛选条件',
@@ -219,6 +222,7 @@ export default {
         },
         //进入页面获取数据展示在表格中
         query(numbers){
+            this.loading = true;
             this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 status: this.value, //任务状态
                 createTimeStart: this.beginTime, // 任务开始时间
@@ -292,11 +296,12 @@ export default {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
-
+                    this.loading = false;
                 }
             });
         },
         handleSizeChange(val) {
+            this.loading = true;
             this.alsoSize = val;
             this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 currentPage: this.nowPage,
@@ -309,10 +314,12 @@ export default {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
+                    this.loading = false;
                 }
             });
         },
         handleCurrentChange(val) {
+            this.loading = true;
             this.nowPage = val;
             this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 currentPage: this.nowPage, //当前页
@@ -324,11 +331,13 @@ export default {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
+                    this.loading = false;
                 }
             });
         },
         // 查询按钮
         search() {
+            this.loading = true;
             this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 status: this.value, //任务状态
                 createTimeStart: this.beginTime, // 任务开始时间
@@ -339,6 +348,7 @@ export default {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
+                    this.loading = false;
                 }
             });
         }
