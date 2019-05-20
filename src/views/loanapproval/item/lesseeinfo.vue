@@ -1171,7 +1171,7 @@ export default {
           )();
           //获取图片树形结构
           const stockPrice = await (() => {
-              const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
+              const matType = {"NAT":"NATURE_MATERIAL","LEG":"LEGAL_MATERIAL"};
               if (!matType[this.partner]) {
                   this.$message.error('无承租人图片信息')
                   return;
@@ -1247,6 +1247,8 @@ export default {
                 }
                 h3 {
                     font-size: 16px;
+                    padding-left: 15px;
+                    width: calc(100% - 17px);
                 }
                 .imgeslist {
                     img {
@@ -1270,6 +1272,9 @@ export default {
                         overflow: hidden;
                         position: relative;
                         min-height: 134px;
+                        &:last-child {
+                            border-bottom: 0;
+                        }
                         div {
                             color: #606266;
                         }

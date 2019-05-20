@@ -1,7 +1,7 @@
 <template>
     <div>
         <li>
-            <div>{{name}}</div>
+            <div>{{name.value}}</div>
             <div class="edit-pic">
                 <el-upload
                         :limit="Number(6)"
@@ -51,7 +51,7 @@
                 let data = await this.$post('/getFileIdByType', {
                     relationId: this.relationId + '',
                     dataType: this.type,
-                    bussNo: this.bussNo
+                    // bussNo: this.bussNo
                 });
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
                     data.data.data.forEach((val) => {

@@ -86,7 +86,7 @@
                     type="textarea"
                     class="uppertextareaup"
                     :rows="3"
-                    placeholder="审批提交的意见"
+                    :placeholder="textarea"
                     disabled
                     v-model="disabledtextarea">
                 </el-input>
@@ -136,7 +136,7 @@
 
             <div class="bottombutton">
                 <el-button type="primary" @click="save" :disabled="inputdisabled" >保存</el-button>
-                <el-button type="primary" @click="adopt" :disabled="inputdisabled">提交</el-button>
+                <el-button type="primary" @click="adopt" :disabled="inputdisabled">{{this.$route.query.arrangement == '23' ? '同意': '提交'}}</el-button>
                 <el-button type="primary" @click="exit" :disabled="inputdisabled">退回</el-button>
             </div>
 
@@ -214,7 +214,9 @@ export default {
                 return;
             }
             this.checkboxlist = res.data.data.contracts; // 合同
-            this.radio1 = res.data.data.approvalComments; // 审批意见
+            if(this.$route.query.arrangement == '20') {
+                this.radio1 = res.data.data.approvalComments; // 审批意见
+            }
             this.textarea = res.data.data.reasonDescription; // 意见
         });
         this.textareinput(); //资深 上会 主任审批需要展示的内容

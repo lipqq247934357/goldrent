@@ -151,7 +151,7 @@
                             <upload :disabled="type === 'detail'"
                                     :name="val"
                                     :relationId="relationId"
-                                    :type="key"
+                                    :type="val.key"
                                     @handlePictureCardPreview="handlePictureCardPreview"
                                     v-for="(val,key) in value.nodes"/>
                         </ul>
@@ -319,11 +319,12 @@
                     materialType: 'NATURE_MATERIAL',
                 });
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
-                    let treeInfo = data.data.data;
+                    let treeInfo = data.data.data.NATURE_MATERIAL;
                     let tempArr = [];
                     Object.keys(treeInfo).forEach((key) => {
                         tempArr.push(treeInfo[key]);
                     });
+                    console.log(treeInfo);
                     this.imgFile = tempArr;
                 }
             },

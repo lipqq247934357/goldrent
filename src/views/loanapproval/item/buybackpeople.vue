@@ -48,10 +48,6 @@
                         <span>回购方联系电话</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comMobile}}</span>
                     </li>
-                    <li>
-                        <span>咨询服务费</span>
-                        <span></span>
-                    </li>
                 </ul>
                 <componentitle :message="message='负债及对外担保情况'"/>
                 <div class="assetsinfoul" v-for="otherpeople in item.debtInfo">
@@ -198,7 +194,7 @@ export default {
           )();
           // 图片树形结构
           const stockPrice = await (() => {
-              const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
+              const matType = {"NAT":"NATURE_MATERIAL","LEG":"LEGAL_MATERIAL"};
               if (!matType[this.partner]) {
                   this.$message.error('无回购人图片信息');
                   return;
@@ -251,6 +247,7 @@ export default {
             font-size: 16px;
             // margin: 35px 0 35px 15px;
             font-weight: bold;
+            padding-left: 15px;
         }
         .imglist {
             margin-top: 16px;

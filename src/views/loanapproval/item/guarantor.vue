@@ -935,8 +935,7 @@ export default {
                 //     }
                 // }
                   if(res.data.code == '2000000') {
-                      this.guarantordata = res.data.data.naturalData;
-                      this.id = res.data.data.naturalData[0].id;
+                      this.guarantordata = res.data.data.warrantorData;
                       for(let i = 0 ; i < this.guarantordata.length ; i ++ ) {
                           this.$post('/getConstantConfig',{
                               dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee']
@@ -955,8 +954,11 @@ export default {
           )();
           // 图片树形结构
           const stockPrice = await (() => {
-
-              const matType = {"NAT":"NATURAL_MATERIAL","LEG":"LEGAL_MATERIAL"};
+              if(this.guarantordata.length == 0) {
+                  this.$message.error('无保证人信息');
+                  return;
+              }
+              const matType = {"NAT":"NATURE_MATERIAL","LEG":"LEGAL_MATERIAL"};
               if (!matType[this.partner]) {
                   this.$message.error('无保证人图片信息');
                   return;

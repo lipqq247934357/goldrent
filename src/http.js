@@ -6,7 +6,7 @@ import router from './router';
 
 
 
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 10000;
 if (process.env.NODE_ENV === 'development') {// 根据不同的环境使用不同的接口
     axios.defaults.baseURL = '/web';
 } else {

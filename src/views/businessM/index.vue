@@ -29,10 +29,12 @@
                         </div>
                         <template>
                             <el-table
-                                    :data="naturalData"
-                                    border
-                                    row-key="id"
-                                    style="width: 100%">
+                                :data="naturalData"
+                                border
+                                v-loading="loading"
+                                element-loading-text="拼命加载中"
+                                row-key="id"
+                                style="width: 100%">
                                 <el-table-column
                                         label="ID"
                                         prop="id">
@@ -182,6 +184,7 @@
         mixins:[formatter],
         data() {
             return {
+                loading: false,
                 firstTitle: '筛选条件', // 第一个标题
                 maxTitle: '商业伙伴管理', // 大标题
                 partnerName: '', // 商业伙伴名称
@@ -213,7 +216,7 @@
                 },
                 path: '/layout/natural', // 增删改地址
                 queryFunc: this.queryNatural, // 查询的类型
-                imgId: '' 
+                imgId: ''
             }
         },
         mounted() {
@@ -221,6 +224,7 @@
         },
         methods: {
             async queryNatural() { // 分页查询自然人数据
+                this.loading = true;
                 let data = await this.$get(`/bussPartner/listPartnerInfo?partnerName=${this.partnerName}&partnerType=1&currentPage=${this.naturalPagInfo.currentPage}&pageSize=${this.naturalPagInfo.pageSize}`);
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
                     // 示例
@@ -273,13 +277,16 @@
                     //     creator String创建人
                     this.naturalData = data.data.data.recordList;
                     this.naturalPagInfo.total = data.data.data.totalCount;
+                    this.loading = false;
                 }
             },
             async queryLegal() { // 分页查询法人数据
+                this.loading = true;
                 let data = await this.$get(`/bussPartner/listPartnerInfo?partnerName=${this.partnerName}&partnerType=2&currentPage=${this.legalPagInfo.currentPage}&pageSize=${this.legalPagInfo.pageSize}`);
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
                     this.legalData = data.data.data.recordList;
                     this.legalPagInfo.total = data.data.data.totalCount;
+                    this.loading = false;
                 }
             },
             queryNaturalSizeChange(val) {

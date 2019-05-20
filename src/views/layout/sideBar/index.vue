@@ -27,8 +27,9 @@
                         </template>
                         <el-menu-item
                             v-if="item.authResource != null"
-                            :index="item.authResource.resourceUrl">
-                            {{item.authResource.resourceName}}
+                            v-for="suburl in item.authResource"
+                            :index="suburl.resourceUrl">
+                            {{suburl.resourceName}}
                         </el-menu-item>
                         <!-- <el-menu-item>
                             {{item.authResource}}

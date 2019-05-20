@@ -73,23 +73,31 @@
                             prop="custName">
                     </el-table-column>
                     <el-table-column
-                            label="任务名称"
-                            prop="taskName">
+                            label="计划起租日"
+                            prop="custName">
                     </el-table-column>
                     <el-table-column
-                            label="任务状态"
+                            label="融资金额"
                             prop="status">
                     </el-table-column>
                     <el-table-column
-                            min-width="150px"
-                            label="任务创建时间"
-                            prop="createTime">
+                            label="主办"
+                            prop="custName">
                     </el-table-column>
                     <el-table-column
-                            min-width="150px"
-                            label="任务结束时间"
-                            prop="finishTime">
+                            label="协办"
+                            prop="status">
                     </el-table-column>
+                    <el-table-column
+                            label="任务名称"
+                            prop="taskName">
+                    </el-table-column>
+
+                    <el-table-column
+                        label="当前处理人"
+                        prop="createTime">
+                    </el-table-column>
+
                     <el-table-column
                             label="操作"
                             prop="name">
