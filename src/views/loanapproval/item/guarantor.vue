@@ -4,7 +4,145 @@
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in guarantordata" :label="'保证人' + parseInt(index + 1)">
                 <componentitle :message="message='保证人情况'" />
-                <div class="assetsinfo">
+                <div class="assetsinfo" v-if="item.partnerType == 'LEG'">
+                    <div class="div0">
+                        <ul class="infolist">
+                            <li>
+                                <span>商业伙伴全称</span>
+                                <span>
+                                    {{item.comFullname}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>商业伙伴编码</span>
+                                <span>
+                                    {{item.partnerSerial}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>社会统一信息代码</span>
+                                <span>
+                                    {{item.socialSerial}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>证件生效时间</span>
+                                <span>
+                                    {{item.certStartDate}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>注册资本（万元）</span>
+                                <span>
+                                    {{item.comRegisteredCapital}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>成立日期</span>
+                                <span>
+                                    {{item.comEstablishDate}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>营业收入（万元）</span>
+                                <span>
+                                    {{item.comIncome}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>经营范围</span>
+                                <span>
+                                    {{item.comScope}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>营业地址</span>
+                                <span>
+                                    {{item.comAddress}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>从业人数</span>
+                                <span>
+                                    {{item.comMembers}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>资产总额(万元)</span>
+                                <span>
+                                    {{item.totalAssets}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>企业规模</span>
+                                <span>
+                                    {{item.comScale}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>法定代表人</span>
+                                <span>
+                                    {{item.legalPerson}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>法人证件类型</span>
+                                <span>
+                                    {{item.legalCertType}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>法人证件号码</span>
+                                <span>
+                                    {{item.legalCertNo}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>法人证件失效时间</span>
+                                <span>
+                                    {{item.legalCertDeadline}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>法人电话</span>
+                                <span>
+                                    {{item.legalMobile}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>法人地址</span>
+                                <span>
+                                    {{item.legalAddress}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>联系人</span>
+                                <span>
+                                    {{item.contactAddress}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>联系地址</span>
+                                <span>
+                                    {{item.contactUser}}
+                                </span>
+                            </li>
+                            <li style="border-bottom: 0px;">
+                                <span>管户人</span>
+                                <span>
+                                    {{item.accountHolder}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>贷款卡号</span>
+                                <span>
+                                    {{item.bankAccount}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="assetsinfo" v-if="item.partnerType != 'LEG'">
                     <div class="div0">
                         <ul class="infolist">
                             <li>
@@ -288,7 +426,7 @@
                                     <span>所有权人</span>
                                     <span>{{assetsVehicles.owner}}</span>
                                 </li>
-                                <li>
+                                <li style="border-bottom: 0;">
                                     <span>车辆号牌</span>
                                     <span>{{assetsVehicles.serialNo}}</span>
                                 </li>
@@ -339,7 +477,7 @@
                                 </li>
                                 <li>
                                     <span>购买时间</span>
-                                    <span></span>
+                                    <span>{{assetsOthers.buyTime}}</span>
                                 </li>
                                 <li>
                                     <span>价值（元）</span>
@@ -569,7 +707,7 @@
                                     <span>本年收入（元）</span>
                                     <span>{{incomeOthers.currYearIncome}}</span>
                                 </li>
-                                <li>
+                                <li style="border-bottom: 0;">
                                     <span>本年支出（元）</span>
                                     <span>{{incomeOthers.currYearPay}}</span>
 
@@ -580,17 +718,16 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
 
-                    <!-- 承租人相关影像资料 -->
+                    </div>
+                </div>
+                <div class="assetsinfo">
                     <div class="div3">
                         <componentitle :message="message='保证人相关影像资料'" />
-
-                        <div class="imgbox" v-for="value in imgFile">
+                        <div class="imgbox" v-for="value in imgFile[item.id]">
                             <h3>{{value.nodeName}}</h3>
                             <ul>
                                 <imgLine v-for="(val,key,index) in value.nodes" :name="val" :type="key" :relationId="item.id" :bussNo="bussNo" :index="index"/>
-                                <!-- <imgLine v-for="(val,key,index) in value.nodes" :name="val" :type="key" :relationId="item.id" :bussNo="bussNo" :index="index"/> -->
                             </ul>
                         </div>
                     </div>
@@ -611,11 +748,309 @@ export default {
             message: '',
             tableData: [],
             images: [],
-            guarantordata: [], // 保证人的list主数组用于循环
-            partner: '', // 储存法人还是自然人NAT自然人	 LEG法人
+            guarantordata: [
+                // 返回示例
+              //   {
+              //     "msg": "success",
+              //     "code": "2000000",
+              //     "data": {
+              //         "naturalData": [
+              //             {
+              //                 "id": "fa46972225284c61bec18c094f110f2a",
+              //                 "version": 0,
+              //                 "status": "1",
+              //                 "creator": "",
+              //                 "createTime": "2019-04-11T08:59:59.000+0000",
+              //                 "editor": "",
+              //                 "editTime": "2019-04-11T08:59:59.000+0000",
+              //                 "remark": null,
+              //                 "bussNo": "test_data_for_app_0411_02",
+              //                 "partnerType": "0",
+              //                 "custName": "",
+              //                 "custSex": "",
+              //                 "certNo": "150430",
+              //                 "custHomeplace": "",
+              //                 "custAge": 0,
+              //                 "custType": "",
+              //                 "custMobile": "",
+              //                 "custWechat": "",
+              //                 "custEducation": "",
+              //                 "custMarriage": "",
+              //                 "custRelation": "",
+              //                 "marriageSettlement": "",
+              //                 "residenceYears": 0,
+              //                 "cultureYears": 0,
+              //                 "custAddress": "",
+              //                 "bussType": "01",
+              //                 "custIsMain": "",
+              //                 "hasChildren": "",
+              //                 "hasCreditReport": "",
+              //                 "certType": "01",
+              //                 "spouseId": "",
+              //                 "hasLawsuit": "N",
+              //                 "hasEnforced": "N",
+              //                 "partnerId": "",
+              //                 "parentId": "",
+              //                 "mateInfo": [
+              //                     {
+              //                         "id": "d258d9d5919d47ada7d0ac40ac7e3ba8",
+              //                         "version": 0,
+              //                         "status": "1",
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T08:59:59.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T08:59:59.000+0000",
+              //                         "remark": null,
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "partnerType": "0",
+              //                         "custName": "wife",
+              //                         "custSex": "",
+              //                         "certNo": "",
+              //                         "custHomeplace": "",
+              //                         "custAge": 0,
+              //                         "custType": "",
+              //                         "custMobile": "",
+              //                         "custWechat": "",
+              //                         "custEducation": "",
+              //                         "custMarriage": "",
+              //                         "custRelation": "",
+              //                         "marriageSettlement": "",
+              //                         "residenceYears": 0,
+              //                         "cultureYears": 0,
+              //                         "custAddress": "",
+              //                         "bussType": "",
+              //                         "custIsMain": "",
+              //                         "hasChildren": "",
+              //                         "hasCreditReport": "",
+              //                         "certType": "01",
+              //                         "spouseId": "fa46972225284c61bec18c094f110f2a",
+              //                         "hasLawsuit": "N",
+              //                         "hasEnforced": "N",
+              //                         "partnerId": "",
+              //                         "parentId": "",
+              //                         "mateInfo": null,
+              //                         "childrenInfo": null,
+              //                         "assetsHouses": null,
+              //                         "assetsLands": null,
+              //                         "assetsFinances": null,
+              //                         "assetsVehicles": null,
+              //                         "assetsFarmTools": null,
+              //                         "assetsOthers": null,
+              //                         "debtSituations": null,
+              //                         "debtGuarantees": null,
+              //                         "debtOthers": null,
+              //                         "incomePlants": null,
+              //                         "incomeFarmMachineryWork": null,
+              //                         "incomeOthers": null,
+              //                         "incomeDebtRatios": null
+              //                     }
+              //                 ],
+              //                 "assetsHouses": [
+              //                     {
+              //                         "id": "94209f4515b24202958a8ba78f46cd7b",
+              //                         "version": 0,
+              //                         "status": "1",
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "type": 1,
+              //                         "acreage": 100,
+              //                         "currEvaluation": 0,
+              //                         "owner": "",
+              //                         "mortgage": "",
+              //                         "address": "",
+              //                         "haveCertificate": ""
+              //                     }
+              //                 ],
+              //                 "assetsLands": [
+              //                     {
+              //                         "id": "27d9921730e74d25968628b24fff61b0",
+              //                         "version": 0,
+              //                         "status": "1",
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "acreage": 245,
+              //                         "value": 0,
+              //                         "contractLife": 0,
+              //                         "mortgage": "0",
+              //                         "address": "",
+              //                         "checkMode": ""
+              //                     }
+              //                 ],
+              //                 "assetsVehicles": [
+              //                     {
+              //                         "id": "ba47c7de3f7744e6bdfda2f9f2287ec4",
+              //                         "version": 0,
+              //                         "status": "1",
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "buyTime": "2019-02-02 12:09:32",
+              //                         "currEvaluation": 0,
+              //                         "owner": "",
+              //                         "mortgage": "",
+              //                         "serialNo": "",
+              //                         "invoiceAmount": 0
+              //                     }
+              //                 ],
+              //                 "assetsFarmTools": [
+              //                     {
+              //                         "id": "49028c12d3e3417680dfb2167cf1089b",
+              //                         "version": 0,
+              //                         "status": "1",
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "buyTime": "2019-03-02 09:09:32",
+              //                         "currEvaluation": 0,
+              //                         "owner": "",
+              //                         "mortgage": "",
+              //                         "serialNo": "",
+              //                         "invoiceAmount": 0
+              //                     }
+              //                 ],
+              //                 "assetsOthers": [
+              //                     {
+              //                         "id": "be87a5e3cba14a5f92814243c1bc5ba8",
+              //                         "version": 0,
+              //                         "status": "1",
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "value": 245,
+              //                         "currEvaluation": 100.02,
+              //                         "mortgage": "",
+              //                         "owner": ""
+              //                     }
+              //                 ],
+              //                 "debtSituations": [
+              //                     {
+              //                         "id": "fb233672390f496eb38f195fd86ad00c",
+              //                         "version": 0,
+              //                         "status": null,
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "debtSituation": "一屁股债",
+              //                         "debtType": "",
+              //                         "debtPerson": "",
+              //                         "debtBalance": 100,
+              //                         "debtTerm": "0"
+              //                     }
+              //                 ],
+              //                 "debtGuarantees": [
+              //                     {
+              //                         "id": "4087719e67fa43e1a1b89112898f50cd",
+              //                         "version": 0,
+              //                         "status": null,
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": null,
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "externalGuarantee": "一屁股债",
+              //                         "creditor": "",
+              //                         "guaranteeBalance": 0,
+              //                         "warrantee": "",
+              //                         "withWarranteeRelation": ""
+              //                     }
+              //                 ],
+              //                 "debtOthers": [
+              //                     {
+              //                         "id": "27abb444d64b4eec9292284b6a074c17",
+              //                         "version": 0,
+              //                         "status": null,
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": null,
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "otherDebt": "",
+              //                         "creditor": "一股债",
+              //                         "debtBalance": 0,
+              //                         "debtMaturity": "",
+              //                         "isGuarantee": "0"
+              //                     }
+              //                 ],
+              //                 "incomePlants": [
+              //                     {
+              //                         "id": "bc2c9946c3684ea080c06f6bb57a27ca",
+              //                         "version": 0,
+              //                         "status": "1",
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "plantType": "玉米",
+              //                         "plantArea": 0,
+              //                         "oneCost": 0,
+              //                         "oneIncome": 0,
+              //                         "surplus": 1300,
+              //                         "bussType": "00"
+              //                     }
+              //                 ],
+              //                 "incomeOthers": [
+              //                     {
+              //                         "id": "b7f884892ad34fc3ab6a7166447cb916",
+              //                         "version": 0,
+              //                         "status": "1",
+              //                         "creator": "",
+              //                         "createTime": "2019-04-11T09:00:00.000+0000",
+              //                         "editor": "",
+              //                         "editTime": "2019-04-11T09:00:00.000+0000",
+              //                         "remark": "",
+              //                         "bussNo": "test_data_for_app_0411_02",
+              //                         "custId": "fa46972225284c61bec18c094f110f2a",
+              //                         "prevYearIncome": 0,
+              //                         "prevYearPay": 0,
+              //                         "currYearIncome": 0,
+              //                         "currYearPay": 0,
+              //                         "surplus": 0
+              //                     }
+              //                 ]
+              //             }
+              //         ],
+              //         "bussNo": "test_data_for_app_0411_02"
+              //     }
+              // }
+            ], // 保证人的list主数组用于循环
+            partner: {}, // 储存法人还是自然人NAT自然人	 LEG法人
             id: '', // 当前ID
             bussNo:'', // 订单号
-            imgFile: [], //预览图片文件
+            imgFile: {}, //预览图片文件
+            legImgfile: [], // 法人图片
             statuslist: { // 字典编码
                 marriage: [],
                 custSex: [],
@@ -631,356 +1066,53 @@ export default {
 
         this.bussNo = data.bussNo;
         this.getStockPriceByNames();
+
+        //  字段编码
+        this.$post('/getConstantConfig', {
+            dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee']
+        }).then(res => {
+            var resData = res.data.data;
+            this.statuslist.marriage = resData.custMarriage;
+            this.statuslist.custSex = resData.custSex;
+            this.statuslist.custRelation = resData.custRelation;
+            this.statuslist.custType = resData.custType;
+            this.statuslist.houseType = resData.houseType;
+            this.statuslist.isGuarantee = resData.isGuarantee;
+        })
     },
     methods: {
-        async getStockPriceByNames(res) {
-          this.partner = await (() =>
+        getStockPriceByNames(res) {
               this.$post('/warrantor/info',{
-                 bussNo: this.$route.query.bussNo
+                   bussNo: this.$route.query.bussNo
               }).then( res => {
-                  // 返回示例
-                //   {
-                //     "msg": "success",
-                //     "code": "2000000",
-                //     "data": {
-                //         "naturalData": [
-                //             {
-                //                 "id": "fa46972225284c61bec18c094f110f2a",
-                //                 "version": 0,
-                //                 "status": "1",
-                //                 "creator": "",
-                //                 "createTime": "2019-04-11T08:59:59.000+0000",
-                //                 "editor": "",
-                //                 "editTime": "2019-04-11T08:59:59.000+0000",
-                //                 "remark": null,
-                //                 "bussNo": "test_data_for_app_0411_02",
-                //                 "partnerType": "0",
-                //                 "custName": "",
-                //                 "custSex": "",
-                //                 "certNo": "150430",
-                //                 "custHomeplace": "",
-                //                 "custAge": 0,
-                //                 "custType": "",
-                //                 "custMobile": "",
-                //                 "custWechat": "",
-                //                 "custEducation": "",
-                //                 "custMarriage": "",
-                //                 "custRelation": "",
-                //                 "marriageSettlement": "",
-                //                 "residenceYears": 0,
-                //                 "cultureYears": 0,
-                //                 "custAddress": "",
-                //                 "bussType": "01",
-                //                 "custIsMain": "",
-                //                 "hasChildren": "",
-                //                 "hasCreditReport": "",
-                //                 "certType": "01",
-                //                 "spouseId": "",
-                //                 "hasLawsuit": "N",
-                //                 "hasEnforced": "N",
-                //                 "partnerId": "",
-                //                 "parentId": "",
-                //                 "mateInfo": [
-                //                     {
-                //                         "id": "d258d9d5919d47ada7d0ac40ac7e3ba8",
-                //                         "version": 0,
-                //                         "status": "1",
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T08:59:59.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T08:59:59.000+0000",
-                //                         "remark": null,
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "partnerType": "0",
-                //                         "custName": "wife",
-                //                         "custSex": "",
-                //                         "certNo": "",
-                //                         "custHomeplace": "",
-                //                         "custAge": 0,
-                //                         "custType": "",
-                //                         "custMobile": "",
-                //                         "custWechat": "",
-                //                         "custEducation": "",
-                //                         "custMarriage": "",
-                //                         "custRelation": "",
-                //                         "marriageSettlement": "",
-                //                         "residenceYears": 0,
-                //                         "cultureYears": 0,
-                //                         "custAddress": "",
-                //                         "bussType": "",
-                //                         "custIsMain": "",
-                //                         "hasChildren": "",
-                //                         "hasCreditReport": "",
-                //                         "certType": "01",
-                //                         "spouseId": "fa46972225284c61bec18c094f110f2a",
-                //                         "hasLawsuit": "N",
-                //                         "hasEnforced": "N",
-                //                         "partnerId": "",
-                //                         "parentId": "",
-                //                         "mateInfo": null,
-                //                         "childrenInfo": null,
-                //                         "assetsHouses": null,
-                //                         "assetsLands": null,
-                //                         "assetsFinances": null,
-                //                         "assetsVehicles": null,
-                //                         "assetsFarmTools": null,
-                //                         "assetsOthers": null,
-                //                         "debtSituations": null,
-                //                         "debtGuarantees": null,
-                //                         "debtOthers": null,
-                //                         "incomePlants": null,
-                //                         "incomeFarmMachineryWork": null,
-                //                         "incomeOthers": null,
-                //                         "incomeDebtRatios": null
-                //                     }
-                //                 ],
-                //                 "assetsHouses": [
-                //                     {
-                //                         "id": "94209f4515b24202958a8ba78f46cd7b",
-                //                         "version": 0,
-                //                         "status": "1",
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "type": 1,
-                //                         "acreage": 100,
-                //                         "currEvaluation": 0,
-                //                         "owner": "",
-                //                         "mortgage": "",
-                //                         "address": "",
-                //                         "haveCertificate": ""
-                //                     }
-                //                 ],
-                //                 "assetsLands": [
-                //                     {
-                //                         "id": "27d9921730e74d25968628b24fff61b0",
-                //                         "version": 0,
-                //                         "status": "1",
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "acreage": 245,
-                //                         "value": 0,
-                //                         "contractLife": 0,
-                //                         "mortgage": "0",
-                //                         "address": "",
-                //                         "checkMode": ""
-                //                     }
-                //                 ],
-                //                 "assetsVehicles": [
-                //                     {
-                //                         "id": "ba47c7de3f7744e6bdfda2f9f2287ec4",
-                //                         "version": 0,
-                //                         "status": "1",
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "buyTime": "2019-02-02 12:09:32",
-                //                         "currEvaluation": 0,
-                //                         "owner": "",
-                //                         "mortgage": "",
-                //                         "serialNo": "",
-                //                         "invoiceAmount": 0
-                //                     }
-                //                 ],
-                //                 "assetsFarmTools": [
-                //                     {
-                //                         "id": "49028c12d3e3417680dfb2167cf1089b",
-                //                         "version": 0,
-                //                         "status": "1",
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "buyTime": "2019-03-02 09:09:32",
-                //                         "currEvaluation": 0,
-                //                         "owner": "",
-                //                         "mortgage": "",
-                //                         "serialNo": "",
-                //                         "invoiceAmount": 0
-                //                     }
-                //                 ],
-                //                 "assetsOthers": [
-                //                     {
-                //                         "id": "be87a5e3cba14a5f92814243c1bc5ba8",
-                //                         "version": 0,
-                //                         "status": "1",
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "value": 245,
-                //                         "currEvaluation": 100.02,
-                //                         "mortgage": "",
-                //                         "owner": ""
-                //                     }
-                //                 ],
-                //                 "debtSituations": [
-                //                     {
-                //                         "id": "fb233672390f496eb38f195fd86ad00c",
-                //                         "version": 0,
-                //                         "status": null,
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "debtSituation": "一屁股债",
-                //                         "debtType": "",
-                //                         "debtPerson": "",
-                //                         "debtBalance": 100,
-                //                         "debtTerm": "0"
-                //                     }
-                //                 ],
-                //                 "debtGuarantees": [
-                //                     {
-                //                         "id": "4087719e67fa43e1a1b89112898f50cd",
-                //                         "version": 0,
-                //                         "status": null,
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": null,
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "externalGuarantee": "一屁股债",
-                //                         "creditor": "",
-                //                         "guaranteeBalance": 0,
-                //                         "warrantee": "",
-                //                         "withWarranteeRelation": ""
-                //                     }
-                //                 ],
-                //                 "debtOthers": [
-                //                     {
-                //                         "id": "27abb444d64b4eec9292284b6a074c17",
-                //                         "version": 0,
-                //                         "status": null,
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": null,
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "otherDebt": "",
-                //                         "creditor": "一股债",
-                //                         "debtBalance": 0,
-                //                         "debtMaturity": "",
-                //                         "isGuarantee": "0"
-                //                     }
-                //                 ],
-                //                 "incomePlants": [
-                //                     {
-                //                         "id": "bc2c9946c3684ea080c06f6bb57a27ca",
-                //                         "version": 0,
-                //                         "status": "1",
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "plantType": "玉米",
-                //                         "plantArea": 0,
-                //                         "oneCost": 0,
-                //                         "oneIncome": 0,
-                //                         "surplus": 1300,
-                //                         "bussType": "00"
-                //                     }
-                //                 ],
-                //                 "incomeOthers": [
-                //                     {
-                //                         "id": "b7f884892ad34fc3ab6a7166447cb916",
-                //                         "version": 0,
-                //                         "status": "1",
-                //                         "creator": "",
-                //                         "createTime": "2019-04-11T09:00:00.000+0000",
-                //                         "editor": "",
-                //                         "editTime": "2019-04-11T09:00:00.000+0000",
-                //                         "remark": "",
-                //                         "bussNo": "test_data_for_app_0411_02",
-                //                         "custId": "fa46972225284c61bec18c094f110f2a",
-                //                         "prevYearIncome": 0,
-                //                         "prevYearPay": 0,
-                //                         "currYearIncome": 0,
-                //                         "currYearPay": 0,
-                //                         "surplus": 0
-                //                     }
-                //                 ]
-                //             }
-                //         ],
-                //         "bussNo": "test_data_for_app_0411_02"
-                //     }
-                // }
-                  if(res.data.code == '2000000') {
-                      this.guarantordata = res.data.data.warrantorData;
-                      for(let i = 0 ; i < this.guarantordata.length ; i ++ ) {
-                          this.$post('/getConstantConfig',{
-                              dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee']
-                          }).then(res => {
-                              this.statuslist.marriage = res.data.data.custMarriage;
-                              this.statuslist.custSex = res.data.data.custSex;
-                              this.statuslist.custRelation = res.data.data.custRelation;
-                              this.statuslist.custType = res.data.data.custType;
-                              this.statuslist.houseType = res.data.data.houseType;
-                              this.statuslist.isGuarantee = res.data.data.isGuarantee;
-                          })
-                          return this.guarantordata[i].partnerType;
+                  if (res.data.code == '2000000') {
+                      const matType = {
+                          "NAT": "NATURE_MATERIAL",
+                          "LEG": "LEGAL_MATERIAL"
+                      };
+                      var infoData = res.data.data;
+                      var warrantorData = infoData.warrantorData;
+                      this.guarantordata = warrantorData;
+                      for (let i = 0 ; i < warrantorData.length; i ++ ) {
+                          // 储存 partnerType 用于匹配不同影像信息
+                          let typeLong = matType[warrantorData[i].partnerType];
+                          let partnerId = warrantorData[i].id;
+                          if (!typeLong) {
+                              this.$message.error('无保证人图片信息');
+                              return;
+                          }
+                          this.$post('/materialTree', {
+                              materialType: typeLong
+                          }).then( res => {
+                              if (res.data.code == '2000000') {
+                                  this.$set(this.imgFile, partnerId, res.data.data[typeLong]);
+                              }
+                          });
                       }
                   }
-              })
-          )();
-          // 图片树形结构
-          const stockPrice = await (() => {
-              if(this.guarantordata.length == 0) {
-                  this.$message.error('无保证人信息');
-                  return;
-              }
-              const matType = {"NAT":"NATURE_MATERIAL","LEG":"LEGAL_MATERIAL"};
-              if (!matType[this.partner]) {
-                  this.$message.error('无保证人图片信息');
-                  return;
-              }
-              return this.$post('/materialTree',{
-                  materialType: matType[this.partner]
-              }).then( res => {
-                  if(res.data.code == '2000000') {
-                      this.imageslist = res.data.data;
-                      let treeInfo = res.data.data.NATURE_MATERIAL;
-                      let tempArr = [];
-                      Object.keys(treeInfo).forEach((key) => {
-                         tempArr.push(treeInfo[key]);
-                      });
-
-                      this.imgFile = tempArr;
-                  }
-              })
-          })();
-
+              });
+            },
         },
-    },
     components: {
         componentitle,
         imgLine

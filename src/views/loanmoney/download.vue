@@ -4,8 +4,14 @@
         <componentitle :message="message" :titletext="titletext" :parenTtext="parenTtext" :url="url"/>
     </div>
     <div class="topcontent">
+        <div>
+            <label>业务编号：</label>
+            <el-input placeholder="请输入内容" class="contentinout" v-model="bussNumber"></el-input>
+            <label class="rightlabel">承租人姓名：</label>
+            <el-input placeholder="请输入内容" class="contentinout" v-model="loanName"></el-input>
+        </div>
         <div class="timeChoice">
-            <label>任务创建时间：</label>
+            <!-- <label>任务创建时间：</label>
             <el-date-picker
                 v-model="beginTime"
                 type="date"
@@ -20,9 +26,9 @@
                 format="yyyy 年 MM 月 dd 日"
                 value-format="yyyy-MM-dd"
                 placeholder="选择日期">
-            </el-date-picker>
+            </el-date-picker> -->
 
-            <label class="rightlabel">任务状态：</label>
+            <label>任务状态：</label>
             <template>
                 <el-select v-model="value" placeholder="请选择" class="choiceselect" @change="selectchange(value)">
                     <el-option
@@ -72,7 +78,7 @@
                 style="width: 100%">
                 <el-table-column
                     type="selection"
-                    width="55">
+                    width="40">
                 </el-table-column>
                 <el-table-column
                     prop="bussNo"
@@ -126,41 +132,86 @@ export default {
             message: '筛选条件',
             titletext: '放款审批列表',
             contenttext: '任务信息',
-            tableData: [], // 表格
+            tableData: [
+                // 返回示例
+                // {
+                //   "msg": "success",
+                //   "code": "2000000",
+                //   "data": {
+                //     "currentPage": 1,
+                //     "numPerPage": 10,
+                //     "totalCount": 3,
+                //     "recordList": [
+                //       {
+                //         "id": "1",
+                //         "version": 0,
+                //         "status": "03",
+                //         "creator": "1",
+                //         "createTime": "2019-04-10T03:17:21.000+0000",
+                //         "editor": "1",
+                //         "editTime": "2019-04-12T07:19:49.000+0000",
+                //         "bussNo": "demoData2",
+                //         "custId": "cust1",
+                //         "custName": "name1",
+                //         "taskType": "20",
+                //         "isCurrent": "Y"
+                //       },
+                //       {
+                //         "id": "2",
+                //         "version": 0,
+                //         "status": "00",
+                //         "creator": "cre1",
+                //         "createTime": "2019-04-13T05:51:07.000+0000",
+                //         "editor": "edi1",
+                //         "editTime": "2019-04-13T05:51:07.000+0000",
+                //         "bussNo": "task1",
+                //         "custId": "cust2",
+                //         "custName": "name2",
+                //         "taskType": "20",
+                //         "taskName": "张三",
+                //         "ownerId": "oid1",
+                //         "ownerName": "oname1",
+                //         "isCurrent": "Y"
+                //       },
+                //       {
+                //         "id": "3",
+                //         "version": 0,
+                //         "status": "00",
+                //         "creator": "cre2",
+                //         "createTime": "2019-04-13T05:52:16.000+0000",
+                //         "editor": "edi2",
+                //         "editTime": "2019-04-13T05:52:16.000+0000",
+                //         "bussNo": "task2",
+                //         "custId": "cust2",
+                //         "custName": "name2",
+                //         "taskType": "20",
+                //         "taskName": "李四",
+                //         "ownerId": "oid2",
+                //         "ownerName": "oname2",
+                //         "isCurrent": "Y"
+                //       }
+                //     ],
+                //     "totalPage": 1,
+                //     "beginPageIndex": 1,
+                //     "endPageIndex": 1
+                //   }
+                // }
+            ], // 表格
             alldata: '', // 总页数
             bussNumber: '', //业务编号
             loanName: '', // 承租人姓名
             options: [
                 {
-                    value: '全部',
-                    label: '全部'
-                },
-                {
                     value: '待处理',
                     label: '待处理'
                 },
-                 {
-                    value: '处理中',
-                    label: '处理中'
-                },
+
                 {
                     value: '已提交',
                     label: '已提交'
-                },
-                {
-                    value: '已拒绝',
-                    label: '已拒绝'
-                },
-                {
-                    value: '已终止',
-                    label: '已终止'
-                },
-                {
-                    value: '已退回',
-                    label: '已退回'
                 }
             ],
-            value: '', // 储存任务状态
+            value: '待处理', // 储存任务状态
             currentPage2: 1,
             beginTime: '', // 开始控件时间
             endTime: '',  // 结束控件时间
@@ -225,74 +276,13 @@ export default {
             this.loading = true;
             this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
                 status: this.value, //任务状态
-                createTimeStart: this.beginTime, // 任务开始时间
-                createTimeEnd: this.endTime, // 任务结束时间
+                bussNo: this.bussNumber,
+                custName: this.loanName,
                 numPerPage: this.alsoSize, // 每页多少条
-                currentPage: '1' // 每次点击查询按钮都是第一页
+                currentPage: '1', // 每次点击查询按钮都是第一页
+                taskType: '40'
             }).then(res => {
-                // 返回示例
-                // {
-                //   "msg": "success",
-                //   "code": "2000000",
-                //   "data": {
-                //     "currentPage": 1,
-                //     "numPerPage": 10,
-                //     "totalCount": 3,
-                //     "recordList": [
-                //       {
-                //         "id": "1",
-                //         "version": 0,
-                //         "status": "03",
-                //         "creator": "1",
-                //         "createTime": "2019-04-10T03:17:21.000+0000",
-                //         "editor": "1",
-                //         "editTime": "2019-04-12T07:19:49.000+0000",
-                //         "bussNo": "demoData2",
-                //         "custId": "cust1",
-                //         "custName": "name1",
-                //         "taskType": "20",
-                //         "isCurrent": "Y"
-                //       },
-                //       {
-                //         "id": "2",
-                //         "version": 0,
-                //         "status": "00",
-                //         "creator": "cre1",
-                //         "createTime": "2019-04-13T05:51:07.000+0000",
-                //         "editor": "edi1",
-                //         "editTime": "2019-04-13T05:51:07.000+0000",
-                //         "bussNo": "task1",
-                //         "custId": "cust2",
-                //         "custName": "name2",
-                //         "taskType": "20",
-                //         "taskName": "张三",
-                //         "ownerId": "oid1",
-                //         "ownerName": "oname1",
-                //         "isCurrent": "Y"
-                //       },
-                //       {
-                //         "id": "3",
-                //         "version": 0,
-                //         "status": "00",
-                //         "creator": "cre2",
-                //         "createTime": "2019-04-13T05:52:16.000+0000",
-                //         "editor": "edi2",
-                //         "editTime": "2019-04-13T05:52:16.000+0000",
-                //         "bussNo": "task2",
-                //         "custId": "cust2",
-                //         "custName": "name2",
-                //         "taskType": "20",
-                //         "taskName": "李四",
-                //         "ownerId": "oid2",
-                //         "ownerName": "oname2",
-                //         "isCurrent": "Y"
-                //       }
-                //     ],
-                //     "totalPage": 1,
-                //     "beginPageIndex": 1,
-                //     "endPageIndex": 1
-                //   }
-                // }
+
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
@@ -303,54 +293,18 @@ export default {
         handleSizeChange(val) {
             this.loading = true;
             this.alsoSize = val;
-            this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
-                currentPage: this.nowPage,
-                numPerPage: this.alsoSize,
-                status: this.value, //任务状态
-                createTimeStart: this.beginTime, // 任务开始时间
-                createTimeEnd: this.endTime, // 任务结束时间
-
-            }).then(res => {
-                if(res.data.code == '2000000') {
-                    this.alldata = res.data.data;
-                    this.tableData = res.data.data.recordList;
-                    this.loading = false;
-                }
-            });
+            this.query();
         },
         handleCurrentChange(val) {
             this.loading = true;
             this.nowPage = val;
-            this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
-                currentPage: this.nowPage, //当前页
-                numPerPage: this.alsoSize, // 页大小
-                status: this.value, //任务状态
-                createTimeStart: this.beginTime, // 任务开始时间
-                createTimeEnd: this.endTime, // 任务结束时间
-            }).then(res => {
-                if(res.data.code == '2000000') {
-                    this.alldata = res.data.data;
-                    this.tableData = res.data.data.recordList;
-                    this.loading = false;
-                }
-            });
+            this.query();
         },
         // 查询按钮
         search() {
             this.loading = true;
-            this.$post('/LoanGrantOpinion/queryLoanGrantDownList',{
-                status: this.value, //任务状态
-                createTimeStart: this.beginTime, // 任务开始时间
-                createTimeEnd: this.endTime, // 任务结束时间
-                numPerPage: this.alsoSize, // 每页多少条
-                currentPage: '1' // 每次点击查询按钮都是第一页
-            }).then(res => {
-                if(res.data.code == '2000000') {
-                    this.alldata = res.data.data;
-                    this.tableData = res.data.data.recordList;
-                    this.loading = false;
-                }
-            });
+            this.query();
+            this.currentPage2 = 1;
         }
     },
 }

@@ -85,7 +85,7 @@ export default {
     },
     methods: {
         handleClicktas(val) {
-            
+
         }
     },
     components: {

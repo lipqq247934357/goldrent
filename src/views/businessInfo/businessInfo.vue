@@ -22,7 +22,7 @@
                         </el-option>
                     </el-select>
                 </template>
-                <label class="rightlabel">任务状态</label>
+                <!-- <label class="rightlabel">任务状态</label>
                 <template>
                     <el-select class="choiceselect" placeholder="请选择" v-model="selectstatus" >
                         <el-option
@@ -32,7 +32,7 @@
                                 v-for="item in statusOptions">
                         </el-option>
                     </el-select>
-                </template>
+                </template> -->
             </div>
             <button
                 @click="queryclick"
@@ -244,9 +244,7 @@
                 this.$post('/buss/listBussInfo',{
                     bussNo: this.bussNo,
                     custName: this.custName,
-                    ownerName: '',
                     taskName: this.task_name == '全部' ? '' : this.task_name,
-                    status: this.selectstatus == '全部' ? '': this.selectstatus,
                     currentPage: this.nowpage,
                     numPerPage: this.pagesothen
                 }).then(res => {

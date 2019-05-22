@@ -132,6 +132,16 @@
             disabled
             v-model="item.conclusion == '' ? '' : item.conclusion">
         </el-input>
+        <h3>部门负责人</h3>
+        <el-input
+            v-for="item in responsible"
+            type="textarea"
+            :rows="4"
+            placeholder="请输入内容"
+            class="inputtext"
+            disabled
+            v-model="item.conclusion == '' ? '' : item.conclusion">
+        </el-input>
     </div>
 </div>
 </template>
@@ -149,7 +159,8 @@ export default {
             assist: '', //协办人
             statuslist: { // 字典编码
                 custRelation: []
-            }
+            },
+            responsible: '' // 部门负责
         }
     },
     created() {
@@ -172,6 +183,20 @@ export default {
             // conclusion	调查结论	String
             if(res.data.code == '2000000') {
                 this.sponsor = res.data.data;
+            }
+        });
+        this.$post('/getSurveyConclusion',{
+            bussNo: this.$route.query.bussNo,
+            ownerType: 'FZ'
+        }).then( res => {
+            // 返回data
+            // data
+            // id	数据唯一ID	String
+            // ownerId	所属人ID	String
+            // ownerType	所属人身份	String
+            // conclusion	调查结论	String
+            if(res.data.code == '2000000') {
+                this.responsible = res.data.data;
             }
         });
         // 协办人

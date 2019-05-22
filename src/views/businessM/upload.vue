@@ -1,24 +1,24 @@
 <template>
-    <div>
-        <li>
-            <div>{{name.value}}</div>
-            <div class="edit-pic">
-                <el-upload
-                        :limit="Number(6)"
-                        :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
-                        :disabled="disabled"
-                        :file-list="fileList"
-                        :on-preview="handlePictureCardPreview"
-                        :on-remove="handleRemove"
-                        action="/web/fileUploadSingle"
-                        :headers="{token:this.token}"
-                        :on-exceed="onExceed"
-                        list-type="picture-card">
-                    <i class="el-icon-plus"></i>
-                </el-upload>
-            </div>
-        </li>
-    </div>
+    <li class="listimg">
+        <div>
+            <p class="imgtitlename">{{name.value}}</p>
+        </div>
+        <div class="edit-pic">
+            <el-upload
+                    :limit="Number(6)"
+                    :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
+                    :disabled="disabled"
+                    :file-list="fileList"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    action="/web/fileUploadSingle"
+                    :headers="{token:this.token}"
+                    :on-exceed="onExceed"
+                    list-type="picture-card">
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </div>
+    </li>
 </template>
 
 <script type="text/ecmascript-6">
@@ -86,19 +86,25 @@
 
     li {
         width: 100%;
-        height: 100px;
         text-align: center;
         clear: both;
-
+        overflow: hidden;
+        border-bottom: 1px solid #EBEEF5;
+        position: relative;
         & > div {
-            float: left;
-            border-bottom: 1px solid #EBEEF5;
-            height: 100px;
-
+            float: right;
             &:first-child {
                 width: 29.8%;
-                border-right: 1px solid #EBEEF5;
-                line-height: 100px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                .imgtitlename {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                }
             }
 
             &:last-child {
@@ -108,12 +114,10 @@
     }
 
     .edit-pic {
+        border-left: 1px solid #EBEEF5;
         /deep/ .el-upload-list--picture-card {
             display: block;
-            float: left;
-
             & > li:nth-child(1) {
-                margin-left: 20px;
             }
 
             & > li:last-child {
@@ -124,6 +128,7 @@
                 height: 80px;
                 width: 80px;
                 margin: 10px 5px;
+                float:left;
             }
         }
 

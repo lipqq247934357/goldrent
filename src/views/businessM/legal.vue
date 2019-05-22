@@ -257,7 +257,10 @@
                     <template v-for="value in imgFile">
                         <h3>{{value.nodeName}}</h3>
                         <ul>
-                            <upload :name="val" :relationId="id" :type="key"
+                            <upload :disabled="type === 'detail'"
+                                    :name="val"
+                                    :relationId="id"
+                                    :type="val.key"
                                     @handlePictureCardPreview="handlePictureCardPreview"
                                     v-for="(val,key) in value.nodes"/>
                         </ul>
@@ -419,7 +422,7 @@
                     materialType: 'LEGAL_MATERIAL',
                 });
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
-                    let treeInfo = data.data.data;
+                    let treeInfo = data.data.data.LEGAL_MATERIAL;
                     let tempArr = [];
                     Object.keys(treeInfo).forEach((key) => {
                         tempArr.push(treeInfo[key]);
@@ -487,14 +490,19 @@
         .imgbox {
             h3 {
                 font-size: 16px;
-                margin: 35px 0 35px 15px;
                 font-weight: bold;
+                background: #f5f5f5;
+                height: 50px;
+                line-height: 50px;
+                padding-left: 15px;
+                color: #585858;
             }
 
             ul {
-                width: 95%;
+                width: calc(100% - 3px);
                 margin: 0 auto;
                 border: 1px solid #EBEEF5;
+                border-bottom: 0;
             }
         }
 

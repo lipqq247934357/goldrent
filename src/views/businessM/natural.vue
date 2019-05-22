@@ -324,7 +324,6 @@
                     Object.keys(treeInfo).forEach((key) => {
                         tempArr.push(treeInfo[key]);
                     });
-                    console.log(treeInfo);
                     this.imgFile = tempArr;
                 }
             },

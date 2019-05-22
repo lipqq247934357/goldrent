@@ -5,13 +5,13 @@
     </div>
     <div class="topcontent">
         <div>
-            <label>业务编号确认：</label>
+            <label>业务编号：</label>
             <el-input placeholder="请输入内容" class="contentinout" v-model="bussNumber"></el-input>
             <label class="rightlabel">承租人姓名：</label>
             <el-input placeholder="请输入内容" class="contentinout" v-model="loanName"></el-input>
         </div>
         <div class="timeChoice">
-            <label>任务创建时间：</label>
+            <!-- <label>任务创建时间：</label>
             <el-date-picker
                 v-model="beginTime"
                 type="date"
@@ -26,9 +26,9 @@
                 format="yyyy 年 MM 月 dd 日"
                 value-format="yyyy-MM-dd"
                 placeholder="选择日期">
-            </el-date-picker>
+            </el-date-picker> -->
 
-            <label class="rightlabel">任务状态：</label>
+            <label>任务状态：</label>
             <template>
                 <el-select v-model="value" placeholder="请选择" class="choiceselect" @change="selectchange(value)">
                     <el-option
@@ -101,34 +101,44 @@
                 </el-table-column>
                 <el-table-column
                     prop="bussNo"
+                    width="200"
                     label="业务编号">
                 </el-table-column>
                 <el-table-column
                     prop="custName"
-                    label="承租人">
+                    label="租赁人姓名">
                 </el-table-column>
                 <el-table-column
-                    prop="createTime"
-                    label="计划投放日">
-                </el-table-column>
-                <el-table-column
-                    prop="ownerName"
-                    label="主办人员">
+                    prop="startDate"
+                    label="计划起租日">
                 </el-table-column>
                 <el-table-column
                     prop="raiseFunds"
                     label="融资金额">
                 </el-table-column>
                 <el-table-column
-                    prop="status"
-                    label="任务状态">
+                    prop="organiser"
+                    label="主办">
+                </el-table-column>
+                <el-table-column
+                    prop="coordinator"
+                    label="协办">
+                </el-table-column>
+                <el-table-column
+                    prop="taskName"
+                    label="任务名称">
+                </el-table-column>
+                <el-table-column
+                    prop="ownerName"
+                    label="当前处理人">
                 </el-table-column>
                 <el-table-column
                     prop="status"
                     label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="look(scope.row)" type="text" size="small" v-if="scope.row.status == '已放款'">查看</el-button>
-                        <el-button @click="tableloanconfirm(scope.row)" type="text" size="small" v-if="scope.row.status != '已放款'">放款确认</el-button>
+                        <!-- status 待处理 00 ，02 已提交 -->
+                        <el-button @click="look(scope.row)" type="text" size="small" v-if="scope.row.status == '02'">查看</el-button>
+                        <el-button @click="tableloanconfirm(scope.row)" type="text" size="small" v-if="scope.row.status == '00'">放款确认</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -162,103 +172,7 @@ export default {
             message: '筛选条件',
             titletext: '放款审批列表',
             contenttext: '任务信息',
-            tableData: [], // 表格
-            alldata: '', // 总页数
-            bussNumber: '', //业务编号
-            loanName: '', // 承租人姓名
-            options: [
-                {
-                    value: '全部',
-                    label: '全部'
-                },
-                {
-                    value: '待处理',
-                    label: '待处理'
-                },
-                 {
-                    value: '处理中',
-                    label: '处理中'
-                },
-                {
-                    value: '已提交',
-                    label: '已提交'
-                },
-                {
-                    value: '已拒绝',
-                    label: '已拒绝'
-                },
-                {
-                    value: '已终止',
-                    label: '已终止'
-                },
-                {
-                    value: '已退回',
-                    label: '已退回'
-                }
-            ],
-            value: '', // 储存任务状态
-            currentPage2: 1,
-            beginTime: '', // 开始控件时间
-            endTime: '',  // 结束控件时间
-            alsoSize: 10, // 默认10条
-            nowPage: 1, // 当前页
-            dialogVisible: false, // 弹出框
-            bussNoarr: [] // 用于批量上传的bussNo
-        }
-    },
-    created() {
-        this.query();
-    },
-    components: {
-        componentitle,
-    },
-    methods: {
-        batchloanconfirm() {
-            if(this.bussNoarr == 0) {
-                this.$message.error('至少应该选择一条信息');
-                return;
-            }
-            this.dialogVisible = true;
-        },
-        handleClose(done) {
-            this.$confirm('确认关闭？')
-            .then(_ => {
-                done();
-            })
-            .catch(_ => {});
-        },
-        batchConfirmation() {
-            this.$post('/LoanGrantConfirm/batchGrantConfirm',{
-                bussNos: this.bussNoarr,
-                loanGrantDate: this.endTime
-            }).then(res => {
-                console.log(res);
-                if(res.data.code == '2000000') {
-                    this.$message.success('批量放款成功');
-                    this.query();
-                    this.dialogVisible = false;
-                }
-            });
-        },
-        loanconfirm() {
-            this.dialogVisible = true;
-        },
-        // 下拉框事件
-        selectchange(val) {
-
-        },
-        //进入页面获取数据展示在表格中
-        query(numbers){
-            this.loading = true;
-            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
-                bussNo: this.bussNumber, // 业务编号
-                custName: this.loanName, // 承租人姓名
-                status: this.value, //任务状态
-                createTimeStart: this.beginTime, // 任务开始时间
-                createTimeEnd: this.endTime, // 任务结束时间
-                numPerPage: this.alsoSize, // 每页多少条
-                currentPage: '1' // 每次点击查询按钮都是第一页
-            }).then(res => {
+            tableData: [
                 // 返回示例
                 // {
                 //   "msg": "success",
@@ -322,6 +236,86 @@ export default {
                 //     "endPageIndex": 1
                 //   }
                 // }
+            ], // 表格
+            alldata: '', // 总页数
+            bussNumber: '', //业务编号
+            loanName: '', // 承租人姓名
+            options: [
+                {
+                    value: '待处理',
+                    label: '待处理'
+                },
+
+                {
+                    value: '已提交',
+                    label: '已提交'
+                }
+            ],
+            value: '待处理', // 储存任务状态
+            currentPage2: 1,
+            beginTime: '', // 开始控件时间
+            endTime: '',  // 结束控件时间
+            alsoSize: 10, // 默认10条
+            nowPage: 1, // 当前页
+            dialogVisible: false, // 弹出框
+            bussNoarr: [] // 用于批量上传的bussNo
+        }
+    },
+    created() {
+        this.query();
+    },
+    components: {
+        componentitle,
+    },
+    methods: {
+        batchloanconfirm() {
+            if(this.bussNoarr == 0) {
+                this.$message.error('至少应该选择一条信息');
+                return;
+            }
+            this.dialogVisible = true;
+        },
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+            .then(_ => {
+                done();
+            })
+            .catch(_ => {});
+        },
+        batchConfirmation() {
+            this.$post('/LoanGrantConfirm/batchGrantConfirm',{
+                bussNos: this.bussNoarr,
+                loanGrantDate: this.endTime
+            }).then(res => {
+                console.log(res);
+                if(res.data.code == '2000000') {
+                    this.$message.success('批量放款成功');
+                    this.query();
+                    this.dialogVisible = false;
+                }
+            });
+        },
+        loanconfirm() {
+            this.dialogVisible = true;
+        },
+        // 下拉框事件
+        selectchange(val) {
+
+        },
+        //进入页面获取数据展示在表格中
+        query(numbers){
+            this.loading = true;
+            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
+                bussNo: this.bussNumber, // 业务编号
+                custName: this.loanName, // 承租人姓名
+                status: this.value, //任务状态
+                createTimeStart: this.beginTime, // 任务开始时间
+                createTimeEnd: this.endTime, // 任务结束时间
+                numPerPage: this.alsoSize, // 每页多少条
+                currentPage: '1', // 每次点击查询按钮都是第一页
+                taskType: '50'
+            }).then(res => {
+
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;
@@ -332,52 +326,20 @@ export default {
         handleSizeChange(val) {
             this.loading = true;
             this.alsoSize = val;
-            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
-                currentPage: this.nowPage,
-                numPerPage: this.alsoSize,
-
-                bussNo: this.bussNumber, // 业务编号
-                custName: this.loanName, // 承租人姓名
-                status: this.value, //任务状态
-                createTimeStart: this.beginTime, // 任务开始时间
-                createTimeEnd: this.endTime, // 任务结束时间
-
-            }).then(res => {
-                if(res.data.code == '2000000') {
-                    this.alldata = res.data.data;
-                    this.tableData = res.data.data.recordList;
-                    this.loading = false;
-                }
-            });
+            this.query();
         },
         handleCurrentChange(val) {
             this.loading = true;
             this.nowPage = val;
-            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
-                currentPage: this.nowPage, //当前页
-                numPerPage: this.alsoSize, // 页大小
-                bussNo: this.bussNumber, // 业务编号
-                custName: this.loanName, // 承租人姓名
-                status: this.value, //任务状态
-                createTimeStart: this.beginTime, // 任务开始时间
-                createTimeEnd: this.endTime, // 任务结束时间
-            }).then(res => {
-                if(res.data.code == '2000000') {
-                    this.alldata = res.data.data;
-                    this.tableData = res.data.data.recordList;
-                    this.loading = false;
-                }
-            });
+            this.query();
         },
         look(val) {
             // 查看按钮
             this.$router.push({
                 path: '/layout/confirmhandle',
                 query: {
-                    disabled: 2, // 1为子页面input不可以编辑，2为可以
+                    disabled: 1, // 1为子页面input不可以编辑，2为可以
                     bussNo:val.bussNo,
-                    // id:val.id,
-                    // custId: val.custId
                 }
             })
         },
@@ -388,29 +350,14 @@ export default {
                 query: {
                     disabled: 2, // 1为子页面input不可以编辑，2为可以
                     bussNo:val.bussNo,
-                    // id:val.id,
-                    // custId: val.custId
                 }
             })
         },
         // 查询按钮
         search() {
             this.loading = true;
-            this.$post('/LoanGrantConfirm/queryLoanGrantList',{
-                bussNo: this.bussNumber, // 业务编号
-                custName: this.loanName, // 承租人姓名
-                status: this.value, //任务状态
-                createTimeStart: this.beginTime, // 任务开始时间
-                createTimeEnd: this.endTime, // 任务结束时间
-                numPerPage: this.alsoSize, // 每页多少条
-                currentPage: '1' // 每次点击查询按钮都是第一页
-            }).then(res => {
-                if(res.data.code == '2000000') {
-                    this.alldata = res.data.data;
-                    this.tableData = res.data.data.recordList;
-                    this.loading = false;
-                }
-            });
+            this.query();
+            this.currentPage2 = 1;
         },
         // 全选
         handleSelectionChange(val) {

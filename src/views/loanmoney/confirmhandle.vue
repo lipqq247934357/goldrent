@@ -28,7 +28,7 @@
                     {{queryBasicInfo.leaseTerm}}
                 </span>
             </li>
-            <li>
+            <li style="border-bottom: 0;">
                 <span>收款账户开户行</span>
                 <span>
                     {{queryBasicInfo.paymentAccountBank}}

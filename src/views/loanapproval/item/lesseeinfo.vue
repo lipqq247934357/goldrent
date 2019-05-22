@@ -305,7 +305,7 @@
                                     <span>所有权人</span>
                                     <span>{{car.owner}}</span>
                                 </li>
-                                <li>
+                                <li style="border-bottom: 0;">
                                     <span>车辆号牌</span>
                                     <span>{{car.serialNo}}</span>
                                 </li>
@@ -335,7 +335,7 @@
                                     <span>所有权人</span>
                                     <span>{{assetsFarmTools.owner}}</span>
                                 </li>
-                                <li>
+                                <li style="border-bottom: 0;">
                                     <span>号牌/车架号</span>
                                     <span>{{assetsFarmTools.serialNo}}</span>
                                 </li>
@@ -356,7 +356,7 @@
                                 </li>
                                 <li>
                                     <span>购买时间</span>
-                                    <span></span>
+                                    <span>{{assetsOthers.buyTime}}</span>
                                 </li>
                                 <li>
                                     <span>价值</span>

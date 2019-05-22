@@ -5,7 +5,7 @@
         <div class="imgbox" v-for="value in imgFile">
             <h3>{{value.nodeName}}</h3>
             <ul>
-                <imgLine :name="val" :type="key" :bussNo="bussNo" v-for="(val,key,index) in value.nodes" :index="index"/>
+                <imgLine :name="val" :type="key" relationId="ASSIGN_MATERIAL" :bussNo="bussNo" v-for="(val,key,index) in value.nodes" :index="index"/>
             </ul>
         </div>
     </div>
@@ -69,6 +69,7 @@ export default {
         }
     },
     created() {
+        this.bussNo = this.$route.query.bussNo;
         this.$post('/materialTree',{
             materialType: 'ASSIGN_MATERIAL'
         }).then(res => {

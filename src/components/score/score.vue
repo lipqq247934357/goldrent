@@ -12,6 +12,7 @@
             <span>承租人：{{custName}}</span><i>征信报告：</i>
         </div>
         <div class="buttondiv">
+            <!-- haveCreditReport 主有无征信-->
             <span @click="havethe" :class="radio == 'Y' ? 'spanactive' : ''">有</span>
             <span @click="nothing" :class="radio == 'N' ? 'spanactive' : ''">无</span>
         </div>
@@ -21,7 +22,7 @@
                 <input
                     type="text"
                     name=""
-                    v-model:value="years"
+                    v-model:value="years = inputlessinfo.agriculturalLoanYear"
                     class="inputinfo"
                     ref="years"
                     :disabled="inputdisabled">
@@ -31,7 +32,7 @@
                 <input
                     type="text"
                     name=""
-                    v-model:value="overdue"
+                    v-model:value="overdue = inputlessinfo.overdueNum24m"
                     ref="overdue"
                     class="inputinfo"
                     :disabled="inputdisabled">
@@ -41,7 +42,7 @@
                 <input
                     type="text"
                     name=""
-                    v-model:value="overdueNo"
+                    v-model:value="overdueNo = inputlessinfo.continueOverdueNum24m"
                     ref="overdueNo"
                     class="inputinfo"
                     :disabled="inputdisabled">
@@ -51,7 +52,7 @@
                 <input
                     type="text"
                     name=""
-                    v-model:value="oneMonth"
+                    v-model:value="oneMonth= inputlessinfo.loanApprovalQueryNum1m"
                     ref="oneMonth"
                     class="inputinfo"
                     :disabled="inputdisabled">
@@ -59,7 +60,7 @@
             <li>
                 <span class="lefttext">涉诉：</span>
                 <el-select
-                    v-model="value2"
+                    v-model="value2 = inputlessinfo.lawsuit"
                     placeholder="请选择"
                     class="choiceselect"
                     :disabled="inputdisabled">
@@ -74,7 +75,7 @@
             <li>
                 <span class="lefttext">被执行信息：</span>
                 <el-select
-                    v-model="value3"
+                    v-model="value3 = inputlessinfo.enforced"
                     placeholder="请选择"
                     class="choiceselect"
                     :disabled="inputdisabled">
@@ -88,7 +89,7 @@
             </li>
             <li>
                 <span class="lefttext">有无征信：</span>
-                <el-select v-model="value4" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="value4 = inputlessinfo.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -101,19 +102,19 @@
         <ul class="nothingshow" v-show="radio == 'N'">
             <li>
                 <span class="lefttext">农贷记录年数</span>
-                <input type="text" name="" v-model:value="years" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="years = inputlessinfo.agriculturalLoanYear" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span class="lefttext">同盾贷前查询</span>
-                <input type="text" name="" v-model:value="tongdunQuery" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="tongdunQuery = inputlessinfo.tongDunLoanBefore" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span class="lefttext">同盾信用评分</span>
-                <input type="text" name="" v-model:value="tongdunCredit" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="tongdunCredit = inputlessinfo.tongDunScore" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span class="lefttext">涉诉</span>
-                <el-select v-model="value2" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="value2 = inputlessinfo.lawsuit" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -124,7 +125,7 @@
             </li>
             <li>
                 <span class="lefttext">被执行信息</span>
-                <el-select v-model="value3" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="value3 = inputlessinfo.enforced" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -141,23 +142,25 @@
     <div class="loanpeopletyle">
         保证人
     </div>
-    <div class="presentation" v-for="item in guarantor">
+    <div class="presentation"
+         v-for="item in guarantor"
+         >
         <div class="peopletype">
-            <span>保证人：{{item.custName}}</span>
+            <span>保证人：{{item.guarantorName}}</span>
         </div>
 
         <ul class="nothingshow">
             <li>
                 <span class="lefttext">信用卡及贷款24个月内单笔最大逾期金额</span>
-                <input type="text" name="" v-model:value="item.largestamount" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span class="lefttext">信用卡及贷款24个月累计逾期次数</span>
-                <input type="text" name="" v-model:value="item.overdueNo" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span class="lefttext">有无征信：</span>
-                <el-select v-model="item.value4" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -177,20 +180,20 @@
     <div class="presentation" v-for="item in buyback">
 
         <div class="peopletype">
-            <span>回购人：{{item.basicInfo.comFullname}}</span>
+            <span>回购人：{{item.repoComFullname}}</span>
         </div>
         <ul class="nothingshow">
             <li>
                 <span class="lefttext">信用卡及贷款24个月内单笔最大逾期金额</span>
-                <input type="text" name="" v-model:value="item.largestamount" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span class="lefttext">信用卡及贷款24个月累计逾期次数</span>
-                <input type="text" name="" v-model:value="item.overdueNo" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled">
             </li>
             <li>
                 <span class="lefttext">有无征信：</span>
-                <el-select v-model="item.value4" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -203,7 +206,10 @@
     </div>
     <!-- 回购人end -->
 
-    <h3 class="score">累计得分：<span>{{proposaltotalScore}}</span> <span>{{proposalsuggestResult}}</span> </h3>
+    <h3 class="score">
+        <span style="margin-right: 20px;">评分建议:&nbsp;&nbsp;{{proposalsuggestResult}}</span>
+        <span style="margin-left: 20px;">累计得分:&nbsp;&nbsp;{{proposaltotalScore}}分</span>
+     </h3>
     <table class="operationtable" style="width: 100%" border="1">
         <tr>
             <th>指标大类</th>
@@ -256,6 +262,7 @@ export default {
             guarantor: [], // 保证人
             buyback: [], // 回购人
             lessinfo: [], // 承租人
+            inputlessinfo: {},
         }
     },
     created() {
@@ -267,7 +274,7 @@ export default {
         } else {
             this.inputdisabled = false;
         }
-        //  表格
+        //  表格和承租人等基本信息
         this.$get(`/decisionCreditScore/queryCreditScore?bussNo=${this.$route.query.bussNo}&custId=${this.$route.query.custId}`,{
         }).then(res => {
             // 返回示例
@@ -676,9 +683,14 @@ export default {
             if(res.data.data == null || res.data.data.decisionCreditScoreResult == null || res.data.data.decisionCreditScoreResult == null) {
                 return;
             }
-            this.tableData = res.data.data.decisionCreditScoreResultItem;
-            this.proposaltotalScore = res.data.data.decisionCreditScoreResult.totalScore;
-            this.proposalsuggestResult = res.data.data.decisionCreditScoreResult.suggestResult;
+            let datainfo = res.data.data;
+            this.tableData = datainfo.decisionCreditScoreResultItem;
+            this.proposaltotalScore = datainfo.decisionCreditScoreResult.totalScore;
+            this.proposalsuggestResult = datainfo.decisionCreditScoreResult.suggestResult;
+            this.inputlessinfo = datainfo.decisionCreditScore;
+            this.radio = datainfo.decisionCreditScore.haveCreditReport;
+            this.guarantor = datainfo.guarantorCreditScoreList; // 保证人
+            this.buyback = datainfo.repoCreditScoreList; // 回购人
 
         });
     },
@@ -712,19 +724,20 @@ export default {
             // 保证人
             var guarantorListData = this.guarantor.map((info, i) => {
                 return {
-                    guarantorContinueOverdueNum24m: info.overdueNo, // 信用卡及贷款24个月累计逾期次数
-                    guarantorHaveCreditRecord: info.value4, // 有无征信
-                    guarantorOverdueMaxAmount24m: info.largestamount, // 最大逾期金额
-                    guarantorCustId: info.id //保证人ID
+                    guarantorContinueOverdueNum24m: info.overdueMaxAmount24m, // 信用卡及贷款24个月累计逾期次数
+                    guarantorHaveCreditRecord: info.haveCreditRecord, // 有无征信
+                    guarantorOverdueMaxAmount24m: info.continueOverdueNum24m, // 最大逾期金额
+                    guarantorCustId: info.guarantorId //保证人ID
+
                 };
             });
             // 回购人
             var buybackListData = this.buyback.map((info, i) => {
                 return {
-                    repoContinueOverdueNum24m: info.overdueNo, // 信用卡及贷款24个月累计逾期次数
-                    repoHaveCreditRecord: info.value4, // 有无征信
-                    repoOverdueMaxAmount24m: info.largestamount, // 最大逾期金额
-                    repoCustId: info.basicInfo.id // 回购人ID
+                    repoContinueOverdueNum24m: info.overdueMaxAmount24m, // 信用卡及贷款24个月累计逾期次数
+                    repoHaveCreditRecord: info.haveCreditRecord, // 有无征信
+                    repoOverdueMaxAmount24m: info.continueOverdueNum24m, // 最大逾期金额
+                    repoCustId: info.repoId // 回购人ID
                 };
             });
             this.$post('/decisionCreditScore/creditGrade',{
@@ -741,8 +754,8 @@ export default {
                 tongDunScore: this.tongdunCredit,
                 haveCreditRecord: this.value4, // 有无征信
                 guarantorList: guarantorListData, // 保证人
-                repoList: buybackListData // 回购人
-
+                repoList: buybackListData, // 回购人
+                agriculturalLoanYear: this.years
 
             }).then(res => {
                 // 返回示例
@@ -795,15 +808,17 @@ export default {
             });
         },
         havethe() {
-            this.radio = 'Y'
-            this.years = '';
-            this.tongdunQuery = '';
-            this.tongdunCredit = '';
-            this.value2 = '';
-            this.value3 = '';
+            this.$nextTick( () => {
+                this.radio = 'Y';
+                this.years = '';
+                this.tongdunQuery = '';
+                this.tongdunCredit = '';
+                this.value2 = '';
+                this.value3 = '';
+            });
         },
         nothing() {
-            this.radio = 'N'
+            this.radio = 'N';
             this.years = '';
             this.overdue = '';
             this.overdueNo = '';
@@ -814,56 +829,36 @@ export default {
         },
         // 客户类别
          constomerstype() {
-             // 承租人
-             this.$post('/leasee/info',{
-                bussNo: this.$route.query.bussNo
-             }).then( res => {
-                let list = res.data.data.naturalData;
-                // if (list.length) {
-                //     list.forEach((item,index) => {
-                //         item.radio = 'Y'; // 有无征信报告
-                //         item.years = ''; // 农贷记录年数
-                //         item.overdue = ''; // 信用卡及贷款24个月最大逾期期数
-                //         item.overdueNo = ''; // 信用卡及贷款24个月累计逾期次数
-                //         item.oneMonth = ''; // 最近1个月内的查询机构数(贷款审批)
-                //         item.value2 = ''; //涉诉
-                //         item.value3 = ''; // 被执行信息
-                //         item.tongdunQuery = '';  //同盾贷前查询
-                //         item.tongdunCredit = ''; //同盾信用评分
-                //
-                //     });
-                // }
-                this.lessinfo = list;
-             });
-             // 保证人
-             this.$post('/warrantor/info',{
-                bussNo: this.$route.query.bussNo
-             }).then( res => {
-                let list = res.data.data.warrantorData;
-                if (list.length) {
-                    list.forEach((item,index) => {
-                        item.overdueNo = ''; // 信用卡及贷款24个月累计逾期次数
-                        item.value4 = ''; // 有无征信
-                        item.largestamount = ''; // 最大逾期金额
 
-                    });
-                }
-                this.guarantor = list;
-             });
-             // 回购人
-             this.$post('/repurchase/info',{
-                bussNo: this.$route.query.bussNo
-             }).then( res => {
-                let list = res.data.data;
-                if (list.length) {
-                    list.forEach((item,index) => {
-                        item.overdueNo = ''; // 信用卡及贷款24个月累计逾期次数
-                        item.value4 = ''; // 有无征信
-                        item.largestamount = ''; // 最大逾期金额
-                    });
-                }
-                this.buyback = list;
-             });
+             // 保证人
+             // this.$post('/warrantor/info',{
+             //    bussNo: this.$route.query.bussNo
+             // }).then( res => {
+             //    let list = res.data.data.warrantorData;
+             //    if (list.length) {
+             //        list.forEach((item,index) => {
+             //            item.overdueNo = ''; // 信用卡及贷款24个月累计逾期次数
+             //            item.value4 = ''; // 有无征信
+             //            item.largestamount = ''; // 最大逾期金额
+             //
+             //        });
+             //    }
+             //    this.guarantor = list;
+             // });
+             // // 回购人
+             // this.$post('/repurchase/info',{
+             //    bussNo: this.$route.query.bussNo
+             // }).then( res => {
+             //    let list = res.data.data;
+             //    if (list.length) {
+             //        list.forEach((item,index) => {
+             //            item.overdueNo = ''; // 信用卡及贷款24个月累计逾期次数
+             //            item.value4 = ''; // 有无征信
+             //            item.largestamount = ''; // 最大逾期金额
+             //        });
+             //    }
+             //    this.buyback = list;
+             // });
          },
     },
     components: {

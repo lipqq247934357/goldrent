@@ -204,7 +204,7 @@ export default {
               }).then( res => {
                   if(res.data.code == '2000000') {
                       this.imageslist = res.data.data;
-                      let treeInfo = res.data.data.NATURE_MATERIAL;
+                      let treeInfo = res.data.data.LEGAL_MATERIAL;
                       let tempArr = [];
                       Object.keys(treeInfo).forEach((key) => {
                          tempArr.push(treeInfo[key]);

@@ -3,17 +3,19 @@
         <div>
             <div class="tabletitleul">
                 {{name.value}}
-                {{name.key}}
             </div>
             <div class="imgRelevant">
                 <div class="imglist">
-                    <img :src="item.url"
-                         alt=""
-                         class="imagescss"
-                         height="100"
-                         v-for="item in fileList"
-                         preview="0"
-                         width="100">
+                    <span
+                        v-for="item in fileList"
+                        class="imagescss"
+                        >
+                        <img :src="item.url"
+                             alt=""
+                             height="100"
+                             preview="0"
+                             width="100">
+                    </span>
                 </div>
                  <!-- preview="0" preview编号一致为一组 -->
             </div>
@@ -34,7 +36,7 @@
                 marginLeftPx: 0,
                 marginRightPx: 0,
                 b: '',
-                dataNum: 0
+                dataNum: 0,
             }
         },
         props: ['name', 'type', 'relationId', 'bussNo','index'],
@@ -90,5 +92,13 @@
     }
 </script>
 <style lang="less">
-
+    .imagescss {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        background-color: #e1e1e1;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
 </style>

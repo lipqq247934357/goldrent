@@ -18,7 +18,7 @@
                         {{item.status == 1 ? '启用' : '禁用'}}
                     </div>
                 </div>
-                <img :src="item.url" alt="" width="90%" height="200">
+                <img :src="item.url + '&v=' +Math.ceil(Math.random()*10)" alt="" width="90%" height="200">
                 <el-button type="primary" class="edit" @click="editupload(item)">编辑</el-button>
             </li>
 
@@ -40,7 +40,7 @@
                         {{item.status == 1 ? '启用' : '禁用'}}
                     </div>
                 </div>
-                <img :src="item.url" alt="" width="90%" height="200">
+                <img :src="item.url + '&v=' +Math.ceil(Math.random()*10)" alt="" width="90%" height="200">
                 <el-button type="primary" class="edit" @click="editupload(item)">编辑</el-button>
             </li>
 
@@ -203,9 +203,9 @@ export default {
     mounted() {
         this.token = Cookies.get('token');
 
+
         this.bottombanner();
         this.topbanner();
-
     },
     methods: {
         releasebutton() {
@@ -226,6 +226,7 @@ export default {
         filesuccess(file,e,filelist) {
             // 请求成功勾子
             if(file.code == '2000000') {
+                this.$message.success('上传成功')
                 this.dialogVisible = false;
                 this.bottombanner();
                 this.topbanner();
@@ -276,7 +277,7 @@ export default {
                 if(res.data.code == '2000000') {
                     this.topBanner = res.data.data;
                     this.topBanner.forEach(val => {
-                        val.url = '/web/fileView?fileId=' + val.imageId ;
+                        val.url = '/web/fileView?fileId=' + val.imageId;
                     })
                 }
             })
@@ -327,10 +328,13 @@ export default {
         },
         // 修改图片上传
         handleAvatarSuccess(file) {
-            this.$nextTick( ()=> {
-                this.editimageUrl = '/web/fileView?fileId=' + this.echoimgId;
-                console.log(this.editimageUrl);
-            });
+            if(file.code == '2000000') {
+                this.editimageUrl = '/web/fileView?fileId=' + this.echoimgId + '&v=1' + Math.ceil(Math.random()*10);
+                this.$nextTick(function() {
+                    this.topbanner()
+                }.bind(this),1000);
+            }
+
         },
         beforeAvatarUpload(file) {
             console.log(file)

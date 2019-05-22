@@ -23,7 +23,7 @@
         </li>
         <li>
             <span>租赁物金额（元）</span>
-            <span>{{wantfactor.purchaseAmt && wantfactor.purchaseAmt}}</span>
+            <span>{{wantfactor.financeAmt && wantfactor.financeAmt}}</span>
         </li>
         <li>
             <span>首付款金额（元）</span>
@@ -50,7 +50,7 @@
             <span>{{wantfactor.allowanceDate && wantfactor.allowanceDate}}</span>
         </li>
         <li>
-            <span>租赁期限（天）</span>
+            <span>租赁期限（月）</span>
             <span>{{wantfactor.leaseTerm && wantfactor.leaseTerm}}</span>
         </li>
         <li>
@@ -113,36 +113,22 @@
     <componentitle :message="message='租金计划表'" />
     <div class="tables">
         <template>
-            <el-table
-                :data="tableData"
-                border
-                :header-cell-style="{
-                    'color': '#212121',
-                    'font-size': '14px',
-                    'font-weight': 'bold'
-                }"
-                style="width: 100%">
-                <el-table-column
-                    prop="period"
-                    label="租金期数">
-                </el-table-column>
-                <el-table-column
-                    prop="dueAmout"
-                    label="租金总额(元)">
-                </el-table-column>
-                <el-table-column
-                    prop="dueDate"
-                    label="支付日期">
-                </el-table-column>
-                <el-table-column
-                    prop="principal"
-                    label="租赁本金(元)">
-                </el-table-column>
-                <el-table-column
-                    prop="moneyRate"
-                    label="租赁利息(%)">
-                </el-table-column>
-            </el-table>
+            <table class="renttable">
+                <tr>
+                    <td class="tabletable">租金期数</td>
+                    <td class="tabletable">租金总额（元）</td>
+                    <td class="tabletable">支付日期</td>
+                    <td class="tabletable">租赁本金（元）</td>
+                    <td class="tabletable">租赁日期（%）</td>
+                </tr>
+                <tr v-for="item in tableData" v-if="item.costType == 'rent'">
+                    <td>{{item.period}}</td>
+                    <td>{{item.dueAmout}}</td>
+                    <td>{{item.dueDate}}</td>
+                    <td>{{item.principal}}</td>
+                    <td>{{item.moneyRate}}</td>
+                </tr>
+            </table>
         </template>
     </div>
 </div>
@@ -222,106 +208,15 @@ export default {
             //             "dueDate": "2019-05-20",
             //             "moneyRate": 0.0435
             //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10412030.3,
-            //             "period": 2,
-            //             "interest": 412030.3,
-            //             "dueDate": "2019-06-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10362490,
-            //             "period": 3,
-            //             "interest": 362490,
-            //             "dueDate": "2019-07-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10337115.7,
-            //             "period": 4,
-            //             "interest": 337115.7,
-            //             "dueDate": "2019-08-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10299658.4,
-            //             "period": 5,
-            //             "interest": 299658.4,
-            //             "dueDate": "2019-09-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10253743,
-            //             "period": 6,
-            //             "interest": 253743,
-            //             "dueDate": "2019-10-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10224743.8,
-            //             "period": 7,
-            //             "interest": 224743.8,
-            //             "dueDate": "2019-11-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10181245,
-            //             "period": 8,
-            //             "interest": 181245,
-            //             "dueDate": "2019-12-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10149829.2,
-            //             "period": 9,
-            //             "interest": 149829.2,
-            //             "dueDate": "2020-01-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10112371.9,
-            //             "period": 10,
-            //             "interest": 112371.9,
-            //             "dueDate": "2020-02-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10070081.4,
-            //             "period": 11,
-            //             "interest": 70081.4,
-            //             "dueDate": "2020-03-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 10000000,
-            //             "dueAmout": 10037457.3,
-            //             "period": 12,
-            //             "interest": 37457.3,
-            //             "dueDate": "2020-04-20",
-            //             "moneyRate": 0.0435
-            //         },
-            //         {
-            //             "principal": 0,
-            //             "dueAmout": 100,
-            //             "period": 12,
-            //             "interest": 0,
-            //             "dueDate": "2020-04-20",
-            //             "moneyRate": 0.0435
-            //         }
             //     ]
             // }
             if(res.data.code == '2000000') {
-                this.tableData = res.data.data;
+                for(let i = 0;i < res.data.data.length;i++) {
+                    if(res.data.data[i].costType == 'rebate') {
+                        this.tableData = res.data.data
+                        console.log(this.tableData);
+                    }
+                }
             }
         });
     },
@@ -368,9 +263,27 @@ export default {
         }
     }
     .tables {
-        .cell {
+        .renttable {
             text-align: center;
+            width: 100%;
+            border-top: 0;
+            border: 1px solid #afafaf;
+            border-top: 0;
+            .tabletable {
+                border-top: 0;
+                font-size: 16px;
+                color: #333;
+                font-weight: bold;
+            }
+            tr {
+                height: 50px;
+                td {
+                    color: #909399;
+                    border: 1px solid #afafaf;
+                }
+            }
         }
+
     }
     .componentitle {
         margin-top: 18px;

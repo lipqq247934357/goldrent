@@ -148,7 +148,6 @@ export default {
             bussNumber: '', //业务编号
             loanName: '', // 承租人姓名
             options: [
-
                 {
                     value: '待处理',
                     label: '待处理'
@@ -158,7 +157,6 @@ export default {
                     value: '已提交',
                     label: '已提交'
                 }
-
             ],
             value: '待处理', // 储存任务状态
             currentPage2: 1,
