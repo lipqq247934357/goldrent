@@ -55,7 +55,7 @@
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
-                <el-button type="primary" class="againbutton" @click="downloadfirl">下载待放款清单</el-button>
+                <el-button type="primary" class="againbutton" @click="downloadfirl">导出清单</el-button>
             </div>
         </div>
 
@@ -82,6 +82,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="bussNo"
+                    width="200"
                     label="业务编号">
                 </el-table-column>
                 <el-table-column
@@ -89,16 +90,28 @@
                     label="租赁人姓名">
                 </el-table-column>
                 <el-table-column
-                    prop="createTime"
-                    label="任务创建时间">
+                    prop="startDate"
+                    label="计划起租日">
+                </el-table-column>
+                <el-table-column
+                    prop="raiseFunds"
+                    label="融资金额">
+                </el-table-column>
+                <el-table-column
+                    prop="organiser"
+                    label="主办">
+                </el-table-column>
+                <el-table-column
+                    prop="coordinator"
+                    label="协办">
+                </el-table-column>
+                <el-table-column
+                    prop="taskName"
+                    label="任务名称">
                 </el-table-column>
                 <el-table-column
                     prop="ownerName"
-                    label="任务员姓名">
-                </el-table-column>
-                <el-table-column
-                    prop="status"
-                    label="任务状态">
+                    label="当前处理人">
                 </el-table-column>
             </el-table>
         </template>

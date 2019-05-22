@@ -109,7 +109,7 @@
                     prop="name"
                     label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="edit(scope.row)" type="text" size="small">处理</el-button>
+                        <el-button @click="edit(scope.row)" type="text" size="small" v-if="scope.row.status == '待处理'">处理</el-button>
                         <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
                     </template>
                 </el-table-column>
@@ -228,7 +228,7 @@ export default {
             this.loading = true;
             this.alsoSize = val;
             this.query();
-            
+
         },
         handleCurrentChange(val) {
             this.loading = true;
@@ -237,6 +237,7 @@ export default {
 
         },
         handleClick(val) {
+            console.log(val);return;
             //查看按钮
             this.$router.push({
                 path: '/layout/loadapprovaldetail',

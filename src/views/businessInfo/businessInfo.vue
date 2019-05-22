@@ -175,20 +175,16 @@
                         label: '全部'
                     },
                     {
-                        value: '协办处理',
-                        label: '协办处理'
+                        value: '报单申请',
+                        label: '报单申请'
                     },
                     {
-                        value: '贷款审批',
-                        label: '贷款审批'
+                        value: '授信审批',
+                        label: '授信审批'
                     },
                     {
-                        value: '贷款申请',
-                        label: '贷款申请'
-                    },
-                    {
-                        value: '借款合同',
-                        label: '借款合同'
+                        value: '合同签约',
+                        label: '合同签约'
                     },
                     {
                         value: '放款审批',
@@ -197,6 +193,14 @@
                     {
                         value: '放款确认',
                         label: '放款确认'
+                    },
+                    {
+                        value: '已放款',
+                        label: '已放款'
+                    },
+                    {
+                        value: '已失效',
+                        label: '已失效'
                     }
                 ],
                 tableData: [

@@ -30,10 +30,14 @@ axios.interceptors.request.use(
 //http response 拦截器
 axios.interceptors.response.use(
     response => {
+        if (!response || !response.data || !response.data.code) {
+            return response;
+        }
         if (response.data.code !== '2000000') {
             //业务异常
             Message.error({message: response.data.msg, duration: 5 * 1000});
         }
+
         if(response.data.code == '5000050') {
             Cookies.remove('token');
             window.location.hash = '/login';

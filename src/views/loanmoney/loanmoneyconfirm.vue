@@ -56,7 +56,7 @@
             <div class="topbox">
                 <span>任务信息</span>
                 <el-button type="primary" class="againbutton" @click="batchloanconfirm">批量放款确认</el-button>
-
+                <el-button type="primary" class="againbutton otheragainbutton" @click="downloadfirl">导出清单</el-button>
             </div>
         </div>
         <!-- 弹出框 -->
@@ -97,6 +97,7 @@
                 style="width: 100%">
                 <el-table-column
                     type="selection"
+                    :selectable='selectInit'
                     width="55">
                 </el-table-column>
                 <el-table-column
@@ -163,6 +164,7 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../components/title/title.vue';
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -269,6 +271,7 @@ export default {
     },
     methods: {
         batchloanconfirm() {
+            console.log(this.bussNoarr);
             if(this.bussNoarr == 0) {
                 this.$message.error('至少应该选择一条信息');
                 return;
@@ -370,6 +373,40 @@ export default {
                 this.bussNoarr = [];
             }
         },
+        downloadfirl() {
+            axios({
+                method: 'post',
+                url: '/LoanGrantOpinion/downLoadLoanGrant', // 请求地址
+                data: {
+                  ids: this.bussNoarr
+                }, // 参数
+                responseType: 'blob' // 表明返回服务器返回的数据类型
+            })
+            .then((res) => { // 处理返回的文件流
+                const content = res;
+                const blob = new Blob([res.data], { type: 'application/vnd.ms-excel' });
+                const fileName = window.decodeURI(res.headers['content-disposition'].split('filename=')[1]);
+                if ('download' in document.createElement('a')) { // 非IE下载
+                    const elink = document.createElement('a')
+                    elink.download = fileName
+                    elink.style.display = 'none'
+                    elink.href = URL.createObjectURL(blob)
+                    document.body.appendChild(elink)
+                    elink.click()
+                    URL.revokeObjectURL(elink.href) // 释放URL 对象
+                    document.body.removeChild(elink)
+                } else { // IE10+下载
+                    navigator.msSaveBlob(blob, fileName)
+                }
+            })
+        },
+        selectInit(row,index){
+            if (row.status == '02'){
+                return false  //不可勾选
+            } else {    
+              return true  //可勾选
+            }
+        },
     },
 }
 </script>
@@ -408,5 +445,8 @@ export default {
     span {
         margin: 0;
     }
+}
+.loanmoney .otheragainbutton {
+    right: 150px;
 }
 </style>
