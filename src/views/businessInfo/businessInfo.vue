@@ -74,19 +74,19 @@
                     </el-table-column>
                     <el-table-column
                             label="计划起租日"
-                            prop="custName">
+                            prop="startDate">
                     </el-table-column>
                     <el-table-column
                             label="融资金额"
-                            prop="status">
+                            prop="raiseFunds">
                     </el-table-column>
                     <el-table-column
                             label="主办"
-                            prop="custName">
+                            prop="sponsor">
                     </el-table-column>
                     <el-table-column
                             label="协办"
-                            prop="status">
+                            prop="jointly">
                     </el-table-column>
                     <el-table-column
                             label="任务名称"
@@ -95,7 +95,7 @@
 
                     <el-table-column
                         label="当前处理人"
-                        prop="createTime">
+                        prop="ownerName">
                     </el-table-column>
 
                     <el-table-column
@@ -253,7 +253,7 @@
                     numPerPage: this.pagesothen
                 }).then(res => {
                     if(res.data.code == '2000000') {
-                        this.tableData = res.data.data.recordList;
+                        this.tableData = res.data.data.list;
                         this.allpage = res.data.data.totalCount;
                     }
 
