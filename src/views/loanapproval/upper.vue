@@ -108,8 +108,21 @@
                     prop="name"
                     label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="edit(scope.row)" type="text" size="small" v-if="scope.row.status != '已提交'">处理</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
+                        <el-button
+                            @click="edit(scope.row)"
+                            type="text"
+                            size="small"
+                            :disabled="buttondeal == 'N'"
+                            v-if="scope.row.status != '已提交'">
+                            处理
+                        </el-button>
+                        <el-button
+                            @click="handleClick(scope.row)"
+                            type="text"
+                            :disabled="buttoninfo == 'N'"
+                            size="small">
+                            详情
+                        </el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -143,7 +156,36 @@ export default {
             message: '筛选条件',
             titletext: '上会审议',
             contenttext: '任务信息',
-            tableData: [], // 表格
+            tableData: [// 返回示例
+            // {
+            //   "msg": "success",
+            //   "code": "2000000",
+            //   "data": {
+            //     "currentPage": 1,
+            //     "numPerPage": 10,
+            //     "totalCount": 3,
+            //     "recordList": [
+            //       {
+            //         "id": "1",
+            //         "version": 0,
+            //         "status": "03",
+            //         "creator": "1",
+            //         "createTime": "2019-04-10T03:17:21.000+0000",
+            //         "editor": "1",
+            //         "editTime": "2019-04-12T07:19:49.000+0000",
+            //         "bussNo": "demoData2",
+            //         "custId": "cust1",
+            //         "custName": "name1",
+            //         "taskType": "20",
+            //         "isCurrent": "Y"
+            //       },
+            //     ],
+            //     "totalPage": 1,
+            //     "beginPageIndex": 1,
+            //     "endPageIndex": 1
+            //   }
+            // }
+            ], // 表格
             alldata: '', // 总页数
             bussNumber: '', //业务编号
             loanName: '', // 承租人姓名
@@ -166,21 +208,26 @@ export default {
             endTime: '',  // 结束控件时间
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
+            buttondeal: '', // 处理按钮
+            buttoninfo: '' // 详情按钮
         }
     },
     created() {
         this.query();
+        // this.jurisdiction() 后台配置不完整暂时注释
     },
     components: {
         componentitle,
     },
     methods: {
-        asd() {
-            alert(1);
-        },
-        // 下拉框事件
-        selectchange(val) {
-
+        // 获得权限
+        jurisdiction(val) {
+            let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+            this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
+                // 权限ajax
+                this.deal = res.data.data.deal;
+                this.info = res.data.data.info;
+            });
         },
         //进入页面获取数据展示在表格中
         query(numbers){
@@ -195,69 +242,7 @@ export default {
                 currentPage: '1', // 每次点击查询按钮都是第一页
                 taskType: '22'
             }).then(res => {
-                // 返回示例
-                // {
-                //   "msg": "success",
-                //   "code": "2000000",
-                //   "data": {
-                //     "currentPage": 1,
-                //     "numPerPage": 10,
-                //     "totalCount": 3,
-                //     "recordList": [
-                //       {
-                //         "id": "1",
-                //         "version": 0,
-                //         "status": "03",
-                //         "creator": "1",
-                //         "createTime": "2019-04-10T03:17:21.000+0000",
-                //         "editor": "1",
-                //         "editTime": "2019-04-12T07:19:49.000+0000",
-                //         "bussNo": "demoData2",
-                //         "custId": "cust1",
-                //         "custName": "name1",
-                //         "taskType": "20",
-                //         "isCurrent": "Y"
-                //       },
-                //       {
-                //         "id": "2",
-                //         "version": 0,
-                //         "status": "00",
-                //         "creator": "cre1",
-                //         "createTime": "2019-04-13T05:51:07.000+0000",
-                //         "editor": "edi1",
-                //         "editTime": "2019-04-13T05:51:07.000+0000",
-                //         "bussNo": "task1",
-                //         "custId": "cust2",
-                //         "custName": "name2",
-                //         "taskType": "20",
-                //         "taskName": "张三",
-                //         "ownerId": "oid1",
-                //         "ownerName": "oname1",
-                //         "isCurrent": "Y"
-                //       },
-                //       {
-                //         "id": "3",
-                //         "version": 0,
-                //         "status": "00",
-                //         "creator": "cre2",
-                //         "createTime": "2019-04-13T05:52:16.000+0000",
-                //         "editor": "edi2",
-                //         "editTime": "2019-04-13T05:52:16.000+0000",
-                //         "bussNo": "task2",
-                //         "custId": "cust2",
-                //         "custName": "name2",
-                //         "taskType": "20",
-                //         "taskName": "李四",
-                //         "ownerId": "oid2",
-                //         "ownerName": "oname2",
-                //         "isCurrent": "Y"
-                //       }
-                //     ],
-                //     "totalPage": 1,
-                //     "beginPageIndex": 1,
-                //     "endPageIndex": 1
-                //   }
-                // }
+
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;

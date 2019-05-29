@@ -27,8 +27,9 @@
                         </template>
                         <el-menu-item
                             v-if="item.authResource != null"
-                            v-for="suburl in item.authResource"
-                            :index="suburl.resourceUrl">
+                            v-for="(suburl,index) in item.authResource"
+                            @click="linkMenu(suburl,index)"
+                            :index="`${suburl.resourceUrl}?id=${suburl.id}`">
                             {{suburl.resourceName}}
                         </el-menu-item>
                         <!-- <el-menu-item>
@@ -46,6 +47,8 @@
         data() {
             return {
                 opends: [],
+                deal: '', //处理按钮权限
+                info: '', // 详情按钮权限
                 nowactive: null, // 当前激活的字体颜色
                 approval: require('./arropvala.png'),
                 loan: require('./loana.png'),
@@ -142,14 +145,18 @@
         },
         created() {
             this.$post('/user/get/resource').then(res => {
-                console.log(res);
                 this.menulist = res.data.data;
             });
         },
         mounted() {
         },
         methods: {
-
+            linkMenu(item, index) {
+                // this.$get(`/user/get/sonresource?id=${item.id}`).then(res => {
+                //     this.deal = res.data.data.deal;
+                //     this.info = res.data.data.info;
+                // });
+            },
             //  匹配当前index 切换不同active
             handleOpen(key, keyPath) {
                 this.nowactive = key;

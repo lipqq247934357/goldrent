@@ -32,6 +32,7 @@
                         <el-radio v-model="radio1" label="2" :disabled="inputdisabled">同意业务并提交资深审批</el-radio>
                         <el-radio v-model="radio1" label="3" :disabled="inputdisabled">同意业务并提交会议审批</el-radio>
                         <el-radio v-model="radio1" label="0" :disabled="inputdisabled">否决</el-radio>
+                        <el-radio v-model="radio1" label="4" :disabled="inputdisabled">退回</el-radio>
                     </template>
                 </div>
                 <div class="subone opinionsdiv" style="clear:both">
@@ -86,7 +87,7 @@
                     type="textarea"
                     class="uppertextareaup"
                     :rows="3"
-                    :placeholder="textarea"
+                    placeholder="贷款审批内容"
                     disabled
                     v-model="disabledtextarea">
                 </el-input>
@@ -137,7 +138,7 @@
             <div class="bottombutton">
                 <el-button type="primary" @click="save" :disabled="inputdisabled" >保存</el-button>
                 <el-button type="primary" @click="adopt" :disabled="inputdisabled">{{this.$route.query.arrangement == '23' ? '同意': '提交'}}</el-button>
-                <el-button type="primary" @click="exit" :disabled="inputdisabled">退回</el-button>
+                <el-button type="primary" @click="exit" :disabled="inputdisabled" v-if="this.$route.query.arrangement != '20'">退回</el-button>
             </div>
 
             <el-dialog
@@ -214,6 +215,8 @@ export default {
                 return;
             }
             this.checkboxlist = res.data.data.contracts; // 合同
+            this.conditions = res.data.data.loanPrecondition
+            this.requirements = res.data.data.postRentManage
             if(this.$route.query.arrangement == '20') {
                 this.radio1 = res.data.data.approvalComments; // 审批意见
             }
@@ -231,8 +234,8 @@ export default {
                     bussNo: this.$route.query.bussNo
                 }).then(res => {
                     if(JSON.stringify(res.data.data)) {
-                        if(JSON.stringify(res.data.data.taskType20)) {
-                            this.disabledtextarea = res.data.data.taskType20.reasonDescription;
+                        if(JSON.stringify(res.data.data.taskType)) {
+                            this.disabledtextarea = res.data.data.taskType.reasonDescription;
                         }
                         if(JSON.stringify(res.data.data.taskType23)) {
                             this.director = res.data.data.taskType23.reasonDescription;
@@ -340,6 +343,7 @@ export default {
                 '22': '/LoanApprove/reviewMeetingSave',
                 '23': '/LoanApprove/directorOpinionSave'
             }[role],{
+                id: this.$route.query.id,
                 bussNo: this.$route.query.bussNo, //单号
                 approvalComments: role == 20 ? this.radio1 : '', //0：否决,1：终审同意 2：同意业务并提交资深审批 3：同意业务并提交会议审批
                 // textarea: '' //贷款审批
@@ -357,7 +361,6 @@ export default {
                 loanPrecondition: this.conditions,// 放款前提条件
                 postRentManage: this.requirements// 租后管理要求
             }).then( res => {
-                return;
                 if(res.data.code == '2000000') {
                     this.$message.success('保存成功');
                     this.$router.push({

@@ -54,9 +54,8 @@
                 <li>
                     <div>联系电话</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.custMobile"/>
+                        <el-input maxlength="11" :disabled="type === 'detail'" size="mini" type="text" v-model="data.custMobile"/>
                     </div>
-
                 </li>
                 <li>
                     <div>微信</div>
@@ -67,7 +66,7 @@
                 <li>
                     <div>身份证号码</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.certNo"/>
+                        <el-input  maxlength="18" :disabled="type === 'detail'" size="mini" type="text" v-model="data.certNo"/>
                     </div>
                 </li>
                 <li>

@@ -126,6 +126,18 @@
                     label="协办">
                 </el-table-column>
                 <el-table-column
+                    prop="receiptAccountName"
+                    label="收款人姓名">
+                </el-table-column>
+                <el-table-column
+                    prop="receiptAccount"
+                    label="收款人账号">
+                </el-table-column>
+                <el-table-column
+                    prop="receiptAccountBank"
+                    label="收款人开户行">
+                </el-table-column>
+                <!-- <el-table-column
                     prop="taskName"
                     label="任务名称">
                 </el-table-column>
@@ -138,10 +150,10 @@
                     label="操作">
                     <template slot-scope="scope">
                         <!-- status 待处理 00 ，02 已提交 -->
-                        <el-button @click="look(scope.row)" type="text" size="small" v-if="scope.row.status == '02'">查看</el-button>
+                        <!-- <el-button @click="look(scope.row)" type="text" size="small" v-if="scope.row.status == '02'">查看</el-button>
                         <el-button @click="tableloanconfirm(scope.row)" type="text" size="small" v-if="scope.row.status == '00'">放款确认</el-button>
                     </template>
-                </el-table-column>
+                </el-table-column> -->
             </el-table>
         </template>
 

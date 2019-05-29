@@ -154,17 +154,10 @@
                             <li>
                                 <span>姓名</span>
                                 <span>{{item.custName}}</span>
-
                             </li>
                             <li>
-                                <span>与承租人关系</span>
-                                <span>
-                                    <select class="" name="" disabled>
-                                        <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.custRelation == custRelation.optionCode ? true : false">
-                                            {{item.custRelation == '' ? '本人' : custRelation.optionName}}
-                                        </option>
-                                    </select>
-                                </span>
+                                <span>联系电话</span>
+                                <span>{{item.custMobile}}</span>
                             </li>
                             <li>
                                 <span>性别</span>
@@ -175,15 +168,22 @@
                                         </option>
                                     </select>
                                 </span>
-
                             </li>
                             <li>
-                                <span>年龄</span>
-                                <span>{{item.custAge}}</span>
+                                <span>微信号</span>
+                                <span>{{item.custWechat}}</span>
                             </li>
                             <li>
                                 <span>身份证号码</span>
                                 <span>{{item.certNo}}</span>
+                            </li>
+                            <li>
+                                <span>教育程度</span>
+                                <span v-for="ducation in statuslist.custEducation" v-if="item.custEducation == ducation.optionCode">{{ducation.optionName}}</span>
+                            </li>
+                            <li>
+                                <span>户籍所在地</span>
+                                <span>{{item.custHomeplace}}</span>
                             </li>
                             <li>
                                 <span>婚姻状况</span>
@@ -196,29 +196,42 @@
                                 </span>
                             </li>
                             <li>
-                                <span>户籍地址</span>
-                                <span>{{item.custHomeplace}}</span>
-                            </li>
-                            <li>
-                                <span>现住址</span>
-                                <span>{{item.custAddress}}</span>
-                            </li>
-                            <li>
-                                <span>种植年限</span>
-                                <span>{{item.cultureYears}}</span>
+                                <span>年龄</span>
+                                <span>{{item.custAge}}</span>
                             </li>
                             <li>
                                 <span>申请地居住年限（年）</span>
                                 <span>{{item.residenceYears}}</span>
                             </li>
                             <li>
-                                <span>联系电话</span>
-                                <span>{{item.custMobile}}</span>
+                                <span>与承租人关系</span>
+                                <span>
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.custRelation == custRelation.optionCode ? true : false">
+                                            {{item.custRelation == '' ? '本人' : custRelation.optionName}}
+                                        </option>
+                                    </select>
+                                </span>
                             </li>
                             <li>
-                                <span>微信号</span>
-                                <span>{{item.custWechat}}</span>
+                                <span>现住址</span>
+                                <span>{{item.custAddress}}</span>
                             </li>
+                            <li>
+                                <span>工作单位</span>
+                                <span>{{item.company}}</span>
+                            </li>
+                            <li>
+                                <span>征信报告</span>
+                                <span>{{item.hasCreditReport == 'Y' ? '有' : '无' }}</span>
+                            </li>
+                            <li>
+                                <span>身份类型</span>
+                                <span v-for="tityType in statuslist.identityType" v-if="tityType.optionCode == item.identityType">
+                                    {{tityType.optionName}}
+                                </span>
+                            </li>
+
                         </ul>
                     </div>
                     <!-- 配偶信息 -->
@@ -232,43 +245,40 @@
                                 </span>
                             </li>
                             <li>
+                                <span>联系电话</span>
+                                <span>
+                                    {{spouse.custMobile}}
+                                </span>
+                            </li>
+                            <li>
                                 <span>性别</span>
                                 <span>
                                     <select class="" name="" disabled v-if="spouse.custSex != ''">
-                                        <option value="" v-for="sex in statuslist.custSex" :selected="spouse.custSex == spouse.custSex ? true : false">
+                                        <option value="" v-for="sex in statuslist.custSex" :selected="spouse.custSex == sex.custSex ? true : false">
                                             {{spouse.custSex == '' ? '' : sex.optionName}}
                                         </option>
                                     </select>
                                 </span>
                             </li>
                             <li>
-                                <span>户籍地址</span>
-                                <span>{{spouse.custHomeplace}}</span>
-
-                            </li>
-                            <li>
-                                <span>年龄</span>
-                                <span>{{spouse.custAge}}</span>
-                            </li>
-                            <li>
-                                <span>现住址</span>
-                                <span>{{spouse.custAddress}}</span>
+                                <span>微信号</span>
+                                <span>
+                                    {{spouse.custWechat}}
+                                </span>
                             </li>
                             <li>
                                 <span>身份证号</span>
                                 <span>{{spouse.certNo}}</span>
                             </li>
                             <li>
-                                <span>联系电话/微信</span>
-                                <span>
-                                    {{spouse.custWechat}}
-                                </span>
-                            </li>
-                            <li>
                                 <span>教育程度</span>
                                 <span>
                                     {{spouse.custEducation}}
                                 </span>
+                            </li>
+                            <li>
+                                <span>户籍所在地</span>
+                                <span>{{spouse.custHomeplace}}</span>
                             </li>
                             <li>
                                 <span>婚姻状况</span>
@@ -281,18 +291,39 @@
                                 </span>
                             </li>
                             <li>
+                                <span>年龄</span>
+                                <span>{{spouse.custAge}}</span>
+                            </li>
+                            <li>
                                 <span>申请地居住年限</span>
                                 <span>
                                     {{spouse.residenceYears}}
                                 </span>
                             </li>
                             <li>
-                                <span>种植年限</span>
+                                <span>与承租人关系</span>
                                 <span>
-                                    {{spouse.cultureYears}}
+                                    <select class="" name="" disabled>
+                                        <option value="" v-for="custRelation in statuslist.custRelation" :selected="spouse.custRelation == custRelation.optionCode ? true : false">
+                                            {{spouse.custRelation == '' ? '本人' : custRelation.optionName}}
+                                        </option>
+                                    </select>
                                 </span>
                             </li>
-
+                            <li>
+                                <span>工作单位</span>
+                                <span>{{item.company}}</span>
+                            </li>
+                            <li>
+                                <span>现住址</span>
+                                <span>{{spouse.custAddress}}</span>
+                            </li>
+                            <li>
+                                <span>身份类型</span>
+                                <span v-for="tityType in statuslist.identityType" v-if="tityType.optionCode == spouse.identityType">
+                                    {{tityType.optionName}}
+                                </span>
+                            </li>
                         </ul>
                     </div>
 
@@ -377,32 +408,30 @@
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;土地（含代收代耕）</h3>
                             <ul class="infolist" v-for="assetsLands in item.assetsLands">
-                                <li>
-                                    <span>土地类型</span>
-                                    <span>
-                                    </span>
-                                </li>
+
                                 <li>
                                     <span>面积（亩）</span>
                                     <span>{{assetsLands.acreage}}</span>
                                 </li>
                                 <li>
-                                    <span>房产地址/坐落</span>
-                                    <span>{{assetsLands.address}}</span>
-
-                                </li>
-                                <li>
-                                    <span>价值（元）</span>
+                                    <span>当前估值（元）</span>
                                     <span>{{assetsLands.value}}</span>
                                 </li>
                                 <li>
-                                    <span>承包期限（年）</span>
-                                    <span>{{assetsLands.contractLife}}</span>
-
+                                    <span>房产地址/坐落</span>
+                                    <span>{{assetsLands.address}}</span>
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
                                     <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                </li>
+                                <li>
+                                    <span>承包期限（年）</span>
+                                    <span>{{assetsLands.contractLife}}</span>
+                                </li>
+                                <li>
+                                    <span>核实方法</span>
+                                    <span>{{assetsLands.contractLife == '01' ? '通过农补账户流水核实' : '通过农场政研室核实'}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -410,29 +439,28 @@
                             <h3>&nbsp;&nbsp;&nbsp;车产情况</h3>
                             <ul class="infolist" v-for="assetsVehicles in item.assetsVehicles">
                                 <li>
-                                    <span>车产类型</span>
-                                    <span>
-                                    </span>
-                                </li>
-                                <li>
                                     <span>购买时间</span>
                                     <span>{{assetsVehicles.buyTime}}</span>
+                                </li>
+                                <li>
+                                    <span>是否抵押</span>
+                                    <span>{{assetsVehicles.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>
                                     <span>{{assetsVehicles.currEvaluation}}</span>
                                 </li>
                                 <li>
-                                    <span>所有权人</span>
-                                    <span>{{assetsVehicles.owner}}</span>
-                                </li>
-                                <li style="border-bottom: 0;">
                                     <span>车辆号牌</span>
                                     <span>{{assetsVehicles.serialNo}}</span>
                                 </li>
                                 <li>
-                                    <span>是否抵押</span>
-                                    <span>{{assetsVehicles.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>所有权人</span>
+                                    <span>{{assetsVehicles.owner}}</span>
+                                </li>
+                                <li>
+                                    <span>发票金额</span>
+                                    <span>{{assetsVehicles.invoiceAmount}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -440,13 +468,12 @@
                             <h3>&nbsp;&nbsp;&nbsp;农机具</h3>
                             <ul class="infolist" v-for="assetsFarmTools in item.assetsFarmTools">
                                 <li>
-                                    <span>农机具类型</span>
-                                    <span>
-                                    </span>
-                                </li>
-                                <li>
                                     <span>购买时间</span>
                                     <span>{{assetsFarmTools.buyTime}}</span>
+                                </li>
+                                <li>
+                                    <span>是否抵押</span>
+                                    <span>{{assetsFarmTools.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>
@@ -461,23 +488,27 @@
                                     <span>{{assetsFarmTools.serialNo}}</span>
                                 </li>
                                 <li>
-                                    <span>是否抵押</span>
-                                    <span>{{assetsFarmTools.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>发票金额</span>
+                                    <span>{{assetsFarmTools.invoiceAmount}}</span>
                                 </li>
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;其他资产</h3>
                             <ul class="infolist" v-for="assetsOthers in item.assetsOthers">
-                                <li>
+                                <!-- <li>
                                     <span>其他资产</span>
                                     <span>
                                         {{assetsOthers.serialNo}}
                                     </span>
-                                </li>
+                                </li> -->
                                 <li>
                                     <span>购买时间</span>
                                     <span>{{assetsOthers.buyTime}}</span>
+                                </li>
+                                <li>
+                                    <span>是否抵押</span>
+                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                                 <li>
                                     <span>价值（元）</span>
@@ -487,10 +518,6 @@
                                 <li>
                                     <span>所有权人</span>
                                     <span>{{assetsOthers.owner}}</span>
-                                </li>
-                                <li>
-                                    <span>是否抵押</span>
-                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
                                 </li>
                                 <br>
                                 <li class="subliWidth">
@@ -517,12 +544,12 @@
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;房产信息</h3>
                             <ul class="infolist" v-for="debtSituations in item.debtSituations">
-                                <li>
+                                <!-- <li>
                                     <span>债务情况</span>
                                     <span>
                                         {{debtSituations.debtSituation}}
                                     </span>
-                                </li>
+                                </li> -->
                                 <li>
                                     <span>债务种类</span>
                                     <span>{{debtSituations.debtType}}</span>
@@ -560,12 +587,12 @@
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;对外担保</h3>
                             <ul class="infolist" v-for="debtGuarantees in item.debtGuarantees">
-                                <li>
+                                <!-- <li>
                                     <span>对外担保</span>
                                     <span>
                                         {{debtGuarantees.externalGuarantee}}
                                     </span>
-                                </li>
+                                </li> -->
                                 <li>
                                     <span>债权人</span>
                                     <span>{{debtGuarantees.creditor}}</span>
@@ -580,9 +607,8 @@
                                     <span>{{debtGuarantees.warrantee}}</span>
                                 </li>
                                 <li>
-                                    <span>承租人与被担保人关系</span>
+                                    <span>保证人人与被担保人关系</span>
                                     <span>{{debtGuarantees.withWarranteeRelation}}</span>
-
                                 </li>
                                 <br>
                                 <li class="subliWidth">
@@ -604,22 +630,16 @@
                             <h3>&nbsp;&nbsp;&nbsp;其他负债</h3>
                             <ul class="infolist" v-for="debtOthers in item.debtOthers">
                                 <li>
-                                    <span>其他负债</span>
-                                    <span>
-                                    </span>
-                                </li>
-                                <li>
                                     <span>债权人</span>
                                     <span>{{debtOthers.creditor}}</span>
                                 </li>
                                 <li>
                                     <span>余额（元）</span>
                                     <span>{{debtOthers.debtBalance}}</span>
-
                                 </li>
                                 <li>
                                     <span>至今账龄（月）</span>
-                                    <span></span>
+                                    <span>{{debtOthers.debtMaturity}}</span>
                                 </li>
                                 <li>
                                     <span>有无担保</span>
@@ -630,7 +650,6 @@
                                             </option>
                                         </select>
                                     </span>
-
                                 </li>
                                 <br>
                                 <li class="subliWidth">
@@ -656,14 +675,14 @@
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;种植收入</h3>
                             <ul class="infolist" v-for="incomePlants in item.incomePlants">
-                                <li>
+                                <!-- <li>
                                     <span>收入名称</span>
                                     <span>
                                         种植收入
                                     </span>
-                                </li>
+                                </li> -->
                                 <li>
-                                    <span>种植类别</span>
+                                    <span>作物种类</span>
                                     <span>{{incomePlants.plantType}}</span>
                                 </li>
                                 <li>
@@ -675,7 +694,7 @@
                                     <span>单亩成本（元）</span>
                                     <span>{{incomePlants.oneCost}}</span>
                                 </li>
-                                <li style="border-bottom: 0;">
+                                <li>
                                     <span>亩产收入（元）</span>
                                     <span>{{incomePlants.oneIncome}}</span>
                                 </li>
@@ -683,33 +702,25 @@
                                     <span>结余（元）</span>
                                     <span>{{incomePlants.surplus}}</span>
                                 </li>
+                                
                             </ul>
                         </div>
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;其他收入</h3>
                             <ul class="infolist" v-for="incomeOthers in item.incomeOthers">
-                                <li>
+                                <!-- <li>
                                     <span>收入名称</span>
                                     <span>
                                         其他收入
                                     </span>
-                                </li>
+                                </li> -->
                                 <li>
-                                    <span>上年收入（元）</span>
+                                    <span>近一年收入（元）</span>
                                     <span>{{incomeOthers.prevYearIncome}}</span>
                                 </li>
                                 <li>
-                                    <span>上年支出（元）</span>
+                                    <span>近一年支出（元）</span>
                                     <span>{{incomeOthers.prevYearPay}}</span>
-
-                                </li>
-                                <li>
-                                    <span>本年收入（元）</span>
-                                    <span>{{incomeOthers.currYearIncome}}</span>
-                                </li>
-                                <li style="border-bottom: 0;">
-                                    <span>本年支出（元）</span>
-                                    <span>{{incomeOthers.currYearPay}}</span>
 
                                 </li>
                                 <li>
@@ -718,7 +729,32 @@
                                 </li>
                             </ul>
                         </div>
+                        <div class="describeText">
+                            <h3>&nbsp;&nbsp;&nbsp;种植经验描述</h3>
+                            <div class=""
+                                v-for="(incomePlants,index) in item.incomePlants"
+                                >
+                                <el-input
+                                    v-if="incomePlants.remark != ''"
+                                    type="textarea"
+                                    :rows="2"
+                                    placeholder=""
+                                    class="describetext"
+                                    disabled
+                                    v-model="incomePlants.remark">
+                                </el-input>
+                                <el-input
+                                    v-if="incomePlants.remark == '' ? index == 1 : ''"
+                                    type="textarea"
+                                    :rows="2"
+                                    placeholder=""
+                                    class="describetext"
+                                    disabled
+                                    v-model="incomePlantsRemark">
+                                </el-input>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
                 <div class="assetsinfo">
@@ -1057,7 +1093,9 @@ export default {
                 custRelation: [],
                 custType: [],
                 houseType: [],
-                isGuarantee: []
+                isGuarantee: [],
+                custEducation:[],
+                identityType: []
             }
         }
     },
@@ -1069,7 +1107,7 @@ export default {
 
         //  字段编码
         this.$post('/getConstantConfig', {
-            dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee']
+            dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee','custEducation','identityType']
         }).then(res => {
             var resData = res.data.data;
             this.statuslist.marriage = resData.custMarriage;
@@ -1078,6 +1116,8 @@ export default {
             this.statuslist.custType = resData.custType;
             this.statuslist.houseType = resData.houseType;
             this.statuslist.isGuarantee = resData.isGuarantee;
+            this.statuslist.custEducation = resData.custEducation;
+            this.statuslist.identityType = resData.identityType;
         })
     },
     methods: {

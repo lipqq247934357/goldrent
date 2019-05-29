@@ -6,7 +6,6 @@
         <el-input
             type="textarea"
             :rows="3"
-            placeholder="请输入内容"
             class="inputtext"
             disabled
             v-model="textarea.lesseeCredit">
@@ -17,18 +16,16 @@
         <el-input
             type="textarea"
             :rows="3"
-            placeholder="请输入内容"
             class="inputtext"
             disabled
             v-model="textarea.guarantorCredit">
         </el-input>
     </div>
     <div class="">
-        <h3>回购人人征信状况描述（含实际控制人）</h3>
+        <h3>回购人征信状况描述（含实际控制人）</h3>
         <el-input
             type="textarea"
             :rows="3"
-            placeholder="请输入内容"
             class="inputtext"
             disabled
             v-model="textarea.repurchaseCredit">
@@ -42,7 +39,6 @@
         <el-input
             type="textarea"
             :rows="3"
-            placeholder="请输入内容"
             class="inputtext"
             disabled
             v-model="textarea.lesseeCreditZhongdeng">
@@ -52,33 +48,30 @@
     <componentitle :message="message='其他外部信息查询（含工商局信息、裁判文书网、失信被执行信息等）'" />
 
     <div class="">
-        <h3>承租人征信状况描述（含配偶）</h3>
+        <h3>承租人外部信息查询描述（含配偶）</h3>
         <el-input
             type="textarea"
             :rows="3"
-            placeholder="请输入内容"
             class="inputtext"
             disabled
             v-model="textarea.lesseeCreditExternal">
         </el-input>
     </div>
     <div class="">
-        <h3>保证人征信状况描述（含配偶）</h3>
+        <h3>保证人外部信息查询描述（含配偶）</h3>
         <el-input
             type="textarea"
             :rows="3"
-            placeholder="请输入内容"
             class="inputtext"
             disabled
             v-model="textarea.guarantorCreditExternal">
         </el-input>
     </div>
     <div class="">
-        <h3>回购人人征信状况描述（含实际控制人）</h3>
+        <h3>回购人外部信息查询描述（含实际控制人）</h3>
         <el-input
             type="textarea"
             :rows="3"
-            placeholder="请输入内容"
             class="inputtext"
             disabled
             v-model="textarea.repurchaseCreditExternal">

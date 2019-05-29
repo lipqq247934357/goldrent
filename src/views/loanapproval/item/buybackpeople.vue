@@ -22,12 +22,12 @@
                         </span>
                     </li>
                     <li>
-                        <span>注册资本金</span>
+                        <span>注册资本金（元）</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comRegisteredCapital}}</span>
 
                     </li>
                     <li>
-                        <span>年营业额</span>
+                        <span>年营业额（元）</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comIncome}}</span>
                     </li>
                     <li>
@@ -41,12 +41,16 @@
                         </span>
                     </li>
                     <li>
-                        <span>回购方负责人</span>
+                        <span>回购方负责人姓名</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comManager}}</span>
                     </li>
                     <li style="border-bottom: 0;">
-                        <span>回购方联系电话</span>
+                        <span>回购方负责人电话</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comMobile}}</span>
+                    </li>
+                    <li style="border-bottom: 0;">
+                        <span>咨询服务费</span>
+                        <span>{{item.basicInfo == null ? '' : item.basicInfo.serviceFee}}</span>
                     </li>
                 </ul>
                 <componentitle :message="message='负债及对外担保情况'"/>
@@ -74,7 +78,6 @@
                         <li>
                             <span>被担保人</span>
                             <span>{{otherpeople.warrantee}}</span>
-
                         </li>
                         <br>
                         <li class="subliWidth">

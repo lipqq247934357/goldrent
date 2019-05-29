@@ -36,8 +36,9 @@
                                 row-key="id"
                                 style="width: 100%">
                                 <el-table-column
-                                        label="ID"
-                                        prop="id">
+                                        label="序号"
+                                        width="80px"
+                                        type="index">
                                 </el-table-column>
                                 <el-table-column
                                         label="全称"
@@ -108,8 +109,9 @@
                                     row-key="id"
                                     style="width: 100%">
                                 <el-table-column
-                                        label="ID"
-                                        prop="id">
+                                        label="序号"
+                                        width="80px"
+                                        type="index">
                                 </el-table-column>
                                 <el-table-column
                                         label="全称"

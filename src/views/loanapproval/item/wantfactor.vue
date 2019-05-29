@@ -4,7 +4,7 @@
     <ul class="factorlist">
         <li>
             <span>业务编号</span>
-            <span>{{wantfactor.bussNo && wantfactor.bussNo}}</span>
+            <span>{{wantfactor.bussNo}}</span>
         </li>
         <li>
             <span>租赁模式</span>
@@ -19,59 +19,59 @@
         </li>
         <li>
             <span>租赁物名称</span>
-            <span>{{wantfactor.leaseName && wantfactor.leaseName}}</span>
+            <span>{{wantfactor.leaseName}}</span>
         </li>
         <li>
-            <span>租赁物金额（元）</span>
-            <span>{{wantfactor.financeAmt && wantfactor.financeAmt}}</span>
+            <span>购置价格（元）</span>
+            <span>{{wantfactor.purchaseAmt}}</span>
         </li>
         <li>
             <span>首付款金额（元）</span>
-            <span>{{wantfactor.firstPayAmt && wantfactor.firstPayAmt}}</span>
+            <span>{{wantfactor.firstPayAmt}}</span>
         </li>
         <li>
-            <span>租金金额（元）</span>
-            <span>{{wantfactor.leaseAmount && wantfactor.leaseAmount}}</span>
+            <span>融资金额（元）</span>
+            <span>{{wantfactor.financeAmt}}</span>
+        </li>
+        <li>
+            <span>厂商返利（元）</span>
+            <span>{{wantfactor.rebateAmt}}</span>
+        </li>
+        <li>
+            <span>厂商贴息（元）</span>
+            <span>{{wantfactor.rebateFirmAmt}}</span>
+        </li>
+        <li>
+            <span>承租人风险金（元）</span>
+            <span>{{wantfactor.lesseeRiskAmt}}</span>
+        </li>
+        <li>
+            <span>其他风险金（元）</span>
+            <span>{{wantfactor.otherRiskAmt}}</span>
         </li>
         <li>
             <span>预计补贴金额（元）</span>
-            <span>{{wantfactor.allowanceAmt && wantfactor.allowanceAmt}}</span>
+            <span>{{wantfactor.allowanceAmt}}</span>
         </li>
         <li>
-            <span>预计补贴时间（元）</span>
-            <span>{{wantfactor.allowanceAmt && wantfactor.allowanceAmt}}</span>
+            <span>预计补贴时间</span>
+            <span>{{wantfactor.allowanceDate}}</span>
         </li>
         <li>
-            <span>补贴金额（元）</span>
-            <span>{{wantfactor.allowanceAmt && wantfactor.allowanceAmt}}</span>
+            <span>计划起租日</span>
+            <span>{{wantfactor.startDate}}</span>
         </li>
         <li>
-            <span>补贴时间</span>
-            <span>{{wantfactor.allowanceDate && wantfactor.allowanceDate}}</span>
+            <span>计划终止日</span>
+            <span>{{wantfactor.endDate}}</span>
         </li>
         <li>
             <span>租赁期限（月）</span>
-            <span>{{wantfactor.leaseTerm && wantfactor.leaseTerm}}</span>
+            <span>{{wantfactor.leaseTerm}}</span>
         </li>
         <li>
-            <span>合同利率（%）</span>
-            <span>{{wantfactor.leaseRate && wantfactor.leaseRate}}</span>
-        </li>
-        <li>
-            <span>厂商返利金额（元）</span>
-            <span>{{wantfactor.rebateAmt && wantfactor.rebateAmt}}</span>
-        </li>
-        <li>
-            <span>厂商贴息</span>
-            <span>{{wantfactor.rebateAmt && wantfactor.rebateAmt}}</span>
-        </li>
-        <li>
-            <span>风险金（元）</span>
-            <span>{{wantfactor.riskAmt && wantfactor.riskAmt}}</span>
-        </li>
-        <li>
-            <span>内部收益率（%）</span>
-            <span>{{wantfactor.earningRate && wantfactor.earningRate}}</span>
+            <span>租赁利率（%）</span>
+            <span>{{wantfactor.leaseRate}}</span>
         </li>
         <li>
             <span>租金支付方式</span>
@@ -86,28 +86,21 @@
             </span>
         </li>
         <li>
-            <span>使用地点</span>
-            <span>{{wantfactor.placeUse && wantfactor.placeUse}}</span>
-        </li>
-        <li>
-            <span>起租日</span>
-            <span>{{wantfactor.startDate && wantfactor.startDate}}</span>
-        </li>
-        <li>
-            <span>止租日</span>
-            <span>{{wantfactor.endDate && wantfactor.endDate}}</span>
-        </li>
-        <li>
             <span>还款频次</span>
-            <span>{{wantfactor.endDate && wantfactor.endDate}}</span>
+            <span>{{wantfactor.repayRate == "M" ? '月': '季'}}</span>
+        </li>
+        <li>
+            <span>计息方式</span>
+            <!-- <span>{{wantfactor.calcType}}</span> -->
+            <span>按日计息</span>
         </li>
         <li>
             <span>留购价款（元）</span>
-            <span>{{wantfactor.depositAmt && wantfactor.depositAmt}}</span>
+            <span>{{wantfactor.depositAmt}}</span>
         </li>
         <li>
             <span>提前结清手续费（%）</span>
-            <span>{{wantfactor.settleAhead && wantfactor.settleAhead}}</span>
+            <span>{{wantfactor.settleAhead}}</span>
         </li>
     </ul>
     <componentitle :message="message='租金计划表'" />
@@ -214,7 +207,6 @@ export default {
                 for(let i = 0;i < res.data.data.length;i++) {
                     if(res.data.data[i].costType == 'rebate') {
                         this.tableData = res.data.data
-                        console.log(this.tableData);
                     }
                 }
             }

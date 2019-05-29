@@ -12,23 +12,30 @@
                     </span>
                 </li>
                 <li>
+                    <span>交付地点</span>
+                    <span>{{item.condition.deliveryPlace}}</span>
+                </li>
+                <li>
                     <span>购置价格</span>
                     <span>{{item.condition.purchasePrice}}</span>
-
+                </li>
+                <li>
+                    <span>能否抵押我司</span>
+                    <span>{{item.condition.mortgage == "Y" ? '是': '否'}}</span>
                 </li>
                 <li>
                     <span>唯一识别码</span>
                     <span>{{item.condition.serialNo}}</span>
                 </li>
                 <li>
-                    <span>能否抵押受理</span>
-                    <span>{{item.condition.mortgage == 'Y' ? '已抵押' : '未抵押'}}</span>
-
-                </li>
-                <li>
                     <span>抵押管理机关</span>
                     <span>{{item.condition.mortgageAgency}}</span>
                 </li>
+                <li>
+                    <span>识别号类型</span>
+                    <span>{{item.condition.serialNoType}}</span>
+                </li>
+
             </ul>
         </div>
         <div class="assetsinfoul">
@@ -46,13 +53,21 @@
             </li>
             <li>
                 <span>保额（元）</span>
-                <span>{{item.insurance.conerage}}</span>
-
+                <span>{{item.insurance.coverage}}</span>
             </li>
             <li>
                 <span>保险期限（月）</span>
                 <span>{{item.insurance.insuranceTerm}}</span>
             </li>
+            <li>
+                <span>购买时间</span>
+                <span
+                    v-for="subitemtype in statuslist.insurancePurchaseTime"
+                    v-if="subitemtype.optionCode == item.insurance.insuranceBuyTime">
+                    {{subitemtype.optionName}}
+                </span>
+            </li>
+
             <li>
                 <span>第一受益人</span>
                 <span>{{item.insurance.firstBeneficiary}}</span>
@@ -84,10 +99,21 @@ export default {
     data() {
         return {
             message: '',
-            rentinfo: [] //租赁物
+            rentinfo: [], //租赁物
+            statuslist: {
+
+                insurancePurchaseTime: []
+            },
         }
     },
     created() {
+        // 字典编码
+        this.$post('/getConstantConfig',{
+            dictionaryCode: ['InsurancePurchaseTime']
+        }).then(res => {
+            this.statuslist.insurancePurchaseTime = res.data.data.InsurancePurchaseTime;
+            console.log(this.statuslist.insurancePurchaseTime );
+        })
         this.$post('/leaseinfo/query',{
              bussNo: this.$route.query.bussNo
         }).then( res => {

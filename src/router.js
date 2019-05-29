@@ -22,6 +22,8 @@ import confirmhandle from './views/loanmoney/confirmhandle.vue'; // 放款确认
 
 import banner from './views/bannermanagement/bannermanagement.vue'; // banner图管理
 import appversion from './views/appversion/appversion.vue'; // app版本管理
+import configuration from './views/configuration/configuration.vue'; // 用户权限管理
+import tubepeople from './views/configuration/tubepeople.vue'; // 用户权限管理
 // import loanmoneydetail from './views/loanmoney/loanmoneydetail.vue';
 Vue.use(Router)
 
@@ -143,6 +145,16 @@ export default new Router({
                     name: 'appversion',
                     component: appversion
                 },
+                {
+                    path: '/configuration', // 角色管理
+                    name: 'configuration',
+                    component: configuration
+                },
+                {
+                    path: '/tubepeople', // 用户权限管理
+                    name: 'tubepeople',
+                    component: tubepeople
+                }
             ]
         },
         {

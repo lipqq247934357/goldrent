@@ -36,6 +36,18 @@
                 <span>评估价值（万元）</span>
                 <span>{{item.evaluateValue}}</span>
             </li>
+            <li>
+                <span>抵押类别</span>
+                <span v-for="creditType in statuslist.creditType" v-if="item.creditType == creditType.optionCode">
+                    {{creditType.optionName}}
+                </span>
+            </li>
+            <li>
+                <span>评估机构</span>
+                <span v-for="creditType in statuslist.creditType" v-if="item.creditType == creditType.optionCode">
+                    {{creditType.optionName}}
+                </span>
+            </li>
             <li class="subliWidth">
                 <p class="bz">备注</p>
                 <div class="batextarrear">
@@ -158,7 +170,8 @@ export default {
             sponsor: '', //主办人
             assist: '', //协办人
             statuslist: { // 字典编码
-                custRelation: []
+                custRelation: [],
+                creditType: []
             },
             responsible: '' // 部门负责
         }
@@ -166,9 +179,10 @@ export default {
     created() {
         // 字典编码约定
         this.$post('/getConstantConfig',{
-            dictionaryCode: ['custRelation']
+            dictionaryCode: ['custRelation','creditAdditionType']
         }).then(res => {
             this.statuslist.custRelation = res.data.data.custRelation;
+            this.statuslist.creditType = res.data.data.creditAdditionType;
         })
         // 主办人
         this.$post('/getSurveyConclusion',{

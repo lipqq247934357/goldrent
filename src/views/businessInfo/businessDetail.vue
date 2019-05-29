@@ -284,7 +284,7 @@
                 if (data.data.data.code === '2000000') { // 状态正确，执行更新操作
                     data = data.data.data;
                     this.task = data.task;
-                    this.custNature = data.custNature; //承租人信息
+                    this.custNature = data.task; //承租人信息
                     this.leaseInfo = data.leaseInfo; // 租赁物信息
                     this.leasePlan = data.leasePlan; //租金计划表
                 }

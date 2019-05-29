@@ -237,7 +237,6 @@ export default {
 
         },
         handleClick(val) {
-            console.log(val);return;
             //查看按钮
             this.$router.push({
                 path: '/layout/loadapprovaldetail',

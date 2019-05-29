@@ -188,7 +188,7 @@
                 <li>
                     <div>法人电话</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.legalMobile"/>
+                        <el-input maxlength="11" :disabled="type === 'detail'" size="mini" type="text" v-model="data.legalMobile"/>
                     </div>
                 </li>
                 <li>

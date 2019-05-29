@@ -45,7 +45,7 @@
     <div class="bottombutton">
         <el-button type="primary" @click="save" :disabled="inputdisabled" >保存</el-button>
         <el-button type="primary" @click="adopt" :disabled="inputdisabled">通过</el-button>
-        <el-button type="primary" @click="exit" :disabled="inputdisabled">退回</el-button>
+        <!-- <el-button type="primary" @click="exit" :disabled="inputdisabled">退回</el-button> -->
     </div>
     <!-- 底部按钮end -->
 </div>

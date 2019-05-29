@@ -143,8 +143,7 @@
         保证人
     </div>
     <div class="presentation"
-         v-for="item in guarantor"
-         >
+         v-for="item in guarantor">
         <div class="peopletype">
             <span>保证人：{{item.guarantorName}}</span>
         </div>
@@ -680,18 +679,17 @@ export default {
             //         ]
             //     }
             // }
+            let datainfo = res.data.data;
+            this.guarantor = datainfo.guarantorCreditScoreList; // 保证人
+            this.buyback = datainfo.repoCreditScoreList; // 回购人
             if(res.data.data == null || res.data.data.decisionCreditScoreResult == null || res.data.data.decisionCreditScoreResult == null) {
                 return;
             }
-            let datainfo = res.data.data;
             this.tableData = datainfo.decisionCreditScoreResultItem;
             this.proposaltotalScore = datainfo.decisionCreditScoreResult.totalScore;
             this.proposalsuggestResult = datainfo.decisionCreditScoreResult.suggestResult;
             this.inputlessinfo = datainfo.decisionCreditScore;
             this.radio = datainfo.decisionCreditScore.haveCreditReport;
-            this.guarantor = datainfo.guarantorCreditScoreList; // 保证人
-            this.buyback = datainfo.repoCreditScoreList; // 回购人
-
         });
     },
     methods: {
@@ -724,9 +722,9 @@ export default {
             // 保证人
             var guarantorListData = this.guarantor.map((info, i) => {
                 return {
-                    guarantorContinueOverdueNum24m: info.overdueMaxAmount24m, // 信用卡及贷款24个月累计逾期次数
+                    guarantorContinueOverdueNum24m: info.continueOverdueNum24m, // 信用卡及贷款24个月累计逾期次数
                     guarantorHaveCreditRecord: info.haveCreditRecord, // 有无征信
-                    guarantorOverdueMaxAmount24m: info.continueOverdueNum24m, // 最大逾期金额
+                    guarantorOverdueMaxAmount24m: info.overdueMaxAmount24m, // 最大逾期金额
                     guarantorCustId: info.guarantorId //保证人ID
 
                 };
@@ -734,9 +732,9 @@ export default {
             // 回购人
             var buybackListData = this.buyback.map((info, i) => {
                 return {
-                    repoContinueOverdueNum24m: info.overdueMaxAmount24m, // 信用卡及贷款24个月累计逾期次数
+                    repoContinueOverdueNum24m: info.continueOverdueNum24m, // 信用卡及贷款24个月累计逾期次数
                     repoHaveCreditRecord: info.haveCreditRecord, // 有无征信
-                    repoOverdueMaxAmount24m: info.continueOverdueNum24m, // 最大逾期金额
+                    repoOverdueMaxAmount24m: info.overdueMaxAmount24m, // 最大逾期金额
                     repoCustId: info.repoId // 回购人ID
                 };
             });
@@ -802,9 +800,13 @@ export default {
                 //         "repoOverdueMaxAmount24m": "1.123"
                 //     }]
                 // }
-                this.tableData = res.data.data.decisionCreditScoreResultItem;
-                this.proposaltotalScore = res.data.data.decisionCreditScoreResult.totalScore;
-                this.proposalsuggestResult = res.data.data.decisionCreditScoreResult.suggestResult;
+                if(res.data.code == '2000000') {
+                    this.$message.success('重评成功');
+                    this.tableData = res.data.data.decisionCreditScoreResultItem;
+                    this.proposaltotalScore = res.data.data.decisionCreditScoreResult.totalScore;
+                    this.proposalsuggestResult = res.data.data.decisionCreditScoreResult.suggestResult;
+                }
+
             });
         },
         havethe() {

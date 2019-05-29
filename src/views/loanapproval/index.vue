@@ -30,7 +30,7 @@
 
             <label>任务状态：</label>
             <template>
-                <el-select v-model="value" placeholder="请选择" class="choiceselect" @change="selectchange(value)">
+                <el-select v-model="value" placeholder="请选择" class="choiceselect">
                     <el-option
                         v-for="item in options"
                         :key="item.value"
@@ -108,8 +108,21 @@
                     prop="name"
                     label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="edit(scope.row)" type="text" size="small" v-if="scope.row.status != '已提交'">处理</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
+                        <el-button
+                            @click="edit(scope.row)"
+                            type="text"
+                            size="small"
+                            :disabled="buttondeal == 'N'"
+                            v-if="scope.row.status != '已提交'">
+                            处理
+                        </el-button>
+                        <el-button
+                            @click="handleClick(scope.row)"
+                            type="text"
+                            :disabled="buttoninfo == 'N'"
+                            size="small">
+                            详情
+                        </el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -164,21 +177,26 @@ export default {
             endTime: '',  // 结束控件时间
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
+            buttondeal: '', // 处理按钮
+            buttoninfo: '' // 详情按钮
         }
     },
     created() {
         this.query();
+        // this.jurisdiction() 后台配置不完整暂时注释
     },
     components: {
         componentitle,
     },
     methods: {
-        asd() {
-            alert(1);
-        },
-        // 下拉框事件
-        selectchange(val) {
-
+        // 获得权限
+        jurisdiction() {
+            let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+            this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
+                // 权限ajax
+                this.deal = res.data.data.deal;
+                this.info = res.data.data.info;
+            });
         },
         //进入页面获取数据展示在表格中
         query(numbers){
