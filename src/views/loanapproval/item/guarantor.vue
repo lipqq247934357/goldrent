@@ -272,9 +272,8 @@
                             </li>
                             <li>
                                 <span>教育程度</span>
-                                <span>
-                                    {{spouse.custEducation}}
-                                </span>
+
+                                <span v-for="ducation in statuslist.custEducation" v-if="spouse.custEducation == ducation.optionCode">{{ducation.optionName}}</span>
                             </li>
                             <li>
                                 <span>户籍所在地</span>
@@ -508,7 +507,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsOthers.mortgage == 'Y' ? '已抵押' : assetsOthers.mortgage == 'N' ? "未抵押" : '' }}</span>
                                 </li>
                                 <li>
                                     <span>价值（元）</span>
@@ -607,7 +606,7 @@
                                     <span>{{debtGuarantees.warrantee}}</span>
                                 </li>
                                 <li>
-                                    <span>保证人人与被担保人关系</span>
+                                    <span>保证人与被担保人关系</span>
                                     <span>{{debtGuarantees.withWarranteeRelation}}</span>
                                 </li>
                                 <br>
@@ -644,11 +643,12 @@
                                 <li>
                                     <span>有无担保</span>
                                     <span>
-                                        <select class="" name="" disabled>
+                                        <!-- <select class="" name="" disabled>
                                             <option value="" v-for="isGuarantee in statuslist.isGuarantee" :selected="debtOthers.isGuarantee == isGuarantee.optionCode ? true : false">
                                                 {{isGuarantee.optionName}}
                                             </option>
-                                        </select>
+                                        </select> -->
+                                        {{debtOthers.isGuarantee == "Y" ? "有" : debtOthers.isGuarantee == "N" ? "无" : ""}}
                                     </span>
                                 </li>
                                 <br>
@@ -702,8 +702,35 @@
                                     <span>结余（元）</span>
                                     <span>{{incomePlants.surplus}}</span>
                                 </li>
-                                
+
                             </ul>
+                        </div>
+                        <div class="describeText">
+                            <h3>&nbsp;&nbsp;&nbsp;种植经验描述</h3>
+                            <div class=""
+                            style="margin-top: -10px;"
+                                v-for="(incomePlants,index) in item.incomePlants"
+                                >
+                                <el-input
+                                    v-if="incomePlants.remark != ''"
+                                    type="textarea"
+                                    :rows="2"
+                                    placeholder=""
+                                    class="describetext"
+                                    disabled
+                                    v-model="incomePlants.remark">
+                                </el-input>
+                                <el-input
+                                    v-if="incomePlants.remark == '' ? index == 1 : ''"
+                                    type="textarea"
+                                    :rows="2"
+                                    placeholder=""
+                                    class="describetext"
+                                    disabled
+                                    v-model="incomePlantsRemark">
+                                </el-input>
+                            </div>
+
                         </div>
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;其他收入</h3>
@@ -729,32 +756,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="describeText">
-                            <h3>&nbsp;&nbsp;&nbsp;种植经验描述</h3>
-                            <div class=""
-                                v-for="(incomePlants,index) in item.incomePlants"
-                                >
-                                <el-input
-                                    v-if="incomePlants.remark != ''"
-                                    type="textarea"
-                                    :rows="2"
-                                    placeholder=""
-                                    class="describetext"
-                                    disabled
-                                    v-model="incomePlants.remark">
-                                </el-input>
-                                <el-input
-                                    v-if="incomePlants.remark == '' ? index == 1 : ''"
-                                    type="textarea"
-                                    :rows="2"
-                                    placeholder=""
-                                    class="describetext"
-                                    disabled
-                                    v-model="incomePlantsRemark">
-                                </el-input>
-                            </div>
 
-                        </div>
                     </div>
                 </div>
                 <div class="assetsinfo">
@@ -1137,10 +1139,10 @@ export default {
                           // 储存 partnerType 用于匹配不同影像信息
                           let typeLong = matType[warrantorData[i].partnerType];
                           let partnerId = warrantorData[i].id;
-                          if (!typeLong) {
-                              this.$message.error('无保证人图片信息');
-                              return;
-                          }
+                          // if (!typeLong) {
+                          //     this.$message.error('无保证人图片信息');
+                          //     return;
+                          // }
                           this.$post('/materialTree', {
                               materialType: typeLong
                           }).then( res => {

@@ -33,7 +33,7 @@
                 </li>
                 <li>
                     <span>识别号类型</span>
-                    <span>{{item.condition.serialNoType}}</span>
+                    <span v-for="nuType in statuslist.serialNumberType" v-if="item.condition.serialNoType == nuType.optionCode">{{nuType.optionName}}</span>
                 </li>
 
             </ul>
@@ -101,18 +101,18 @@ export default {
             message: '',
             rentinfo: [], //租赁物
             statuslist: {
-
-                insurancePurchaseTime: []
+                insurancePurchaseTime: [],
+                serialNumberType: []
             },
         }
     },
     created() {
         // 字典编码
         this.$post('/getConstantConfig',{
-            dictionaryCode: ['InsurancePurchaseTime']
+            dictionaryCode: ['InsurancePurchaseTime','serialNumberType']
         }).then(res => {
             this.statuslist.insurancePurchaseTime = res.data.data.InsurancePurchaseTime;
-            console.log(this.statuslist.insurancePurchaseTime );
+            this.statuslist.serialNumberType = res.data.data.serialNumberType;
         })
         this.$post('/leaseinfo/query',{
              bussNo: this.$route.query.bussNo

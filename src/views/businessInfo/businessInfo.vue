@@ -57,6 +57,8 @@
                 <el-table
                         :data="tableData"
                         border
+                        v-loading="loading"
+                        element-loading-text="拼命加载中"
                         :header-cell-style="{
                             'color': '#212121',
                             'font-size': '14px',
@@ -70,7 +72,7 @@
                     </el-table-column>
                     <el-table-column
                             label="承租人姓名"
-                            prop="custName">
+                            prop="leaseholder">
                     </el-table-column>
                     <el-table-column
                             label="计划起租日"
@@ -78,15 +80,15 @@
                     </el-table-column>
                     <el-table-column
                             label="融资金额"
-                            prop="raiseFunds">
+                            prop="leaseAmount">
                     </el-table-column>
                     <el-table-column
                             label="主办"
-                            prop="sponsor">
+                            prop="sponsorName">
                     </el-table-column>
                     <el-table-column
                             label="协办"
-                            prop="jointly">
+                            prop="jointlyName">
                     </el-table-column>
                     <el-table-column
                             label="任务名称"
@@ -141,7 +143,7 @@
                 contenttext: '任务信息',
                 bussNo: '', // 订单号
                 custName: '', // 承租人姓名
-                task_name: '', // 储存任务名称
+                task_name: 'ALL_ORDER', // 储存任务名称
                 selectstatus: '', // 储存任务状态
                 statusOptions: [
                     {
@@ -171,55 +173,55 @@
                 ],
                 choiceoptions: [
                     {
-                        value: '全部',
+                        value: 'ALL_ORDER',
                         label: '全部'
                     },
                     {
-                        value: '报单申请-协办',
+                        value: 'APPLY_ASSIST',
                         label: '报单申请-协办'
                     },
                     {
-                        value: '报单申请-负责人',
+                        value: 'APPLY_MASTER',
                         label: '报单申请-负责人'
                     },
                     {
-                        value: '报单申请-补充资料',
+                        value: 'APPLY_SUPPLEMENT',
                         label: '报单申请-补充资料'
                     },
                     {
-                        value: '授信审批',
+                        value: 'LOAN_APPROVE',
                         label: '授信审批'
                     },
                     {
-                        value: '授信审批-资深审批',
+                        value: 'APPROVE_SENIOR',
                         label: '授信审批-资深审批'
                     },
                     {
-                        value: '授信审批-秘书审批',
+                        value: 'APPROVE_SECRETARY',
                         label: '授信审批-秘书审批'
                     },
                     {
-                        value: '授信审批-主任审批',
+                        value: 'APPROVE_DIRECTOR',
                         label: '授信审批-主任审批'
                     },
                     {
-                        value: '合同签约',
+                        value: 'CONTRACT_ASSIGN',
                         label: '合同签约'
                     },
                     {
-                        value: '放款审批',
+                        value: 'GRANT_APPROVE',
                         label: '放款审批'
                     },
                     {
-                        value: '放款确认',
+                        value: 'LOAN_CONFIRM',
                         label: '放款确认'
                     },
                     {
-                        value: '已放款',
+                        value: 'LOAN_DONE',
                         label: '已放款'
                     },
                     {
-                        value: '已失效',
+                        value: 'ORDER_INVALID',
                         label: '已失效'
                     }
                 ],
@@ -243,7 +245,8 @@
                 pagesothen: 10,
                 nowpage: 1,
                 currentPage2: 1,
-                allpage: ''
+                allpage: '',
+                loading: true
 
             }
         },
@@ -275,6 +278,7 @@
                     if(res.data.code == '2000000') {
                         this.tableData = res.data.data.list;
                         this.allpage = res.data.data.totalCount;
+                        this.loading = false;
                     }
 
                 });

@@ -71,11 +71,11 @@
         width="30%"
         :before-close="handleClose">
         <div class="dialoginput">
-            <div class="namediv" v-if="dialogType == '1'">
+            <div class="namediv">
                 <label>角色名称：</label>
                 <el-input placeholder="请输入内容" class="contentinout" v-model="inputName"></el-input>
             </div>
-            <div class="selectdiv" v-if="dialogType == '1'">
+            <div class="selectdiv">
                 <label>匹配系统：</label>
                 <template>
                     <el-select v-model="value" placeholder="请选择" class="choiceselect">
@@ -87,31 +87,38 @@
                         </el-option>
                     </el-select>
                 </template>
-                <div class="pc" v-if="value == '2' || value == '0'">
+                <div class="pc" v-if="value == '1' || value == '0'">
                     <h3>PC选取菜单</h3>
-                    <el-checkbox label="全选"></el-checkbox>
-                    <el-collapse v-model="activeNames" @change="handleChange" class="dialogcollapse">
-
-                        <el-checkbox-group v-model="checkedData" @change='checkboxData'>
-                            <el-collapse-item v-for="(item,index) in tree" :title="item.resourceName" :name="index">
-                                <div class="fatherDiv" v-for="subitem in item.authResource">
-                                    <el-checkbox :label="subitem.resourceName"></el-checkbox>
-                                    <div class="lastchildDiv" v-for="lastchild in subitem.authResource">
-                                        <el-checkbox :label="lastchild.resourceName"></el-checkbox>
-                                    </div>
-                                </div>
-                            </el-collapse-item>
-                        </el-checkbox-group>
-                    </el-collapse>
+                    <el-tree
+                        :data="tree"
+                        show-checkbox
+                        node-key="id"
+                        :default-expanded-keys="ids"
+                        :default-checked-keys="ids"
+                        @check="treechecked"
+                        :props="defaultProps">
+                    </el-tree>
                 </div>
-                <div class="phone" v-if="value == '1' || value == '0'">
+                <div class="phone" v-if="value == '2' || value == '0'">
                     <h3>移动选取菜单</h3>
+
                     <template>
-                        <el-checkbox-group v-model="checkedData" @change='checkboxData' class="checkedData">
-                            <el-checkbox label="报单申请" class="subcheckbox"></el-checkbox>
-                            <el-checkbox label="调查任务" class="subcheckbox"></el-checkbox>
-                            <el-checkbox label="面签任务" class="subcheckbox"></el-checkbox>
-                            <el-checkbox label="业务订单查询" class="subcheckbox"></el-checkbox>
+                        <el-checkbox
+                            :indeterminate="isIndeterminate"
+                            v-model="checkAll"
+                            @change="handleCheckAllChange">
+                            全选
+                        </el-checkbox>
+                        <div style="margin: 15px 0;"></div>
+                        <el-checkbox-group
+                            v-model="checkedTask"
+                            @change="handleCheckedCitiesChange">
+                            <el-checkbox
+                                v-for="task in app"
+                                :label="task.id"
+                                :key="task.id">
+                                {{task.resourceName}}
+                            </el-checkbox>
                         </el-checkbox-group>
                     </template>
                 </div>
@@ -135,43 +142,53 @@ export default {
             tableData: [],
             righttableData: [],
             dialogVisible: false,
-            dialogType: '',
             inputName: '',
             value: '',
             options: [
                 {
-                    value: '1',
+                    value: '2',
                     label: '移动报单'
                 },
                 {
-                    value: '2',
+                    value: '1',
                     label: 'PC'
-                },
-                {
-                    value: '0',
-                    label: '移动+PC'
                 }
             ],
             dialogTitle: '新建角色',
             checkedData: [],
-            activeNames: ['1'],
-            elcollapse: [
-                {
-                    title: '业务信息',
-                }
-            ],
             tree: [],
+            app: [],
             currentPage: 1,
             pageSize: '10',
             currentPage2: 1,
-            allpage: 1
+            allpage: 1,
+            defaultProps: {
+               children: 'authResource',
+               label: 'resourceName'
+            },
+            checkAll: false,
+            checkedTask: [],
+            taskOptions: [
+                {name:'报单申请',id: '0'},
+                {name:'调查任务',id: '1'},
+                {name: '面签任务',id: '2'},
+                {name: '业务订单查询',id: '3'}
+            ],
+            taskId: [],
+            isIndeterminate: true,
+            ids: [], // 编辑按钮用于回显选中的树形结构
+            editType: '', // 1编辑 0新增
+            currentroleId: '', // 编辑是需要用到的角色ID
         }
     },
     created() {
         //PC权限配置树形结构
         this.$get('/resource/listResource').then(res => {
-            console.log(res.data.data);
-            this.tree = res.data.data;
+            this.tree = res.data.data.PC;
+            this.app = res.data.data.APP;
+            for(let i = 0 ; i < this.app.length;i++ ) {
+                this.taskId.push(this.app[i].id);
+            }
         });
         this.tablepage();
     },
@@ -179,14 +196,17 @@ export default {
         tablepage() {
             this.$get(`/role/listRole?currentPage=${this.currentPage}&pageSize=${this.pageSize}`).then(res => {
                 this.tableData = res.data.data.recordList;
-                this.allpage = res.data.data.totalPage;
-                console.log(this.tableData,',,,,,,');
+                this.allpage = res.data.data.totalCount;
+                console.log(this.allpage);
+
             });
         },
         releasebutton() {
             this.dialogVisible = true;
-            this.dialogType = '1';
+            this.inputName = '';
             this.value = '';
+            this.ids = [];
+            this.editType = '0';
         },
         handleClose() {
             // 关闭弹框
@@ -195,31 +215,67 @@ export default {
         checkboxData(val) {
             console.log(val);
         },
-        handleChange() {
-
-        },
         dialogsubmit() {
-            // 确定按钮
-            this.$post('/role/addRole',{
-                resourceIds: [],
-                roleName: '',
-                matchSystem: ''
-            }).then(res => {
+            // 确定按钮 editType 1编辑 0 新增
+            if(this.inputName == '' || this.value == '') {
+                this.$message.error('角色名称或者匹配系统没有填写')
+                return;
+            }
 
-            });
+            if(this.editType == '1') {
+                this.$post('/role/updataRole',{
+                    resourceIds: this.checkedData,
+                    roleName: this.inputName,
+                    matchSystem: this.value,
+                    id: this.currentroleId
+                }).then(res => {
+                    if(res.data.code == '2000000') {
+                        this.$message.success('修改成功');
+                        this.dialogVisible = false;
+                        this.tablepage();
+                        return;
+                    }
+                });
+            }
+
+            if(this.editType == '0') {
+                this.$post('/role/addRole',{
+                    resourceIds: this.checkedData,
+                    roleName: this.inputName,
+                    matchSystem: this.value
+                }).then(res => {
+                    if(res.data.code == '2000000') {
+                        this.$message.success('新增成功');
+                        this.dialogVisible = false;
+                        this.tablepage();
+                    }
+                });
+            }
+
         },
+        // 分页 页大小
         handleSizeChange(val) {
-
+            this.pageSize = val;
+            this.tablepage();
         },
+        // 分页 上一页下一页
         handleCurrentChange(val) {
+            this.currentPage = val;
+            this.tablepage();
+        },
+        // 编辑
+        edit(val) {
+            this.currentroleId = val.id;
+            this.editType = '1'; // 编辑
+            this.inputName = val.roleName;
+            this.value = val.matchSystem;
+            this.dialogVisible = true;
+            this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
+                this.ids = res.data.data.resourceIds;
+            });
 
         },
-        edit(val) {
-            console.log(val);
-            this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
-                console.log(res);
-            });
-        },
+        // 删除
         deletetable(val) {
             this.$post(`/role/deletRole`,{
                 roleId: val.id
@@ -229,6 +285,20 @@ export default {
                     this.tablepage();
                 }
             });
+        },
+
+        treechecked(data,checked) {
+            // 获取ID用于新增角色的ajax参数
+            this.checkedData = checked.checkedKeys;
+        },
+        handleCheckAllChange(val) {
+            this.checkedTask = val ? this.taskId : [];
+            this.isIndeterminate = false;
+        },
+        handleCheckedCitiesChange(value) {
+            let checkedCount = value.length;
+            this.checkAll = checkedCount === this.taskOptions.length;
+            this.isIndeterminate = checkedCount > 0 && checkedCount < this.taskOptions.length;
         }
     },
     components: {

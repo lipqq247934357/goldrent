@@ -304,6 +304,31 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
+                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;金融资产</h3>
+                            <ul class="infolist" v-for="finance in item.assetsFinances">
+                                <li>
+                                    <span>存款</span>
+                                    <span>{{finance.deposit}}</span>
+                                </li>
+                                <li>
+                                    <span>大额存单</span>
+                                    <span>{{finance.bigDeposit}}</span>
+                                </li>
+                                <li>
+                                    <span>债券</span>
+                                    <span>{{finance.bond}}</span>
+                                </li>
+                                <li>
+                                    <span>股票</span>
+                                    <span>{{finance.shares}}</span>
+                                </li>
+                                <li>
+                                    <span>理财产品</span>
+                                    <span>{{finance.products}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;&nbsp;车产情况</h3>
                             <ul class="infolist" v-for="car in item.assetsVehicles">
                                 <li>
@@ -330,7 +355,7 @@
 
                                 <li>
                                     <span>发票金额（元）</span>
-                                    <span>{{car.serialNo}}</span>
+                                    <span>{{car.invoiceAmount}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -343,7 +368,7 @@
                                 </li>
                                 <li>
                                     <span>发票金额（元）</span>
-                                    <span>{{assetsFarmTools.buyTime}}</span>
+                                    <span>{{assetsFarmTools.invoiceAmount}}</span>
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>
@@ -366,14 +391,17 @@
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;&nbsp;其他资产</h3>
                             <ul class="infolist" v-for="assetsOthers in item.assetsOthers">
-                                <!-- <li>
+                                <li>
                                     <span>购买时间</span>
                                     <span>{{assetsOthers.buyTime}}</span>
-                                </li> -->
+                                </li>
                                 <li>
                                     <span>当前估值</span>
                                     <span>{{assetsOthers.value}}</span>
-
+                                </li>
+                                <li>
+                                    <span>是否抵押</span>
+                                    <span>{{assetsOthers.mortgage == "Y" ? '已抵押' : '未抵押'}}</span>
                                 </li>
                                 <li>
                                     <span>所有权人</span>
@@ -502,7 +530,7 @@
                                 </li>
                                 <li>
                                     <span>有无担保</span>
-                                    <span>{{debtOthers.isGuarantee}}</span>
+                                    <span>{{debtOthers.isGuarantee == 'Y' ? '有' : debtOthers.isGuarantee == 'N' ? '无' :''}}</span>
                                 </li>
                                 <br>
                                 <li class="subliWidth">
@@ -559,9 +587,9 @@
                             </ul>
                             <div class="describeText">
                                 <h3>&nbsp;&nbsp;&nbsp;种植经验描述</h3>
-                                <div class=""
-                                    v-for="(incomePlants,index) in item.incomePlants"
-                                    >
+                                <div class="describeText"
+                                    style="margin-top: -10px;"
+                                    v-for="(incomePlants,index) in item.incomePlants">
                                     <el-input
                                         v-if="incomePlants.remark != ''"
                                         type="textarea"
@@ -1172,10 +1200,10 @@ export default {
           //获取图片树形结构
           const stockPrice = await (() => {
               const matType = {"NAT":"NATURE_MATERIAL","LEG":"LEGAL_MATERIAL"};
-              if (!matType[this.partner]) {
-                  this.$message.error('无承租人图片信息')
-                  return;
-              }
+              // if (!matType[this.partner]) {
+              //     this.$message.error('无承租人图片信息')
+              //     return;
+              // }
               return this.$post('/materialTree',{
                   materialType: matType[this.partner]
               }).then( res => {

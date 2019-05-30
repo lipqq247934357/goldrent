@@ -45,7 +45,7 @@
             <li>
                 <span>评估机构</span>
                 <span v-for="creditType in statuslist.creditType" v-if="item.creditType == creditType.optionCode">
-                    {{creditType.optionName}}
+                    {{creditType.evaluationAgency}}
                 </span>
             </li>
             <li class="subliWidth">
@@ -171,7 +171,8 @@ export default {
             assist: '', //协办人
             statuslist: { // 字典编码
                 custRelation: [],
-                creditType: []
+                creditType: [],
+                serialNumberType: []
             },
             responsible: '' // 部门负责
         }
@@ -183,6 +184,7 @@ export default {
         }).then(res => {
             this.statuslist.custRelation = res.data.data.custRelation;
             this.statuslist.creditType = res.data.data.creditAdditionType;
+            
         })
         // 主办人
         this.$post('/getSurveyConclusion',{

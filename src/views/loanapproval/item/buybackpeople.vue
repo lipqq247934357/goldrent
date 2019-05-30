@@ -187,7 +187,7 @@ export default {
                       this.backpeople = res.data.data;
                       for(let i = 0 ; i < this.backpeople.length ; i ++ ) {
                           if(this.backpeople[i].basicInfo.partnerType == null) {
-                              this.$message.error('回购人当前没有影像资料');
+                              // this.$message.error('回购人当前没有影像资料');
                           }
                           return this.backpeople[i].basicInfo.partnerType;
                       }
@@ -198,10 +198,10 @@ export default {
           // 图片树形结构
           const stockPrice = await (() => {
               const matType = {"NAT":"NATURE_MATERIAL","LEG":"LEGAL_MATERIAL"};
-              if (!matType[this.partner]) {
-                  this.$message.error('无回购人图片信息');
-                  return;
-              }
+              // if (!matType[this.partner]) {
+              //     this.$message.error('无回购人图片信息');
+              //     return;
+              // }
               return this.$post('/materialTree',{
                   materialType: matType[this.partner]
               }).then( res => {
