@@ -81,7 +81,7 @@
                     </li>
 
                     <li>
-                        <div>图片位子：</div>
+                        <div>图片位置：</div>
                         <div>
                             <template>
                                 <el-select v-model="value" placeholder="请选择" class="choiceselect">
@@ -222,6 +222,9 @@ export default {
             this.uploadactive = '1';
             this.bannerTitle = '';
             this.bannerLinkurl = '';
+            this.bannerIndex = '';
+            this.value = '';
+            this.fileList = [];
         },
         handleRemove(file, fileList) {
             // 文件列表移除文件时的钩子
