@@ -10,7 +10,7 @@
                     <el-button type="primary" class="spreport" @click="viewreport">查看调查报告</el-button>
                     <el-button type="primary" @click="surveyprot">生成审批报告</el-button>
                 </div>
-                <div class="subone" style="clear:both">
+                <div class="subone" style="clear:both;width: 85%;float: right;">
                     <p class="contract">面签合同：</p>
                     <!-- <div class="checkbox" v-for="(item,index) in checkboxlist" :class="inputdisabled == true ? 'notallowed' : ''">
                         <input
