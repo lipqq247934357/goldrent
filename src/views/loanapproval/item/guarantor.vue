@@ -32,6 +32,12 @@
                                 </span>
                             </li>
                             <li>
+                                <span>证件失效时间</span>
+                                <span>
+                                    {{item.certEndDate}}
+                                </span>
+                            </li>
+                            <li>
                                 <span>注册资本（万元）</span>
                                 <span>
                                     {{item.comRegisteredCapital}}
@@ -56,7 +62,7 @@
                                 </span>
                             </li>
                             <li>
-                                <span>营业地址</span>
+                                <span>经营地址</span>
                                 <span>
                                     {{item.comAddress}}
                                 </span>
@@ -172,7 +178,7 @@
                                 <span v-if="item.custSex == ''"></span>
                             </li>
                             <li>
-                                <span>微信号</span>
+                                <span>微信</span>
                                 <span>{{item.custWechat}}</span>
                             </li>
                             <li>
@@ -187,7 +193,7 @@
                                 <span v-if="item.custEducation == ''"></span>
                             </li>
                             <li>
-                                <span>户籍所在地</span>
+                                <span>户籍地址</span>
                                 <span>{{item.custHomeplace}}</span>
                             </li>
                             <li>
@@ -249,7 +255,7 @@
                         <h3>&nbsp;&nbsp;&nbsp;配偶情况</h3>
                         <ul class="infolist" v-for="spouse in item.mateInfo">
                             <li>
-                                <span>配偶姓名</span>
+                                <span>姓名</span>
                                 <span>
                                     {{spouse.custName}}
                                 </span>
@@ -273,13 +279,13 @@
                                 <span v-if="spouse.custSex == ''"></span>
                             </li>
                             <li>
-                                <span>微信号</span>
+                                <span>微信</span>
                                 <span>
                                     {{spouse.custWechat}}
                                 </span>
                             </li>
                             <li>
-                                <span>身份证号</span>
+                                <span>身份证号码</span>
                                 <span>{{spouse.certNo}}</span>
                             </li>
                             <li>
@@ -290,7 +296,7 @@
                                 <span v-if="spouse.custEducation ==''"></span>
                             </li>
                             <li>
-                                <span>户籍所在地</span>
+                                <span>户籍地址</span>
                                 <span>{{spouse.custHomeplace}}</span>
                             </li>
                             <li>
@@ -345,7 +351,7 @@
                         </ul>
                     </div>
 
-                    <div class="assetsinfoul">
+                    <!-- <div class="assetsinfoul">
                         <h3>&nbsp;&nbsp;&nbsp;子女情况</h3>
                         <ul class="infolist" v-for="childrenInfo in item.childrenInfo">
                             <li>
@@ -357,11 +363,11 @@
                             <li>
                                 <span>性别</span>
                                 <span v-for="sex in statuslist.custSex" v-if="item.custSex == childrenInfo.optionCode">
-                                    <!-- <select class="" name="" disabled>
+                                    <select class="" name="" disabled>
                                         <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == childrenInfo.custSex ? true : false">
                                             {{sex.optionName}}
                                         </option>
-                                    </select> -->
+                                    </select>
                                     {{sex.optionName}}
                                 </span>
                                 <span v-if="item.custSex == ''"></span>
@@ -383,7 +389,7 @@
                                 <span>{{childrenInfo.certNo}}</span>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                     <!-- 资产情况 -->
                     <div class="div1">
                         <componentitle :message="message='资产情况'" />
@@ -391,7 +397,7 @@
                             <h3>&nbsp;&nbsp;&nbsp;房产信息</h3>
                             <ul class="infolist" v-for="assetsHouses in item.assetsHouses">
                                 <li>
-                                    <span>房产类型</span>
+                                    <span>房产类别</span>
                                     <span v-for="housrType in statuslist.houseType" v-if="assetsHouses.type == housrType.optionCode">
                                         <!-- <select class="" name="" disabled>
                                             <option value="" v-for="housrType in statuslist.houseType" :selected="assetsHouses.type == housrType.optionCode ? true : false">
@@ -407,7 +413,7 @@
                                     <span>{{assetsHouses.acreage}}</span>
                                 </li>
                                 <li>
-                                    <span>房产地址/坐落</span>
+                                    <span>抵押物地址/坐落</span>
                                     <span>{{assetsHouses.address}}</span>
                                 </li>
                                 <li>
@@ -434,11 +440,11 @@
                                     <span>{{assetsLands.acreage}}</span>
                                 </li>
                                 <li>
-                                    <span>当前估值（元）</span>
+                                    <span>价值（元）</span>
                                     <span>{{assetsLands.value}}</span>
                                 </li>
                                 <li>
-                                    <span>房产地址/坐落</span>
+                                    <span>土地地址/坐落</span>
                                     <span>{{assetsLands.address}}</span>
                                 </li>
                                 <li>
@@ -471,7 +477,7 @@
                                     <span>{{assetsVehicles.currEvaluation}}</span>
                                 </li>
                                 <li>
-                                    <span>车辆号牌</span>
+                                    <span>车辆牌号</span>
                                     <span>{{assetsVehicles.serialNo}}</span>
                                 </li>
                                 <li>
@@ -627,7 +633,7 @@
                                     <span>{{debtGuarantees.warrantee}}</span>
                                 </li>
                                 <li>
-                                    <span>保证人与被担保人关系</span>
+                                    <span>与被担保人关系</span>
                                     <span>{{debtGuarantees.withWarranteeRelation}}</span>
                                 </li>
                                 <br>
@@ -716,7 +722,7 @@
                                     <span>{{incomePlants.oneCost}}</span>
                                 </li>
                                 <li>
-                                    <span>亩产收入（元）</span>
+                                    <span>单亩收入（元）</span>
                                     <span>{{incomePlants.oneIncome}}</span>
                                 </li>
                                 <li>

@@ -62,7 +62,7 @@
                     <h3>&nbsp;&nbsp;&nbsp;{{otherpeople.repurchaseType == '1' ? '回购人' : '回购方实际控制人'}}</h3>
                     <ul class="infolist byinfolist">
                         <li>
-                            <span>回购人</span>
+                            <span>{{otherpeople.repurchaseType == '1' ? '回购人' : '回购方实际控制人'}}</span>
                             <span>
                                 {{otherpeople.personName}}
                             </span>

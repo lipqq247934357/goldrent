@@ -113,7 +113,7 @@
                         <h3 v-if="item.custMarriage != 'unmarried'">&nbsp;&nbsp;&nbsp;配偶情况</h3>
                         <ul class="infolist" v-for="spouse in item.mateInfo">
                             <li>
-                                <span>配偶姓名</span>
+                                <span>姓名</span>
                                 <span>
                                     {{spouse.custName}}
                                 </span>
@@ -149,7 +149,7 @@
                                 </span>
                             </li>
                             <li>
-                                <span>身份证号</span>
+                                <span>身份证号码</span>
                                 <span>{{spouse.certNo}}</span>
                             </li>
                             <li>
@@ -210,7 +210,7 @@
                                 </span>
                             </li>
                             <li>
-                                <span>户籍地址</span>
+                                <span>户籍</span>
                                 <span>{{childrenInfo.custHomeplace}}</span>
                             </li>
                             <li>
@@ -226,7 +226,7 @@
                                 <span v-if="item.custSex == ''"></span>
                             </li>
                             <li>
-                                <span>身份证号</span>
+                                <span>身份证号码</span>
                                 <span>{{childrenInfo.certNo}}</span>
                             </li>
                             <li class="borderNone">
@@ -246,7 +246,7 @@
                             <h3>&nbsp;&nbsp;&nbsp;&nbsp;房产信息</h3>
                             <ul class="infolist" v-for="assetsinfouls in item.assetsHouses">
                                 <li>
-                                    <span>房产类型</span>
+                                    <span>房产类别</span>
                                     <span v-for="housrType in statuslist.houseType" v-if="assetsinfouls.type == housrType.optionCode">
                                         <!-- <select class="" name="" disabled>
                                             <option value="" v-for="housrType in statuslist.houseType" :selected="assetsinfouls.type == housrType.optionCode ? true : false">
@@ -262,7 +262,7 @@
                                     <span>{{assetsinfouls.acreage}}</span>
                                 </li>
                                 <li>
-                                    <span>房产地址/坐落</span>
+                                    <span>抵押物地址/坐落</span>
                                     <span>{{assetsinfouls.address}}</span>
 
                                 </li>
@@ -289,7 +289,7 @@
                                     <span>{{assetsLands.acreage}}</span>
                                 </li>
                                 <li>
-                                    <span>当前估值（元）</span>
+                                    <span>价值（元）</span>
                                     <span>{{assetsLands.value}}</span>
                                 </li>
                                 <li>
@@ -352,7 +352,7 @@
                                     <span>{{car.currEvaluation}}</span>
                                 </li>
                                 <li>
-                                    <span>号牌/车架号</span>
+                                    <span>车辆牌号</span>
                                     <span>{{car.serialNo}}</span>
                                 </li>
                                 <li class="borderNone">
@@ -403,7 +403,7 @@
                                     <span>{{assetsOthers.buyTime}}</span>
                                 </li>
                                 <li>
-                                    <span>当前估值</span>
+                                    <span>价值</span>
                                     <span>{{assetsOthers.value}}</span>
                                 </li>
                                 <li>
@@ -493,14 +493,13 @@
                                 <li>
                                     <span>担保余额（元）</span>
                                     <span>{{debtGuarantees.guaranteeBalance}}</span>
-
                                 </li>
                                 <li>
                                     <span>被担保人</span>
                                     <span>{{debtGuarantees.warrantee}}</span>
                                 </li>
                                 <li>
-                                    <span>承租人与被担保人关系</span>
+                                    <span>与被担保人关系</span>
                                     <span>{{debtGuarantees.withWarranteeRelation}}</span>
                                 </li>
                                 <br>
@@ -633,7 +632,7 @@
                                     <span>{{incomeFarmMachineryWork.plantType}}</span>
                                 </li>
                                 <li>
-                                    <span>作业面积/亩</span>
+                                    <span>种植面积/亩</span>
                                     <span>{{incomeFarmMachineryWork.plantArea}}</span>
 
                                 </li>
@@ -642,7 +641,7 @@
                                     <span>{{incomeFarmMachineryWork.oneCost}}</span>
                                 </li>
                                 <li>
-                                    <span>亩产收入（元）</span>
+                                    <span>单亩收入（元）</span>
                                     <span>{{incomeFarmMachineryWork.oneIncome}}</span>
                                 </li>
                                 <li>
@@ -706,7 +705,7 @@
 
                                 </li>
                                 <li>
-                                    <span>偿债比</span>
+                                    <span>偿债比（年支出/年结余）</span>
                                     <span>{{incomeDebtRatios.incomeDebtRatio}}</span>
                                 </li>
                             </ul>

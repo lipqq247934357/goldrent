@@ -28,7 +28,7 @@
                 <span>{{item.certificate}}</span>
             </li>
             <li>
-                <span>建筑面积（平方米）</span>
+                <span>建筑面积（㎡）</span>
                 <span>{{item.area}}</span>
 
             </li>
@@ -101,7 +101,7 @@
                 <span>{{item.landTerm}}</span>
             </li>
             <li>
-                <span>面积（平方米）</span>
+                <span>面积（㎡）</span>
                 <span>{{item.area}}</span>
             </li>
             <li>

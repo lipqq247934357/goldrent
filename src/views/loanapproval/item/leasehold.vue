@@ -20,7 +20,7 @@
                     <span>{{item.condition.purchasePrice}}</span>
                 </li>
                 <li>
-                    <span>能否抵押我司</span>
+                    <span>是否抵押我司</span>
                     <span>{{item.condition.mortgage == "Y" ? '是': item.condition.mortgage == "N" ? '否' : ''}}</span>
                 </li>
                 <li>
