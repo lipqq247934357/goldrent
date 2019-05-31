@@ -87,7 +87,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="raiseFunds"
-                    label="融资金额">
+                    label="融资金额（元）">
                 </el-table-column>
                 <el-table-column
                     prop="organiser"
@@ -109,8 +109,21 @@
                     prop="name"
                     label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="edit(scope.row)" type="text" size="small" v-if="scope.row.status == '待处理'">处理</el-button>
-                        <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
+                        <el-button
+                            @click="edit(scope.row)"
+                            type="text"
+                            size="small"
+                            :disabled="buttondeal == 'N'"
+                            v-if="scope.row.status == '待处理'">
+                            处理
+                        </el-button>
+                        <el-button
+                            @click="handleClick(scope.row)"
+                            type="text"
+                            :disabled="buttoninfo == 'N'"
+                            size="small">
+                            详情
+                        </el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -192,15 +205,26 @@ export default {
             endTime: '',  // 结束控件时间
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
+            buttondeal: '', // 处理按钮
+            buttoninfo: '' // 详情按钮
         }
     },
     created() {
         this.query();
+        this.jurisdiction();
     },
     components: {
         componentitle,
     },
     methods: {
+        jurisdiction(val) {
+            let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+            this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
+                // 权限ajax
+                this.buttondeal = res.data.data.deal;
+                this.buttoninfo = res.data.data.info;
+            });
+        },
         // 下拉框事件
         selectchange(val) {
         },

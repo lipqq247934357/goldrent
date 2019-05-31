@@ -17,6 +17,7 @@
                             :id="index"
                             type="checkbox"
                             name=""
+                            disabled
                             @click="handelcheckbox(item,index)"
                             :class="inputdisabled == true ? 'notallowed' : ''"
                             :disabled="inputdisabled"

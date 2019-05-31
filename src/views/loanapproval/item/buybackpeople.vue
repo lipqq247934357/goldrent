@@ -13,13 +13,15 @@
                     </li>
                     <li>
                         <span>企业性质</span>
-                        <span>
-                            <select class="" name="" disabled>
+                        <span v-for="agencyLevel in statuslist.comNature" v-if="item.basicInfo.comNature == agencyLevel.optionCode">
+                            <!-- <select class="" name="" disabled>
                                 <option value="" v-for="agencyLevel in statuslist.comNature" :selected="item.basicInfo == agencyLevel.optionCode ? true : false">
                                     {{agencyLevel.optionName}}
                                 </option>
-                            </select>
+                            </select> -->
+                            {{agencyLevel.optionName}}
                         </span>
+                        <span v-if="item.basicInfo.comNature == null"></span>
                     </li>
                     <li>
                         <span>注册资本金（元）</span>
@@ -32,13 +34,15 @@
                     </li>
                     <li>
                         <span>经销商层级</span>
-                        <span>
-                            <select class="" name="" disabled>
+                        <span v-for="comNature in statuslist.agencyLevel" v-if="item.basicInfo.agencyLevel == comNature.optionCode">
+                            <!-- <select class="" name="" disabled>
                                 <option value="" v-for="comNature in statuslist.agencyLevel" :selected="item.basicInfo.agencyLevel == comNature.optionCode ? true : false">
                                     {{comNature.optionName}}
                                 </option>
-                            </select>
+                            </select> -->
+                            {{comNature.optionName}}
                         </span>
+                        <span v-if="item.basicInfo.agencyLevel == null"></span>
                     </li>
                     <li>
                         <span>回购方负责人姓名</span>
@@ -185,10 +189,13 @@ export default {
                   //   remark	备注	String
                   if(res.data.code == '2000000') {
                       this.backpeople = res.data.data;
+                      // console.log(this.backpeople[0].basicInfo);
                       for(let i = 0 ; i < this.backpeople.length ; i ++ ) {
                           if(this.backpeople[i].basicInfo.partnerType == null) {
                               // this.$message.error('回购人当前没有影像资料');
+                              continue;
                           }
+                          // console.log(this.backpeople[i].basicInfo.partnerType,'<<<<<<');
                           return this.backpeople[i].basicInfo.partnerType;
                       }
                   }
@@ -198,10 +205,10 @@ export default {
           // 图片树形结构
           const stockPrice = await (() => {
               const matType = {"NAT":"NATURE_MATERIAL","LEG":"LEGAL_MATERIAL"};
-              // if (!matType[this.partner]) {
-              //     this.$message.error('无回购人图片信息');
-              //     return;
-              // }
+              if (this.partner == undefined) {
+                  return;
+              }
+              console.log(this.partner);
               return this.$post('/materialTree',{
                   materialType: matType[this.partner]
               }).then( res => {

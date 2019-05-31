@@ -75,15 +75,15 @@
         </li>
         <li>
             <span>租金支付方式</span>
-                <span v-for="payWay in statuslist.payWay" v-if="wantfactor.payWay == payWay.optionCode">
-                    <!-- <select class="" name="" disabled>
-                        <option value="" v-for="payWay in statuslist.payWay" :selected="wantfactor.payWay == payWay.optionCode ? true : false">
-                            {{payWay.optionName}}
-                        </option>
-                    </select> -->
-                    {{payWay.optionName}}
-                </span>
+            <span v-for="payWay in statuslist.payWay" v-if="wantfactor.payWay == payWay.optionCode">
+                <!-- <select class="" name="" disabled>
+                    <option value="" v-for="payWay in statuslist.payWay" :selected="wantfactor.payWay == payWay.optionCode ? true : false">
+                        {{payWay.optionName}}
+                    </option>
+                </select> -->
+                {{payWay.optionName}}
             </span>
+            <span v-if="wantfactor.payWay ==''"></span>
         </li>
         <li>
             <span>还款频次</span>
@@ -204,11 +204,7 @@ export default {
             //     ]
             // }
             if(res.data.code == '2000000') {
-                for(let i = 0;i < res.data.data.length;i++) {
-                    if(res.data.data[i].costType == 'rebate') {
-                        this.tableData = res.data.data
-                    }
-                }
+                this.tableData = res.data.data;
             }
         });
     },

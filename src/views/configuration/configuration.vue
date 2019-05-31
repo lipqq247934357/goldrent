@@ -90,12 +90,15 @@
                 <div class="pc" v-if="value == '1' || value == '0'">
                     <h3>PC选取菜单</h3>
                     <el-tree
+
                         :data="tree"
                         show-checkbox
                         node-key="id"
-                        :default-expanded-keys="ids"
+                        ref="tree"
+                        :auto-expand-parent="true"
                         :default-checked-keys="ids"
-                        @check="treechecked"
+                        :default-expanded-keys="ids"
+                        @node-click="treechecked"
                         :props="defaultProps">
                     </el-tree>
                 </div>
@@ -197,8 +200,6 @@ export default {
             this.$get(`/role/listRole?currentPage=${this.currentPage}&pageSize=${this.pageSize}`).then(res => {
                 this.tableData = res.data.data.recordList;
                 this.allpage = res.data.data.totalCount;
-                console.log(this.allpage);
-
             });
         },
         releasebutton() {
@@ -224,7 +225,7 @@ export default {
 
             if(this.editType == '1') {
                 this.$post('/role/updataRole',{
-                    resourceIds: this.checkedData,
+                    resourceIds: this.value == '1' ? this.checkedData : this.checkedTask,
                     roleName: this.inputName,
                     matchSystem: this.value,
                     id: this.currentroleId
@@ -240,7 +241,7 @@ export default {
 
             if(this.editType == '0') {
                 this.$post('/role/addRole',{
-                    resourceIds: this.checkedData,
+                    resourceIds: this.value == '1' ? this.checkedData : this.checkedTask,
                     roleName: this.inputName,
                     matchSystem: this.value
                 }).then(res => {
@@ -265,6 +266,7 @@ export default {
         },
         // 编辑
         edit(val) {
+            this.ids = [];
             this.currentroleId = val.id;
             this.editType = '1'; // 编辑
             this.inputName = val.roleName;
@@ -272,14 +274,21 @@ export default {
             this.dialogVisible = true;
             this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
                 this.ids = res.data.data.resourceIds;
+                console.log(this.ids);
             });
 
         },
         // 删除
         deletetable(val) {
-            this.$post(`/role/deletRole`,{
-                roleId: val.id
-            }).then(res => {
+            // this.$post(`/role/deletRole`,{
+            //     roleId: val.id
+            // }).then(res => {
+            //     if(res.data.code == '2000000') {
+            //         this.$message.success('删除成功')
+            //         this.tablepage();
+            //     }
+            // });
+            this.$get(`/role/deletRole?roleId=${val.id}`).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('删除成功')
                     this.tablepage();
@@ -289,7 +298,9 @@ export default {
 
         treechecked(data,checked) {
             // 获取ID用于新增角色的ajax参数
-            this.checkedData = checked.checkedKeys;
+            this.checkedData = checked.checkedKeys.concat(checked.halfCheckedKeys);
+            // console.log(data,checked);
+            console.log(this.checkedData);
         },
         handleCheckAllChange(val) {
             this.checkedTask = val ? this.taskId : [];

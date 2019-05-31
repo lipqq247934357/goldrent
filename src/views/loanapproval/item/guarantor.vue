@@ -161,13 +161,15 @@
                             </li>
                             <li>
                                 <span>性别</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="sex in statuslist.custSex" v-if="item.custSex == sex.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == sex.optionCode ? true : false">
                                             {{sex.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{sex.optionName}}
                                 </span>
+                                <span v-if="item.custSex == ''"></span>
                             </li>
                             <li>
                                 <span>微信号</span>
@@ -179,7 +181,10 @@
                             </li>
                             <li>
                                 <span>教育程度</span>
-                                <span v-for="ducation in statuslist.custEducation" v-if="item.custEducation == ducation.optionCode">{{ducation.optionName}}</span>
+                                <span v-for="ducation in statuslist.custEducation" v-if="item.custEducation == ducation.optionCode">
+                                    {{ducation.optionName}}
+                                </span>
+                                <span v-if="item.custEducation == ''"></span>
                             </li>
                             <li>
                                 <span>户籍所在地</span>
@@ -187,13 +192,15 @@
                             </li>
                             <li>
                                 <span>婚姻状况</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="marriagestatus in statuslist.marriage" v-if="item.custMarriage ==marriagestatus.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="marriagestatus in statuslist.marriage" :selected="item.custMarriage ==marriagestatus.optionCode ? true : false">
                                             {{marriagestatus.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{marriagestatus.optionName}}
                                 </span>
+                                <span v-if="item.custMarriage == ''"></span>
                             </li>
                             <li>
                                 <span>年龄</span>
@@ -205,13 +212,15 @@
                             </li>
                             <li>
                                 <span>与承租人关系</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span  v-for="custRelation in statuslist.custRelation" v-if="item.custRelation == custRelation.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.custRelation == custRelation.optionCode ? true : false">
                                             {{item.custRelation == '' ? '本人' : custRelation.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{custRelation.optionName}}
                                 </span>
+                                <span v-if="item.custRelation == ''"></span>
                             </li>
                             <li>
                                 <span>现住址</span>
@@ -223,13 +232,14 @@
                             </li>
                             <li>
                                 <span>征信报告</span>
-                                <span>{{item.hasCreditReport == 'Y' ? '有' : '无' }}</span>
+                                <span>{{item.hasCreditReport == 'Y' ? '有' : item.hasCreditReport == 'Y' ? '无' : '' }}</span>
                             </li>
                             <li>
                                 <span>身份类型</span>
                                 <span v-for="tityType in statuslist.identityType" v-if="tityType.optionCode == item.identityType">
                                     {{tityType.optionName}}
                                 </span>
+                                <span v-if="item.identityType == ''"></span>
                             </li>
 
                         </ul>
@@ -252,13 +262,15 @@
                             </li>
                             <li>
                                 <span>性别</span>
-                                <span>
-                                    <select class="" name="" disabled v-if="spouse.custSex != ''">
+                                <span v-for="sex in statuslist.custSex" v-if="spouse.custSex == sex.optionCode">
+                                    <!-- <select class="" name="" disabled v-if="spouse.custSex != ''">
                                         <option value="" v-for="sex in statuslist.custSex" :selected="spouse.custSex == sex.custSex ? true : false">
                                             {{spouse.custSex == '' ? '' : sex.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{sex.optionName}}
                                 </span>
+                                <span v-if="spouse.custSex == ''"></span>
                             </li>
                             <li>
                                 <span>微信号</span>
@@ -272,8 +284,10 @@
                             </li>
                             <li>
                                 <span>教育程度</span>
-
-                                <span v-for="ducation in statuslist.custEducation" v-if="spouse.custEducation == ducation.optionCode">{{ducation.optionName}}</span>
+                                <span v-for="ducation in statuslist.custEducation" v-if="spouse.custEducation == ducation.optionCode">
+                                    {{ducation.optionName}}
+                                </span>
+                                <span v-if="spouse.custEducation ==''"></span>
                             </li>
                             <li>
                                 <span>户籍所在地</span>
@@ -281,13 +295,15 @@
                             </li>
                             <li>
                                 <span>婚姻状况</span>
-                                <span>
-                                    <select class="" name="" disabled v-if="spouse.custMarriage != ''">
+                                <span v-for="marriagestatus in statuslist.marriage" v-if="spouse.custMarriage ==marriagestatus.optionCode">
+                                    <!-- <select class="" name="" disabled v-if="spouse.custMarriage != ''">
                                         <option value="" v-for="marriagestatus in statuslist.marriage" :selected="spouse.custMarriage ==marriagestatus.optionCode ? true : false">
                                             {{spouse.custMarriage == '' ? '' : marriagestatus.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{marriagestatus.optionName}}
                                 </span>
+                                <span v-if="spouse.custMarriage == ''"></span>
                             </li>
                             <li>
                                 <span>年龄</span>
@@ -301,13 +317,15 @@
                             </li>
                             <li>
                                 <span>与承租人关系</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="custRelation in statuslist.custRelation" v-if="spouse.custRelation == custRelation.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="custRelation in statuslist.custRelation" :selected="spouse.custRelation == custRelation.optionCode ? true : false">
                                             {{spouse.custRelation == '' ? '本人' : custRelation.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{custRelation.optionName}}
                                 </span>
+                                <span v-if="spouse.custRelation == ''"></span>
                             </li>
                             <li>
                                 <span>工作单位</span>
@@ -322,6 +340,7 @@
                                 <span v-for="tityType in statuslist.identityType" v-if="tityType.optionCode == spouse.identityType">
                                     {{tityType.optionName}}
                                 </span>
+                                <span v-if="spouse.identityType == ''"></span>
                             </li>
                         </ul>
                     </div>
@@ -337,18 +356,19 @@
                             </li>
                             <li>
                                 <span>性别</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="sex in statuslist.custSex" v-if="item.custSex == childrenInfo.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == childrenInfo.custSex ? true : false">
                                             {{sex.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{sex.optionName}}
                                 </span>
+                                <span v-if="item.custSex == ''"></span>
                             </li>
                             <li>
                                 <span>户籍地址</span>
                                 <span>{{childrenInfo.custHomeplace}}</span>
-
                             </li>
                             <li>
                                 <span>年龄</span>
@@ -372,13 +392,15 @@
                             <ul class="infolist" v-for="assetsHouses in item.assetsHouses">
                                 <li>
                                     <span>房产类型</span>
-                                    <span>
-                                        <select class="" name="" disabled>
+                                    <span v-for="housrType in statuslist.houseType" v-if="assetsHouses.type == housrType.optionCode">
+                                        <!-- <select class="" name="" disabled>
                                             <option value="" v-for="housrType in statuslist.houseType" :selected="assetsHouses.type == housrType.optionCode ? true : false">
                                                 {{housrType.optionName}}
                                             </option>
-                                        </select>
+                                        </select> -->
+                                        {{housrType.optionName}}
                                     </span>
+                                    <span v-if="assetsHouses.type == ''"></span>
                                 </li>
                                 <li>
                                     <span>面积（㎡）</span>
@@ -387,7 +409,6 @@
                                 <li>
                                     <span>房产地址/坐落</span>
                                     <span>{{assetsHouses.address}}</span>
-
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>
@@ -400,7 +421,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsHouses.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsHouses.mortgage == 'Y' ? '已抵押' : assetsHouses.mortgage == 'N' ? '未抵押' : '' }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -422,7 +443,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'Y' ? '未抵押' : '' }}</span>
                                 </li>
                                 <li>
                                     <span>承包期限（年）</span>
@@ -430,7 +451,7 @@
                                 </li>
                                 <li>
                                     <span>核实方法</span>
-                                    <span>{{assetsLands.contractLife == '01' ? '通过农补账户流水核实' : '通过农场政研室核实'}}</span>
+                                    <span>{{assetsLands.contractLife == '01' ? '通过农补账户流水核实' : assetsLands.contractLife == '02' ?  '通过农场政研室核实' : ''}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -443,7 +464,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsVehicles.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsVehicles.mortgage == 'Y' ? '已抵押' : assetsVehicles.mortgage == 'N' ? '未抵押' : '' }}</span>
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>
@@ -472,7 +493,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsFarmTools.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsFarmTools.mortgage == 'Y' ? '已抵押' : assetsFarmTools.mortgage == 'N' ? '未抵押' : '' }}</span>
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>

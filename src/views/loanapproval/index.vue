@@ -178,12 +178,12 @@ export default {
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
             buttondeal: '', // 处理按钮
-            buttoninfo: '' // 详情按钮
+            buttoninfo: '', // 详情按钮
         }
     },
     created() {
         this.query();
-        // this.jurisdiction() 后台配置不完整暂时注释
+        this.jurisdiction()
     },
     components: {
         componentitle,
@@ -194,8 +194,8 @@ export default {
             let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
             this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
                 // 权限ajax
-                this.deal = res.data.data.deal;
-                this.info = res.data.data.info;
+                this.buttondeal = res.data.data.deal;
+                this.buttoninfo = res.data.data.info;
             });
         },
         //进入页面获取数据展示在表格中

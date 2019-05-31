@@ -21,7 +21,7 @@
                 </li>
                 <li>
                     <span>能否抵押我司</span>
-                    <span>{{item.condition.mortgage == "Y" ? '是': '否'}}</span>
+                    <span>{{item.condition.mortgage == "Y" ? '是': item.condition.mortgage == "N" ? '否' : ''}}</span>
                 </li>
                 <li>
                     <span>唯一识别码</span>
@@ -34,6 +34,7 @@
                 <li>
                     <span>识别号类型</span>
                     <span v-for="nuType in statuslist.serialNumberType" v-if="item.condition.serialNoType == nuType.optionCode">{{nuType.optionName}}</span>
+                    <span v-if="item.condition.serialNoType == ''"></span>
                 </li>
 
             </ul>
@@ -66,12 +67,12 @@
                     v-if="subitemtype.optionCode == item.insurance.insuranceBuyTime">
                     {{subitemtype.optionName}}
                 </span>
+                <span v-if="item.insurance.insuranceBuyTime == ''"></span>
             </li>
 
             <li>
                 <span>第一受益人</span>
                 <span>{{item.insurance.firstBeneficiary}}</span>
-
             </li>
             <br>
             <li class="subliWidth">

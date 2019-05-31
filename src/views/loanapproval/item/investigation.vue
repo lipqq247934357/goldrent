@@ -12,11 +12,15 @@
             </li>
             <li>
                 <span>与承租人关系</span>
-                <select class="" name="" disabled>
+                <!-- <select class="" name="" disabled>
                     <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.relation == custRelation.optionCode ? true : false">
                         {{custRelation.optionName}}
                     </option>
-                </select>
+                </select> -->
+                <span v-for="custRelation in statuslist.custRelation" v-if="item.relation == custRelation.optionCode">
+                    {{custRelation.optionName}}
+                </span>
+                <span v-if="item.relation == ''"></span>
             </li>
 
             <li>
@@ -74,13 +78,15 @@
             </li>
             <li>
                 <span>与承租人关系</span>
-                <span>
-                <select class="" name="" disabled>
+                <span v-for="custRelation in statuslist.custRelation" v-if="item.relation == custRelation.optionCode">
+                <!-- <select class="" name="" disabled>
                     <option value="" v-for="custRelation in statuslist.custRelation" :selected="item.relation == custRelation.optionCode ? true : false">
                         {{item.relation == '' ? '' :custRelation.optionName}}
                     </option>
-                </select>
+                </select> -->
+                    {{custRelation.optionName}}
                 </span>
+                <span v-if="item.relation == ''"></span>
             </li>
             <li>
                 <span>土地使用证号</span>
@@ -184,7 +190,7 @@ export default {
         }).then(res => {
             this.statuslist.custRelation = res.data.data.custRelation;
             this.statuslist.creditType = res.data.data.creditAdditionType;
-            
+
         })
         // 主办人
         this.$post('/getSurveyConclusion',{

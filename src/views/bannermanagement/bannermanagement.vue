@@ -1,7 +1,7 @@
 <template>
 <div class="loanapproval bannerview">
     <h3 class="bannertitle">Banner图管理</h3>
-    <el-button type="primary" class="uploadimg" @click="releasebutton">上传图片</el-button>
+    <el-button type="primary" class="uploadimg" @click="releasebutton" :disabled="buttonSubmit == 'N'">上传图片</el-button>
     <div class="topdiv bannerimglist">
         <componentitle :message="message = '顶部Banner图管理'" />
         <ul>
@@ -12,6 +12,7 @@
                     <div>
                         <input type="checkbox"
                                name=""
+                               :disabled="buttonSubmit == 'N'"
                                :value="item.status"
                                @change="switchchange(item)"
                                :checked="item.status == 1 ? true : false">
@@ -198,16 +199,23 @@ export default {
             imgstatus: '',
             imgId: '',
             echoimgId: '', // 图片回显ID
+            buttonSubmit: '',
         }
     },
     mounted() {
         this.token = Cookies.get('token');
-
-
         this.bottombanner();
         this.topbanner();
+        this.jurisdiction();
     },
     methods: {
+        jurisdiction(val) {
+            let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+            this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
+                // 权限ajax
+                this.buttonSubmit = res.data.data.submit;
+            });
+        },
         releasebutton() {
             // 上传图片
             this.dialogVisible = true;

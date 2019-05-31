@@ -127,7 +127,7 @@
             & > li {
                 height: 80px;
                 width: 80px;
-                margin: 10px 5px;
+                margin: 10px 0 10px 20px;
                 float:left;
             }
         }

@@ -10,7 +10,9 @@
     </div>
     <div class="buttomappversion">
         <componentitle :message="message = '发布版本历史'" />
-        <button type="button" name="button" class="releasebutton" @click="releasebutton">发布新版</button>
+        <el-button type="primary" class="releasebutton" @click="releasebutton" :disabled="submit == 'N'">发布新版</el-button>
+
+        <!-- <button type="button" name="button" class="releasebutton" @click="releasebutton" :disabled="submit =='N'"></button> -->
         <!-- 表格 -->
         <template>
             <el-table
@@ -49,7 +51,7 @@
                     prop="name"
                     label="处理">
                     <template slot-scope="scope">
-                        <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
+                        <el-button @click="edit(scope.row)" type="text" size="small" :disabled="update == 'N'">修改</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -213,13 +215,24 @@ export default {
                 filename: ''
             }, // 文件名
             nowtype: '',
-            fileIndex: '' // 上传成功需要存储的文件id
+            fileIndex: '', // 上传成功需要存储的文件id
+            submit: '',
+            update: ''
         }
     },
     created() {
         this.pages();
+        this.jurisdiction();
     },
     methods: {
+        jurisdiction(val) {
+            let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+            this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
+                // 权限ajax
+                this.submit = res.data.data.submit;
+                this.update = res.data.data.update;
+            });
+        },
         // 表格分页
         pages() {
             // wike http://wiki.i.beebank.com/pages/viewpage.action?pageId=22516607

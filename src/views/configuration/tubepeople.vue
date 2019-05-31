@@ -21,15 +21,16 @@
                     }"
                     style="width: 100%">
                     <el-table-column
-                        prop="bussNo"
+                        type="index"
+                        width="80px"
                         label="序号">
                     </el-table-column>
                     <el-table-column
-                        prop="custName"
+                        prop="userName"
                         label="用户名">
                     </el-table-column>
                     <el-table-column
-                        prop="startDate"
+                        prop="roleName"
                         label="匹配角色">
                     </el-table-column>
                     <el-table-column
@@ -41,6 +42,18 @@
                     </el-table-column>
                 </el-table>
             </template>
+            <!-- 分页 -->
+            <div class="block">
+                <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage2"
+                    :page-sizes="[10, 20, 30, 40]"
+                    :page-size="10"
+                    layout="sizes, prev, pager, next"
+                    :total="allpage">
+                </el-pagination>
+            </div>
         </div>
     </div>
     <el-dialog
@@ -51,20 +64,19 @@
         <div class="dialoginput">
             <div class="editdialog">
                 <label>用户名：</label>
-                <label>XXXX：</label>
+                <label>{{editname}}</label>
 
                 <div class="dialogcheckbox">
                     <label>选择角色：</label>
                     <template>
-                        <el-checkbox-group v-model="checkedData" @change='checkboxData' class="checkedData">
-                            <el-checkbox label="主办人"></el-checkbox>
-                            <el-checkbox label="协办人"></el-checkbox>
-                            <el-checkbox label="部门负责人"></el-checkbox>
-                            <el-checkbox label="审批人"></el-checkbox>
-                            <el-checkbox label="资深审批人"></el-checkbox>
-                            <el-checkbox label="秘书"></el-checkbox>
-                            <el-checkbox label="主任"></el-checkbox>
-                            <el-checkbox label="财务"></el-checkbox>
+
+                        <el-checkbox-group v-model="matchingId" @change='checkboxData' class="checkedData">
+                            <template v-for="(items,index) in roleChoice1">
+                                <el-checkbox :key="items.id" :label="items.id">
+                                    {{items.roleName}}
+                                </el-checkbox>
+                            </template>
+
                         </el-checkbox-group>
                     </template>
                 </div>
@@ -84,11 +96,26 @@ import componentitle from '../../components/title/title.vue';
 export default {
     data() {
         return {
-            loading: false,
+            loading: true,
             tableData: [],
-            dialogVisible: true,
-            checkedData: []
+            dialogVisible: false,
+            checkedData: [],
+            currentPage: '1',
+            pageSize: '10',
+            currentPage2: 1,
+            allpage: 1,
+            editname: '',
+            roleChoice: [],
+            roleChoice1: [],
+            matchingId: [],
+            userId: ''
         }
+    },
+    created() {
+        this.tablepage();
+        this.$get(`/role/listRole?currentPage=1&pageSize=100`).then(res => {
+            this.roleChoice = res.data.data.recordList;
+        });
     },
     methods: {
         handleClose() {
@@ -99,7 +126,51 @@ export default {
             console.log(val);
         },
         dialogsubmit() {
-            
+            this.$post('/user/role/updataUser',{
+                roleId: this.matchingId,
+                id: this.userId
+            }).then( res => {
+                if(res.data.code == '2000000') {
+                    this.$message.success('修改成功');
+                    this.tablepage();
+                    this.dialogVisible = false;
+                }
+            });
+        },
+        // 分页 页大小
+        handleSizeChange(val) {
+            this.loading = true;
+            this.pageSize = val;
+            this.tablepage();
+        },
+        // 分页 上一页下一页
+        handleCurrentChange(val) {
+            this.loading = true;
+            this.currentPage = val;
+            this.tablepage();
+        },
+        edit(val) {
+            // 编辑
+            this.checkedData = [];
+            this.dialogVisible = true;
+            this.editname = val.userName;
+            this.matchingId = val.roleId;
+            this.userId = val.id;
+            this.roleChoice1 = this.roleChoice.map((item) => {
+                return {...item, isChecked: this.matchingId.includes(item.id) ? true : false};
+            });
+        },
+        tablepage() {
+            this.$post('/user/listUser',{
+                currentPage: this.currentPage,
+                pageSize: this.pageSize
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    this.tableData = res.data.data.recordList;
+                    this.allpage = res.data.data.totalCount;
+                    this.loading = false;
+                }
+            });
         }
     },
     components: {

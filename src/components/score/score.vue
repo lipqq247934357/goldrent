@@ -25,7 +25,7 @@
                     v-model:value="years = inputlessinfo.agriculturalLoanYear"
                     class="inputinfo"
                     ref="years"
-                    :disabled="inputdisabled">
+                    :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">信用卡及贷款24个月最大逾期期数</span>
@@ -35,7 +35,7 @@
                     v-model:value="overdue = inputlessinfo.overdueNum24m"
                     ref="overdue"
                     class="inputinfo"
-                    :disabled="inputdisabled">
+                    :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">信用卡及贷款24个月累计逾期次数</span>
@@ -45,17 +45,17 @@
                     v-model:value="overdueNo = inputlessinfo.continueOverdueNum24m"
                     ref="overdueNo"
                     class="inputinfo"
-                    :disabled="inputdisabled">
+                    :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
-                <span class="lefttext">最近1个月内的查询机构数(贷款审批)</span>
+                <span class="lefttext">最近1个月内的查询机构数</span>
                 <input
                     type="text"
                     name=""
                     v-model:value="oneMonth= inputlessinfo.loanApprovalQueryNum1m"
                     ref="oneMonth"
                     class="inputinfo"
-                    :disabled="inputdisabled">
+                    :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">涉诉：</span>
@@ -63,7 +63,7 @@
                     v-model="value2 = inputlessinfo.lawsuit"
                     placeholder="请选择"
                     class="choiceselect"
-                    :disabled="inputdisabled">
+                    :disabled="inputdisabled || this.$route.query.arrangement != '20'">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -78,7 +78,7 @@
                     v-model="value3 = inputlessinfo.enforced"
                     placeholder="请选择"
                     class="choiceselect"
-                    :disabled="inputdisabled">
+                    :disabled="inputdisabled || this.$route.query.arrangement != '20'">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -89,7 +89,7 @@
             </li>
             <li>
                 <span class="lefttext">有无征信：</span>
-                <el-select v-model="value4 = inputlessinfo.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="value4 = inputlessinfo.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -102,19 +102,19 @@
         <ul class="nothingshow" v-show="radio == 'N'">
             <li>
                 <span class="lefttext">农贷记录年数</span>
-                <input type="text" name="" v-model:value="years = inputlessinfo.agriculturalLoanYear" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="years = inputlessinfo.agriculturalLoanYear" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">同盾贷前查询</span>
-                <input type="text" name="" v-model:value="tongdunQuery = inputlessinfo.tongDunLoanBefore" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="tongdunQuery = inputlessinfo.tongDunLoanBefore" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">同盾信用评分</span>
-                <input type="text" name="" v-model:value="tongdunCredit = inputlessinfo.tongDunScore" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="tongdunCredit = inputlessinfo.tongDunScore" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">涉诉</span>
-                <el-select v-model="value2 = inputlessinfo.lawsuit" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="value2 = inputlessinfo.lawsuit" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -125,7 +125,7 @@
             </li>
             <li>
                 <span class="lefttext">被执行信息</span>
-                <el-select v-model="value3 = inputlessinfo.enforced" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="value3 = inputlessinfo.enforced" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -151,15 +151,15 @@
         <ul class="nothingshow">
             <li>
                 <span class="lefttext">信用卡及贷款24个月内单笔最大逾期金额</span>
-                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">信用卡及贷款24个月累计逾期次数</span>
-                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">有无征信：</span>
-                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -184,15 +184,15 @@
         <ul class="nothingshow">
             <li>
                 <span class="lefttext">信用卡及贷款24个月内单笔最大逾期金额</span>
-                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">信用卡及贷款24个月累计逾期次数</span>
-                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled">
+                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
             </li>
             <li>
                 <span class="lefttext">有无征信：</span>
-                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled">
+                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"

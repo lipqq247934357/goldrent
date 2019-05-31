@@ -55,8 +55,8 @@
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
-                <el-button type="primary" class="againbutton" @click="batchloanconfirm">批量放款确认</el-button>
-                <el-button type="primary" class="againbutton otheragainbutton" @click="downloadfirl">导出清单</el-button>
+                <el-button type="primary" class="againbutton" @click="batchloanconfirm" :disabled="downlod == 'N'">批量放款确认</el-button>
+                <el-button type="primary" class="againbutton otheragainbutton" @click="downloadfirl" :disabled="sbmit == 'N'">导出清单</el-button>
             </div>
         </div>
         <!-- 弹出框 -->
@@ -272,16 +272,27 @@ export default {
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
             dialogVisible: false, // 弹出框
-            bussNoarr: [] // 用于批量上传的bussNo
+            bussNoarr: [], // 用于批量上传的bussNo
+            downlod: '',
+            sbmit: ''
         }
     },
     created() {
         this.query();
+        this.jurisdiction();
     },
     components: {
         componentitle,
     },
     methods: {
+        jurisdiction(val) {
+            let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+            this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
+                // 权限ajax
+                this.downlod = res.data.data.downlod;
+                this.sbmit = res.data.data.sbmit;
+            });
+        },
         batchloanconfirm() {
             console.log(this.bussNoarr);
             if(this.bussNoarr == 0) {

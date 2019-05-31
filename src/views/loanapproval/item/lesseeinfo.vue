@@ -23,12 +23,11 @@
                                     </select> -->
                                     {{marriagestatus.optionName}}
                                 </span>
-                                <span v-if="!item.custMarriage"></span>
+                                <span v-if="item.custMarriage ==''"></span>
                             </li>
                             <li>
                                 <span>姓名</span>
                                 <span>{{item.custName}}</span>
-
                             </li>
                             <li>
                                 <span>性别</span>
@@ -40,11 +39,11 @@
                                     </select> -->
                                     {{sex.optionName}}
                                 </span>
-                                <span v-if="!item.custSex"></span>
+                                <span v-if="item.custSex == ''"></span>
                             </li>
                             <li v-if="item.custMarriage == 'married'">
                                 <span>是否有离婚协议</span>
-                                <span>{{item.marriageSettlement == "Y" ? "有" : "无"}}</span>
+                                <span>{{item.marriageSettlement == "Y" ? "有" : item.marriageSettlement == "N" ? "无" : ""}}</span>
                             </li>
                             <li>
                                 <span>身份证号码</span>
@@ -84,7 +83,7 @@
                             </li>
                             <li>
                                 <span>是否有子女</span>
-                                <span>{{item.hasChildren == "Y" ? "有" : "无"}}</span>
+                                <span>{{item.hasChildren == "Y" ? "有" : item.hasChildren == "N" ? "无" : ""}}</span>
                             </li>
                             <li>
                                 <span>联系电话</span>
@@ -92,7 +91,7 @@
                             </li>
                             <li>
                                 <span>征信报告</span>
-                                <span>{{item.hasCreditReport == "Y" ? "有" : "无"}}</span>
+                                <span>{{item.hasCreditReport == "Y" ? "有" : item.hasCreditReport == "N" ? "无" : "" }}</span>
                             </li>
                             <li>
                                 <span>微信号</span>
@@ -105,6 +104,7 @@
                                 <span v-for="cation in statuslist.custducation" v-if="item.custEducation == cation.optionCode">
                                     {{cation.optionName}}
                                 </span>
+                                <span v-if="item.custEducation == ''"></span>
                             </li>
                         </ul>
                     </div>
@@ -120,23 +120,27 @@
                             </li>
                             <li>
                                 <span>婚姻状况</span>
-                                <span>
-                                    <select class="" name="" disabled v-if="spouse.custMarriage != ''">
+                                <span v-for="marriagestatus in statuslist.marriage" v-if="spouse.custMarriage ==marriagestatus.optionCode">
+                                    <!-- <select class="" name="" disabled v-if="spouse.custMarriage != ''">
                                         <option value="" v-for="marriagestatus in statuslist.marriage" :selected="spouse.custMarriage ==marriagestatus.optionCode ? true : false">
                                             {{spouse.custMarriage == '' ? '' : marriagestatus.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{marriagestatus.optionName}}
                                 </span>
+                                <span v-if="spouse.custMarriage == ''"></span>
                             </li>
                             <li>
                                 <span>性别</span>
-                                <span>
-                                    <select class="" name="" disabled v-if="spouse.custSex != ''">
+                                <span v-for="sex in statuslist.custSex" v-if="spouse.custSex == sex.optionCode">
+                                    <!-- <select class="" name="" disabled v-if="spouse.custSex != ''">
                                         <option value="" v-for="sex in statuslist.custSex" :selected="spouse.custSex == sex.custSex ? true : false">
                                             {{spouse.custSex == '' ? '' : sex.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{sex.optionName}}
                                 </span>
+                                <span v-if="spouse.custSex == ''"></span>
                             </li>
                             <li>
                                 <span>申请地居住年限（年）</span>
@@ -191,6 +195,7 @@
                                 <span v-for="cation in statuslist.custducation" v-if="spouse.custEducation ==cation.optionCode">
                                     {{cation.optionName}}
                                 </span>
+                                <span v-if="spouse.custEducation == ''"></span>
                             </li>
                         </ul>
                     </div>
@@ -210,19 +215,21 @@
                             </li>
                             <li>
                                 <span>性别</span>
-                                <span>
-                                    <select class="" name="" disabled>
+                                <span v-for="sex in statuslist.custSex" v-if="item.custSex == sex.optionCode">
+                                    <!-- <select class="" name="" disabled>
                                         <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == childrenInfo.custSex ? true : false">
                                             {{sex.optionName}}
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    {{sex.optionName}}
                                 </span>
+                                <span v-if="item.custSex == ''"></span>
                             </li>
                             <li>
                                 <span>身份证号</span>
                                 <span>{{childrenInfo.certNo}}</span>
                             </li>
-                            <li>
+                            <li class="borderNone">
                                 <span>年龄</span>
                                 <span>{{childrenInfo.custAge}}</span>
                             </li>
@@ -248,7 +255,7 @@
                                         </select> -->
                                         {{housrType.optionName}}
                                     </span>
-                                    <span v-if="!assetsinfouls.type"></span>
+                                    <span v-if="assetsinfouls.type == ''"></span>
                                 </li>
                                 <li>
                                     <span>面积（㎡）</span>
@@ -269,7 +276,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsinfouls.mortgage == 'Y' ? '已抵押' : '未抵押'}}</span>
+                                    <span>{{assetsinfouls.mortgage == 'Y' ? '已抵押' : assetsinfouls.mortgage == 'N' ? '未抵押' : ''}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -291,7 +298,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'Y' ? '未抵押' : '' }}</span>
                                 </li>
                                 <li class="borderNone">
                                     <span>承包期限（年）</span>
@@ -299,7 +306,7 @@
                                 </li>
                                 <li>
                                     <span>核实方法</span>
-                                    <span>{{assetsLands.checkMode == '01' ? '通过农补账户流水核实' : '通过农场政研室核实'}}</span>
+                                    <span>{{assetsLands.checkMode == '01' ? '通过农补账户流水核实' : assetsLands.checkMode == '02' ? '通过农场政研室核实' : ''}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -337,7 +344,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span v-if="car.mortgage != ''">{{car.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span v-if="car.mortgage != ''">{{car.mortgage == 'Y' ? '已抵押' : car.mortgage == 'N' ? '未抵押' : '' }}</span>
                                     <span v-if="car.mortgage == ''"></span>
                                 </li>
                                 <li>
@@ -384,7 +391,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsFarmTools.mortgage == 'Y' ? '已抵押' : '未抵押' }}</span>
+                                    <span>{{assetsFarmTools.mortgage == 'Y' ? '已抵押' : assetsFarmTools.mortgage == 'N' ? '未抵押' : '' }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -401,7 +408,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsOthers.mortgage == "Y" ? '已抵押' : '未抵押'}}</span>
+                                    <span>{{assetsOthers.mortgage == "Y" ? '已抵押' : assetsOthers.mortgage == "N" ? '未抵押' : ''}}</span>
                                 </li>
                                 <li>
                                     <span>所有权人</span>
@@ -1190,7 +1197,7 @@ export default {
                               this.statuslist.custType = res.data.data.custType;
                               this.statuslist.houseType = res.data.data.houseType;
                               this.statuslist.custducation = res.data.data.custEducation
-                              console.log(this.statuslist.custducation);
+                              // console.log(this.statuslist.custducation);
                           })
                           return this.lesseeinfolist[i].partnerType;
                       }

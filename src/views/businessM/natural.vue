@@ -378,13 +378,23 @@
         }
 
         .imgbox {
-            .img-box-title {
+            h3 {
                 font-size: 16px;
-                margin: 35px 0 35px 15px;
                 font-weight: bold;
+                background: #f5f5f5;
+                height: 50px;
+                line-height: 50px;
+                padding-left: 15px;
+                color: #585858;
+            }
+
+            ul {
+                width: calc(100% - 3px);
+                margin: 0 auto;
+                border: 1px solid #EBEEF5;
+                border-bottom: 0;
             }
         }
-
         .bottombut {
             width: 160px;
             margin: 15px auto;

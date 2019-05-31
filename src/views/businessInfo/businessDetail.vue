@@ -54,13 +54,15 @@
                 </li>
                 <li>
                     <span>客户类别</span>
-                    <span>
-                        <select class="" name="" disabled>
+                    <span v-for="custType in statuslist.custType" v-if="task.custNature.partnerType == custType.optionCode">
+                        <!-- <select class="" name="" disabled>
                             <option value="" v-for="custType in statuslist.custType" :selected="task.custNature.partnerType == custType.optionCode ? true : false">
                                 {{custType.optionName}}
                             </option>
-                        </select>
+                        </select> -->
+                        {{custType.optionName}}
                     </span>
+                    <span v-if="task.custNature.partnerType == ''"></span>
                 </li>
                 <li>
                     <span>姓名</span>
@@ -69,19 +71,20 @@
                 </li>
                 <li>
                     <span>与承租人关系</span>
-                    <span>{{task.custNature.custRelation}}</span>
+                    <span>{{task.custNature.custRelation == 'SELF' ? '本人' : '本人'}}</span>
                 </li>
                 <li>
                     <span>性别</span>
-                    <span>
+                    <span v-for="sex in statuslist.custSex" v-if="task.custNature.custSex == sex.optionCode">
                         <!-- {{task.custNature.custSex}} -->
-                        <select class="" name="" disabled>
+                        <!-- <select class="" name="" disabled>
                             <option value="" v-for="sex in statuslist.custSex" :selected="task.custNature.custSex == sex.optionCode ? true : false">
                                 {{sex.optionName}}
                             </option>
-                        </select>
+                        </select> -->
+                        {{sex.optionName}}
                     </span>
-
+                    <span v-if="task.custNature.custSex == ''"></span>
                 </li>
                 <li>
                     <span>年龄</span>
@@ -93,14 +96,16 @@
                 </li>
                 <li>
                     <span>婚姻状况</span>
-                    <span>
+                    <span v-for="marriagestatus in statuslist.marriage" v-if="task.custNature.custMarriage == marriagestatus.optionCode">
                         <!-- {{task.custNature.custMarriage}} -->
-                        <select class="" name="" disabled>
+                        <!-- <select class="" name="" disabled>
                             <option value="" v-for="marriagestatus in statuslist.marriage" :selected="task.custNature.custMarriage ==marriagestatus.optionCode ? true : false">
                                 {{marriagestatus.optionName}}
                             </option>
-                        </select>
+                        </select> -->
+                        {{marriagestatus.optionName}}
                     </span>
+                    <span v-if="task.custNature.custMarriage == ''"></span>
                 </li>
                 <li>
                     <span>户籍地址</span>
@@ -155,12 +160,12 @@
                 </li>
                 <li>
                     <span>能否抵押受理</span>
-                    <span>{{task.leaseInfo.mortgage}}</span>
+                    <span>{{task.leaseInfo.mortgage == "Y" ? "是" : task.leaseInfo.mortgage == "N" ? "否" : ""}}</span>
 
                 </li>
                 <li>
                     <span>抵押管理机关</span>
-                    <span>{{leaseInfo.mortgageAgency}}</span>
+                    <span>{{task.leaseInfo.mortgageAgency}}</span>
                 </li>
             </ul>
 
@@ -170,7 +175,7 @@
                 </div>
 
                 <template>
-                    <el-table
+                    <!-- <el-table
                             :data="task.leasePlan"
                             border
                             :header-cell-style="{
@@ -199,7 +204,23 @@
                                 label="租赁利息"
                                 prop="leaseInterest">
                         </el-table-column>
-                    </el-table>
+                    </el-table> -->
+                    <table class="renttable">
+                        <tr>
+                            <td class="tabletable">租金期数</td>
+                            <td class="tabletable">租金总额（元）</td>
+                            <td class="tabletable">支付日期</td>
+                            <td class="tabletable">租赁本金（元）</td>
+                            <td class="tabletable">租赁利息（%）</td>
+                        </tr>
+                        <tr v-for="item in task.leasePlan" v-if="item.costType == 'rent'">
+                            <td>{{item.period}}</td>
+                            <td>{{item.leaseAmount}}</td>
+                            <td>{{item.payDate}}</td>
+                            <td>{{item.capital}}</td>
+                            <td>{{item.leaseInterest}}</td>
+                        </tr>
+                    </table>
                 </template>
             </div>
         </div>
@@ -256,10 +277,9 @@
                     marriage: [],
                     custSex: [],
                     custRelation: [],
-                    custType: []
+                    custType: [],
                 }
             }
-
 
         },
         created() {
@@ -366,6 +386,26 @@
             text-align: center;
             &:first-child {
                 border-top: 0;
+            }
+        }
+    }
+    .renttable {
+        text-align: center;
+        width: 100%;
+        border-top: 0;
+        border: 1px solid #afafaf;
+        border-top: 0;
+        .tabletable {
+            border-top: 0;
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+        tr {
+            height: 50px;
+            td {
+                color: #909399;
+                border: 1px solid #afafaf;
             }
         }
     }

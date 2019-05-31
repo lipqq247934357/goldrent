@@ -25,7 +25,9 @@
                 <el-tabs @tab-click="tabClick" type="border-card">
                     <el-tab-pane label="自然人">
                         <div class="add-btn">
-                            <div class="button" @click="add">新增</div>
+                            <!-- <div class="button" @click="add">新增</div> -->
+                            <el-button type="primary" class="button" @click="add" :disabled="addbutton == 'N'">新增</el-button>
+
                         </div>
                         <template>
                             <el-table
@@ -78,8 +80,8 @@
                                         label="操作"
                                         prop="name">
                                     <template slot-scope="scope">
-                                        <el-button @click="update(scope.row)" size="small" type="text">编辑</el-button>
-                                        <el-button @click="detail(scope.row)" size="small" type="text">查看
+                                        <el-button @click="update(scope.row)" size="small" type="text" :disabled="updatebutton == 'N'">编辑</el-button>
+                                        <el-button @click="detail(scope.row)" size="small" type="text" :disabled="infobutton == 'N'">查看
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -149,8 +151,11 @@
                                         label="操作"
                                         prop="name">
                                     <template slot-scope="scope">
-                                        <el-button @click="update(scope.row)" size="small" type="text">编辑</el-button>
-                                        <el-button @click="detail(scope.row)" size="small" type="text">查看
+                                        <el-button @click="update(scope.row)" size="small" type="text" :disabled="updatebutton == 'N'">
+                                            编辑
+                                        </el-button>
+                                        <el-button @click="detail(scope.row)" size="small" type="text" :disabled="infobutton == 'N'">
+                                            查看
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -218,13 +223,26 @@
                 },
                 path: '/layout/natural', // 增删改地址
                 queryFunc: this.queryNatural, // 查询的类型
-                imgId: ''
+                imgId: '',
+                infobutton: '',
+                updatebutton: '',
+                addbutton: ''
             }
         },
         mounted() {
             this.queryNatural();
+            this.jurisdiction();
         },
         methods: {
+            jurisdiction(val) {
+                let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+                this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
+                    // 权限ajax
+                    this.infobutton = res.data.data.info;
+                    this.updatebutton = res.data.data.update;
+                    this.addbutton = res.data.data.add;
+                });
+            },
             async queryNatural() { // 分页查询自然人数据
                 this.loading = true;
                 let data = await this.$get(`/bussPartner/listPartnerInfo?partnerName=${this.partnerName}&partnerType=1&currentPage=${this.naturalPagInfo.currentPage}&pageSize=${this.naturalPagInfo.pageSize}`);
@@ -354,9 +372,10 @@
             cursor: pointer;
             float: right;
             margin: 4px 30px 4px 0;
-            padding: 6px 10px;
-            background: rgb(156, 135, 217);;
+            // padding: 6px 10px;
+            // background: rgb(156, 135, 217);
             border-radius: 4px;
+            border: 0;
             color: #fff;
         }
     }

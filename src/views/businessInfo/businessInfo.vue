@@ -104,7 +104,14 @@
                             label="操作"
                             prop="name">
                         <template slot-scope="scope">
-                            <el-button @click="handleClick(scope.row)" size="small" type="text" class="elmbutton">详情</el-button>
+                            <el-button
+                                @click="handleClick(scope.row)"
+                                size="small"
+                                type="text"
+                                :disabled="lessinfobutton == 'N'"
+                                class="elmbutton">
+                                详情
+                            </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -246,14 +253,22 @@
                 nowpage: 1,
                 currentPage2: 1,
                 allpage: '',
-                loading: true
-
+                loading: true,
+                lessinfobutton: ''
             }
         },
         created() {
             this.pages();
+            this.jurisdiction();
         },
         methods: {
+            jurisdiction(val) {
+                let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+                this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
+                    // 权限ajax
+                    this.lessinfobutton = res.data.data.info
+                });
+            },
             handleSizeChange(val) {
                 this.pagesothen = val;
                 this.pages();
