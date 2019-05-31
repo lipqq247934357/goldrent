@@ -2,7 +2,7 @@
 <!-- 评分卡table -->
 <div class="">
     <componentitle :message="message='评分卡结果'" />
-    <el-button type="primary" class="againbutton" @click="again" :disabled="inputdisabled">重评</el-button>
+    <el-button type="primary" class="againbutton" @click="again" :disabled="inputdisabled || this.$route.query.arrangement != '20'" v-if="this.$route.query.arrangement == '20'">重评</el-button>
     <!-- 承租人 -->
     <div class="loanpeopletyle">
         承租人
@@ -151,15 +151,15 @@
         <ul class="nothingshow">
             <li>
                 <span class="lefttext">信用卡及贷款24个月内单笔最大逾期金额</span>
-                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
+                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled || scorebutton">
             </li>
             <li>
                 <span class="lefttext">信用卡及贷款24个月累计逾期次数</span>
-                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
+                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled || scorebutton">
             </li>
             <li>
                 <span class="lefttext">有无征信：</span>
-                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
+                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || scorebutton">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -184,15 +184,15 @@
         <ul class="nothingshow">
             <li>
                 <span class="lefttext">信用卡及贷款24个月内单笔最大逾期金额</span>
-                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
+                <input type="text" name="" v-model:value="item.overdueMaxAmount24m" class="inputinfo" :disabled="inputdisabled || scorebutton">
             </li>
             <li>
                 <span class="lefttext">信用卡及贷款24个月累计逾期次数</span>
-                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
+                <input type="text" name="" v-model:value="item.continueOverdueNum24m" class="inputinfo" :disabled="inputdisabled || scorebutton">
             </li>
             <li>
                 <span class="lefttext">有无征信：</span>
-                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || this.$route.query.arrangement != '20'">
+                <el-select v-model="item.haveCreditRecord" placeholder="请选择" class="choiceselect" :disabled="inputdisabled || scorebutton">
                     <el-option
                         v-for="subItem in options"
                         :key="subItem.value"
@@ -262,9 +262,11 @@ export default {
             buyback: [], // 回购人
             lessinfo: [], // 承租人
             inputlessinfo: {},
+            scorebutton: false // this.$route.query.arrangement == '20' 才可修改
         }
     },
     created() {
+        this.scorebutton = this.$route.query.arrangement != '20';
         this.custName = this.$route.query.custName; // 上一页带过来的主承租人姓名
         this.constomerstype(); // 客户类别
         // 1为禁用，2为取消禁用
@@ -810,6 +812,9 @@ export default {
             });
         },
         havethe() {
+            if(this.scorebutton) {
+                return;
+            }
             this.$nextTick( () => {
                 this.radio = 'Y';
                 this.years = '';
@@ -820,6 +825,9 @@ export default {
             });
         },
         nothing() {
+            if(this.scorebutton) {
+                return;
+            }
             this.radio = 'N';
             this.years = '';
             this.overdue = '';

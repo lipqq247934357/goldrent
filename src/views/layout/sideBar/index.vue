@@ -29,7 +29,7 @@
                             v-if="item.authResource != null"
                             v-for="(suburl,index) in item.authResource"
                             @click="linkMenu(suburl,index)"
-                            :index="`${suburl.resourceUrl}?id=${suburl.id}`">
+                            :index="`${suburl.resourceUrl}?idJurisdiction=${suburl.id}`">
                             {{suburl.resourceName}}
                         </el-menu-item>
                         <!-- <el-menu-item>

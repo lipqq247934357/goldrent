@@ -94,7 +94,7 @@
                                 <span>{{item.hasCreditReport == "Y" ? "有" : item.hasCreditReport == "N" ? "无" : "" }}</span>
                             </li>
                             <li>
-                                <span>微信号</span>
+                                <span>微信</span>
                                 <span>{{item.custWechat}}</span>
                             </li>
                             <li>

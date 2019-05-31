@@ -18,7 +18,7 @@
             </span>
         </li>
         <li>
-            <span>租赁物名称</span>
+            <span>租赁物名称及规格型号</span>
             <span>{{wantfactor.leaseName}}</span>
         </li>
         <li>
@@ -70,7 +70,7 @@
             <span>{{wantfactor.leaseTerm}}</span>
         </li>
         <li>
-            <span>租赁利率（%）</span>
+            <span>租赁利率（固定利率/月）%</span>
             <span>{{wantfactor.leaseRate}}</span>
         </li>
         <li>
@@ -99,7 +99,7 @@
             <span>{{wantfactor.depositAmt}}</span>
         </li>
         <li>
-            <span>提前结清手续费（%）</span>
+            <span>提前结清（%）</span>
             <span>{{wantfactor.settleAhead}}</span>
         </li>
     </ul>

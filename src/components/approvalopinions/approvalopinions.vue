@@ -12,17 +12,23 @@
                 </div>
                 <div class="subone" style="clear:both">
                     <p class="contract">面签合同：</p>
-                    <div class="checkbox" v-for="(item,index) in checkboxlist" :class="inputdisabled == true ? 'notallowed' : ''">
+                    <!-- <div class="checkbox" v-for="(item,index) in checkboxlist" :class="inputdisabled == true ? 'notallowed' : ''">
                         <input
                             :id="index"
                             type="checkbox"
-                            name=""
                             disabled
+                            checked
                             @click="handelcheckbox(item,index)"
+                            v-model="checkedNames"
                             :class="inputdisabled == true ? 'notallowed' : ''"
-                            :disabled="inputdisabled"
                             :value="item.contractName">
                         <span>{{item.contractName}}</span>
+                    </div> -->
+
+                    <div class="checkbox">
+                        <el-checkbox-group v-model="checkList">
+                            <el-checkbox v-for="(item,index) in checkboxlist" :label="item.contractName" disabled></el-checkbox>
+                        </el-checkbox-group>
                     </div>
 
                 </div>
@@ -193,6 +199,7 @@ export default {
             dialogVisible: false, // 资深审批弹框绑定
             rolelist: [], // 角色列表
             departmentindex: null, // 用于渲染class
+            checkList: []
         }
     },
     created() {
@@ -222,6 +229,9 @@ export default {
                 this.radio1 = res.data.data.approvalComments; // 审批意见
             }
             this.textarea = res.data.data.reasonDescription; // 意见
+            for(let i = 0 ; i < this.checkboxlist.length; i++) {
+                this.checkList.push(this.checkboxlist[i].contractName);
+            }
         });
         this.textareinput(); //资深 上会 主任审批需要展示的内容
     },
@@ -283,7 +293,10 @@ export default {
                 if(res.data.code == '2000000') {
                     this.$message.success('提交成功');
                     this.$router.push({
-                        path: this.nowurl == undefined ? '/layout/loadapproval': this.nowurl
+                        path: this.nowurl == undefined ? '/layout/loadapproval': this.nowurl,
+                        query: {
+                            idJurisdiction: this.$route.query.idJurisdiction
+                        }
                     })
                 }
             })
@@ -322,7 +335,7 @@ export default {
                     '22': this.conclusion,
                     '23': this.director
                 }[role], // 原因描述
-                contracts: this.loanFaceContracts, // 合同数组
+                contracts: this.checkList, // 合同数组
                 loanPrecondition: this.conditions,// 放款前提条件
                 postRentManage: this.requirements// 租后管理要求
             }).then( res => {
@@ -358,14 +371,17 @@ export default {
                     '22': this.conclusion,
                     '23': this.director
                 }[role], // 原因描述
-                contracts: this.loanFaceContracts, // 合同数组
+                contracts: this.checkList, // 合同数组
                 loanPrecondition: this.conditions,// 放款前提条件
                 postRentManage: this.requirements// 租后管理要求
             }).then( res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('保存成功');
                     this.$router.push({
-                        path: this.nowurl == undefined ? '/layout/loadapproval': this.nowurl
+                        path: this.nowurl == undefined ? '/layout/loadapproval': this.nowurl,
+                        query: {
+                            idJurisdiction: this.$route.query.idJurisdiction
+                        }
                     })
                 }
             })

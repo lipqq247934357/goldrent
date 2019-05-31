@@ -218,7 +218,7 @@ export default {
     },
     methods: {
         jurisdiction(val) {
-            let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+            let sonresourceId = this.$route.query.idJurisdiction; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
             this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
                 // 权限ajax
                 this.buttondeal = res.data.data.deal;
@@ -272,7 +272,8 @@ export default {
                     arrangement: 5, // 默认贷款审批 2上会审议 3主任审批 4资深审批 5放款审批
                     nowpath: this.$route.path,
                     nowurlName: '放款审批列表',
-                    loanmoneyOperation: '放款审批操作'
+                    loanmoneyOperation: '放款审批操作',
+                    idJurisdiction: this.$route.query.idJurisdiction
                 }
             })
         },
@@ -288,7 +289,8 @@ export default {
                     arrangement: 5, //1 默认贷款审批 2上会审议 3主任审批 4资深审批 5放款审批
                     nowpath: this.$route.path,
                     nowurlName: '放款审批列表',
-                    loanmoneyOperation: '放款审批操作'
+                    loanmoneyOperation: '放款审批操作',
+                    idJurisdiction: this.$route.query.idJurisdiction
                 }
             })
         },

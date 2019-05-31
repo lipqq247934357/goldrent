@@ -193,7 +193,7 @@ export default {
     methods: {
         // 获得权限
         jurisdiction(val) {
-            let sonresourceId = this.$route.query.id; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
+            let sonresourceId = this.$route.query.idJurisdiction; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
             this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
                 // 权限ajax
                 this.buttondeal = res.data.data.deal;

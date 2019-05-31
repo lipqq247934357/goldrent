@@ -4,7 +4,7 @@
         <h3 class="titleh3">
             <span class="urlTextt">贷款审批</span>
             <i class="el-icon-arrow-right"></i>
-            <router-link :to="nowurl == undefined ? '/layout/loadapproval' : nowurl" class="urlTextt">
+            <router-link :to="nowurl == undefined ? `/layout/loadapproval` : nowurl" class="urlTextt">
                 {{nowurlName == undefined ? '贷款审批列表' : nowurlName}}
                 <i class="el-icon-arrow-right"></i>
             </router-link>
@@ -80,7 +80,7 @@ export default {
     },
     created() {
         this.loanmoneyOperation = this.$route.query.loanmoneyOperation; // 放款审批操作
-        this.nowurl = this.$route.query.nowpath; // 当前路由
+        this.nowurl = this.$route.query.nowpath + '?idJurisdiction=' + this.$route.query.idJurisdiction ; // 当前路由
         this.nowurlName = this.$route.query.nowurlName; // 当前路由名字
     },
     methods: {

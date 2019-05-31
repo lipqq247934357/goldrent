@@ -52,10 +52,10 @@
                         <span>回购方负责人电话</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comMobile}}</span>
                     </li>
-                    <li style="border-bottom: 0;">
+                    <!-- <li style="border-bottom: 0;">
                         <span>咨询服务费</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.serviceFee}}</span>
-                    </li>
+                    </li> -->
                 </ul>
                 <componentitle :message="message='负债及对外担保情况'"/>
                 <div class="assetsinfoul" v-for="otherpeople in item.debtInfo">
