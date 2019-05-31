@@ -90,15 +90,15 @@
                 <div class="pc" v-if="value == '1' || value == '0'">
                     <h3>PC选取菜单</h3>
                     <el-tree
-
                         :data="tree"
                         show-checkbox
                         node-key="id"
                         ref="tree"
                         :auto-expand-parent="true"
                         :default-checked-keys="ids"
-                        :default-expanded-keys="[1]"
+                        :default-expanded-keys="ids"
                         @check="treechecked"
+                        @node-expand="asd"
                         :props="defaultProps">
                     </el-tree>
                 </div>
@@ -273,8 +273,10 @@ export default {
             this.value = val.matchSystem;
             this.dialogVisible = true;
             this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
-                this.ids = res.data.data.resourceIds;
-                console.log(this.ids);
+                if(res.data.code == '2000000') {
+                    this.ids = res.data.data.resourceIds;
+                    console.log(this.ids);
+                }
             });
 
         },
@@ -297,10 +299,10 @@ export default {
         },
 
         treechecked(data,checked) {
+            console.log(checked);
             // 获取ID用于新增角色的ajax参数
             this.checkedData = checked.checkedKeys.concat(checked.halfCheckedKeys);
             // console.log(data,checked);
-            console.log(this.checkedData);
         },
         handleCheckAllChange(val) {
             this.checkedTask = val ? this.taskId : [];

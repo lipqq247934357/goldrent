@@ -224,7 +224,7 @@ export default {
             this.conditions = res.data.data.loanPrecondition
             this.requirements = res.data.data.postRentManage
             if(this.$route.query.arrangement == '20') {
-                this.radio1 = res.data.data.approvalComments; // 审批意见
+                this.radio1 = String(res.data.data.approvalComments); // 审批意见
             }
             this.textarea = res.data.data.reasonDescription; // 意见
             for(let i = 0 ; i < this.checkboxlist.length; i++) {
