@@ -45,12 +45,14 @@
                 <span v-for="creditType in statuslist.creditType" v-if="item.creditType == creditType.optionCode">
                     {{creditType.optionName}}
                 </span>
+                <span v-if="item.creditType == ''"></span>
             </li>
             <li>
                 <span>评估机构</span>
-                <span v-for="creditType in statuslist.creditType" v-if="item.creditType == creditType.optionCode">
+                <span v-for="creditType in statuslist.creditType" v-if="item.evaluationAgency == creditType.optionCode">
                     {{creditType.evaluationAgency}}
                 </span>
+                <span v-if="item.evaluationAgency == ''"></span>
             </li>
             <li class="subliWidth">
                 <p class="bz">备注</p>

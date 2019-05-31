@@ -238,7 +238,7 @@
                             </li>
                             <li>
                                 <span>征信报告</span>
-                                <span>{{item.hasCreditReport == 'Y' ? '有' : item.hasCreditReport == 'Y' ? '无' : '' }}</span>
+                                <span>{{item.hasCreditReport == 'Y' ? '有' : item.hasCreditReport == 'N' ? '无' : '' }}</span>
                             </li>
                             <li>
                                 <span>身份类型</span>
@@ -449,7 +449,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'Y' ? '未抵押' : '' }}</span>
+                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'N' ? '未抵押' : '' }}</span>
                                 </li>
                                 <li>
                                     <span>承包期限（年）</span>

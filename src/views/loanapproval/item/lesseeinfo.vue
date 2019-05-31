@@ -298,7 +298,7 @@
                                 </li>
                                 <li>
                                     <span>是否抵押</span>
-                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'Y' ? '未抵押' : '' }}</span>
+                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'N' ? '未抵押' : '' }}</span>
                                 </li>
                                 <li class="borderNone">
                                     <span>承包期限（年）</span>
