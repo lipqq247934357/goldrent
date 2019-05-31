@@ -98,7 +98,6 @@
                         :default-checked-keys="ids"
                         :default-expanded-keys="ids"
                         @check="treechecked"
-                        @node-expand="asd"
                         :props="defaultProps">
                     </el-tree>
                 </div>
