@@ -11,7 +11,8 @@
                     <span class="iconfont">
                         <img :src="admina" alt="">
                     </span>
-                    &nbsp;管理员
+                    &nbsp;
+                    {{roleName}}
                 </li>
                 <li @mouseover="personalimg" @mouseout="personalhover"
                     @click="showUpdateInfoPop">
@@ -113,6 +114,7 @@
                 oldPwd: '',
                 newPwd: '',
                 rnewPwd: '',
+                roleName: '',
                 admina: require('./iconadmina.png'),
                 personal: require('./icongerena.png'),
                 password: require('./passworda.png'),
@@ -124,6 +126,7 @@
             this.userName = this.newUserName = getStore('userName') || '';
             this.loginName = getStore('loginName') || '';
             this.userPhone = getStore('userPhone') || '';
+            this.roleName = getStore('userRole') || '';
         },
         methods: {
             // 登出

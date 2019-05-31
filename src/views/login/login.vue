@@ -44,6 +44,7 @@
                     setStore('loginName', user.loginName || '');
                     setStore('userName', user.userName || '');
                     setStore('userPhone', user.userPhone || '');
+                    setStore('userRole', user.roleName || '');
                     Cookies.set('token', data.data.data.token);
                     this.$router.push('/');
                 }

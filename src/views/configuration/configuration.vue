@@ -31,13 +31,13 @@
                         prop="roleName"
                         label="角色名称">
                     </el-table-column>
-                    <el-table-column
+                    <!-- <el-table-column
                         prop="matchSystem"
                         label="匹配系统">
                         <template slot-scope="scope">
                             <span>{{scope.row.matchSystem == 1 ? 'PC' : "APP"}}</span>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
                     <el-table-column
                         prop="name"
                         label="操作">
