@@ -273,22 +273,29 @@ export default {
             this.dialogVisible = true;
             this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
                 if(res.data.code == '2000000') {
-                    this.ids = res.data.data.resourceIds;
+                    //this.ids = res.data.data.resourceIds;
+                    const _ids = [...res.data.data.resourceIds];
+                    this.ids = this.deepFilter(this.tree, _ids);
                     console.log(this.ids);
                 }
             });
 
         },
+
+        deepFilter(a, ids){
+            for(let i=0;i<a.length;i++){
+              if(a[i] && a[i].authResource instanceof Array) {
+        		const index = ids.findIndex(it => it===a[i].id)
+                if (index > -1) {
+                   ids.splice(index,1);
+                }
+        		this.deepFilter(a[i].authResource, ids)
+              }
+            }
+            return ids
+        },
         // 删除
         deletetable(val) {
-            // this.$post(`/role/deletRole`,{
-            //     roleId: val.id
-            // }).then(res => {
-            //     if(res.data.code == '2000000') {
-            //         this.$message.success('删除成功')
-            //         this.tablepage();
-            //     }
-            // });
             this.$get(`/role/deletRole?roleId=${val.id}`).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('删除成功')
@@ -298,10 +305,8 @@ export default {
         },
 
         treechecked(data,checked) {
-            console.log(checked);
             // 获取ID用于新增角色的ajax参数
             this.checkedData = checked.checkedKeys.concat(checked.halfCheckedKeys);
-            // console.log(data,checked);
         },
         handleCheckAllChange(val) {
             this.checkedTask = val ? this.taskId : [];
