@@ -98,7 +98,7 @@
                         :auto-expand-parent="true"
                         :default-checked-keys="ids"
                         :default-expanded-keys="ids"
-                        @node-click="treechecked"
+                        @check="treechecked"
                         :props="defaultProps">
                     </el-tree>
                 </div>
