@@ -54,7 +54,7 @@
                 </li>
                 <li>
                     <span>客户类别</span>
-                    <span v-for="custType in statuslist.custType" v-if="task.custNature.partnerType == custType.optionCode">
+                    <span v-for="custType in statuslist.custType" v-if="task.custNature.custType == custType.optionCode">
                         <!-- <select class="" name="" disabled>
                             <option value="" v-for="custType in statuslist.custType" :selected="task.custNature.partnerType == custType.optionCode ? true : false">
                                 {{custType.optionName}}
@@ -62,7 +62,7 @@
                         </select> -->
                         {{custType.optionName}}
                     </span>
-                    <span v-if="task.custNature.partnerType == ''"></span>
+                    <span v-if="task.custNature.custType == ''"></span>
                 </li>
                 <li>
                     <span>姓名</span>

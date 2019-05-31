@@ -80,7 +80,7 @@
                     </el-table-column>
                     <el-table-column
                             label="融资金额"
-                            prop="leaseAmount">
+                            prop="raiseFunds">
                     </el-table-column>
                     <el-table-column
                             label="主办"
