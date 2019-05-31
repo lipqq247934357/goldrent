@@ -225,6 +225,7 @@ export default {
             if(this.editType == '1') {
                 this.$post('/role/updataRole',{
                     resourceIds: this.value == '1' ? this.checkedData : this.checkedTask,
+                    type: this.value,
                     roleName: this.inputName,
                     matchSystem: this.value,
                     id: this.currentroleId
@@ -241,6 +242,7 @@ export default {
             if(this.editType == '0') {
                 this.$post('/role/addRole',{
                     resourceIds: this.value == '1' ? this.checkedData : this.checkedTask,
+                    type: this.value,
                     roleName: this.inputName,
                     matchSystem: this.value
                 }).then(res => {
@@ -271,12 +273,13 @@ export default {
             this.inputName = val.roleName;
             this.value = val.matchSystem;
             this.dialogVisible = true;
+
             this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
                 if(res.data.code == '2000000') {
                     //this.ids = res.data.data.resourceIds;
+                    this.checkedTask = res.data.data.resourceIdapp;
                     const _ids = [...res.data.data.resourceIds];
                     this.ids = this.deepFilter(this.tree, _ids);
-                    console.log(this.ids);
                 }
             });
 
