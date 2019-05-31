@@ -26,9 +26,7 @@
                     </div> -->
 
                     <div class="checkbox">
-                        <el-checkbox-group v-model="checkList">
-                            <el-checkbox v-for="(item,index) in checkboxlist" :label="item.contractName" disabled></el-checkbox>
-                        </el-checkbox-group>
+                        <el-checkbox v-for="(item,index) in checkboxlist" disabled  :checked="true">{{item.contractName}}</el-checkbox>
                     </div>
 
                 </div>
@@ -230,7 +228,14 @@ export default {
             }
             this.textarea = res.data.data.reasonDescription; // 意见
             for(let i = 0 ; i < this.checkboxlist.length; i++) {
-                this.checkList.push(this.checkboxlist[i].contractName);
+                let a = {
+                    'templateId': this.checkboxlist[i].templateId,
+                    'contractName': this.checkboxlist[i].contractName,
+                    'contractType': this.checkboxlist[i].contractType,
+                    'relationId': this.checkboxlist[i].relationId
+                }
+                this.checkList.push(a);
+                console.log(this.checkList);
             }
         });
         this.textareinput(); //资深 上会 主任审批需要展示的内容

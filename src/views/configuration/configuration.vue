@@ -97,7 +97,7 @@
                         ref="tree"
                         :auto-expand-parent="true"
                         :default-checked-keys="ids"
-                        :default-expanded-keys="ids"
+                        :default-expanded-keys="[1]"
                         @check="treechecked"
                         :props="defaultProps">
                     </el-tree>
