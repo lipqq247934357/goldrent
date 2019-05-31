@@ -86,7 +86,15 @@ export default {
             this.inputdisabled = false;
         }
 
-    },
+        this.$get(`/LoanGrantOpinion/queryLoanGrantDetail?bussNo=${this.$route.query.bussNo}`).then(res => {
+            if(res.data.code == '2000000') {
+                console.log(res);
+                this.describewhy = res.data.data.reasonDescription;
+                this.radio2 = res.data.data.needSupplement;
+                this.radio1 = res.data.data.approvalComments;
+            }
+        });
+    }, 
     methods: {
         // 查看调查报告
         viewreport() {

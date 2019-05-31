@@ -223,6 +223,8 @@ export default {
             this.checkboxlist = res.data.data.contracts; // 合同
             this.conditions = res.data.data.loanPrecondition
             this.requirements = res.data.data.postRentManage
+            this.conditions = res.data.data.loanPrecondition
+            this.requirements = res.data.data.postRentManage
             if(this.$route.query.arrangement == '20') {
                 this.radio1 = String(res.data.data.approvalComments); // 审批意见
             }

@@ -34,7 +34,7 @@
                 <li>
                     <span>识别号类型</span>
                     <span v-for="nuType in statuslist.serialNumberType" v-if="item.condition.serialNoType == nuType.optionCode">{{nuType.optionName}}</span>
-                    <span v-if="item.condition.serialNoType == ''"></span>
+                    <span v-if="item.condition.serialNoType == null"></span>
                 </li>
 
             </ul>
