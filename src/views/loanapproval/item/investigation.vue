@@ -49,7 +49,7 @@
             </li>
             <li>
                 <span>评估机构</span>
-                <span>{{item.serialNumberType}}</span>
+                <span>{{item.evaluationAgency}}</span>
             </li>
             <li class="subliWidth">
                 <p class="bz">备注</p>
