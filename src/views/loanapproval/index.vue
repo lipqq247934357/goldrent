@@ -345,6 +345,7 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
+                    custName:val.custName,
                     arrangement: 20 // 默认贷款审批20 上会审议22 主任审批23 资深审批21
                 }
             })
