@@ -41,7 +41,7 @@
                                 </span>
                                 <span v-if="item.custSex == ''"></span>
                             </li>
-                            <li v-if="item.custMarriage == 'widowed'">
+                            <li v-if="item.custMarriage == 'divorced'">
                                 <span>是否有离婚协议</span>
                                 <span>{{item.marriageSettlement == "Y" ? "有" : item.marriageSettlement == "N" ? "无" : ""}}</span>
                             </li>
