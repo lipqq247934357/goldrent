@@ -24,10 +24,7 @@
                             :value="item.contractName">
                         <span>{{item.contractName}}</span>
                     </div> -->
-
-                    <div class="checkbox" style="width: 85%;float: right;">
-                        <el-checkbox v-for="(item,index) in checkboxlist" disabled  :checked="true">{{item.contractName}}</el-checkbox>
-                    </div>
+                        <el-checkbox style="line-height: 60px;" v-for="(item,index) in checkboxlist" disabled  :checked="true">{{item.contractName}}</el-checkbox>
 
                 </div>
                 <div class="subone opinionsdiv" style="clear:both">
