@@ -49,10 +49,7 @@
             </li>
             <li>
                 <span>评估机构</span>
-                <span v-for="creditType in statuslist.creditType" v-if="item.evaluationAgency == creditType.optionCode">
-                    {{creditType.evaluationAgency}}
-                </span>
-                <span v-if="item.evaluationAgency == ''"></span>
+                <span>{{item.serialNumberType}}</span>
             </li>
             <li class="subliWidth">
                 <p class="bz">备注</p>
@@ -61,7 +58,7 @@
                         type="textarea"
                         :rows="2"
                         placeholder=""
-                        class="inputtext"
+                        class="inputtextIg"
                         disabled
                         v-model="item.remark">
                     </el-input>
@@ -121,7 +118,7 @@
                         type="textarea"
                         :rows="2"
                         placeholder=""
-                        class="inputtext"
+                        class="inputtextIg"
                         disabled
                         v-model="item.remark">
                     </el-input>
@@ -286,13 +283,5 @@ export default {
         padding-left: 15px;
         font-size: 14px;
     }
-    .bottombox {
-        .inputtext {
-            width: 100%;
-            display: block;
-            vertical-align: middle;
-        }
-    }
-
 }
 </style>

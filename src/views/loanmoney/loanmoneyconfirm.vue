@@ -55,7 +55,7 @@
         <div class="titletop">
             <div class="topbox">
                 <span>任务信息</span>
-                <el-button type="primary" class="againbutton" @click="batchloanconfirm" :disabled="downlod == 'N'">批量放款确认</el-button>
+                <el-button type="primary" class="againbutton" @click="batchloanconfirm" :disabled="downlod == 'N'">放款确认</el-button>
                 <el-button type="primary" class="againbutton otheragainbutton" @click="downloadfirl" :disabled="sbmit == 'N'">导出清单</el-button>
             </div>
         </div>
