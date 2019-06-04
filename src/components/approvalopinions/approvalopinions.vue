@@ -249,7 +249,7 @@ export default {
                     bussNo: this.$route.query.bussNo
                 }).then(res => {
                     if(JSON.stringify(res.data.data)) {
-``                        if(JSON.stringify(res.data.data.taskType20)) {
+                        if(JSON.stringify(res.data.data.taskType20)) {
                             this.disabledtextarea = res.data.data.taskType20.reasonDescription;
                         }
                         if(JSON.stringify(res.data.data.taskType23)) {
