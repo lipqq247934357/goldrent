@@ -40,7 +40,8 @@
                     label="说明">
                 </el-table-column>
                 <el-table-column
-                    prop="forceUpdate == 'Y' ? '是' : '否'"
+                    :formatter="formatterForceUpdate"
+                    prop="forceUpdate"
                     label="是否强制更新">
                 </el-table-column>
                 <el-table-column
@@ -111,11 +112,10 @@
                         <el-upload
                             class="upload-demo"
                             action="/web/appVersion/upload"
-                            :on-preview="handlePreview"
-                            :on-remove="handleRemove"
                             :before-remove="beforeRemove"
                             :before-upload="handelupload"
-                            :on-success="filesuccess"
+                            :on-success="handleSuccess"
+                            :headers="{token:this.token}"
                             :multiple="false"
                             :limit="1"
                             name="package"
@@ -139,8 +139,8 @@
             </ul>
         </div>
         <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submit">确 定</el-button>
+        <el-button @click="handleClose">取 消</el-button>
+        <el-button type="primary" @click="submitFunc">确 定</el-button>
         </span>
     </el-dialog>
 </div>
@@ -148,6 +148,7 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../components/title/title.vue';
+import Cookies from 'js-cookie';
 export default {
     data() {
         return {
@@ -223,6 +224,7 @@ export default {
     created() {
         this.pages();
         this.jurisdiction();
+        this.token = Cookies.get('token');
     },
     methods: {
         jurisdiction(val) {
@@ -241,7 +243,6 @@ export default {
                 page: this.page,
                 pageSize: this.pageSize
             }).then(res => {
-                console.log(res.data.data.totalCount);
                 this.alldata = res.data.data;
                 this.tableData = res.data.data.recordList
             })
@@ -254,6 +255,10 @@ export default {
             this.pageSize = val;
             this.pages();
         },
+        handleSuccess(file,e,filelist) {
+            // 请求成功勾子
+            this.fileIndex = file.data.fileIndex;
+        },
         edit(val) {
             this.dialogVisible = true;
             this.versionNo = val.versionCode;
@@ -265,7 +270,7 @@ export default {
             let a = {
                 'name': val.filename
             }
-            this.fileList.push(a)
+            this.fileList.push(a);
         },
         handleClose() {
             this.dialogVisible = false;
@@ -279,17 +284,6 @@ export default {
             this.value = '';
             this.instructions = '';
         },
-        handleRemove(file, fileList) {
-            // 文件列表移除文件时的钩子
-            console.log(file, fileList);
-        },
-        handlePreview(file) {
-            // 点击文件列表中已上传的文件时的钩子
-        },
-        filesuccess(file,e,filelist) {
-            // 请求成功勾子
-            this.fileIndex = file.data.fileIndex;
-        },
         beforeRemove(file, fileList) {
             // 删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除。
             return this.$confirm(`确定移除 ${ file.name }？`);
@@ -298,13 +292,13 @@ export default {
             // 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。
             this.fileName.filename = file.name;
         },
-        submit() {
+        submitFunc() {
             this.modifyandadd();
         },
         // 新增或者修改
         modifyandadd() {
             this.$post('/appVersion/release',{
-                id: this.nowtype == 0 ? '' : this.id ,
+                id: this.nowtype == 0 ? '' : this.id,
                 versionCode: this.versionNo,
                 url: this.nowtype == 0 ? this.fileIndex : this.url,
                 filename: this.fileName.filename,
@@ -313,13 +307,16 @@ export default {
                 forceUpdate: this.value
             }).then(res => {
                 if(res.data.code == '2000000') {
+                    this.fileList = [];
                     this.pages();
                     this.dialogVisible = false;
                 }
             });
 
+        },
+        formatterForceUpdate(row, column, cellValue = ''){
+            return cellValue === 'Y' ? '是' : '否'
         }
-
     },
     components: {
         componentitle
