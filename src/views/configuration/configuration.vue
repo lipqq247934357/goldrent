@@ -8,7 +8,7 @@
     <div class="configetable">
         <!-- 角色管理表格 -->
         <div class="leftTable">
-            <h3>角色管理</h3>
+            <h3>用户角色管理</h3>
             <template>
                 <el-table
                     :data="tableData"
