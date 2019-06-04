@@ -262,11 +262,11 @@ export default {
             if(res.data.code == '2000000') {
                 this.houseMortgager = res.data.data.houseMortgager;
                 if(this.houseMortgager == 0) {
-                    this.$message.error('无房产抵押信息');
+                    // this.$message.error('无房产抵押信息');
                 }
                 this.landMortgager = res.data.data.landMortgager;
                 if(this.landMortgager == 0) {
-                    this.$message.error('无土地使用权抵押信息');
+                    // this.$message.error('无土地使用权抵押信息');
                 }
             }
 

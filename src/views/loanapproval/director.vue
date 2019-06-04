@@ -86,7 +86,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="raiseFunds"
-                    label="融资金额">
+                    label="融资金额(元)">
                 </el-table-column>
                 <el-table-column
                     prop="organiser"

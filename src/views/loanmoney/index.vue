@@ -113,8 +113,8 @@
                             @click="edit(scope.row)"
                             type="text"
                             size="small"
-                            :disabled="buttondeal == 'N'"
-                            v-if="scope.row.status == '待处理'">
+                            :disabled="buttondeal == 'N'">
+                            <!-- v-if="scope.row.status == '待处理'"> -->
                             处理
                         </el-button>
                         <el-button

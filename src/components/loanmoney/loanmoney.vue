@@ -88,7 +88,7 @@ export default {
 
         this.$get(`/LoanGrantOpinion/queryLoanGrantDetail?bussNo=${this.$route.query.bussNo}`).then(res => {
             if(res.data.code == '2000000') {
-                console.log(res);
+                // console.log(res);
                 this.describewhy = res.data.data.reasonDescription;
                 this.radio2 = res.data.data.needSupplement;
                 this.radio1 = res.data.data.approvalComments;
@@ -114,6 +114,12 @@ export default {
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('保存成功');
+                    this.$router.push({
+                        path: '/layout/loanmoney',
+                        query: {
+                            idJurisdiction: this.$route.query.idJurisdiction
+                        }
+                    })
                 }
             });
         },

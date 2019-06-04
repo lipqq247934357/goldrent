@@ -201,13 +201,13 @@
                     <div>联系人</div>
                     <div>
                         <el-input :disabled="type === 'detail'" size="mini" type="text"
-                                  v-model="data.actualController"/>
+                                  v-model="data.contactUser"/>
                     </div>
                 </li>
                 <li>
                     <div>联系地址</div>
                     <div>
-                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.comMobile"/>
+                        <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.contactAddress"/>
                     </div>
                 </li>
                 <li>

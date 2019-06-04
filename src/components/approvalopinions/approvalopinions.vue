@@ -197,6 +197,14 @@ export default {
             checkList: []
         }
     },
+    watch: {
+        checkboxlist: function (val) {
+            this.loanFaceContracts.length = 0
+            val.forEach((element, index) => {
+                this.handelcheckbox(element, index)
+            })
+        }
+    },
     created() {
         // 1为不可编辑 2位可以编辑
         if(this.$route.query.disabled == 1) {
@@ -210,6 +218,7 @@ export default {
             parType: "ROLE_PARAMS",
             parCode: "SENIOR_APPROVAL"
         }).then( res => {
+            // console.log(res)
             this.rolelist = res.data.data;
         });
         // 合同列表 审批意见和描述
@@ -234,7 +243,7 @@ export default {
                     'relationId': this.checkboxlist[i].relationId
                 }
                 this.checkList.push(a);
-                console.log(this.checkList);
+                // console.log(this.checkList);
             }
         });
         this.textareinput(); //资深 上会 主任审批需要展示的内容
@@ -308,7 +317,11 @@ export default {
         // 提交
         adopt() {
             if(this.radio1 == '2') {
-                this.dialogVisible = true;
+                if(this.checkHasSenior(this.rolelist)) {
+                    this.dialogVisible = true;
+                } else {
+                    this.$message.error('当前系统没有可以选择的资深审批人，请联系管理员增加资深审批人');
+                }
                 return;
             }
             this.submitajax();
@@ -420,17 +433,29 @@ export default {
                 'contractType': item.contractType,
                 'relationAssertId': item.relationAssertId
             }
-            if(document.getElementById(index).checked == true) {
-                this.loanFaceContracts.push(a)
-            } else {
-                for(let i = 0 ; i < this.loanFaceContracts.length; i++) {
-                    if(this.loanFaceContracts[i].templateId == this.loanFaceContracts[i].templateId) {
-                        this.loanFaceContracts.splice(i, 1);
-                        break;
+            this.loanFaceContracts.push(a)
+            // if(document.getElementById(index).checked == true) {
+            //     this.loanFaceContracts.push(a)
+            // } else {
+            //     for(let i = 0 ; i < this.loanFaceContracts.length; i++) {
+            //         if(this.loanFaceContracts[i].templateId == this.loanFaceContracts[i].templateId) {
+            //             this.loanFaceContracts.splice(i, 1);
+            //             break;
+            //         }
+            //     }
+            // }
+        },
+        checkHasSenior(rolelist) {
+            if(rolelist.length > 0) {
+                for (let j = 0; j < rolelist.length; j++) {
+                    if(rolelist[j].list.length > 0) {
+                        return true
                     }
                 }
             }
-        },
+
+            return false
+        }
     },
     components: {
         componentitle

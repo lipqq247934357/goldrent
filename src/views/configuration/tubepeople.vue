@@ -123,7 +123,7 @@ export default {
             this.dialogVisible = false;
         },
         checkboxData(val) {
-            console.log(val);
+            // console.log(val);
         },
         dialogsubmit() {
             this.$post('/user/role/updataUser',{

@@ -228,10 +228,10 @@ export default {
         },
         handleRemove(file, fileList) {
             // 文件列表移除文件时的钩子
-            console.log(file, fileList);
+            // console.log(file, fileList);
         },
         handlePreview(file) {
-            console.log(file);
+            // console.log(file);
             // 点击文件列表中已上传的文件时的钩子
         },
         filesuccess(file,e,filelist) {
@@ -323,10 +323,10 @@ export default {
                     this.topbanner();
                 }
             })
-            console.log(item);
+            // console.log(item);
         },
         editupload(item) {
-            console.log(item);
+            // console.log(item);
             this.dialogVisible = true;
             this.uploadactive = '0';
             this.indexnNo = item.serialNumber;
@@ -348,7 +348,7 @@ export default {
 
         },
         beforeAvatarUpload(file) {
-            console.log(file)
+            // console.log(file)
         }
     },
     components: {

@@ -89,7 +89,7 @@ export default {
         this.inputdisabled = this.$route.query.disabled;
         this.$get(`/LoanGrantConfirm/queryBasicInfo?bussNo=${this.$route.query.bussNo}`).then(res => {
             this.queryBasicInfo = res.data.data;
-            console.log(this.queryBasicInfo);
+            // console.log(this.queryBasicInfo);
         });
     },
     components: {

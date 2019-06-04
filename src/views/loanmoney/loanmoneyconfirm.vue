@@ -115,7 +115,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="raiseFunds"
-                    label="融资金额">
+                    label="融资金额(元)">
                 </el-table-column>
                 <el-table-column
                     prop="organiser"
@@ -294,7 +294,7 @@ export default {
             });
         },
         batchloanconfirm() {
-            console.log(this.bussNoarr);
+            // console.log(this.bussNoarr);
             if(this.bussNoarr == 0) {
                 this.$message.error('至少应该选择一条信息');
                 return;
@@ -313,7 +313,7 @@ export default {
                 bussNos: this.bussNoarr,
                 loanGrantDate: this.endTime
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if(res.data.code == '2000000') {
                     this.$message.success('批量放款成功');
                     this.query();

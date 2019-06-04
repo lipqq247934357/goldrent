@@ -213,7 +213,7 @@ export default {
             this.dialogVisible = false;
         },
         checkboxData(val) {
-            console.log(val);
+            // console.log(val);
         },
         dialogsubmit() {
             // 确定按钮 editType 1编辑 0 新增

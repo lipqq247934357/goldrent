@@ -156,7 +156,7 @@
                 </li>
                 <li>
                     <span>唯一识别码</span>
-                    <span>{{task.leaseInfo.serialNo}}</span>
+                    <span>{{task.leaseInfo.serialNumber}}</span>
                 </li>
                 <li>
                     <span>能否抵押受理</span>
