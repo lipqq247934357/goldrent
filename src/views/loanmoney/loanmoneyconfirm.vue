@@ -294,7 +294,6 @@ export default {
             });
         },
         batchloanconfirm() {
-            // console.log(this.bussNoarr);
             if(this.bussNoarr == 0) {
                 this.$message.error('至少应该选择一条信息');
                 return;
@@ -308,7 +307,7 @@ export default {
             }else {
                 let currentData = {};
                 for (let i = 0, len = this.tableData.length; i < len; i++) {
-                    if (this.tableData[i].bussNo = this.bussNoarr[0]) {
+                    if (this.tableData[i].bussNo == this.bussNoarr[0]) {
                         currentData = this.tableData[i];
                     }
                 }
@@ -327,7 +326,6 @@ export default {
                 bussNos: this.bussNoarr,
                 loanGrantDate: this.endTime
             }).then(res => {
-                // console.log(res);
                 if(res.data.code == '2000000') {
                     this.$message.success('批量放款成功');
                     this.query();
@@ -400,14 +398,11 @@ export default {
         },
         // 全选
         handleSelectionChange(val) {
-            if(val) {
-                for(let a = 0 ; a < val.length; a++) {
-                    this.bussNoarr = [...new Set([...this.bussNoarr, val[a].bussNo])];
-                }
+            let bussArr = [];
+            for(let i = 0 ; i < val.length; i++) {
+                bussArr.push(val[i].bussNo);
             }
-            if(val.length == 0) {
-                this.bussNoarr = [];
-            }
+            this.bussNoarr = bussArr;
         },
         downloadfirl() {
             axios({

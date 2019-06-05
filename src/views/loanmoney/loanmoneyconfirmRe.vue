@@ -313,7 +313,7 @@
                 } else {
                     let currentData = [];
                     for (let i = 0, len = this.tableData.length; i < len; i++) {
-                        if (this.tableData[i].bussNo = this.bussNoarr[0]) {
+                        if (this.tableData[i].bussNo == this.bussNoarr[0]) {
                             currentData = this.tableData[i];
                         }
                     }
@@ -406,14 +406,11 @@
             },
             // 全选
             handleSelectionChange(val) {
-                if (val) {
-                    for (let a = 0; a < val.length; a++) {
-                        this.bussNoarr = [...new Set([...this.bussNoarr, val[a].bussNo])];
-                    }
+                let bussArr = [];
+                for (let i = 0; i < val.length; i++) {
+                    bussArr.push(val[i].bussNo);
                 }
-                if (val.length == 0) {
-                    this.bussNoarr = [];
-                }
+                this.bussNoarr = bussArr;
             },
             downloadfirl() {
                 axios({
