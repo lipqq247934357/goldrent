@@ -16,7 +16,7 @@
             </div>
             <el-button @click="login" class="loginbutton" type="primary">登录</el-button>
             <p class="tips">忘记密码请联系管理员</p>
-            <p class="copyright">Copyright ©️ 2019 哈银金融租赁有限责任公司版权所有</p>
+            <p class="copyright">Copyright ©️ 2019 哈银金融有限责任公司版权所有</p>
         </div>
 
     </div>

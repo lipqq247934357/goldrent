@@ -2,7 +2,7 @@
     <div>
         <div class="top">
             <img alt="" height="20" src="./logo.png" width="20">
-            <span>哈银租赁农机零售系统</span>
+            <span>哈银金租农机零售系统</span>
             <span @click="showUserInfo" class="username">{{userName}}</span>
         </div>
         <div class="userInfo" v-show="userInfoPop">
