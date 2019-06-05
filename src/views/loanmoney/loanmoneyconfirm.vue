@@ -299,7 +299,21 @@ export default {
                 this.$message.error('至少应该选择一条信息');
                 return;
             }
+            this.updateEndTime();
             this.dialogVisible = true;
+        },
+        updateEndTime(){
+            if(this.bussNoarr.length > 1){
+                this.endTime = '';
+            }else {
+                let currentData = {};
+                for (let i = 0, len = this.tableData.length; i < len; i++) {
+                    if (this.tableData[i].bussNo = this.bussNoarr[0]) {
+                        currentData = this.tableData[i];
+                    }
+                }
+                this.endTime = currentData.startDate;
+            }
         },
         handleClose(done) {
             this.$confirm('确认关闭？')
@@ -309,7 +323,7 @@ export default {
             .catch(_ => {});
         },
         batchConfirmation() {
-            this.$post('/LoanGrantConfirm/batchGrantConfirm',{
+            this.$post('/LoanGrantConfirm/batchDoGrantConfirm',{
                 bussNos: this.bussNoarr,
                 loanGrantDate: this.endTime
             }).then(res => {
@@ -341,7 +355,6 @@ export default {
                 currentPage: '1', // 每次点击查询按钮都是第一页
                 taskType: '50'
             }).then(res => {
-
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
                     this.tableData = res.data.data.recordList;

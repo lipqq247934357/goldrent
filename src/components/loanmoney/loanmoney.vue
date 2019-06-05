@@ -18,15 +18,15 @@
     <div class="subone opinionsdiv" style="clear:both">
         <p class="titleloantext">后补租赁物识别号：</p>
         <template>
-            <el-radio v-model="radio2" label="Y" :disabled="inputdisabled">需要</el-radio>
-            <el-radio v-model="radio2" label="N" :disabled="inputdisabled">不需要</el-radio>
+            <el-radio v-model="radio2" label="Y" :disabled="inputdisabled || arrangement == 6">需要</el-radio>
+            <el-radio v-model="radio2" label="N" :disabled="inputdisabled || arrangement == 6">不需要</el-radio>
         </template>
     </div>
     <div class="subone opinionsdiv" style="clear:both">
         <p class="titleloantext">审批意见：</p>
         <template>
-            <el-radio v-model="radio1" label="1" :disabled="inputdisabled">同意</el-radio>
-            <el-radio v-model="radio1" label="0" :disabled="inputdisabled">不同意</el-radio>
+            <el-radio v-model="radio1" label="1" :disabled="inputdisabled || arrangement == 6">同意</el-radio>
+            <el-radio v-model="radio1" label="0" :disabled="inputdisabled || arrangement == 6">不同意</el-radio>
         </template>
     </div>
     <div class="subone opinionsdiv" style="clear:both;margin-top:10px;">
@@ -36,15 +36,22 @@
             class="uppertextarea"
             :rows="3"
             placeholder="请输入原因描述"
-            :disabled="inputdisabled"
+            :disabled="inputdisabled || arrangement == 6"
             v-model="describewhy">
         </el-input>
     </div>
 
     <!-- 底部按钮 -->
-    <div class="bottombutton" style="clear:both">
+    <div v-if="arrangement == 5"  class="bottombutton" style="clear:both">
         <el-button type="primary" @click="save" :disabled="inputdisabled" >保存</el-button>
-        <el-button type="primary" @click="adopt" :disabled="inputdisabled">通过</el-button>
+        <el-button type="primary" @click="adopt" :disabled="inputdisabled">提交</el-button>
+        <!-- <el-button type="primary" @click="exit" :disabled="inputdisabled">退回</el-button> -->
+    </div>
+
+
+    <div v-if="arrangement == 6"  class="bottombutton" style="clear:both">
+        <el-button type="primary" @click="agreeOrBack(1)" :disabled="inputdisabled" >同意</el-button>
+        <el-button type="primary" @click="agreeOrBack(0)" :disabled="inputdisabled">退回</el-button>
         <!-- <el-button type="primary" @click="exit" :disabled="inputdisabled">退回</el-button> -->
     </div>
     <!-- 底部按钮end -->
@@ -65,10 +72,12 @@ export default {
             radio1: '', // 同意不同意
             inputdisabled: '', // 判断是否是可编辑状态
             describewhy: '', // 原因描述
-            radio2: '' // 后补租赁物识别号
+            radio2: '', // 后补租赁物识别号
+            arrangement:''
         }
     },
     created() {
+        this.arrangement = this.$route.query.arrangement;
         this.bussNo = this.$route.query.bussNo;
         this.$post('/materialTree',{
             materialType: 'ASSIGN_MATERIAL'
@@ -94,7 +103,7 @@ export default {
                 this.radio1 = res.data.data.approvalComments;
             }
         });
-    }, 
+    },
     methods: {
         // 查看调查报告
         viewreport() {
@@ -123,7 +132,7 @@ export default {
                 }
             });
         },
-        // 通过
+        // 提交
         adopt() {
             this.$post('/LoanGrantOpinion/submitApprove',{
                 bussNo: this.$route.query.bussNo,
@@ -141,18 +150,16 @@ export default {
                     })
                 }
             });
-
         },
-        // 退回
-        exit() {
-            this.$post('/LoanGrantOpinion/rejectGrant',{
+        // 同意或者退回
+        agreeOrBack(val) {
+            this.$post('/LoanGrantOpinion/submitApproveReview',{
                 bussNo: this.$route.query.bussNo,
-                approvalComments: this.radio1,
-                reasonDescription: this.describewhy,
+                approvalComments: val,
                 needSupplement: this.radio2
             }).then(res => {
                 if(res.data.code == '2000000') {
-                    this.$message.success('退回');
+                    this.$message.success('通过');
                     this.$router.push({
                         path: '/layout/loanmoney',
                         query: {
@@ -161,8 +168,7 @@ export default {
                     })
                 }
             });
-
-        }
+        },
     },
     components: {
         imgLine,
@@ -228,6 +234,11 @@ export default {
         width: calc(100% - 160px);
         float: right;
     }
+}
+
+.el-button--primary.is-disabled {
+    background: #ff8f2b !important;
+    border: 0 !important;
 }
 
 </style>

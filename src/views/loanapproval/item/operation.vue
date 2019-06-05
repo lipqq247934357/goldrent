@@ -1,13 +1,13 @@
 <template>
 <div class="businfosss operation">
-    <div class="" v-if="arrangementtype != 5">
+    <div class="" v-if="arrangementtype != 5 && arrangementtype != 6">
         <!-- 评分卡table -->
         <scoretable />
-
+        <!--  审批流水  -->
         <!-- 审批意见等 -->
         <approvalopinions />
     </div>
-    <div class="" v-if="arrangementtype == 5">
+    <div class="" v-else>
         <loanmoney />
     </div>
 </div>

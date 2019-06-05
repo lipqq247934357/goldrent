@@ -239,7 +239,7 @@ export default {
                 createTimeEnd: this.endTime, // 任务结束时间
                 numPerPage: this.alsoSize, // 每页多少条
                 currentPage: this.currentPage2, // 每次点击查询按钮都是第一页
-                taskType: '40'
+                taskType: '41'
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
@@ -269,7 +269,7 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
-                    arrangement: 5, // 默认贷款审批 2上会审议 3主任审批 4资深审批 5放款审批
+                    arrangement: 6, // 默认贷款审批 2上会审议 3主任审批 4资深审批 5放款审批
                     nowpath: this.$route.path,
                     nowurlName: '放款审批列表',
                     loanmoneyOperation: '放款审批操作',
@@ -286,7 +286,7 @@ export default {
                     id:val.id,
                     bussNo:val.bussNo,
                     custId: val.custId,
-                    arrangement: 5, //1 默认贷款审批 2上会审议 3主任审批 4资深审批 5放款审批经办 6 放款审批复核
+                    arrangement: 6, //1 默认贷款审批 2上会审议 3主任审批 4资深审批 5放款审批经办 6 放款审批复核
                     nowpath: this.$route.path,
                     nowurlName: '放款审批列表',
                     loanmoneyOperation: '放款审批操作',

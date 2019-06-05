@@ -16,8 +16,11 @@ import natural from './views/businessM/natural.vue'; //添加商业伙伴
 import error404 from './views/404'; // 404
 
 import loanmoney from './views/loanmoney/index.vue'; // 放款审批列表
+import loanmoneyRe from './views/loanmoney/loanMoneyRe.vue'; // 放款审批列表
 import download from './views/loanmoney/download.vue'; // 下载放款审批
 import loanmoneyconfirm from './views/loanmoney/loanmoneyconfirm.vue'; // 放款确认列表
+import loanmoneyconfirmRe from './views/loanmoney/loanmoneyconfirmRe.vue'; // 放款确认列表
+
 import confirmhandle from './views/loanmoney/confirmhandle.vue'; // 放款确认详情
 
 import banner from './views/bannermanagement/bannermanagement.vue'; // banner图管理
@@ -113,6 +116,12 @@ export default new Router({
                 },
                 {
 
+                    path: 'loanmoneyre', //放款审批列表
+                    name: 'loanmoneyre',
+                    component: loanmoneyRe
+                },
+                {
+
                     path: 'download', //下载审批列表
                     name: 'download',
                     component: download
@@ -122,6 +131,12 @@ export default new Router({
                     path: 'loanmoneyconfirm', //放款确认列表
                     name: 'loanmoneyconfirm',
                     component: loanmoneyconfirm
+                },
+                {
+
+                    path: 'loanmoneyconfirmre', //放款确认列表
+                    name: 'loanmoneyconfirmre',
+                    component: loanmoneyconfirmRe
                 },
                 {
 
