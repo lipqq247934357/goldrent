@@ -39,12 +39,28 @@
                 </div>
                 <div class="subone opinionsdiv" style="clear:both">
                     <div class="suboneelinput" style="clear:both">
-                        <p>放款前提条件：</p>
-                        <el-input placeholder="请输入放款前提条件" class="contentinout" v-model="conditions" :disabled="radio1 == '0' || radio1 == '4' || inputdisabled ? true : false "></el-input>
+                        <p class="textdescribe">放款前提条件：</p>
+                        <el-input
+                                type="textarea"
+                                class="textareawidth"
+                                :rows="3"
+                                placeholder="请输入放款前提条件"
+                                v-model="conditions"
+                                :disabled="radio1 == '0' || radio1 == '4' || inputdisabled ? true : false"
+                                >
+                        </el-input>
                     </div>
                     <div class="suboneelinput" style="clear:both">
-                        <p>租后管理要求：</p>
-                        <el-input placeholder="请输入租后管理要求" class="contentinout" v-model="requirements" :disabled="radio1 == '0' || radio1 == '4' || inputdisabled  ? true : false "></el-input>
+                        <p class="textdescribe">租后管理要求：</p>
+                        <el-input
+                                type="textarea"
+                                class="textareawidth"
+                                :rows="3"
+                                placeholder="请输入租后管理要求"
+                                v-model="requirements"
+                                :disabled="radio1 == '0' || radio1 == '4' || inputdisabled  ? true : false"
+                                >
+                        </el-input>
                     </div>
                 </div>
                 <div class="subone" style="clear:both">
