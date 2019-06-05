@@ -251,6 +251,7 @@ export default {
         }
     }
     .tables {
+        font-size: 14px;
         .renttable {
             text-align: center;
             width: 100%;
@@ -259,7 +260,7 @@ export default {
             border-top: 0;
             .tabletable {
                 border-top: 0;
-                font-size: 16px;
+                font-size: 14px;
                 color: #333;
                 font-weight: bold;
             }
