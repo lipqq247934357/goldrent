@@ -16,6 +16,9 @@
                 <div>{{item.taskName}}</div>
                 <div>{{item.comments}}</div>
             </li>
+            <li v-if="data.length === 0">
+            <p>暂无数据</p>
+            </li>
         </ul>
     </div>
 
@@ -67,6 +70,17 @@
                 border-left: 1px solid #cccccc;
                 border-bottom: 1px solid #cccccc;
                 box-sizing: border-box;
+            }
+            >p {
+                float: left;
+                font-size: 14px;
+                text-align: center;
+                width: 100%;
+                height: 40px;
+                line-height: 40px;
+                border-left: 1px solid #cccccc;
+                border-bottom: 1px solid #cccccc;
+
             }
         }
     }
