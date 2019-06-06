@@ -22,7 +22,10 @@
                 </span>
                 <span v-if="item.relation == ''"></span>
             </li>
-
+            <li>
+                <span>身份证号(自然人填写)</span>
+                <span>{{item.mortgagerCertNo}}</span>
+            </li>
             <li>
                 <span>房屋产权证号</span>
                 <span>{{item.certificate}}</span>
@@ -50,6 +53,10 @@
             <li>
                 <span>评估机构</span>
                 <span>{{item.evaluationAgency}}</span>
+            </li>
+            <li>
+                <span></span>
+                <span></span>
             </li>
             <li class="subliWidth">
                 <p class="bz">备注</p>
@@ -88,6 +95,10 @@
                 <span v-if="item.relation == ''"></span>
             </li>
             <li>
+                <span>身份证号(自然人填写)</span>
+                <span>{{item.mortgagerCertNo}}</span>
+            </li>
+            <li>
                 <span>土地使用证号</span>
                 <span>{{item.certificate}}</span>
             </li>
@@ -110,6 +121,10 @@
             <li>
                 <span>评估价值（万元）</span>
                 <span>{{item.evaluateValue}}</span>
+            </li>
+            <li>
+                <span>评估机构</span>
+                <span>{{item.evaluationAgency}}</span>
             </li>
             <li class="subliWidth">
                 <p class="bz">备注</p>
