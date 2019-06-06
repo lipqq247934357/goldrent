@@ -4,6 +4,7 @@
         <!-- 评分卡table -->
         <scoretable />
         <!--  审批流水  -->
+        <approvallist/>
         <!-- 审批意见等 -->
         <approvalopinions />
     </div>
@@ -15,6 +16,7 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../../components/title/title.vue';
+import approvallist from '../../../components/approvallist/approvallist.vue'; //
 import loanmoney from '../../../components/loanmoney/loanmoney.vue'; // 放款审批管理
 import approvalopinions from '../../../components/approvalopinions/approvalopinions.vue'; // 审批意见
 import scoretable from '../../../components/score/score.vue'; //评分卡table以及重评的功能提交等
@@ -32,6 +34,7 @@ export default {
     },
     components: {
         componentitle,
+        approvallist,
         loanmoney,
         approvalopinions,
         scoretable
