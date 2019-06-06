@@ -104,6 +104,18 @@ export default {
             }
         });
     },
+    watch:{
+        radio1:function(newVal){
+            if(this.inputdisabled || this.arrangement == 6){
+            }else {
+                if(newVal == 1){
+                    this.describewhy = '同意';
+                }else {
+                    this.describewhy = '';
+                }
+            }
+        }
+    },
     methods: {
         // 查看调查报告
         viewreport() {
@@ -168,7 +180,7 @@ export default {
                     })
                 }
             });
-        },
+        }
     },
     components: {
         imgLine,

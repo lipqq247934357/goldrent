@@ -1,6 +1,6 @@
 <template>
 <div class="externalinfo">
-    <componentitle :message="message='其他增信措施'" />
+    <componentitle :message="message='增信措施及综述'" />
     <div class="assetsinfoul">
         <h3>房产抵押</h3>
         <ul class="infolist" v-for="item in houseMortgager">
@@ -139,26 +139,26 @@
             disabled
             v-model="item.conclusion == '' ? '' : item.conclusion">
         </el-input>
-        <h3>协办人</h3>
-        <el-input
-            v-for="item in assist"
-            type="textarea"
-            :rows="4"
-            placeholder="请输入内容"
-            class="inputtext"
-            disabled
-            v-model="item.conclusion == '' ? '' : item.conclusion">
-        </el-input>
-        <h3>部门负责人</h3>
-        <el-input
-            v-for="item in responsible"
-            type="textarea"
-            :rows="4"
-            placeholder="请输入内容"
-            class="inputtext"
-            disabled
-            v-model="item.conclusion == '' ? '' : item.conclusion">
-        </el-input>
+<!--        <h3>协办人</h3>-->
+<!--        <el-input-->
+<!--            v-for="item in assist"-->
+<!--            type="textarea"-->
+<!--            :rows="4"-->
+<!--            placeholder="请输入内容"-->
+<!--            class="inputtext"-->
+<!--            disabled-->
+<!--            v-model="item.conclusion == '' ? '' : item.conclusion">-->
+<!--        </el-input>-->
+<!--        <h3>部门负责人</h3>-->
+<!--        <el-input-->
+<!--            v-for="item in responsible"-->
+<!--            type="textarea"-->
+<!--            :rows="4"-->
+<!--            placeholder="请输入内容"-->
+<!--            class="inputtext"-->
+<!--            disabled-->
+<!--            v-model="item.conclusion == '' ? '' : item.conclusion">-->
+<!--        </el-input>-->
     </div>
 </div>
 </template>

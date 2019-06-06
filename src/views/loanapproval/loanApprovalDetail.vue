@@ -62,7 +62,7 @@ export default {
                 repurchase: '回购人信息',
                 leasegoods: '租赁物情况',
                 externalnews: '外部信息',
-                investigation: '其他增信措施',
+                investigation: '增信措施及综述',
                 loan: '贷款审批操作',
             },
             bindText: '租赁要素',
