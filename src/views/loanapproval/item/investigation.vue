@@ -55,8 +55,6 @@
                 <span>{{item.evaluationAgency}}</span>
             </li>
             <li>
-                <span></span>
-                <span></span>
             </li>
             <li class="subliWidth">
                 <p class="bz">备注</p>
