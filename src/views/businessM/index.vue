@@ -101,8 +101,9 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="法人">
+
                         <div class="add-btn">
-                            <div class="button" @click="add">新增</div>
+                            <el-button type="primary" class="button" @click="add" :disabled="addbutton == 'N'">新增</el-button>
                         </div>
                         <template>
                             <el-table
