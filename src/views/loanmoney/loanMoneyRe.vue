@@ -110,11 +110,11 @@
                     label="操作">
                     <template slot-scope="scope">
                         <el-button
+                            v-if="scope.row.status == '待处理'"
                             @click="edit(scope.row)"
                             type="text"
                             size="small"
                             :disabled="buttondeal == 'N'">
-                            <!-- v-if="scope.row.status == '待处理'"> -->
                             处理
                         </el-button>
                         <el-button
