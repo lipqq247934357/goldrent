@@ -151,8 +151,8 @@ export default {
     data() {
         return {
             loading: false,
-            parenTtext: '贷款审批',
-            url: '/layout/loadapproval',
+            parenTtext: '授信审批管理',
+            url: '/layout/upper?idJurisdiction=5',
             message: '筛选条件',
             titletext: '上会审议',
             contenttext: '任务信息',

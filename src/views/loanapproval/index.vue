@@ -151,10 +151,10 @@ export default {
     data() {
         return {
             loading: false,
-            parenTtext: '贷款审批',
-            url: '/layout/loadapproval',
+            parenTtext: '授信审批管理',
+            url: '/layout/loadapproval?idJurisdiction=4',
             message: '筛选条件',
-            titletext: '贷款审批列表',
+            titletext: '授信审批',
             contenttext: '任务信息',
             tableData: [], // 表格
             alldata: '', // 总页数
