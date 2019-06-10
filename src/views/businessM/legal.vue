@@ -48,12 +48,12 @@
                     <div>
                         <!-- <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.certStartDate"/> -->
                         <el-date-picker
-                            v-model="data.certStartDate"
-                            :disabled="type === 'detail'"
-                            type="date"
-                            format="yyyy 年 MM 月 dd 日"
-                            value-format="yyyy-MM-dd"
-                            placeholder="选择日期">
+                                :disabled="type === 'detail'"
+                                format="yyyy 年 MM 月 dd 日"
+                                placeholder="选择日期"
+                                type="date"
+                                v-model="data.certStartDate"
+                                value-format="yyyy-MM-dd">
                         </el-date-picker>
                     </div>
                 </li>
@@ -62,12 +62,12 @@
                     <div>
                         <!-- <el-input :disabled="type === 'detail'" size="mini" type="text" v-model="data.certEndDate"/> -->
                         <el-date-picker
-                            v-model="data.certEndDate"
-                            :disabled="type === 'detail'"
-                            type="date"
-                            format="yyyy 年 MM 月 dd 日"
-                            value-format="yyyy-MM-dd"
-                            placeholder="选择日期">
+                                :disabled="type === 'detail'"
+                                format="yyyy 年 MM 月 dd 日"
+                                placeholder="选择日期"
+                                type="date"
+                                v-model="data.certEndDate"
+                                value-format="yyyy-MM-dd">
                         </el-date-picker>
                     </div>
                 </li>
@@ -106,14 +106,14 @@
                     <div>
                         <!-- <el-input :disabled="type === 'detail'" size="mini" type="text"
                                   v-model="data.comEstablishDate"/> -->
-                          <el-date-picker
-                              v-model="data.comEstablishDate"
-                              :disabled="type === 'detail'"
-                              type="date"
-                              format="yyyy 年 MM 月 dd 日"
-                              value-format="yyyy-MM-dd"
-                              placeholder="选择日期">
-                          </el-date-picker>
+                        <el-date-picker
+                                :disabled="type === 'detail'"
+                                format="yyyy 年 MM 月 dd 日"
+                                placeholder="选择日期"
+                                type="date"
+                                v-model="data.comEstablishDate"
+                                value-format="yyyy-MM-dd">
+                        </el-date-picker>
                     </div>
                 </li>
                 <li>
@@ -175,20 +175,21 @@
                     <div>
                         <!-- <el-input :disabled="type === 'detail'" size="mini" type="text"
                                   v-model="data.legalCertDeadline"/> -->
-                          <el-date-picker
-                              v-model="data.legalCertDeadline"
-                              :disabled="type === 'detail'"
-                              type="date"
-                              format="yyyy 年 MM 月 dd 日"
-                              value-format="yyyy-MM-dd"
-                              placeholder="选择日期">
-                          </el-date-picker>
+                        <el-date-picker
+                                :disabled="type === 'detail'"
+                                format="yyyy 年 MM 月 dd 日"
+                                placeholder="选择日期"
+                                type="date"
+                                v-model="data.legalCertDeadline"
+                                value-format="yyyy-MM-dd">
+                        </el-date-picker>
                     </div>
                 </li>
                 <li>
                     <div>法人电话</div>
                     <div>
-                        <el-input maxlength="11" :disabled="type === 'detail'" size="mini" type="text" v-model="data.legalMobile"/>
+                        <el-input :disabled="type === 'detail'" maxlength="11" size="mini" type="text"
+                                  v-model="data.legalMobile"/>
                     </div>
                 </li>
                 <li>
@@ -334,7 +335,7 @@
                 dialogImageUrl: '', // 图片url
                 type: '',
                 imgFile: {},
-                token:''
+                token: ''
             }
         },
         created() {
@@ -414,7 +415,7 @@
             async getRelationId() { // 保存用户信息
                 let data = await this.$post('/bussPartner/getPartnerId');
                 if (data.data.code === '2000000') {
-                    this.data.id = this.id = data.data.data;
+                    this.data.id = this.id = this.relationId = data.data.data;
                 }
             },
             async imgData() {

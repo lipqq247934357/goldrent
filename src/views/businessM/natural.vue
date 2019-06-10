@@ -247,7 +247,7 @@
             }
         },
         created() {
-            var id = this.$route.query.id;
+            let id = this.$route.query.id;
             this.relationId = id;
             let params = urlParse();
             if (params.id) {
@@ -329,9 +329,8 @@
             async getRelationId() { // 保存用户信息
                 let data = await this.$post('/bussPartner/getPartnerId');
                 if (data.data.code === '2000000') {
-                    this.data.id = this.id = data.data.data;
+                    this.data.id = this.id = this.relationId= data.data.data;
                 }
-                // this.data.id = this.id = this.$route;
             },
             async save() { // 保存用户信息
 
