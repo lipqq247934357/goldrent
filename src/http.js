@@ -31,7 +31,7 @@ axios.interceptors.response.use(
         if (!response || !response.data || !response.data.code) {
             return response;
         }
-        if (response.data.code !== '2000000' && response.data.code !== '2000009' && response.data.code !== '2000006' && response.data.code !== '2000009') {
+        if (response.data.code !== '2000000' && response.data.code !== '2000009' && response.data.code !== '2000006' && response.data.code !== '2000009' && response.data.code !== '500100' ) {
             //业务异常
             Message.error({message: response.data.msg, duration: 5 * 1000});
         }
