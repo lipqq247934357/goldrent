@@ -71,6 +71,15 @@
                 border-bottom: 1px solid #cccccc;
                 box-sizing: border-box;
             }
+            >div:first-child {
+                width: 8%;
+            }
+            >div:nth-child(2) {
+                width: 12%;
+            }
+            >div:last-child {
+                width: 40%;
+            }
             >p {
                 float: left;
                 font-size: 14px;
