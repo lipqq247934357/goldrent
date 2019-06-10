@@ -705,7 +705,7 @@
 
                                 </li>
                                 <li>
-                                    <span>偿债比（年支出/年结余）</span>
+`                                    <span>偿债比(年支出/年结余)</span>
                                     <span>{{incomeDebtRatios.incomeDebtRatio}}</span>
                                 </li>
                             </ul>
