@@ -34,12 +34,24 @@
             <span>{{wantfactor.financeAmt}}</span>
         </li>
         <li>
+            <span>厂商贴息时间</span>
+            <span>{{wantfactor.firmRebateIntrestDate}}</span>
+        </li>
+        <li>
             <span>厂商返利（元）</span>
             <span>{{wantfactor.rebateAmt}}</span>
         </li>
         <li>
+            <span>其他支出时间</span>
+            <span>{{wantfactor.otherExpenseDate}}</span>
+        </li>
+        <li>
             <span>厂商贴息（元）</span>
             <span>{{wantfactor.rebateFirmAmt}}</span>
+        </li>
+        <li>
+            <span>其他支出</span>
+            <span>{{wantfactor.otherExpense}}</span>
         </li>
         <li>
             <span>承租人风险金（元）</span>
