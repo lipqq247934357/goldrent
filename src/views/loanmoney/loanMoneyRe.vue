@@ -110,7 +110,7 @@
                     label="操作">
                     <template slot-scope="scope">
                         <el-button
-                            v-if="scope.row.status == '待处理'"
+                            v-if="scope.row.status == '待处理' || scope.row.status == '处理中' || scope.row.status == '已退回'"
                             @click="edit(scope.row)"
                             type="text"
                             size="small"
