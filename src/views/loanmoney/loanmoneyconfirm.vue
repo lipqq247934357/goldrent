@@ -71,6 +71,7 @@
                     type="date"
                     format="yyyy 年 MM 月 dd 日"
                     value-format="yyyy-MM-dd"
+                    :picker-options="pickerOptions"
                     placeholder="选择日期">
                 </el-date-picker>
                 <span slot="footer" class="dialog-footer">
@@ -274,7 +275,12 @@ export default {
             dialogVisible: false, // 弹出框
             bussNoarr: [], // 用于批量上传的bussNo
             downlod: '',
-            sbmit: ''
+            sbmit: '',
+            pickerOptions:{
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+            }
         }
     },
     created() {

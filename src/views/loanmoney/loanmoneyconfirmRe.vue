@@ -75,6 +75,7 @@
                         placeholder="选择日期"
                         type="date"
                         v-model="endTime"
+                        :picker-options="pickerOptions"
                         value-format="yyyy-MM-dd">
                 </el-date-picker>
                 <span class="dialog-footer" slot="footer">
@@ -279,7 +280,12 @@
                 dialogVisible: false, // 弹出框
                 bussNoarr: [], // 用于批量上传的bussNo
                 downlod: '',
-                sbmit: ''
+                sbmit: '',
+                pickerOptions:{
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                }
             }
         },
         created() {
