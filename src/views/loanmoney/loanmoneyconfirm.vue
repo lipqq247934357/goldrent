@@ -181,10 +181,10 @@ export default {
     data() {
         return {
             loading: false,
-            parenTtext: '贷款审批',
-            url: '/layout/loadapproval',
+            parenTtext: '放款管理',
+            url: '/layout/loanmoneyconfirm?idJurisdiction=61',
             message: '筛选条件',
-            titletext: '放款审批列表',
+            titletext: '放款确认经办',
             contenttext: '任务信息',
             tableData: [
                 // 返回示例
