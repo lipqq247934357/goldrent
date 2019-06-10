@@ -1,14 +1,13 @@
 <template>
 <div class="configuration loanapproval">
     <div class="quanxian">
-        <h3>用户权限管理</h3>
-        <componentitle :message="message = '用户权限管理'"/>
+        <h3>用户角色管理</h3>
+        <componentitle :message="message = '用户角色管理'"/>
         <button type="button" name="button" class="releasebutton" @click="releasebutton">新建角色</button>
     </div>
     <div class="configetable">
         <!-- 角色管理表格 -->
         <div class="leftTable">
-            <h3>用户角色管理</h3>
             <template>
                 <el-table
                     :data="tableData"

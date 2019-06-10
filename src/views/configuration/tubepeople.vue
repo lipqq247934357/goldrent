@@ -6,7 +6,6 @@
     </div>
     <div class="configetable">
         <div class="rightTable">
-            <h3>用户权限管理</h3>
             <template>
                 <el-table
                     :data="tableData"
