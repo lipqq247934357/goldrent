@@ -2,13 +2,13 @@
 <div class="loanapproval">
     <div class="content">
         <h3 class="titleh3">
-            <span class="urlTextt">贷款审批</span>
-            <i class="el-icon-arrow-right"></i>
-            <router-link :to="nowurl == undefined ? `/layout/loadapproval` : nowurl" class="urlTextt">
-                {{nowurlName == undefined ? '贷款审批列表' : nowurlName}}
-                <i class="el-icon-arrow-right"></i>
-            </router-link>
-            <span>&nbsp;{{bindText}}</span>
+<!--            <span class="urlTextt">贷款审批</span>-->
+<!--            <i class="el-icon-arrow-right"></i>-->
+<!--            <router-link :to="nowurl == undefined ? `/layout/loadapproval` : nowurl" class="urlTextt">-->
+<!--                {{nowurlName == undefined ? '贷款审批列表' : nowurlName}}-->
+<!--                <i class="el-icon-arrow-right"></i>-->
+<!--            </router-link>-->
+<!--            <span>&nbsp;{{bindText}}</span>-->
         </h3>
         <el-tabs type="border-card"
             v-model="bindText"
