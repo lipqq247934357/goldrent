@@ -94,7 +94,7 @@
                             <li>
                                 <span>法人证件类型</span>
                                 <span>
-                                    {{item.legalCertType}}
+                                    {{certType[item.legalCertType]}}
                                 </span>
                             </li>
                             <li>
@@ -133,7 +133,7 @@
                                     {{item.contactUser}}
                                 </span>
                             </li>
-                            <li style="border-bottom: 0px;">
+                            <li>
                                 <span>管户人</span>
                                 <span>
                                     {{item.accountHolder}}
@@ -1114,6 +1114,11 @@ export default {
             partner: {}, // 储存法人还是自然人NAT自然人	 LEG法人
             id: '', // 当前ID
             bussNo:'', // 订单号
+            certType:{
+                'PASSPORT':'护照',
+                'MILITARY_ID':'军官证',
+                'ID_CARD':'身份证'
+            },
             imgFile: {}, //预览图片文件
             legImgfile: [], // 法人图片
             statuslist: { // 字典编码
