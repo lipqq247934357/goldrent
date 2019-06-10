@@ -93,7 +93,7 @@
                                 <span>征信报告</span>
                                 <span>{{item.hasCreditReport == "Y" ? "有" : item.hasCreditReport == "N" ? "无" : "" }}</span>
                             </li>
-                            <li>
+                            <li  style="border-bottom: 0">
                                 <span>微信</span>
                                 <span>{{item.custWechat}}</span>
                             </li>
@@ -281,34 +281,36 @@
                             </ul>
                         </div>
                         <div class="assetsinfoul">
-                            <h3>&nbsp;&nbsp;&nbsp;&nbsp;土地（含代收代耕）</h3>
-                            <ul class="infolist" v-for="assetsLands in item.assetsLands">
+                            <template v-for="assetsLands in item.assetsLands">
+                                <h3>&nbsp;&nbsp;&nbsp;&nbsp;土地（含代收代耕）</h3>
+                                <ul class="infolist">
 
-                                <li>
-                                    <span>面积（亩）</span>
-                                    <span>{{assetsLands.acreage}}</span>
-                                </li>
-                                <li>
-                                    <span>价值（元）</span>
-                                    <span>{{assetsLands.value}}</span>
-                                </li>
-                                <li>
-                                    <span>土地地址/坐落</span>
-                                    <span>{{assetsLands.address}}</span>
-                                </li>
-                                <li>
-                                    <span>是否抵押</span>
-                                    <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'N' ? '未抵押' : '' }}</span>
-                                </li>
-                                <li class="borderNone">
-                                    <span>承包期限（年）</span>
-                                    <span>{{assetsLands.contractLife}}</span>
-                                </li>
-                                <li>
-                                    <span>核实方法</span>
-                                    <span>{{assetsLands.checkMode == '01' ? '通过农补账户流水核实' : assetsLands.checkMode == '02' ? '通过农场政研室核实' : ''}}</span>
-                                </li>
-                            </ul>
+                                    <li>
+                                        <span>面积（亩）</span>
+                                        <span>{{assetsLands.acreage}}</span>
+                                    </li>
+                                    <li>
+                                        <span>价值（元）</span>
+                                        <span>{{assetsLands.value}}</span>
+                                    </li>
+                                    <li>
+                                        <span>土地地址/坐落</span>
+                                        <span>{{assetsLands.address}}</span>
+                                    </li>
+                                    <li>
+                                        <span>是否抵押</span>
+                                        <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'N' ? '未抵押' : '' }}</span>
+                                    </li>
+                                    <li class="borderNone">
+                                        <span>承包期限（年）</span>
+                                        <span>{{assetsLands.contractLife}}</span>
+                                    </li>
+                                    <li>
+                                        <span>核实方法</span>
+                                        <span>{{assetsLands.checkMode == '01' ? '通过农补账户流水核实' : (assetsLands.checkMode == '02' ? '通过农场政研室核实' : '')}}</span>
+                                    </li>
+                                </ul>
+                            </template>
                         </div>
                         <div class="assetsinfoul">
                             <h3>&nbsp;&nbsp;&nbsp;&nbsp;金融资产</h3>

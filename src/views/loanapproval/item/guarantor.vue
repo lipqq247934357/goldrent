@@ -420,7 +420,7 @@
                                     <span>当前估价（元）</span>
                                     <span>{{assetsHouses.currEvaluation}}</span>
                                 </li>
-                                <li>
+                                <li style="border-bottom: 0">
                                     <span>所有权人</span>
                                     <span>{{assetsHouses.owner}}</span>
 
@@ -451,13 +451,13 @@
                                     <span>是否抵押</span>
                                     <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'N' ? '未抵押' : '' }}</span>
                                 </li>
-                                <li>
+                                <li  style="border-bottom: 0">
                                     <span>承包期限（年）</span>
                                     <span>{{assetsLands.contractLife}}</span>
                                 </li>
                                 <li>
                                     <span>核实方法</span>
-                                    <span>{{assetsLands.contractLife == '01' ? '通过农补账户流水核实' : assetsLands.contractLife == '02' ?  '通过农场政研室核实' : ''}}</span>
+                                    <span>{{assetsLands.checkMode == '01' ? '通过农补账户流水核实' : (assetsLands.checkMode == '02' ? '通过农场政研室核实' : '')}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -480,7 +480,7 @@
                                     <span>车辆牌号</span>
                                     <span>{{assetsVehicles.serialNo}}</span>
                                 </li>
-                                <li>
+                                <li  style="border-bottom: 0">
                                     <span>所有权人</span>
                                     <span>{{assetsVehicles.owner}}</span>
                                 </li>
@@ -509,7 +509,7 @@
                                     <span>所有权人</span>
                                     <span>{{assetsFarmTools.owner}}</span>
                                 </li>
-                                <li>
+                                <li  style="border-bottom: 0">
                                     <span>号牌/车架号</span>
                                     <span>{{assetsFarmTools.serialNo}}</span>
                                 </li>
