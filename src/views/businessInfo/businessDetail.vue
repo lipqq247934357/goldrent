@@ -29,12 +29,12 @@
                         <td>任务开始时间</td>
                         <td>任务结束时间</td>
                     </tr>
-                    <tr>
-                        <td>{{task.task.bussNo}}</td>
-                        <td>{{task.task.taskName}}</td>
-                        <td>{{task.task.createTime}}</td>
-                        <td>{{task.task.beginTime}}</td>
-                        <td>{{task.task.finishTime}}</td>
+                    <tr v-for="item in task.task">
+                        <td>{{item.bussNo}}</td>
+                        <td>{{item.taskName}}</td>
+                        <td>{{item.createTime}}</td>
+                        <td>{{item.beginTime}}</td>
+                        <td>{{item.finishTime}}</td>
                     </tr>
                 </table>
             </template>
@@ -241,7 +241,7 @@
                 titletext: '业务信息',
                 contenttext: '任务信息',
                 task: {
-                    task: {},
+                    task: [],
                     custNature: {},
                     leaseInfo: {},
                     leasePlan: []

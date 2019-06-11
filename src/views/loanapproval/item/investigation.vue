@@ -64,7 +64,7 @@
                         :rows="2"
                         placeholder=""
                         class="inputtextIg"
-                        disabled
+                        readonly
                         v-model="item.remark">
                     </el-input>
                 </div>
@@ -132,7 +132,7 @@
                         :rows="2"
                         placeholder=""
                         class="inputtextIg"
-                        disabled
+                        readonly
                         v-model="item.remark">
                     </el-input>
                 </div>

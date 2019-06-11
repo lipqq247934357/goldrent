@@ -96,7 +96,7 @@
                                     :rows="2"
                                     placeholder=""
                                     class="inputtext"
-                                    disabled
+                                    readonly
                                     v-model="otherpeople.remark">
                                 </el-input>
                             </div>

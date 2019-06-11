@@ -337,7 +337,7 @@
                                 <span>工作单位</span>
                                 <span>{{item.company}}</span>
                             </li>
-                            <li>
+                            <li style="border-bottom: 0">
                                 <span>现住址</span>
                                 <span>{{spouse.custAddress}}</span>
                             </li>
@@ -554,7 +554,7 @@
                                             :rows="2"
                                             placeholder=""
                                             class="inputtext"
-                                            disabled
+                                            readonly
                                             v-model="assetsOthers.remark">
                                         </el-input>
                                     </div>
@@ -603,7 +603,7 @@
                                             :rows="2"
                                             placeholder=""
                                             class="inputtext"
-                                            disabled
+                                            readonly
                                             v-model="debtSituations.remark">
                                         </el-input>
                                     </div>
@@ -645,7 +645,7 @@
                                             :rows="2"
                                             placeholder=""
                                             class="inputtext"
-                                            disabled
+                                            readonly
                                             v-model="debtGuarantees.remark">
                                         </el-input>
                                     </div>
@@ -687,7 +687,7 @@
                                             :rows="2"
                                             placeholder=""
                                             class="inputtext"
-                                            disabled
+                                            readonly
                                             v-model="debtOthers.remark">
                                         </el-input>
                                     </div>
@@ -744,7 +744,7 @@
                                     :rows="2"
                                     placeholder=""
                                     class="describetext"
-                                    disabled
+                                    readonly
                                     v-model="incomePlants.remark">
                                 </el-input>
                                 <el-input
@@ -753,7 +753,7 @@
                                     :rows="2"
                                     placeholder=""
                                     class="describetext"
-                                    disabled
+                                    readonly
                                     v-model="incomePlantsRemark">
                                 </el-input>
                             </div>

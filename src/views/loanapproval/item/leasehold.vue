@@ -83,7 +83,7 @@
                         :rows="2"
                         placeholder=""
                         class="inputtext"
-                        disabled
+                        readonly
                         v-model="item.insurance.remark">
                     </el-input>
                 </div>
