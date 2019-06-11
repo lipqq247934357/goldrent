@@ -234,7 +234,6 @@ export default {
             parType: "ROLE_PARAMS",
             parCode: "SENIOR_APPROVAL"
         }).then( res => {
-            // console.log(res)
             this.rolelist = res.data.data;
         });
         // 合同列表 审批意见和描述
@@ -447,7 +446,7 @@ export default {
                 'templateId': item.templateId,
                 'contractName': item.contractName,
                 'contractType': item.contractType,
-                'relationAssertId': item.relationAssertId
+                'relationId': item.relationId
             }
             this.loanFaceContracts.push(a)
             // if(document.getElementById(index).checked == true) {
