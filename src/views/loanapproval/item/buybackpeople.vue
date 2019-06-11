@@ -52,6 +52,10 @@
                         <span>回购方负责人电话</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comMobile}}</span>
                     </li>
+                    <li style="border-bottom: 0;">
+                        <span>回购条件(逾期天数)</span>
+                        <span>{{item.overdueDays}}</span>
+                    </li>
                     <!-- <li style="border-bottom: 0;">
                         <span>咨询服务费</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.serviceFee}}</span>
