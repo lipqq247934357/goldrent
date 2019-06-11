@@ -4,7 +4,7 @@
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in backpeople" :label="'回购人' + parseInt(index+1)">
                 <componentitle :message="message='基本信息'" />
-                <ul class="infolist byinfolist">
+                <ul class="infolist byinfolist" v-if="item.id">
                     <li>
                         <span>回购人名称</span>
                         <span>

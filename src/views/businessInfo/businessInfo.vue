@@ -188,8 +188,8 @@
                         label: '报单申请-协办'
                     },
                     {
-                        value: 'APPLY_MASTER',
-                        label: '报单申请-负责人'
+                        value: 'APPLY_LEADER',
+                        label: '报单申请-部门负责人'
                     },
                     {
                         value: 'APPLY_SUPPLEMENT',
@@ -217,11 +217,19 @@
                     },
                     {
                         value: 'GRANT_APPROVE',
-                        label: '放款审批'
+                        label: '放款审批-经办'
+                    },
+                    {
+                        value: 'GRANT_APPROVE_CHECK',
+                        label: '放款审批-复核'
                     },
                     {
                         value: 'LOAN_CONFIRM',
-                        label: '放款确认'
+                        label: '放款确认-经办'
+                    },
+                    {
+                        value: 'LOAN_CONFIRM_CHECK',
+                        label: '放款确认-复核'
                     },
                     {
                         value: 'LOAN_DONE',
