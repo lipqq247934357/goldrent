@@ -43,7 +43,7 @@
                         <el-input
                                 type="textarea"
                                 class="textareawidth"
-                                :rows="3"
+                                :rows="5"
                                 placeholder="请输入放款前提条件"
                                 v-model="conditions"
                                 :disabled="radio1 == '0' || radio1 == '4' || inputdisabled ? true : false"
@@ -55,7 +55,7 @@
                         <el-input
                                 type="textarea"
                                 class="textareawidth"
-                                :rows="3"
+                                :rows="5"
                                 placeholder="请输入租后管理要求"
                                 v-model="requirements"
                                 :disabled="radio1 == '0' || radio1 == '4' || inputdisabled  ? true : false"

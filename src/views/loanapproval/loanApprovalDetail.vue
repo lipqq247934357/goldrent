@@ -34,7 +34,7 @@
             <el-tab-pane :lazy="true" :label="list.investigation" :name="list.investigation">
                 <investigation />
             </el-tab-pane>
-            <el-tab-pane :lazy="true" :label="loanmoneyOperation == undefined ? list.loan : loanmoneyOperation" :name="loanmoneyOperation == undefined ? list.loan : loanmoneyOperation">
+            <el-tab-pane :lazy="true" :label="list.loan" :name="list.loan">
                 <operation />
             </el-tab-pane>
         </el-tabs>
@@ -65,7 +65,7 @@ export default {
                 investigation: '增信措施及综述',
                 loan: '贷款审批操作',
             },
-            bindText: '租赁要素',
+            bindText: '',
             nowurl: '',
             nowurlName: '',
             loanmoneyOperation: '' // 储存放款审批操作
@@ -79,7 +79,7 @@ export default {
         }
     },
     created() {
-        this.loanmoneyOperation = this.$route.query.loanmoneyOperation; // 放款审批操作
+        this.bindText = this.list.loan = this.$route.query.loanmoneyOperation || '贷款审批操作'; // 放款审批操作
         this.nowurl = this.$route.query.nowpath + '?idJurisdiction=' + this.$route.query.idJurisdiction ; // 当前路由
         this.nowurlName = this.$route.query.nowurlName; // 当前路由名字
     },
