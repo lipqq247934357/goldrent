@@ -24,8 +24,9 @@
                             :value="item.contractName">
                         <span>{{item.contractName}}</span>
                     </div> -->
+                    <div style="margin-left: 134px;">
                         <el-checkbox style="line-height: 60px;" v-for="(item,index) in checkboxlist" disabled  :checked="true">{{item.contractName}}</el-checkbox>
-
+                    </div>
                 </div>
                 <div class="subone opinionsdiv" style="clear:both">
                     <p>审批意见：</p>

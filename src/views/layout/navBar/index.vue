@@ -54,7 +54,7 @@
                         <el-input disabled size="mini" v-model="loginName"></el-input>
                     </el-form-item>
                     <el-form-item label="姓名">
-                        <el-input size="mini" v-model="newUserName"></el-input>
+                        <el-input disabled size="mini" v-model="newUserName"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号">
                         <el-input size="mini" v-model="userPhone"></el-input>

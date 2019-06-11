@@ -236,7 +236,7 @@
                                 <span>工作单位</span>
                                 <span>{{item.company}}</span>
                             </li>
-                            <li>
+                            <li style="border-bottom: 0">
                                 <span>征信报告</span>
                                 <span>{{item.hasCreditReport == 'Y' ? '有' : item.hasCreditReport == 'N' ? '无' : '' }}</span>
                             </li>
@@ -251,7 +251,7 @@
                         </ul>
                     </div>
                     <!-- 配偶信息 -->
-                    <div class="assetsinfoul">
+                    <div class="assetsinfoul" v-if="item.mateInfo.length !== 0">
                         <h3>&nbsp;&nbsp;&nbsp;配偶情况</h3>
                         <ul class="infolist" v-for="spouse in item.mateInfo">
                             <li>

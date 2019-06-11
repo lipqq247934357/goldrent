@@ -47,7 +47,7 @@
         </li>
         <li>
             <span>厂商贴息时间</span>
-            <span>{{wantfactor.firmRebateIntrestDate}}</span>
+            <span>{{rebateDate[wantfactor.firmRebateIntrestDate]}}</span>
         </li>
         <li>
             <span>其他支出</span>
@@ -55,7 +55,7 @@
         </li>
         <li>
             <span>其他支出时间</span>
-            <span>{{wantfactor.otherExpenseDate}}</span>
+            <span>{{rebateDate[wantfactor.otherExpenseDate]}}</span>
         </li>
         <li>
             <span>其他风险金（元）</span>
@@ -150,6 +150,10 @@ export default {
             statuslist: { // 字典编码
                 payWay: [],
                 leaseMode: []
+            },
+            rebateDate:{
+                before45:'起租前',
+                after45:'起租后45天'
             }
         }
     },
