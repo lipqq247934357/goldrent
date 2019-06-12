@@ -196,10 +196,8 @@ export default {
                 isWxLogin:tempData
             });
             if(data.data.code == 2000000){
-                setTimeout(()=>{
-                    currData.isWxlogin = tempData;
-                    scope.row.status = 0;
-                },100)
+                currData.isWxlogin = tempData;
+                scope.row.status = 0;
             }else {
                 scope.row.status = 0;
             }
