@@ -21,8 +21,8 @@
         data() {
             return {
                 countDown: '',
-                count: '',
-                ajaxWX: '',
+                count: '', // 计数器timeout
+                ajaxWX: '', // 微信轮训timeout
             }
 
         },
