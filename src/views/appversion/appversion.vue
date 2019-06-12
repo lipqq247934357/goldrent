@@ -257,6 +257,7 @@ export default {
         },
         handleSuccess(file,e,filelist) {
             // 请求成功勾子
+            console.log(file);
             this.fileIndex = file.data.fileIndex;
         },
         edit(val) {
@@ -274,6 +275,7 @@ export default {
         },
         handleClose() {
             this.dialogVisible = false;
+            this.fileIndex = '';
             this.fileList = [];
         },
         releasebutton() {
@@ -300,7 +302,7 @@ export default {
             this.$post('/appVersion/release',{
                 id: this.nowtype == 0 ? '' : this.id,
                 versionCode: this.versionNo,
-                url: this.nowtype == 0 ? this.fileIndex : this.url,
+                url: this.nowtype == 0 ?  this.fileIndex : (this.fileIndex || this.url),
                 filename: this.fileName.filename,
                 system: "Android",
                 description: this.instructions,
@@ -310,6 +312,8 @@ export default {
                     this.fileList = [];
                     this.pages();
                     this.dialogVisible = false;
+                }else {
+                    this.$message.error({message: res.data.msg, duration: 5 * 1000});
                 }
             });
 
