@@ -14,9 +14,9 @@
                 <img @click="brighttext" alt="" class="iconpwd" src="./eye.png" v-if="passwordtype == 1">
                 <img @click="darktext" alt="" class="iconpwd" src="./pwd.png" v-if="passwordtype == 2">
             </div>
-            <div class="warrant">
-                <el-checkbox v-model="isWarrant">是否微信授权登录</el-checkbox>
-            </div>
+<!--            <div class="warrant">-->
+<!--                <el-checkbox v-model="isWarrant">是否微信授权登录</el-checkbox>-->
+<!--            </div>-->
             <el-button @click="login" class="loginbutton" type="primary">登录</el-button>
             <p class="tips">忘记密码请联系管理员</p>
             <p class="copyright">Copyright ©️ 2019 哈银金租有限责任公司版权所有</p>
@@ -59,12 +59,7 @@
                 });
                 if (data.data.code === '2000000') {
                     // 保存用户数据
-                    if (this.isWarrant === true) { // 需要权限校验
-                        this.id = data.data.data.id;
-                        this.timeOut = data.data.data.timeOut;
-                        // 弹窗并展示倒计时
-                        this.showCD = true;
-                    } else {
+                    if (data.data.data.token) {
                         //跳首页
                         let user = data.data.data.user;
                         setStore('loginName', user.loginName || '');
@@ -73,6 +68,12 @@
                         setStore('userRole', user.roleName || '');
                         Cookies.set('token', data.data.data.token);
                         this.$router.push('/');
+                    } else {
+                        // 需要权限校验
+                        this.id = data.data.data.id;
+                        this.timeOut = data.data.data.timeOut;
+                        // 弹窗并展示倒计时
+                        this.showCD = true;
                     }
                 } else if (data.data.code === '2000009') {
                     this.showPWD = true;
