@@ -58,14 +58,14 @@
                 }
             },
             async getWXStatus() {
-                let data = await this.$get('/user/query/msg', {id: this.id});
+                let data = await this.$get(`/user/query/msg?id=${this.id}`);
                 if (data.data.code === '2000000') {
                     if (!this.visible) return;
                     this.visible = false;
                     //跳首页
                     Cookies.set('token', data.data.data.token);
                     this.getUserInfo(data.data.data.token);
-                    window.location.reload();
+                    this.$router.push('/');
                 } else if (data.data.code === '2000010') {//失败
                     this.visible = false;
                 } else {
@@ -80,8 +80,8 @@
                 clearTimeout(this.countDown);
             },
             async getUserInfo(token) {
-                let data = this.$get(`/user/getUserInfo?token=${token}`);
-                let user = data.data.data.user;
+                let data = await this.$get(`/user/getUserInfo?token=${token}`);
+                let user = data.data.data;
                 setStore('loginName', user.loginName || '');
                 setStore('userName', user.userName || '');
                 setStore('userPhone', user.userPhone || '');
