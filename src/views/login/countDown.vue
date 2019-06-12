@@ -73,15 +73,15 @@
                     this.visible = false;
                     this.clearTimeOut();
                 } else {
-                    this.ajaxWX = setTimeout(this.getWXStatus, 250);
+                    this.ajaxWX = setTimeout(this.getWXStatus, 700);
                 }
             },
             udpateCount() {
                 this.count = Number(this.timeOut) + 1;
             },
             clearTimeOut() {
-                this.countDown && typeof this.countDown === "function" && clearTimeout(this.countDown);
-                this.ajaxWX && typeof this.ajaxWX === "function" && clearTimeout(this.ajaxWX);
+                clearTimeout(this.ajaxWX);
+                clearTimeout(this.countDown);
             },
             async getUserInfo(token) {
                 let data = this.$get(`/user/getUserInfo?token=${token}`);

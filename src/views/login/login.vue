@@ -41,7 +41,6 @@
             return {
                 name: '',
                 pwd: '',
-                isWarrant: false,
                 password: 'password',
                 passwordtype: 1,// 密码明文暗文切换1明文，2暗文
                 id: 20,
@@ -54,8 +53,7 @@
             async login() {
                 let data = await this.$post('/user/login', {
                     name: this.name,
-                    pwd: this.pwd,
-                    isWarrant: Number(this.isWarrant)
+                    pwd: this.pwd
                 });
                 if (data.data.code === '2000000') {
                     // 保存用户数据
