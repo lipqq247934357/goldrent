@@ -7,7 +7,7 @@
             type="textarea"
             :rows="3"
             class="inputtext"
-            disabled
+            readonly
             v-model="textarea.lesseeCredit">
         </el-input>
     </div>
@@ -17,7 +17,7 @@
             type="textarea"
             :rows="3"
             class="inputtext"
-            disabled
+            readonly
             v-model="textarea.guarantorCredit">
         </el-input>
     </div>
@@ -27,7 +27,7 @@
             type="textarea"
             :rows="3"
             class="inputtext"
-            disabled
+            readonly
             v-model="textarea.repurchaseCredit">
         </el-input>
     </div>
@@ -40,7 +40,7 @@
             type="textarea"
             :rows="3"
             class="inputtext"
-            disabled
+            readonly
             v-model="textarea.lesseeCreditZhongdeng">
         </el-input>
     </div>
@@ -53,7 +53,7 @@
             type="textarea"
             :rows="3"
             class="inputtext"
-            disabled
+            readonly
             v-model="textarea.lesseeCreditExternal">
         </el-input>
     </div>
@@ -63,7 +63,7 @@
             type="textarea"
             :rows="3"
             class="inputtext"
-            disabled
+            readonly
             v-model="textarea.guarantorCreditExternal">
         </el-input>
     </div>
@@ -73,7 +73,7 @@
             type="textarea"
             :rows="3"
             class="inputtext"
-            disabled
+            readonly
             v-model="textarea.repurchaseCreditExternal">
         </el-input>
     </div>
