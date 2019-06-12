@@ -58,7 +58,7 @@
                 }
             },
             async getWXStatus() {
-                let data = await this.$post('/user/query/msg', {id: this.id});
+                let data = await this.$get('/user/query/msg', {id: this.id});
                 if (data.data.code === '2000000') {
                     if (!this.visible) return;
                     this.visible = false;
@@ -69,7 +69,7 @@
                 } else if (data.data.code === '2000010') {//失败
                     this.visible = false;
                 } else {
-                    this.ajaxWX = setTimeout(this.getWXStatus, 700);
+                    this.ajaxWX = setTimeout(this.getWXStatus, 1000);
                 }
             },
             udpateCount() {
