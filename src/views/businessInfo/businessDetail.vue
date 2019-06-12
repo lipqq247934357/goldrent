@@ -110,7 +110,6 @@
                 <li>
                     <span>户籍地址</span>
                     <span>{{task.custNature.custHomeplace}}</span>
-
                 </li>
                 <li>
                     <span>现住址</span>

@@ -33,7 +33,7 @@
                     <template>
                         <el-radio v-model="radio1" label="1" :disabled="inputdisabled">终审同意</el-radio>
                         <el-radio v-model="radio1" label="2" :disabled="inputdisabled">同意业务并提交资深审批</el-radio>
-                        <el-radio v-model="radio1" label="3" :disabled="inputdisabled">同意业务并提交会议审批</el-radio>
+                        <el-radio v-model="radio1" label="3" :disabled="inputdisabled">同意业务并提交秘书审批</el-radio>
                         <el-radio v-model="radio1" label="0" :disabled="inputdisabled">否决</el-radio>
                         <el-radio v-model="radio1" label="4" :disabled="inputdisabled">退回</el-radio>
                     </template>
