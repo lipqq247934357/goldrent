@@ -44,8 +44,8 @@
                         <template slot-scope="scope">
                             <div @click="updateWXPrivate(scope)">
                                 <el-switch
-                                        :disabled="scope.row.status !== '1'"
-                                        :value="scope.row.isWxlogin == '1'"
+                                        :disabled="scope.row.status === 1"
+                                        :value="scope.row.isWxlogin === '1'"
                                         active-color="#13ce66"
                                         inactive-color="#ff4949">
                                 </el-switch>
@@ -126,7 +126,7 @@ export default {
         this.$get(`/role/listRole?currentPage=1&pageSize=100`).then(res => {
             this.roleChoice = res.data.data.recordList;
             this.roleChoice.forEach((item)=>{
-                item.status = "1";
+                item.status = 0;
             })
         });
     },
@@ -186,9 +186,9 @@ export default {
             });
         },
         async updateWXPrivate(scope){
-            if(scope.row.status === '0')
+            if(scope.row.status === 1)
                 return;
-            scope.row.status = '0';
+            scope.row.status = 1;
             let currData = this.getData(this.tableData,scope.row.id);
             let tempData = currData.isWxlogin === '1' ? '0' :'1';
             let data = await this.$post('/user/update/iswxlogin', {
@@ -197,11 +197,11 @@ export default {
             });
             if(data.data.code == 2000000){
                 setTimeout(()=>{
-                    scope.row.status = '1';
                     currData.isWxlogin = tempData;
+                    scope.row.status = 0;
                 },100)
             }else {
-                scope.row.status = '1';
+                scope.row.status = 0;
             }
         },
         getData(data, id) {
