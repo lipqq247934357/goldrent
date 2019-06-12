@@ -85,7 +85,7 @@ export default {
         },
         showText(){
             this.arrangement = this.$route.query.arrangement;
-            if(this.$route.query.disabled == 1 || (this.arrangement && this.arrangement == 6) ) {
+            if(this.$route.query.disabled == 1) {
                 this.inputdisabled = true;
             } else {
                 this.inputdisabled = false;
