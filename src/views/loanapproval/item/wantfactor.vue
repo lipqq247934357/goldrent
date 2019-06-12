@@ -114,6 +114,10 @@
             <span>提前结清（%）</span>
             <span>{{wantfactor.settleAhead}}</span>
         </li>
+        <li>
+            <span>内部收益率</span>
+            <span>{{wantfactor.earningRate}}</span>
+        </li>
     </ul>
     <componentitle :message="message='租金计划表'" />
     <div class="tables">
@@ -197,6 +201,7 @@ export default {
             //     }
             // }
             if(res.data.code == '2000000') {
+                console.log(res.data.data);
                 this.wantfactor = res.data.data;
             }
         });
