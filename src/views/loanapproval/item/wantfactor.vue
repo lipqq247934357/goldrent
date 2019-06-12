@@ -50,7 +50,7 @@
             <span>{{rebateDate[wantfactor.firmRebateIntrestDate]}}</span>
         </li>
         <li>
-            <span>其他支出</span>
+            <span>其他支出(元)</span>
             <span>{{wantfactor.otherExpense}}</span>
         </li>
         <li>
@@ -62,7 +62,7 @@
             <span>{{wantfactor.otherRiskAmt}}</span>
         </li>
         <li>
-            <span>预计补贴金额（元）</span>
+            <span>补贴金额（元）</span>
             <span>{{wantfactor.allowanceAmt}}</span>
         </li>
         <li>

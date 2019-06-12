@@ -58,7 +58,7 @@
                                 <span>{{item.custHomeplace}}</span>
                             </li>
                             <li>
-                                <span>种植年限</span>
+                                <span>种植年限(年)</span>
                                 <span>{{item.cultureYears}}</span>
                             </li>
                             <li>
@@ -153,7 +153,7 @@
                                 <span>{{spouse.certNo}}</span>
                             </li>
                             <li>
-                                <span>种植年限</span>
+                                <span>种植年限(年)</span>
                                 <span>
                                     {{spouse.cultureYears}}
                                 </span>
@@ -316,23 +316,23 @@
                             <h3>&nbsp;&nbsp;&nbsp;&nbsp;金融资产</h3>
                             <ul class="infolist" v-for="finance in item.assetsFinances">
                                 <li>
-                                    <span>存款</span>
+                                    <span>存款(元)</span>
                                     <span>{{finance.deposit}}</span>
                                 </li>
                                 <li>
-                                    <span>大额存单</span>
+                                    <span>大额存单(元)</span>
                                     <span>{{finance.bigDeposit}}</span>
                                 </li>
                                 <li>
-                                    <span>债券</span>
+                                    <span>债券(元)</span>
                                     <span>{{finance.bond}}</span>
                                 </li>
                                 <li>
-                                    <span>股票</span>
+                                    <span>股票(元)</span>
                                     <span>{{finance.shares}}</span>
                                 </li>
                                 <li>
-                                    <span>理财产品</span>
+                                    <span>理财产品(元)</span>
                                     <span>{{finance.products}}</span>
                                 </li>
                             </ul>
@@ -405,7 +405,7 @@
                                     <span>{{assetsOthers.buyTime}}</span>
                                 </li>
                                 <li>
-                                    <span>价值</span>
+                                    <span>价值(元)</span>
                                     <span>{{assetsOthers.value}}</span>
                                 </li>
                                 <li>

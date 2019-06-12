@@ -16,7 +16,7 @@
                     <span>{{item.condition.deliveryPlace}}</span>
                 </li>
                 <li>
-                    <span>购置价格</span>
+                    <span>购置价格(元)</span>
                     <span>{{item.condition.purchasePrice}}</span>
                 </li>
                 <li>

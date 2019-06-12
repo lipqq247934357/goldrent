@@ -485,7 +485,7 @@
                                     <span>{{assetsVehicles.owner}}</span>
                                 </li>
                                 <li>
-                                    <span>发票金额</span>
+                                    <span>发票金额(元)</span>
                                     <span>{{assetsVehicles.invoiceAmount}}</span>
                                 </li>
                             </ul>
@@ -514,7 +514,7 @@
                                     <span>{{assetsFarmTools.serialNo}}</span>
                                 </li>
                                 <li>
-                                    <span>发票金额</span>
+                                    <span>发票金额(元)</span>
                                     <span>{{assetsFarmTools.invoiceAmount}}</span>
                                 </li>
                             </ul>

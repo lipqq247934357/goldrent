@@ -4,7 +4,7 @@
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in backpeople" :label="'回购人' + parseInt(index+1)">
                 <componentitle :message="message='基本信息'" />
-                <ul class="infolist byinfolist" v-if="item.id">
+                <ul class="infolist byinfolist">
                     <li>
                         <span>回购人名称</span>
                         <span>
@@ -24,12 +24,12 @@
                         <span v-if="item.basicInfo.comNature == null"></span>
                     </li>
                     <li>
-                        <span>注册资本金（元）</span>
+                        <span>注册资本金（万元）</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comRegisteredCapital}}</span>
 
                     </li>
                     <li>
-                        <span>年营业额（元）</span>
+                        <span>年营业额（万元）</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comIncome}}</span>
                     </li>
                     <li>
