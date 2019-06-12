@@ -83,8 +83,13 @@
                 this.countDown && typeof this.countDown === "function" && clearTimeout(this.countDown);
                 this.ajaxWX && typeof this.ajaxWX === "function" && clearTimeout(this.ajaxWX);
             },
-            getUserInfo(token) {
-
+            async getUserInfo(token) {
+                let data = this.$get(`/user/getUserInfo?token=${token}`);
+                let user = data.data.data.user;
+                setStore('loginName', user.loginName || '');
+                setStore('userName', user.userName || '');
+                setStore('userPhone', user.userPhone || '');
+                setStore('userRole', user.roleName || '');
             }
         },
 
