@@ -53,7 +53,6 @@
                 this.count--;
                 if (this.count === 0) {
                     this.visible = false;
-                    this.clearTimeOut();
                 } else {
                     this.countDown = setTimeout(this.timeCountDown, 1000);
                 }
@@ -63,15 +62,12 @@
                 if (data.data.code === '2000000') {
                     if (!this.visible) return;
                     this.visible = false;
-                    this.clearTimeOut();
                     //跳首页
                     Cookies.set('token', data.data.data.token);
-                    this.getUserInfo(data.data.data.token); // TODO 获取用户数据
-                    this.$router.push('/login');
-                } else if (data.data.code === '2000010') {
-                    //失败
+                    this.getUserInfo(data.data.data.token);
+                    window.location.reload();
+                } else if (data.data.code === '2000010') {//失败
                     this.visible = false;
-                    this.clearTimeOut();
                 } else {
                     this.ajaxWX = setTimeout(this.getWXStatus, 700);
                 }
