@@ -42,7 +42,7 @@
                     <el-table-column
                             label="是否授权微信">
                         <template slot-scope="scope">
-                            <div @click="updateWXPrivate(scope)">
+                            <div @click="updateWXPrivate(scope)" style="display: inline-block;">
                                 <el-switch
                                         :disabled="scope.row.status === 1"
                                         :value="scope.row.isWxlogin === '1'"
