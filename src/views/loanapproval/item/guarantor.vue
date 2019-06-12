@@ -37,6 +37,19 @@
                                     {{item.certEndDate}}
                                 </span>
                             </li>
+
+                            <li>
+                                <span>公司性质</span>
+                                <span>
+                                    {{item.comNature == 'QY01' ?'企业法人':'个体工商户'}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>所属行业</span>
+                                <span>
+                                    {{item.comIndustry}}
+                                </span>
+                            </li>
                             <li>
                                 <span>注册资本（万元）</span>
                                 <span>

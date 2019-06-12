@@ -6,6 +6,10 @@
                 <componentitle :message="message='基本信息'" />
                 <ul class="infolist byinfolist">
                     <li>
+                        <span>统一社会信用代码</span>
+                        <span>{{item.basicInfo == null ? '' : item.basicInfo.socialSerial}}</span>
+                    </li>
+                    <li>
                         <span>回购人名称</span>
                         <span>
                             {{item.basicInfo == null ? '' : item.basicInfo.comFullname}}
@@ -48,7 +52,7 @@
                         <span>回购方负责人姓名</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comManager}}</span>
                     </li>
-                    <li style="border-bottom: 0;">
+                    <li>
                         <span>回购方负责人电话</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.comMobile}}</span>
                     </li>
