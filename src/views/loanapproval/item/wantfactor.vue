@@ -115,7 +115,7 @@
             <span>{{wantfactor.settleAhead}}</span>
         </li>
         <li>
-            <span>内部收益率</span>
+            <span>内部收益率(%)</span>
             <span>{{wantfactor.earningRate}}</span>
         </li>
     </ul>
