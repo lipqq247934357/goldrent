@@ -33,10 +33,23 @@
                         label="匹配角色">
                     </el-table-column>
                     <el-table-column
-                        prop="name"
-                        label="操作">
+                            prop="name"
+                            label="操作">
                         <template slot-scope="scope">
                             <el-button @click="edit(scope.row)" type="text" size="small">编辑</el-button>
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                            label="是否授权微信">
+                        <template slot-scope="scope">
+                            <div @click="updateWXPrivate(scope)">
+                                <el-switch
+                                        :disabled="scope.row.status !== '1'"
+                                        :value="scope.row.isWxlogin == '1'"
+                                        active-color="#13ce66"
+                                        inactive-color="#ff4949">
+                                </el-switch>
+                            </div>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -68,14 +81,12 @@
                 <div class="dialogcheckbox">
                     <label>选择角色：</label>
                     <template>
-
                         <el-checkbox-group v-model="matchingId" @change='checkboxData' class="checkedData">
                             <template v-for="(items,index) in roleChoice1">
                                 <el-checkbox :key="items.id" :label="items.id">
                                     {{items.roleName}}
                                 </el-checkbox>
                             </template>
-
                         </el-checkbox-group>
                     </template>
                 </div>
@@ -114,6 +125,9 @@ export default {
         this.tablepage();
         this.$get(`/role/listRole?currentPage=1&pageSize=100`).then(res => {
             this.roleChoice = res.data.data.recordList;
+            this.roleChoice.forEach((item)=>{
+                item.status = "1";
+            })
         });
     },
     methods: {
@@ -170,6 +184,32 @@ export default {
                     this.loading = false;
                 }
             });
+        },
+        async updateWXPrivate(scope){
+            if(scope.row.status === '0')
+                return;
+            scope.row.status = '0';
+            let currData = this.getData(this.tableData,scope.row.id);
+            let tempData = currData.isWxlogin === '1' ? '0' :'1';
+            let data = await this.$post('/user/update/iswxlogin', {
+                userIds:scope.row.id,
+                isWxLogin:tempData
+            });
+            if(data.data.code == 2000000){
+                setTimeout(()=>{
+                    scope.row.status = '1';
+                    currData.isWxlogin = tempData;
+                },100)
+            }else {
+                scope.row.status = '1';
+            }
+        },
+        getData(data, id) {
+            for (let i = 0,len = data.length; i < len; i++) {
+                if (data[i].id == id) {
+                    return data[i]
+                }
+            }
         }
     },
     components: {

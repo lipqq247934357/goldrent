@@ -143,7 +143,7 @@
             <ul class="infolist infocss">
                 <li>
                     <span>名称</span>
-                    <span>{{task.leaseInfo.bussNo}}</span>
+                    <span>{{task.leaseInfo.leaseName}}</span>
                 </li>
                 <li>
                     <span>规格型号</span>
@@ -171,7 +171,7 @@
 
             <div class="titletop">
                 <div class="topbox">
-                    <span>租金计划表</span>
+                    <span>租赁计划表</span>
                 </div>
 
                 <template>
