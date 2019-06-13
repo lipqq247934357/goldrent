@@ -279,6 +279,7 @@ export default {
                     this.checkedTask = res.data.data.resourceIdapp;
                     const _ids = [...res.data.data.resourceIds];
                     this.ids = this.deepFilter(this.tree, _ids);
+                    this.checkedData = this.ids;
                 }
             });
 
