@@ -749,25 +749,14 @@
                             <h3>&nbsp;&nbsp;&nbsp;种植经验描述</h3>
                             <div class=""
                             style="margin-top: -10px;"
-                                v-for="(incomePlants,index) in item.incomePlants"
-                                >
+                                v-for="incomePlants in plantExpDesc">
                                 <el-input
-                                    v-if="incomePlants.remark != ''"
                                     type="textarea"
                                     :rows="2"
                                     placeholder=""
                                     class="describetext"
                                     readonly
-                                    v-model="incomePlants.remark">
-                                </el-input>
-                                <el-input
-                                    v-if="incomePlants.remark == '' ? index == 1 : ''"
-                                    type="textarea"
-                                    :rows="2"
-                                    placeholder=""
-                                    class="describetext"
-                                    readonly
-                                    v-model="incomePlantsRemark">
+                                    :value="incomePlants">
                                 </el-input>
                             </div>
 
@@ -1143,7 +1132,8 @@ export default {
                 isGuarantee: [],
                 custEducation:[],
                 identityType: []
-            }
+            },
+            PlantExpDesc:[]
         }
     },
     created() {
@@ -1179,6 +1169,7 @@ export default {
                       };
                       var infoData = res.data.data;
                       var warrantorData = infoData.warrantorData;
+                      this.setPlantExpDesc(warrantorData);
                       this.guarantordata = warrantorData;
                       for (let i = 0 ; i < warrantorData.length; i ++ ) {
                           // 储存 partnerType 用于匹配不同影像信息
@@ -1199,6 +1190,23 @@ export default {
                   }
               });
             },
+            setPlantExpDesc(data) {
+                if(!(data && data[0] && data[0].incomePlants)){
+                    return;
+                }
+                let platExpDesc = data[0].incomePlants;
+                let set = new Set();
+                for (let item of platExpDesc) {
+                    if (item.remark) {
+                        set.add(item.remark);
+                    }
+                }
+                if (set.size === 0) {
+                    set.add('');
+                }
+                this.plantExpDesc = Array.from(set);
+                console.log(this.plantExpDesc);
+            }
         },
     components: {
         componentitle,
