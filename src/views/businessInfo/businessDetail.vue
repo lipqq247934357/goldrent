@@ -21,7 +21,7 @@
                         <span>{{task.task.finishTime}}</span>
                     </li>
                 </ul> -->
-                <table class="toplist" border=1>
+                <table border=1 class="toplist">
                     <tr>
                         <td>业务编号</td>
                         <td>任务名称</td>
@@ -38,6 +38,9 @@
                     </tr>
                 </table>
             </template>
+
+            <!--  审批流水  -->
+            <approvallist :bussNo="task.custNature.bussNo" v-if="task.task.length !== 0"/>
         </div>
 
 
@@ -54,7 +57,8 @@
                 </li>
                 <li>
                     <span>客户类别</span>
-                    <span v-for="custType in statuslist.custType" v-if="task.custNature.custType == custType.optionCode">
+                    <span v-for="custType in statuslist.custType"
+                          v-if="task.custNature.custType == custType.optionCode">
                         <!-- <select class="" name="" disabled>
                             <option value="" v-for="custType in statuslist.custType" :selected="task.custNature.partnerType == custType.optionCode ? true : false">
                                 {{custType.optionName}}
@@ -96,7 +100,8 @@
                 </li>
                 <li>
                     <span>婚姻状况</span>
-                    <span v-for="marriagestatus in statuslist.marriage" v-if="task.custNature.custMarriage == marriagestatus.optionCode">
+                    <span v-for="marriagestatus in statuslist.marriage"
+                          v-if="task.custNature.custMarriage == marriagestatus.optionCode">
                         <!-- {{task.custNature.custMarriage}} -->
                         <!-- <select class="" name="" disabled>
                             <option value="" v-for="marriagestatus in statuslist.marriage" :selected="task.custNature.custMarriage ==marriagestatus.optionCode ? true : false">
@@ -229,10 +234,11 @@
 <script type="text/ecmascript-6">
     import componentitle from '../../components/title/title.vue';
     import {urlParse} from "../../utils/utils";
-
+    import approvallist from '../../components/approvallist/approvallist.vue'; //
     export default {
         components: {
-            componentitle
+            componentitle,
+            approvallist
         },
         data() {
             return {
@@ -284,12 +290,12 @@
         created() {
             let data = urlParse();
             this.$get(`buss/getBussInfo?task_id=${this.$route.query.task_id}`).then(res => {
-                if(res.data.code == '2000000') {
+                if (res.data.code == '2000000') {
                     this.task = res.data.data;
                 }
             });
-            this.$post('/getConstantConfig',{
-                dictionaryCode: ['custMarriage','custType','custSex','custRelation','houseType','isGuarantee']
+            this.$post('/getConstantConfig', {
+                dictionaryCode: ['custMarriage', 'custType', 'custSex', 'custRelation', 'houseType', 'isGuarantee']
             }).then(res => {
                 this.statuslist.marriage = res.data.data.custMarriage;
                 this.statuslist.custSex = res.data.data.custSex;
@@ -329,22 +335,26 @@
         .content {
             width: 95%;
             margin: 0 auto;
+
             .infocss {
                 li {
                     &:last-child {
                         border-bottom: 0;
                     }
+
                     &:nth-last-child(2) {
                         border-bottom: 0;
                     }
                 }
             }
+
             .infolist {
                 width: 99.8%;
                 display: inline-block;
                 border: 1px solid #afafaf;
                 margin: 0 auto 20px;
                 border-top: 0;
+
                 li {
                     width: 49.9%;
                     height: 50px;
@@ -355,9 +365,11 @@
                     line-height: 50px;
                     color: #606266;
                     font-size: 14px;
+
                     &:nth-child(even) {
                         border-right: 0;
                     }
+
                     span {
                         &:first-child {
                             width: 30%;
@@ -373,9 +385,11 @@
             }
         }
     }
+
     .toplist {
         width: 100%;
         border-top: 0;
+
         tr {
             width: 100%;
             height: 50px;
@@ -383,25 +397,30 @@
             color: #606266;
             font-size: 12px;
             text-align: center;
+
             &:first-child {
                 border-top: 0;
             }
         }
     }
+
     .renttable {
         text-align: center;
         width: 100%;
         border-top: 0;
         border: 1px solid #afafaf;
         border-top: 0;
+
         .tabletable {
             border-top: 0;
             font-size: 16px;
             color: #333;
             font-weight: bold;
         }
+
         tr {
             height: 50px;
+
             td {
                 color: #909399;
                 border: 1px solid #afafaf;

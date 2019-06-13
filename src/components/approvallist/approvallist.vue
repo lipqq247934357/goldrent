@@ -17,7 +17,7 @@
                 <div>{{item.comments}}</div>
             </li>
             <li v-if="data.length === 0">
-            <p>暂无数据</p>
+                <p>暂无数据</p>
             </li>
         </ul>
     </div>
@@ -31,6 +31,7 @@
         components: {
             componentitle
         },
+        props: ['bussNo'],
         data() {
             return {
                 data: []
@@ -41,7 +42,7 @@
         },
         methods: {
             async getData() {
-                let data = await this.$post('/conclusions', {bussNo: this.$route.query.bussNo});
+                let data = await this.$post('/conclusions', {bussNo: this.$route.query.bussNo || this.bussNo});
                 if (data.data.code == '2000000') {
                     this.data = data.data.data;
                 }
@@ -71,16 +72,20 @@
                 border-bottom: 1px solid #cccccc;
                 box-sizing: border-box;
             }
-            >div:first-child {
+
+            > div:first-child {
                 width: 8%;
             }
-            >div:nth-child(2) {
+
+            > div:nth-child(2) {
                 width: 12%;
             }
-            >div:last-child {
+
+            > div:last-child {
                 width: 40%;
             }
-            >p {
+
+            > p {
                 float: left;
                 font-size: 14px;
                 text-align: center;
