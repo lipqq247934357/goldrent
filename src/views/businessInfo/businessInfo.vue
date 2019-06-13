@@ -188,7 +188,7 @@
                         label: '报单申请-协办'
                     },
                     {
-                        value: 'APPLY_LEADER',
+                        value: 'APPLY_MASTER',
                         label: '报单申请-部门负责人'
                     },
                     {
