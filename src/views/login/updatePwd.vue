@@ -54,7 +54,6 @@
                     rnewPwd: this.rnewPwd
                 });
                 if (data.data.code === '2000000') {
-                    //  TODO 增加状态效果
                     setTimeout(function () {
                         window.location.reload();
                     }, 100);
