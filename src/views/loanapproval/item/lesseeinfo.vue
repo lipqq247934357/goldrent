@@ -596,14 +596,14 @@
                                 <h3>&nbsp;&nbsp;&nbsp;种植经验描述</h3>
                                 <div class="describeText"
                                     style="margin-top: -10px;"
-                                    v-for="(incomePlants,index) in item.incomePlants">
+                                    v-for="incomePlants in plantExpDesc">
                                     <el-input
                                         type="textarea"
                                         :rows="2"
                                         placeholder=""
                                         class="describetext"
                                         readonly
-                                        v-model="incomePlants.remark">
+                                        :value="incomePlants">
                                     </el-input>
                                 </div>
 
@@ -747,6 +747,7 @@ export default {
                 houseType: [],
                 custducation: []
             },
+            plantExpDesc:[]
         }
     },
     created() {
@@ -1175,6 +1176,7 @@ export default {
                 // }
                   if(res.data.code == '2000000') {
                       this.lesseeinfolist = res.data.data.naturalData;
+                      this.setPlantExpDesc(this.lesseeinfolist);
                       for(let i = 0 ; i < this.lesseeinfolist.length ; i ++ ) {
                           // 获取各种option的默认选项匹配字典编码
                           this.$post('/getConstantConfig',{
@@ -1216,6 +1218,22 @@ export default {
               })
           })();
         },
+        setPlantExpDesc(data) {
+            if(!(data && data[0] && data[0].incomePlants)){
+                return;
+            }
+            let platExpDesc = data[0].incomePlants;
+            let set = new Set();
+            for (let item of platExpDesc) {
+                if (item.remark) {
+                    set.add(item.remark);
+                }
+            }
+            if (set.size === 0) {
+                set.add('');
+            }
+            this.plantExpDesc = Array.from(set);
+        }
     },
     components: {
         componentitle,
