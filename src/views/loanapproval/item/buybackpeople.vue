@@ -58,7 +58,7 @@
                     </li>
                     <li style="border-bottom: 0;">
                         <span>回购条件(逾期天数)</span>
-                        <span>{{item.overdueDays}}</span>
+                        <span>{{item.basicInfo == null ? '' : item.basicInfo.overdueDays}}</span>
                     </li>
                     <!-- <li style="border-bottom: 0;">
                         <span>咨询服务费</span>
@@ -90,10 +90,6 @@
                         <li style="border-bottom: 0;">
                             <span>被担保人</span>
                             <span>{{otherpeople.warrantee}}</span>
-                        </li>
-                        <li style="border-bottom: 0;">
-                            <span>回购条件(逾期天数)</span>
-                            <span>{{item.overdueDays}}</span>
                         </li>
                         <br>
                         <li class="subliWidth">
