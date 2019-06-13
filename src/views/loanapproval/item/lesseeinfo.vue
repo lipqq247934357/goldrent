@@ -598,22 +598,12 @@
                                     style="margin-top: -10px;"
                                     v-for="(incomePlants,index) in item.incomePlants">
                                     <el-input
-                                        v-if="incomePlants.remark != ''"
                                         type="textarea"
                                         :rows="2"
                                         placeholder=""
                                         class="describetext"
                                         readonly
                                         v-model="incomePlants.remark">
-                                    </el-input>
-                                    <el-input
-                                        v-if="incomePlants.remark == '' ? index == 1 : ''"
-                                        type="textarea"
-                                        :rows="2"
-                                        placeholder=""
-                                        class="describetext"
-                                        readonly
-                                        v-model="incomePlantsRemark">
                                     </el-input>
                                 </div>
 
@@ -757,7 +747,6 @@ export default {
                 houseType: [],
                 custducation: []
             },
-            incomePlantsRemark: '' // 种植经验描述
         }
     },
     created() {
