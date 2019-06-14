@@ -280,13 +280,13 @@ export default {
                 if(res.data.code == '2000000') {
                     //this.ids = res.data.data.resourceIds;
                     this.checkedTask = res.data.data.resourceIdapp;
-                    const _ids = [...res.data.data.resourceIds];
-                    this.ids = this.deepFilter(this.tree, _ids);
-                    this.checkedData = this.ids;
+                    this.checkedData = res.data.data.resourceIds;
+                    let a = res.data.data.resourceIds.concat();
+                    const _ids = [...a];
+                    this.ids = _ids;
                     this.dialogVisible = true;
                 }
             });
-
         },
 
         deepFilter(a, ids){
