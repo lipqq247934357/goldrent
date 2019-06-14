@@ -291,7 +291,7 @@ export default {
 
         deepFilter(a, ids){
             for(let i=0;i<a.length;i++){
-              if(a[i] && a[i].authResource instanceof Array) {
+              if(a[i] && a[i].authResource instanceof Array && a[i].authResource.length !== 0) {
         		const index = ids.findIndex(it => it===a[i].id)
                 if (index > -1) {
                    ids.splice(index,1);
