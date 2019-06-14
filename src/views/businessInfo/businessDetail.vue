@@ -216,6 +216,7 @@
                             <td class="tabletable">支付日期</td>
                             <td class="tabletable">租赁本金（元）</td>
                             <td class="tabletable">租赁利息（%）</td>
+                            <td class="tabletable">核销与否 </td>
                         </tr>
                         <tr v-for="item in task.leasePlan" v-if="item.costType == 'rent'">
                             <td>{{item.period}}</td>
@@ -223,6 +224,7 @@
                             <td>{{item.payDate}}</td>
                             <td>{{item.capital}}</td>
                             <td>{{item.leaseInterest}}</td>
+                            <td>{{item.writeOffFlag == 'NOT'?'未核销':'已核销'}}</td>
                         </tr>
                     </table>
                 </template>
