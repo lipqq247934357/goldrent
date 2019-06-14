@@ -64,72 +64,74 @@
         </el-pagination>
     </div>
     <!-- 弹框 -->
-    <el-dialog
-        :title="dialogTitle"
-        :visible.sync="dialogVisible"
-        width="30%"
-        :before-close="handleClose">
-        <div class="dialoginput">
-            <div class="namediv">
-                <label>角色名称：</label>
-                <el-input placeholder="请输入内容" class="contentinout" v-model="inputName"></el-input>
-            </div>
-            <div class="selectdiv">
-                <label>匹配系统：</label>
-                <template>
-                    <el-select v-model="value" placeholder="请选择" class="choiceselect">
-                        <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                        </el-option>
-                    </el-select>
-                </template>
-                <div class="pc" v-if="value == '1' || value == '0'">
-                    <h3>PC选取菜单</h3>
-                    <el-tree
-                        :data="tree"
-                        show-checkbox
-                        node-key="id"
-                        ref="tree"
-                        :auto-expand-parent="true"
-                        :default-checked-keys="ids"
-                        :default-expanded-keys="ids"
-                        @check="treechecked"
-                        :props="defaultProps">
-                    </el-tree>
+    <template v-if="dialogVisible">
+        <el-dialog
+                :title="dialogTitle"
+                :visible.sync="dialogVisible"
+                width="30%"
+                :before-close="handleClose">
+            <div class="dialoginput">
+                <div class="namediv">
+                    <label>角色名称：</label>
+                    <el-input placeholder="请输入内容" class="contentinout" v-model="inputName"></el-input>
                 </div>
-                <div class="phone" v-if="value == '2' || value == '0'">
-                    <h3>移动选取菜单</h3>
-
+                <div class="selectdiv">
+                    <label>匹配系统：</label>
                     <template>
-                        <el-checkbox
-                            :indeterminate="isIndeterminate"
-                            v-model="checkAll"
-                            @change="handleCheckAllChange">
-                            全选
-                        </el-checkbox>
-                        <div style="margin: 15px 0;"></div>
-                        <el-checkbox-group
-                            v-model="checkedTask"
-                            @change="handleCheckedCitiesChange">
-                            <el-checkbox
-                                v-for="task in app"
-                                :label="task.id"
-                                :key="task.id">
-                                {{task.resourceName}}
-                            </el-checkbox>
-                        </el-checkbox-group>
+                        <el-select v-model="value" placeholder="请选择" class="choiceselect">
+                            <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
                     </template>
+                    <div class="pc" v-if="value == '1' || value == '0'">
+                        <h3>PC选取菜单</h3>
+                        <el-tree
+                                :data="tree"
+                                show-checkbox
+                                node-key="id"
+                                ref="tree"
+                                :auto-expand-parent="true"
+                                :default-checked-keys="ids"
+                                :default-expanded-keys="ids"
+                                @check="treechecked"
+                                :props="defaultProps">
+                        </el-tree>
+                    </div>
+                    <div class="phone" v-if="value == '2' || value == '0'">
+                        <h3>移动选取菜单</h3>
+
+                        <template>
+                            <el-checkbox
+                                    :indeterminate="isIndeterminate"
+                                    v-model="checkAll"
+                                    @change="handleCheckAllChange">
+                                全选
+                            </el-checkbox>
+                            <div style="margin: 15px 0;"></div>
+                            <el-checkbox-group
+                                    v-model="checkedTask"
+                                    @change="handleCheckedCitiesChange">
+                                <el-checkbox
+                                        v-for="task in app"
+                                        :label="task.id"
+                                        :key="task.id">
+                                    {{task.resourceName}}
+                                </el-checkbox>
+                            </el-checkbox-group>
+                        </template>
+                    </div>
                 </div>
             </div>
-        </div>
-        <span slot="footer" class="dialog-footer">
+            <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogsubmit">确 定</el-button>
         </span>
-    </el-dialog>
+        </el-dialog>
+    </template>
 </div>
 </template>
 
@@ -209,7 +211,10 @@ export default {
         },
         handleClose() {
             // 关闭弹框
+            this.ids = [];
             this.dialogVisible = false;
+            this.checkedTask = [];
+            this.checkedData = [];
         },
         checkboxData(val) {
             // console.log(val);
@@ -272,7 +277,6 @@ export default {
             this.inputName = val.roleName;
             this.value = val.matchSystem;
             this.dialogVisible = true;
-
             this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
                 if(res.data.code == '2000000') {
                     //this.ids = res.data.data.resourceIds;
