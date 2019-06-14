@@ -276,7 +276,6 @@ export default {
             this.editType = '1'; // 编辑
             this.inputName = val.roleName;
             this.value = val.matchSystem;
-            this.dialogVisible = true;
             this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
                 if(res.data.code == '2000000') {
                     //this.ids = res.data.data.resourceIds;
@@ -284,6 +283,7 @@ export default {
                     const _ids = [...res.data.data.resourceIds];
                     this.ids = this.deepFilter(this.tree, _ids);
                     this.checkedData = this.ids;
+                    this.dialogVisible = true;
                 }
             });
 
