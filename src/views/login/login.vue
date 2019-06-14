@@ -22,7 +22,7 @@
             <p class="copyright">Copyright ©️ 2019 哈银金租有限责任公司版权所有</p>
         </div>
         <countDown :id="id" :showCD.sync="showCD" :timeOut="timeOut"/>
-        <updatePwd :name="name" :pwd="pwd" :showPWD.sync="showPWD"/>
+        <updatePwd :name="name" :showPWD.sync="showPWD"/>
     </div>
 </template>
 

@@ -10,6 +10,9 @@
             <div class="update-user-info">
                 <el-form label-width="70px" ref="form">
                     <p class="update-pwd-desc">系统检测到您已经三个月未更新登录密码，为保障您的账户安全，请立即更新您的登录密码</p>
+                    <el-form-item label="旧密码">
+                        <el-input size="mini" type="password" v-model="pwd"></el-input>
+                    </el-form-item>
                     <el-form-item label="新密码">
                         <el-input size="mini" type="password" v-model="newPwd"></el-input>
                     </el-form-item>
@@ -27,10 +30,11 @@
 
 <script type="text/ecmascript-6">
     export default {
-        props: ['showPWD', 'name', 'pwd'],
+        props: ['showPWD', 'name'],
         data() {
             return {
                 updatePasswordPop: '',
+                pwd:'',
                 newPwd: '',
                 rnewPwd: '',
             }
