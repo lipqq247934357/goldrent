@@ -7,15 +7,15 @@
         </div>
         <div class="userInfo" v-show="userInfoPop">
             <ul class="first" v-Clickoutside="closeUserInfoPop">
-                <li @mouseover="admin" @mouseout="admin1">
+                <li @mouseout="admin1" @mouseover="admin">
                     <span class="iconfont">
                         <img :src="admina" alt="">
                     </span>
                     &nbsp;
                     {{roleName}}
                 </li>
-                <li @mouseover="personalimg" @mouseout="personalhover"
-                    @click="showUpdateInfoPop">
+                <li @click="showUpdateInfoPop" @mouseout="personalhover"
+                    @mouseover="personalimg">
                     <span class="iconfont">
 
                         <img :src="personal" alt="">
@@ -23,8 +23,8 @@
                     &nbsp;个人信息
                 </li>
                 <li
-                    @mouseover="passwordiconl" @mouseout="passwordicona"
-                    @click="showUpdatePasswordPop">
+                        @click="showUpdatePasswordPop" @mouseout="passwordicona"
+                        @mouseover="passwordiconl">
                     <span class="iconfont">
                         <img :src="password" alt="">
                     </span>
@@ -33,8 +33,8 @@
             </ul>
             <ul class="second">
                 <li
-                    @mouseover="outl" @mouseout="outa"
-                    @click="logout">
+                        @click="logout" @mouseout="outa"
+                        @mouseover="outl">
                     <span class="iconfont">
                         <img :src="out" alt="">
                     </span>
@@ -126,7 +126,6 @@
             this.userName = this.newUserName = getStore('userName') || '';
             this.loginName = getStore('loginName') || '';
             this.userPhone = getStore('userPhone') || '';
-            this.roleName = getStore('userRole') || '';
         },
         methods: {
             // 登出
@@ -160,6 +159,10 @@
             showUserInfo() {
                 this.userInfoPop = !this.userInfoPop;
                 this.clickPos = 1;
+                if (this.userInfoPop) {
+                    this.roleName = '';
+                    this.getUserInfo();
+                }
             },
             logout() {
                 Cookies.remove('session');
@@ -219,6 +222,11 @@
                 this.oldPwd = '';
                 this.newPwd = '';
                 this.rnewPwd = '';
+            },
+            async getUserInfo() {
+                let data = await this.$get(`/user/getUserInfo?token=${Cookies.get('token')}`);
+                let user = data.data.data;
+                this.roleName = user.roleName;
             }
         }
     }
@@ -268,8 +276,9 @@
 
         .first {
             border-bottom: 1px solid #ccc;
+
             img {
-                vertical-align:middle
+                vertical-align: middle
             }
         }
 
