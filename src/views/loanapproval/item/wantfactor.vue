@@ -128,7 +128,7 @@
                     <td class="tabletable">租金总额（元）</td>
                     <td class="tabletable">支付日期</td>
                     <td class="tabletable">租赁本金（元）</td>
-                    <td class="tabletable">租赁日期（%）</td>
+                    <td class="tabletable">租赁利率（固定利率)（%）</td>
                 </tr>
                 <tr v-for="item in tableData" v-if="item.costType == 'rent'">
                     <td>{{item.period}}</td>
