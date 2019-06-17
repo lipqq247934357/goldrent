@@ -278,12 +278,15 @@ export default {
             this.value = val.matchSystem;
             this.$get(`/role/getRoleInfo?roleId=${val.id}`).then(res => {
                 if(res.data.code == '2000000') {
+                    // console.log(res.data.data.resourceIds);
                     //this.ids = res.data.data.resourceIds;
                     this.checkedTask = res.data.data.resourceIdapp;
                     this.checkedData = res.data.data.resourceIds;
                     let a = res.data.data.resourceIds.concat();
                     const _ids = [...a];
-                    this.ids = _ids;
+                    // console.log(_ids,'_ids');
+                    this.ids = this.deepFilter(this.tree,_ids);
+                    // console.log(this.ids,'ids');
                     this.dialogVisible = true;
                 }
             });
