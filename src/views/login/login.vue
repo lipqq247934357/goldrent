@@ -1,5 +1,5 @@
 <template>
-    <div @keyup.enter="login" class="login">
+    <div @keypress.enter="login" class="login">
         <img alt="" class="loginbg" src="./loginbg.png">
         <div class="inputText">
             <p class="logintext">Log in</p>
