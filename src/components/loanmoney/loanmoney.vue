@@ -173,7 +173,7 @@ export default {
                 if(res.data.code == '2000000') {
                     this.$message.success('通过');
                     this.$router.push({
-                        path: '/layout/loanmoney',
+                        path: '/layout/loanmoneyre',
                         query: {
                             idJurisdiction: this.$route.query.idJurisdiction
                         }
