@@ -212,18 +212,20 @@
                     <table class="renttable">
                         <tr>
                             <td class="tabletable">租金期数</td>
+                            <td class="tabletable">租赁本金（元）</td>
+                            <td class="tabletable">租赁利率（%）</td>
+                            <td class="tabletable">利息(元)</td>
                             <td class="tabletable">租金总额（元）</td>
                             <td class="tabletable">支付日期</td>
-                            <td class="tabletable">租赁本金（元）</td>
-                            <td class="tabletable">租赁利息（%）</td>
                             <td class="tabletable">核销与否 </td>
                         </tr>
                         <tr v-for="item in task.leasePlan" v-if="item.costType == 'rent'">
                             <td>{{item.period}}</td>
+                            <td>{{item.capital}}</td>
+                            <td>{{item.leaseRate}}</td>
+                            <td>{{item.leaseInterest}}</td>
                             <td>{{item.leaseAmount}}</td>
                             <td>{{item.payDate}}</td>
-                            <td>{{item.capital}}</td>
-                            <td>{{item.leaseInterest}}</td>
                             <td>{{item.writeOffFlag == 'NOT'?'未核销':'已核销'}}</td>
                         </tr>
                     </table>
