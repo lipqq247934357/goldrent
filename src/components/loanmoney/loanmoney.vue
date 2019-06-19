@@ -119,11 +119,11 @@ export default {
     methods: {
         // 查看调查报告
         viewreport() {
-            window.location.href = (`/web/investReport?bussNo=${this.$route.query.bussNo}`);
+            window.location.href = (`/web/investReport?bussNo=${this.$route.query.bussNo}&taskType=30`);
         },
         // 生成审批报告
         surveyprot() {
-            window.location.href = (`/web/approveReport?bussNo=${this.$route.query.bussNo}`);
+            window.location.href = (`/web/approveReport?bussNo=${this.$route.query.bussNo}&taskType=30`);
         },
         // 保存
         save() {
