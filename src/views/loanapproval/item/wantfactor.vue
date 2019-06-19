@@ -161,10 +161,17 @@
                 rebateDate: {
                     before45: '起租前',
                     after45: '起租后45天'
-                }
+                },
+                taskType: ''
             }
         },
         created() {
+            let arrangementtype = this.$route.query.arrangement;
+            if (arrangementtype != 5 && arrangementtype != 6) {
+                this.taskType = '10'
+            } else {
+                this.taskType = '30'
+            }
             //字典编码
             this.$post('/getConstantConfig', {
                 dictionaryCode: ['payWay', 'leaseMode']
@@ -174,7 +181,8 @@
             })
             // 请求租赁要素
             this.$post('/leaseinfo/queryElement', {
-                bussNo: this.$route.query.bussNo
+                bussNo: this.$route.query.bussNo,
+                taskType:this.taskType
             }).then(res => {
                 // 返回示例
                 // {
@@ -210,7 +218,8 @@
             });
             // 租金计划表
             this.$post('/leaseinfo/querySchedule', {
-                bussNo: this.$route.query.bussNo
+                bussNo: this.$route.query.bussNo,
+                taskType:this.taskType
             }).then(res => {
                 // 返回示例
                 // {
