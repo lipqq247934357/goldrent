@@ -66,35 +66,40 @@
                         }"
                         style="width: 100%;">
                     <el-table-column
-                            min-width="150px"
+                            min-width="200px"
                             label="业务编号"
                             prop="bussNo">
                     </el-table-column>
                     <el-table-column
+                            width="95px"
                             label="承租人姓名"
                             prop="leaseholder">
                     </el-table-column>
                     <el-table-column
+                            min-width="90px"
                             label="计划起租日"
                             prop="startDate">
                     </el-table-column>
                     <el-table-column
+                            :formatter="formatAmount"
                             label="融资金额(元)"
                             prop="raiseFunds">
                     </el-table-column>
                     <el-table-column
+                            width="80px"
                             label="主办"
                             prop="sponsorName">
                     </el-table-column>
                     <el-table-column
+                            width="80px"
                             label="协办"
                             prop="jointlyName">
                     </el-table-column>
                     <el-table-column
+                            min-width="110px"
                             label="任务名称"
                             prop="taskName">
                     </el-table-column>
-
                     <el-table-column
                         label="当前处理人"
                         prop="ownerName">
@@ -136,11 +141,13 @@
 
 <script type="text/ecmascript-6">
     import componentitle from '../../components/title/title.vue';
+    import formatter from '@/components/mixins/formatter';
 
     export default {
         components: {
             componentitle,
         },
+        mixins:[formatter],
         data() {
             return {
                 url: '/layout/businfo',

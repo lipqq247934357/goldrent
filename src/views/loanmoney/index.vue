@@ -86,6 +86,7 @@
                     label="计划起租日">
                 </el-table-column>
                 <el-table-column
+                    :formatter="formatAmount"
                     prop="raiseFunds"
                     label="融资金额（元）">
                 </el-table-column>
@@ -149,7 +150,10 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../components/title/title.vue';
+import formatter from '@/components/mixins/formatter';
+
 export default {
+    mixins:[formatter],
     data() {
         return {
             loading: false,

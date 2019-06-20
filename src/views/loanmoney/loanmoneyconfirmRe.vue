@@ -119,6 +119,7 @@
                             prop="startDate">
                     </el-table-column>
                     <el-table-column
+                            :formatter="formatAmount"
                             label="融资金额(元)"
                             prop="raiseFunds">
                     </el-table-column>
@@ -182,8 +183,11 @@
 <script type="text/ecmascript-6">
     import componentitle from '../../components/title/title.vue';
     import axios from 'axios';
+    import formatter from '@/components/mixins/formatter';
+
 
     export default {
+        mixins:[formatter],
         data() {
             return {
                 loading: false,

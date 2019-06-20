@@ -73,36 +73,42 @@
                 }"
                 style="width: 100%">
                 <el-table-column
-                    prop="bussNo"
-                    label="业务编号">
+                        min-width="200px"
+                        prop="bussNo"
+                        label="业务编号">
                 </el-table-column>
                 <el-table-column
-                    prop="custName"
-                    label="租赁人姓名">
+                        width="95px"
+                        prop="custName"
+                        label="租赁人姓名">
                 </el-table-column>
                 <el-table-column
-                    prop="startDate"
-                    label="计划起租日">
+                        min-width="90px"
+                        prop="startDate"
+                        label="计划起租日">
                 </el-table-column>
                 <el-table-column
-                    prop="raiseFunds"
-                    label="融资金额(元)">
+                        :formatter="formatAmount"
+                        prop="raiseFunds"
+                        label="融资金额(元)">
                 </el-table-column>
                 <el-table-column
-                    prop="organiser"
-                    label="主办">
+                        width="80px"
+                        prop="organiser"
+                        label="主办">
                 </el-table-column>
                 <el-table-column
-                    prop="coordinator"
-                    label="协办">
+                        width="80px"
+                        prop="coordinator"
+                        label="协办">
                 </el-table-column>
                 <el-table-column
-                    prop="taskName"
-                    label="任务名称">
+                        prop="taskName"
+                        label="任务名称">
                 </el-table-column>
                 <el-table-column
-                    prop="ownerName"
-                    label="当前处理人">
+                        prop="ownerName"
+                        label="当前处理人">
                 </el-table-column>
                 <el-table-column
                     prop="name"
@@ -147,7 +153,10 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../components/title/title.vue';
+import formatter from '@/components/mixins/formatter';
+
 export default {
+    mixins:[formatter],
     data() {
         return {
             loading: false,
