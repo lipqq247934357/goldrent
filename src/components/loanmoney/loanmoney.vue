@@ -73,7 +73,8 @@ export default {
             inputdisabled: '', // 判断是否是可编辑状态
             describewhy: '', // 原因描述
             radio2: '', // 后补租赁物识别号
-            arrangement:''
+            arrangement:'',
+            saveStatus:false
         }
     },
     created() {
@@ -99,6 +100,9 @@ export default {
             if(res.data.code == '2000000') {
                 // console.log(res);
                 this.describewhy = res.data.data.reasonDescription;
+                if(this.describewhy) {// save之后进入页面，原因展示以前写的内容
+                    this.saveStatus = true;
+                }
                 this.radio2 = res.data.data.needSupplement;
                 this.radio1 = res.data.data.approvalComments;
             }
@@ -107,6 +111,8 @@ export default {
     watch:{
         radio1:function(newVal){
             if(this.inputdisabled || this.arrangement == 6){
+            }else if(this.saveStatus){
+                this.saveStatus = false;
             }else {
                 if(newVal == 1){
                     this.describewhy = '同意';
