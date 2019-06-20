@@ -50,14 +50,11 @@
                 width="30%">
             <div class="update-user-info">
                 <el-form label-width="60px" ref="form">
-                    <el-form-item label="用户名">
+                    <el-form-item label="工号">
                         <el-input disabled size="mini" v-model="loginName"></el-input>
                     </el-form-item>
                     <el-form-item label="姓名">
                         <el-input disabled size="mini" v-model="newUserName"></el-input>
-                    </el-form-item>
-                    <el-form-item label="手机号">
-                        <el-input size="mini" v-model="userPhone"></el-input>
                     </el-form-item>
                 </el-form>
             </div>
@@ -110,7 +107,6 @@
                 loginName: '',
                 userName: '',
                 newUserName: '',
-                userPhone: '',
                 oldPwd: '',
                 newPwd: '',
                 rnewPwd: '',
@@ -125,7 +121,6 @@
         created() {
             this.userName = this.newUserName = getStore('userName') || '';
             this.loginName = getStore('loginName') || '';
-            this.userPhone = getStore('userPhone') || '';
         },
         methods: {
             // 登出
@@ -187,16 +182,17 @@
                 this.updatePasswordPop = true;
             },
             async updateInfo() {
-                let data = await this.$post('user/updateUser', {
-                    userName: this.newUserName,
-                    userPhone: this.userPhone
-                });
-                if (data.data.code === '2000000') {
-                    this.userName = this.newUserName;
-                    setStore('userName', this.userName);
-                    setStore('userPhone', this.userPhone);
-                    this.handleInfoClose();
-                }
+                // let data = await this.$post('user/updateUser', {
+                //     userName: this.newUserName,
+                //     userPhone: this.userPhone
+                // });
+                // if (data.data.code === '2000000') {
+                //     this.userName = this.newUserName;
+                //     setStore('userName', this.userName);
+                //     setStore('userPhone', this.userPhone);
+                //     this.handleInfoClose();
+                // }
+                this.handleInfoClose();
             },
             async updatePwd() {
                 let data = await this.$post('/user/updatepwd', {
@@ -215,7 +211,6 @@
             handleInfoClose() {
                 this.updateInfoPop = false;
                 this.newUserName = this.userName;
-                this.userPhone = getStore('userPhone');
             },
             handlePwdClose() {
                 this.updatePasswordPop = false;
