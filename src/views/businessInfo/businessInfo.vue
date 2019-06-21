@@ -71,7 +71,6 @@
                             prop="bussNo">
                     </el-table-column>
                     <el-table-column
-                            width="95px"
                             label="承租人姓名"
                             prop="leaseholder">
                     </el-table-column>
@@ -81,6 +80,7 @@
                             prop="startDate">
                     </el-table-column>
                     <el-table-column
+                            min-width="90px"
                             :formatter="formatAmount"
                             label="融资金额(元)"
                             prop="raiseFunds">
