@@ -75,7 +75,7 @@
                             prop="leaseholder">
                     </el-table-column>
                     <el-table-column
-                            min-width="90px"
+                            min-width="95px"
                             label="计划起租日"
                             prop="startDate">
                     </el-table-column>
