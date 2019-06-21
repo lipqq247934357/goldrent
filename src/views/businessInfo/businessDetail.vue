@@ -110,7 +110,7 @@
                         </select> -->
                         {{marriagestatus.optionName}}
                     </span>
-                    <span v-if="task.custNature.custMarriage == ''"></span>
+                    <span v-else="task.custNature.custMarriage == ''"></span>
                 </li>
                 <li>
                     <span>户籍地址</span>
@@ -380,7 +380,7 @@
                             display: inline-block;
                         }
 
-                        &:last-child {
+                        &:nth-child(2) {
                             width: 69%;
                             display: inline-block;
                         }
