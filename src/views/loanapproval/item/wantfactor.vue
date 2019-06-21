@@ -23,27 +23,27 @@
             </li>
             <li>
                 <span>购置价格（元）</span>
-                <span>{{wantfactor.purchaseAmt}}</span>
+                <span>{{wantfactor.purchaseAmt && formatNumber(wantfactor.purchaseAmt)}}</span>
             </li>
             <li>
                 <span>首付款金额（元）</span>
-                <span>{{wantfactor.firstPayAmt}}</span>
+                <span>{{wantfactor.firstPayAmt && formatNumber(wantfactor.firstPayAmt)}}</span>
             </li>
             <li>
                 <span>融资金额（元）</span>
-                <span>{{wantfactor.financeAmt}}</span>
+                <span>{{wantfactor.financeAmt && formatNumber(wantfactor.financeAmt)}}</span>
             </li>
             <li>
                 <span>厂商返利（元）</span>
-                <span>{{wantfactor.rebateAmt}}</span>
+                <span>{{wantfactor.rebateAmt && formatNumber(wantfactor.rebateAmt)}}</span>
             </li>
             <li>
                 <span>厂商贴息（元）</span>
-                <span>{{wantfactor.rebateFirmAmt}}</span>
+                <span>{{wantfactor.rebateFirmAmt && formatNumber(wantfactor.rebateFirmAmt)}}</span>
             </li>
             <li>
                 <span>承租人风险金（元）</span>
-                <span>{{wantfactor.lesseeRiskAmt}}</span>
+                <span>{{wantfactor.lesseeRiskAmt && formatNumber(wantfactor.lesseeRiskAmt)}}</span>
             </li>
             <li>
                 <span>厂商贴息时间</span>
@@ -51,7 +51,7 @@
             </li>
             <li>
                 <span>其他支出(元)</span>
-                <span>{{wantfactor.otherExpense}}</span>
+                <span>{{wantfactor.otherExpense && formatNumber(wantfactor.otherExpense)}}</span>
             </li>
             <li>
                 <span>其他支出时间</span>
@@ -59,11 +59,11 @@
             </li>
             <li>
                 <span>其他风险金（元）</span>
-                <span>{{wantfactor.otherRiskAmt}}</span>
+                <span>{{wantfactor.otherRiskAmt && formatNumber(wantfactor.otherRiskAmt)}}</span>
             </li>
             <li>
                 <span>补贴金额（元）</span>
-                <span>{{wantfactor.allowanceAmt}}</span>
+                <span>{{wantfactor.allowanceAmt && formatNumber(wantfactor.allowanceAmt)}}</span>
             </li>
             <li>
                 <span>预计补贴时间</span>
@@ -108,7 +108,7 @@
             </li>
             <li>
                 <span>留购价款（元）</span>
-                <span>{{wantfactor.depositAmt}}</span>
+                <span>{{wantfactor.depositAmt && formatNumber(wantfactor.depositAmt)}}</span>
             </li>
             <li>
                 <span>提前结清（%）</span>
@@ -133,10 +133,10 @@
                     </tr>
                     <tr v-for="item in tableData" v-if="item.costType == 'rent'">
                         <td>{{item.period}}</td>
-                        <td>{{item.principal}}</td>
+                        <td>{{item.principal && formatNumber(item.principal)}}</td>
                         <td>{{item.moneyRate}}</td>
-                        <td>{{item.interest}}</td>
-                        <td>{{item.dueAmout}}</td>
+                        <td>{{item.interest && formatNumber(item.interest) }}</td>
+                        <td>{{item.dueAmout && formatNumber(item.dueAmout)}}</td>
                         <td>{{item.dueDate}}</td>
                     </tr>
                 </table>
@@ -147,6 +147,7 @@
 
 <script type="text/ecmascript-6">
     import componentitle from '../../../components/title/title.vue';
+    import {formatNumber} from '../../../components/mixins/formatter/index';
 
     export default {
         data() {
@@ -182,7 +183,7 @@
             // 请求租赁要素
             this.$post('/leaseinfo/queryElement', {
                 bussNo: this.$route.query.bussNo,
-                taskType:this.taskType
+                taskType: this.taskType
             }).then(res => {
                 // 返回示例
                 // {
@@ -219,7 +220,7 @@
             // 租金计划表
             this.$post('/leaseinfo/querySchedule', {
                 bussNo: this.$route.query.bussNo,
-                taskType:this.taskType
+                taskType: this.taskType
             }).then(res => {
                 // 返回示例
                 // {
@@ -243,6 +244,9 @@
         },
         components: {
             componentitle
+        },
+        methods: {
+            formatNumber
         }
     }
 </script>

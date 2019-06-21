@@ -17,7 +17,7 @@
                 </li>
                 <li>
                     <span>购置价格(元)</span>
-                    <span>{{item.condition.purchasePrice}}</span>
+                    <span>{{item.condition.purchasePrice && formatNumber(item.condition.purchasePrice)}}</span>
                 </li>
                 <li>
                     <span>是否抵押我司</span>
@@ -54,7 +54,7 @@
             </li>
             <li>
                 <span>保额（元）</span>
-                <span>{{item.insurance.coverage}}</span>
+                <span>{{item.insurance.coverage && formatNumber(item.insurance.coverage)}}</span>
             </li>
             <li>
                 <span>保险期限（月）</span>
@@ -96,6 +96,8 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../../components/title/title.vue';
+import {formatNumber} from '../../../components/mixins/formatter/index';
+
 export default {
     data() {
         return {
@@ -182,6 +184,8 @@ export default {
     components: {
         componentitle,
 
+    },methods:{
+        formatNumber
     }
 }
 </script>

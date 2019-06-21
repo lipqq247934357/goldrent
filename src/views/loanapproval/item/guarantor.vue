@@ -431,7 +431,7 @@
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>
-                                    <span>{{assetsHouses.currEvaluation}}</span>
+                                    <span>{{assetsHouses.currEvaluation && formatNumber(assetsHouses.currEvaluation)}}</span>
                                 </li>
                                 <li style="border-bottom: 0">
                                     <span>所有权人</span>
@@ -454,7 +454,7 @@
                                 </li>
                                 <li>
                                     <span>价值（元）</span>
-                                    <span>{{assetsLands.value}}</span>
+                                    <span>{{assetsLands.value && formatNumber(assetsLands.value)}}</span>
                                 </li>
                                 <li>
                                     <span>土地地址/坐落</span>
@@ -487,7 +487,7 @@
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>
-                                    <span>{{assetsVehicles.currEvaluation}}</span>
+                                    <span>{{assetsVehicles.currEvaluation && formatNumber(assetsVehicles.currEvaluation)}}</span>
                                 </li>
                                 <li>
                                     <span>车辆牌号</span>
@@ -499,7 +499,7 @@
                                 </li>
                                 <li>
                                     <span>发票金额(元)</span>
-                                    <span>{{assetsVehicles.invoiceAmount}}</span>
+                                    <span>{{assetsVehicles.invoiceAmount && formatNumber(assetsVehicles.invoiceAmount)}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -516,7 +516,7 @@
                                 </li>
                                 <li>
                                     <span>当前估价（元）</span>
-                                    <span>{{assetsFarmTools.currEvaluation}}</span>
+                                    <span>{{assetsFarmTools.currEvaluation && formatNumber(assetsFarmTools.currEvaluation)}}</span>
                                 </li>
                                 <li>
                                     <span>所有权人</span>
@@ -528,7 +528,7 @@
                                 </li>
                                 <li>
                                     <span>发票金额(元)</span>
-                                    <span>{{assetsFarmTools.invoiceAmount}}</span>
+                                    <span>{{assetsFarmTools.invoiceAmount && formatNumber(assetsFarmTools.invoiceAmount)}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -551,7 +551,7 @@
                                 </li>
                                 <li>
                                     <span>价值（元）</span>
-                                    <span>{{assetsOthers.value}}</span>
+                                    <span>{{assetsOthers.value && formatNumber(assetsOthers.value)}}</span>
 
                                 </li>
                                 <li>
@@ -600,7 +600,7 @@
                                 </li>
                                 <li>
                                     <span>债务余额（元）</span>
-                                    <span>{{debtSituations.debtBalance}}</span>
+                                    <span>{{debtSituations.debtBalance && formatNumber(debtSituations.debtBalance)}}</span>
                                 </li>
                                 <li>
                                     <span>债务期限（月）</span>
@@ -638,7 +638,7 @@
                                 </li>
                                 <li>
                                     <span>担保余额（元）</span>
-                                    <span>{{debtGuarantees.guaranteeBalance}}</span>
+                                    <span>{{debtGuarantees.guaranteeBalance && formatNumber(debtGuarantees.guaranteeBalance)}}</span>
 
                                 </li>
                                 <li>
@@ -674,7 +674,7 @@
                                 </li>
                                 <li>
                                     <span>余额（元）</span>
-                                    <span>{{debtOthers.debtBalance}}</span>
+                                    <span>{{debtOthers.debtBalance && formatNumber(debtOthers.debtBalance)}}</span>
                                 </li>
                                 <li>
                                     <span>至今账龄（月）</span>
@@ -732,15 +732,15 @@
                                 </li>
                                 <li>
                                     <span>单亩成本（元）</span>
-                                    <span>{{incomePlants.oneCost}}</span>
+                                    <span>{{incomePlants.oneCost && formatNumber(incomePlants.oneCost)}}</span>
                                 </li>
                                 <li>
                                     <span>单亩收入（元）</span>
-                                    <span>{{incomePlants.oneIncome}}</span>
+                                    <span>{{incomePlants.oneIncome && formatNumber(incomePlants.oneIncome)}}</span>
                                 </li>
                                 <li>
                                     <span>结余（元）</span>
-                                    <span>{{incomePlants.surplus}}</span>
+                                    <span>{{incomePlants.surplus && formatNumber(incomePlants.surplus)}}</span>
                                 </li>
 
                             </ul>
@@ -772,16 +772,16 @@
                                 </li> -->
                                 <li>
                                     <span>近一年收入（元）</span>
-                                    <span>{{incomeOthers.prevYearIncome}}</span>
+                                    <span>{{incomeOthers.prevYearIncome && formatNumber(incomeOthers.prevYearIncome)}}</span>
                                 </li>
                                 <li>
                                     <span>近一年支出（元）</span>
-                                    <span>{{incomeOthers.prevYearPay}}</span>
+                                    <span>{{incomeOthers.prevYearPay && formatNumber(incomeOthers.prevYearPay)}}</span>
 
                                 </li>
                                 <li>
                                     <span>结余（元）</span>
-                                    <span>{{incomeOthers.surplus}}</span>
+                                    <span>{{incomeOthers.surplus && formatNumber(incomeOthers.surplus)}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -809,6 +809,8 @@
 import componentitle from '../../../components/title/title.vue';
 import imgLine from './imgLine';
 import {urlParse} from "../../../utils/utils";
+import {formatNumber} from '../../../components/mixins/formatter/index';
+
 export default {
     data() {
         return {
@@ -1206,7 +1208,9 @@ export default {
                 }
                 this.plantExpDesc = Array.from(set);
                 console.log(this.plantExpDesc);
-            }
+            },
+        formatNumber
+
         },
     components: {
         componentitle,

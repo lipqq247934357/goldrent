@@ -81,11 +81,11 @@
                         </li>
                         <li>
                             <span>债务余额（元）</span>
-                            <span>{{otherpeople.debtBalance}}</span>
+                            <span>{{otherpeople.debtBalance && formatNumber(otherpeople.debtBalance)}}</span>
                         </li>
                         <li>
                             <span>担保余额（元）</span>
-                            <span>{{otherpeople.guaranteeBalance}}</span>
+                            <span>{{otherpeople.guaranteeBalance && formatNumber(otherpeople.guaranteeBalance)}}</span>
                         </li>
                         <li style="border-bottom: 0;">
                             <span>被担保人</span>
@@ -128,6 +128,8 @@
 import componentitle from '../../../components/title/title.vue';
 import {urlParse} from "../../../utils/utils";
 import imgLine from './imgLine';
+import {formatNumber} from '../../../components/mixins/formatter/index';
+
 export default {
     data() {
         return {
@@ -233,6 +235,7 @@ export default {
           })();
 
         },
+        formatNumber
     },
     components: {
         componentitle,
