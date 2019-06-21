@@ -220,6 +220,11 @@ export default {
             val.forEach((element, index) => {
                 this.handelcheckbox(element, index)
             })
+        },
+        radio1:function(val){
+            if(val === '0' || val === '4'){
+                this.requirements = this.conditions = '';
+            }
         }
     },
     created() {

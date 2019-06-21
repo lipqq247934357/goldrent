@@ -7,6 +7,7 @@
                 <div>处理人</div>
                 <div>操作时间</div>
                 <div>审批环节</div>
+                <div>意见</div>
                 <div>意见描述</div>
             </li>
             <li v-for="item in data">
@@ -14,6 +15,7 @@
                 <div>{{item.operator}}</div>
                 <div>{{item.editTime}}</div>
                 <div>{{item.taskName}}</div>
+                <div>{{item.opinion}}</div>
                 <div>{{item.comments}}</div>
             </li>
             <li v-if="data.length === 0">
@@ -63,7 +65,7 @@
         > li {
             > div {
                 float: left;
-                width: 20%;
+                width: 16.6667%;
                 text-align: center;
                 font-size: 14px;
                 line-height: 40px;
@@ -74,15 +76,15 @@
             }
 
             > div:first-child {
-                width: 8%;
+                width: 6.6667%;
             }
 
             > div:nth-child(2) {
-                width: 12%;
+                width: 10.6667%;
             }
 
             > div:last-child {
-                width: 40%;
+                width: 32.6667%;
             }
 
             > p {
