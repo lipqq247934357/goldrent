@@ -1,434 +1,166 @@
 <template>
-    <div class="businfo">
-        <div class="topTitle">
-            <componentitle :message="message" :titletext="titletext"/>
-        </div>
-        <div class="tableinfo">
-            <template>
-                <!-- <ul class="toplist">
-                    <li>
-                        <span>业务编号</span>
-                        <span>任务名称</span>
-                        <span>任务创建时间</span>
-                        <span>任务开始时间</span>
-                        <span>任务结束时间</span>
-                    </li>
-                    <li>
-                        <span>{{task.task.bussNo}}</span>
-                        <span>{{task.task.taskName}}</span>
-                        <span>{{task.task.createTime}}</span>
-                        <span>{{task.task.beginTime}}</span>
-                        <span>{{task.task.finishTime}}</span>
-                    </li>
-                </ul> -->
-                <table border=1 class="toplist">
-                    <tr>
-                        <td>业务编号</td>
-                        <td>任务名称</td>
-                        <td>任务创建时间</td>
-                        <td>任务开始时间</td>
-                        <td>任务结束时间</td>
-                    </tr>
-                    <tr v-for="item in task.task">
-                        <td>{{item.bussNo}}</td>
-                        <td>{{item.taskName}}</td>
-                        <td>{{item.createTime}}</td>
-                        <td>{{item.beginTime}}</td>
-                        <td>{{item.finishTime}}</td>
-                    </tr>
-                </table>
-            </template>
-
-            <!--  审批流水  -->
-            <approvallist :bussNo="task.custNature.bussNo" v-if="task.task.length !== 0"/>
-        </div>
-
-
+    <div class="loanapproval">
         <div class="content">
-            <div class="titletop">
-                <div class="topbox">
-                    <span>承租人信息</span>
-                </div>
-            </div>
-            <ul class="infolist infocss">
-                <li>
-                    <span>业务编号</span>
-                    <span>{{task.custNature.bussNo}}</span>
-                </li>
-                <li>
-                    <span>客户类别</span>
-                    <span v-for="custType in statuslist.custType"
-                          v-if="task.custNature.custType == custType.optionCode">
-                        <!-- <select class="" name="" disabled>
-                            <option value="" v-for="custType in statuslist.custType" :selected="task.custNature.partnerType == custType.optionCode ? true : false">
-                                {{custType.optionName}}
-                            </option>
-                        </select> -->
-                        {{custType.optionName}}
-                    </span>
-                    <span v-if="task.custNature.custType == ''"></span>
-                </li>
-                <li>
-                    <span>姓名</span>
-                    <span>{{task.custNature.custName}}</span>
-
-                </li>
-                <li>
-                    <span>与承租人关系</span>
-                    <span>{{task.custNature.custRelation == 'SELF' ? '本人' : '本人'}}</span>
-                </li>
-                <li>
-                    <span>性别</span>
-                    <span v-for="sex in statuslist.custSex" v-if="task.custNature.custSex == sex.optionCode">
-                        <!-- {{task.custNature.custSex}} -->
-                        <!-- <select class="" name="" disabled>
-                            <option value="" v-for="sex in statuslist.custSex" :selected="task.custNature.custSex == sex.optionCode ? true : false">
-                                {{sex.optionName}}
-                            </option>
-                        </select> -->
-                        {{sex.optionName}}
-                    </span>
-                    <span v-if="task.custNature.custSex == ''"></span>
-                </li>
-                <li>
-                    <span>年龄</span>
-                    <span>{{task.custNature.custAge}}</span>
-                </li>
-                <li>
-                    <span>身份证号码</span>
-                    <span>{{task.custNature.certNo}}</span>
-                </li>
-                <li>
-                    <span>婚姻状况</span>
-                    <span v-for="marriagestatus in statuslist.marriage"
-                          v-if="task.custNature.custMarriage == marriagestatus.optionCode">
-                        <!-- {{task.custNature.custMarriage}} -->
-                        <!-- <select class="" name="" disabled>
-                            <option value="" v-for="marriagestatus in statuslist.marriage" :selected="task.custNature.custMarriage ==marriagestatus.optionCode ? true : false">
-                                {{marriagestatus.optionName}}
-                            </option>
-                        </select> -->
-                        {{marriagestatus.optionName}}
-                    </span>
-                    <span v-else="task.custNature.custMarriage == ''"></span>
-                </li>
-                <li>
-                    <span>户籍地址</span>
-                    <span>{{task.custNature.custHomeplace}}</span>
-                </li>
-                <li>
-                    <span>现住址</span>
-                    <span>{{task.custNature.custAddress}}</span>
-                </li>
-                <li>
-                    <span>种植年限</span>
-                    <span>{{task.custNature.cultureYears}}</span>
-                </li>
-                <li>
-                    <span>申请地居住年限（年）</span>
-                    <span>{{task.custNature.residenceYears}}</span>
-                </li>
-                <li>
-                    <span>联系电话</span>
-                    <span>{{task.custNature.custMobile}}</span>
-
-                </li>
-                <li>
-                    <span>微信号</span>
-                    <span>{{task.custNature.custWechat}}</span>
-                </li>
-            </ul>
-
-            <div class="titletop">
-                <div class="topbox">
-                    <span>租赁物信息</span>
-                </div>
-            </div>
-            <ul class="infolist infocss">
-                <li>
-                    <span>名称</span>
-                    <span>{{task.leaseInfo.leaseName}}</span>
-                </li>
-                <li>
-                    <span>规格型号</span>
-                    <span>{{task.leaseInfo.leaseName}}</span>
-                </li>
-                <li>
-                    <span>购置价格</span>
-                    <span>{{task.leaseInfo.purchasePrice}}</span>
-
-                </li>
-                <li>
-                    <span>唯一识别码</span>
-                    <span>{{task.leaseInfo.serialNumber}}</span>
-                </li>
-                <li>
-                    <span>能否抵押受理</span>
-                    <span>{{task.leaseInfo.mortgage == "Y" ? "是" : task.leaseInfo.mortgage == "N" ? "否" : ""}}</span>
-
-                </li>
-                <li>
-                    <span>抵押管理机关</span>
-                    <span>{{task.leaseInfo.mortgageAgency}}</span>
-                </li>
-            </ul>
-
-            <div class="titletop">
-                <div class="topbox">
-                    <span>租赁计划表</span>
-                </div>
-
-                <template>
-                    <!-- <el-table
-                            :data="task.leasePlan"
-                            border
-                            :header-cell-style="{
-                                'color': '#212121',
-                                'font-size': '14px',
-                                'font-weight': 'bold'
-                            }"
-                            style="width: 100%">
-                        <el-table-column
-                                label="租金期数"
-                                prop="period">
-                        </el-table-column>
-                        <el-table-column
-                                label="租金总额"
-                                prop="leaseAmount">
-                        </el-table-column>
-                        <el-table-column
-                                label="支付日期"
-                                prop="payDate">
-                        </el-table-column>
-                        <el-table-column
-                                label="租赁本金"
-                                prop="capital">
-                        </el-table-column>
-                        <el-table-column
-                                label="租赁利息"
-                                prop="leaseInterest">
-                        </el-table-column>
-                    </el-table> -->
-                    <table class="renttable">
-                        <tr>
-                            <td class="tabletable">租金期数</td>
-                            <td class="tabletable">租赁本金（元）</td>
-                            <td class="tabletable">租赁利率（%）</td>
-                            <td class="tabletable">利息(元)</td>
-                            <td class="tabletable">租金总额（元）</td>
-                            <td class="tabletable">支付日期</td>
-                            <td class="tabletable">核销与否 </td>
-                        </tr>
-                        <tr v-for="item in task.leasePlan" v-if="item.costType == 'rent'">
-                            <td>{{item.period}}</td>
-                            <td>{{item.capital}}</td>
-                            <td>{{item.leaseRate}}</td>
-                            <td>{{item.leaseInterest}}</td>
-                            <td>{{item.leaseAmount}}</td>
-                            <td>{{item.payDate}}</td>
-                            <td>{{item.writeOffFlag == 'NOT'?'未核销':'已核销'}}</td>
-                        </tr>
-                    </table>
-                </template>
-            </div>
+            <h3 class="titleh3"></h3>
+            <el-tabs
+                    type="border-card"
+                    v-model="bindText">
+                <el-tab-pane :label="list.lease" :lazy="true" :name="list.lease">
+                    <wantfactor/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.rentpeople" :lazy="true" :name="list.rentpeople">
+                    <lesseeinfo/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.guarantor" :lazy="true" :name="list.guarantor">
+                    <guarantor/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.repurchase" :lazy="true" :name="list.repurchase">
+                    <buybackpeople/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.leasegoods" :lazy="true" :name="list.leasegoods">
+                    <leasehold/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.externalnews" :lazy="true" :name="list.externalnews">
+                    <externalinfo/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.investigation" :lazy="true" :name="list.investigation">
+                    <investigation/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.businfo" :lazy="true" :name="list.businfo">
+                    <businfo/>
+                </el-tab-pane>
+            </el-tabs>
         </div>
+
     </div>
 </template>
 
 <script type="text/ecmascript-6">
-    import componentitle from '../../components/title/title.vue';
-    import {urlParse} from "../../utils/utils";
-    import approvallist from '../../components/approvallist/approvallist.vue'; //
+    import wantfactor from '../loanapproval/item/wantfactor.vue'; //租赁要素
+    import lesseeinfo from '../loanapproval/item/lesseeinfo.vue'; //承租人信息
+    import guarantor from '../loanapproval/item/guarantor.vue'; //保证人信息
+    import buybackpeople from '../loanapproval/item/buybackpeople.vue'; //回购人信息
+    import leasehold from '../loanapproval/item/leasehold.vue'; //租赁物信息
+    import externalinfo from '../loanapproval/item/externalinfo.vue'; //外部信息
+    import investigation from '../loanapproval/item/investigation.vue'; //调查环节
+    import businfo from './item/bussinessInfo' // 业务信息
     export default {
         components: {
-            componentitle,
-            approvallist
+            wantfactor, //租赁要素
+            lesseeinfo, //承租人信息
+            guarantor, //保证人信息
+            buybackpeople, //回购人信息
+            leasehold, //租赁物信息
+            externalinfo, //外部信息
+            investigation, //调查环节
+            businfo // 业务信息
         },
         data() {
             return {
-                message: '任务信息',
-                titletext: '业务信息',
-                contenttext: '任务信息',
-                task: {
-                    task: [],
-                    custNature: {},
-                    leaseInfo: {},
-                    leasePlan: []
-
-                    // task: {
-                    //     bussNo业务编号String
-                    //
-                    //     custName租承租人姓名String
-                    //
-                    //     taskname任务名称String
-                    //
-                    //     ownerName任务员姓名String
-                    //
-                    //     status任务状态String
-                    //
-                    //     beginTime	任务开始时间	Timestamp
-                    //
-                    //     finishTime	任务结束时间	Timestamp
-                    //
-                    //     createTime	任创建时间 Timestamp
-                    // }
-                    // custNature: {}
-                    // leaseInfo: {},
-                    // leasePlan: []
-
+                list: {
+                    lease: '租赁要素',
+                    rentpeople: '承租人信息',
+                    guarantor: '保证人信息',
+                    repurchase: '回购人信息',
+                    leasegoods: '租赁物情况',
+                    externalnews: '外部信息',
+                    investigation: '增信措施及综述',
+                    businfo: '业务信息'
                 },
-                custNature: {},
-                leaseInfo: {},
-                leasePlan: [],
-                currentPage2: 1,
-                // 字典编码
-                statuslist: {
-                    marriage: [],
-                    custSex: [],
-                    custRelation: [],
-                    custType: [],
-                }
+                bindText: '租赁要素'
             }
-
-        },
-        created() {
-            let data = urlParse();
-            this.$get(`buss/getBussInfo?task_id=${this.$route.query.task_id}`).then(res => {
-                if (res.data.code == '2000000') {
-                    this.task = res.data.data;
-                }
-            });
-            this.$post('/getConstantConfig', {
-                dictionaryCode: ['custMarriage', 'custType', 'custSex', 'custRelation', 'houseType', 'isGuarantee']
-            }).then(res => {
-                this.statuslist.marriage = res.data.data.custMarriage;
-                this.statuslist.custSex = res.data.data.custSex;
-                this.statuslist.custRelation = res.data.data.custRelation;
-                this.statuslist.custType = res.data.data.custType;
-            })
-        },
-        methods: {
-            async query(bussNo) {
-                let data = await this.$post('buss/getBussInfo', {task_id: this.bussNo});
-                if (data.data.data.code === '2000000') { // 状态正确，执行更新操作
-                    data = data.data.data;
-                    this.task = data.task;
-                    this.custNature = data.task; //承租人信息
-                    this.leaseInfo = data.leaseInfo; // 租赁物信息
-                    this.leasePlan = data.leasePlan; //租金计划表
-                }
-            }
-        },
+        }
     }
 </script>
 <style lang="less">
-    .businfo {
-        background: #fff;
-        margin-bottom: 40px;
+    .content {
+        width: 96%;
+        margin: 0 auto;
 
-        .topTitle {
-            width: 96%;
-            margin: 0 auto;
+        .titleh3 {
+            font-size: 14px;
+            margin: 15px 0;
         }
 
-        .tableinfo {
-            width: 96%;
-            margin: 0px auto 50px;
+        .el-tabs--border-card > .el-tabs__content {
+            padding: 0;
         }
 
-        .content {
-            width: 95%;
-            margin: 0 auto;
-
-            .infocss {
-                li {
-                    &:last-child {
-                        border-bottom: 0;
-                    }
-
-                    &:nth-last-child(2) {
-                        border-bottom: 0;
-                    }
-                }
-            }
-
-            .infolist {
-                width: 99.8%;
-                display: inline-block;
-                border: 1px solid #afafaf;
-                margin: 0 auto 20px;
-                border-top: 0;
-
-                li {
-                    width: 49.9%;
-                    height: 50px;
-                    border-bottom: 1px solid #afafaf;
-                    display: inline-block;
-                    border-right: 1px solid #afafaf;
-                    text-align: center;
-                    line-height: 50px;
-                    color: #606266;
-                    font-size: 14px;
-
-                    &:nth-child(even) {
-                        border-right: 0;
-                    }
-
-                    span {
-                        &:first-child {
-                            width: 30%;
-                            display: inline-block;
-                        }
-
-                        &:nth-child(2) {
-                            width: 69%;
-                            display: inline-block;
-                        }
-                    }
-                }
-            }
+        .urlTextt {
+            color: #333;
+            text-decoration: none;
         }
-    }
 
-    .toplist {
-        width: 100%;
-        border-top: 0;
+        .el-icon-arrow-right {
+            color: #333;
+        }
 
-        tr {
-            width: 100%;
-            height: 50px;
-            border: 1px solid #afafaf;
-            color: #606266;
-            font-size: 12px;
-            text-align: center;
+        .el-tabs--border-card > .el-tabs__header {
+            border-bottom: 2px solid #ff8f2b;
+            padding-bottom: 1px;
+        }
+
+        .el-tabs--border-card {
+            border: 0;
+            box-shadow: 0 0 0 0;
+        }
+
+        .el-tabs--border-card > .el-tabs__header .el-tabs__item {
+            border-top: 1px solid #e5e5e5;
+            border-left: 1px solid #e5e5e5;
+            border-right: 1px solid #e5e5e5;
+            margin-left: 2px !important;
+            margin-top: 0;
 
             &:first-child {
-                border-top: 0;
+                margin-left: 0 !important;
             }
         }
-    }
 
-    .renttable {
-        text-align: center;
-        width: 100%;
-        border-top: 0;
-        border: 1px solid #afafaf;
-        border-top: 0;
+        .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+            background: #ff8f2b !important;
+            color: #fff;
+        }
 
-        .tabletable {
+        .el-tabs--border-card > .el-tabs__header .el-tabs__item:not(.is-disabled):hover {
+            background: #ff8f2b !important;
+            color: #fff;
+        }
+
+        .el-tabs--border-card > .el-tabs__header {
+            background: #fff;
+        }
+
+        .tabsinfo .el-tabs--border-card > .el-tabs__header {
+            border-bottom: 0;
+        }
+
+        .tabsinfo .subtabs .el-tabs__nav {
             border-top: 0;
-            font-size: 16px;
-            color: #333;
-            font-weight: bold;
+            // border-right: #DCDFE6 1px solid;
+            margin-left: 10px;
         }
 
-        tr {
-            height: 50px;
+        .tabsinfo .subtabs .el-tabs__nav .is-top {
+            border-right: 1px solid #DCDFE6 !important;
+        }
 
-            td {
-                color: #909399;
-                border: 1px solid #afafaf;
-            }
+        .tabsinfo .subtabs .el-tabs__nav .el-tabs__item {
+            border: 0;
+            padding: 0;
+            height: 16px;
+            line-height: 16px;
+            padding: 0 10px 0 10px;
+            border-left: 0;
+            border-top: 0;
+            border-right: #DCDFE6 1px solid;
+        }
+
+        .tabsinfo .subtabs .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+            border: 0;
+            color: #d76500;
+            background: #fff !important;
         }
     }
+
 </style>
