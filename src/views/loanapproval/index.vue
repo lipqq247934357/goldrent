@@ -119,7 +119,7 @@
                             type="text"
                             size="small"
                             :disabled="buttondeal == 'N'"
-                            v-if="scope.row.status != '已提交'">
+                            v-if="scope.row.status != '已提交' && scope.row.status !='已拒绝'">
                             处理
                         </el-button>
                         <el-button
