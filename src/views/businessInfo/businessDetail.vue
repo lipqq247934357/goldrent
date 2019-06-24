@@ -5,6 +5,9 @@
             <el-tabs
                     type="border-card"
                     v-model="bindText">
+                <el-tab-pane :label="list.businfo" :lazy="true" :name="list.businfo">
+                    <businfo/>
+                </el-tab-pane>
                 <el-tab-pane :label="list.lease" :lazy="true" :name="list.lease">
                     <wantfactor/>
                 </el-tab-pane>
@@ -25,9 +28,6 @@
                 </el-tab-pane>
                 <el-tab-pane :label="list.investigation" :lazy="true" :name="list.investigation">
                     <investigation/>
-                </el-tab-pane>
-                <el-tab-pane :label="list.businfo" :lazy="true" :name="list.businfo">
-                    <businfo/>
                 </el-tab-pane>
             </el-tabs>
         </div>
