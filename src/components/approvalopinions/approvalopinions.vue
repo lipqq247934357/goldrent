@@ -7,8 +7,9 @@
             <div class="loanval" v-if="this.$route.query.arrangement == 20">
                 <div class="subone" style="clear:both">
                     <p>审批报告：</p>
-                    <el-button type="primary" class="spreport" @click="viewreport">查看调查报告</el-button>
-                    <el-button type="primary" @click="surveyprot">生成审批报告</el-button>
+                    <el-button type="primary" class="spreport" @click="viewreport" v-if="haveAgreement">查看调查报告</el-button>
+                    <el-button type="primary" @click="surveyprot"  v-if="haveAgreement">生成审批报告</el-button>
+                    <div v-if="!haveAgreement" class="no-have-aggrement">保存或提交后可以查看调查报告和审批报告</div>
                 </div>
                 <div class="subone" style="clear:both;">
                     <p class="contract">面签合同：</p>
@@ -211,8 +212,9 @@ export default {
             dialogVisible: false, // 资深审批弹框绑定
             rolelist: [], // 角色列表
             departmentindex: null, // 用于渲染class
-            checkList: []
-        }
+            checkList: [],
+            haveAgreement:false // 是否已经提交或者保存了审批意见
+    }
     },
     watch: {
         checkboxlist: function (val) {
@@ -244,6 +246,15 @@ export default {
         });
         // 合同列表 审批意见和描述
         this.$get(`/LoanApprove/queryApproveDetail?bussNo=${this.$route.query.bussNo}`).then( res => {
+
+            if(this.$route.query.arrangement == '20') { //
+                if(res.data.data && res.data.data.approvalComments && res.data.data.approvalComments !='undefined'){ // 有值
+                    this.haveAgreement = true;
+                }else{ // 没有值
+                    this.haveAgreement = false;
+                }
+            }
+
             if(res.data.data == null ) {
                 return;
             }
@@ -484,5 +495,10 @@ export default {
 }
 </script>
 <style lang="less">
+
+    .no-have-aggrement {
+        height: 60px;
+        line-height: 60px;
+    }
 
 </style>

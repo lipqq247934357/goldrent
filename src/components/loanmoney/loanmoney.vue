@@ -9,6 +9,10 @@
             </ul>
         </div>
     </div>
+
+    <!-- 审批意见流水   -->
+    <approvallist/>
+
     <componentitle :message="message='放款审批意见'" />
     <div class="subone" style="clear:both">
         <p class="titleloantext">审批报告：</p>
@@ -62,6 +66,8 @@
 import componentitle from '../title/title.vue';
 import imgLine from '../../views/loanapproval/item/imgLine.vue';
 import {urlParse} from "../../utils/utils";
+import approvallist from '../../components/approvallist/approvallist.vue'; //
+
 export default {
     data() {
         return {
@@ -190,7 +196,8 @@ export default {
     },
     components: {
         imgLine,
-        componentitle
+        componentitle,
+        approvallist
     }
 }
 </script>
