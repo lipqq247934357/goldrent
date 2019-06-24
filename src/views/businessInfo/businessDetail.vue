@@ -67,7 +67,7 @@
                     investigation: '增信措施及综述',
                     businfo: '业务信息'
                 },
-                bindText: '租赁要素'
+                bindText: '业务信息'
             }
         }
     }
