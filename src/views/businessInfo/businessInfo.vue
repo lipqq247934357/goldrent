@@ -66,7 +66,7 @@
                         }"
                         style="width: 100%;">
                     <el-table-column
-                            min-width="200px"
+                            min-width="210px"
                             label="业务编号"
                             prop="bussNo">
                     </el-table-column>

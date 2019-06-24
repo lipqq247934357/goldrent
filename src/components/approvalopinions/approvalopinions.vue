@@ -266,6 +266,7 @@ export default {
             if(this.$route.query.arrangement == '20') {
                 this.radio1 = String(res.data.data.approvalComments); // 审批意见
             }
+
             this.textarea = res.data.data.reasonDescription; // 意见
             for(let i = 0 ; i < this.checkboxlist.length; i++) {
                 let a = {
@@ -310,6 +311,16 @@ export default {
         // 提交ajax
         submitajax() {
             let role = this.$route.query.arrangement;
+            let  reasonDescription= {
+                '20': this.textarea,
+                '21': this.senior,
+                '22': this.conclusion,
+                '23': this.director
+            }[role];
+            if(!this.validateDesc(reasonDescription)){
+                this.$message.warning({message: '请输入意见描述', duration: 2000});
+                return;
+            }
             this.$post({
                 '20': '/LoanApprove/submitApprove',
                 '21': '/LoanApprove/seniorApprovalSubmit',
@@ -365,6 +376,18 @@ export default {
         // 退回
         exit() {
             let role = this.$route.query.arrangement;
+
+            let  reasonDescription= {
+                '20': this.textarea,
+                '21': this.senior,
+                '22': this.conclusion,
+                '23': this.director
+            }[role];
+            if(!this.validateDesc(reasonDescription)){
+                this.$message.warning({message: '请输入意见描述', duration: 2000});
+                return;
+            }
+
             this.$post({
                 '20': '/LoanApprove/withdrawApprove',
                 '21': '/LoanApprove/seniorApprovalReject',
@@ -399,6 +422,17 @@ export default {
         // 保存按钮
         save() {
             let role = this.$route.query.arrangement;
+
+            let  reasonDescription= {
+                '20': this.textarea,
+                '21': this.senior,
+                '22': this.conclusion,
+                '23': this.director
+            }[role];
+            if(!this.validateDesc(reasonDescription)){
+                this.$message.warning({message: '请输入意见描述', duration: 2000});
+                return;
+            }
             // '/LoanApprove/save'
             this.$post({
                 '20': 'LoanApprove/saveApprove',
@@ -487,6 +521,9 @@ export default {
             }
 
             return false
+        },
+        validateDesc(data){ // 审批意见描述校验
+            return data !== null && data !== '';
         }
     },
     components: {

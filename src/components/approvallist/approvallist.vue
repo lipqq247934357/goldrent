@@ -7,7 +7,7 @@
                 <div>处理人</div>
                 <div>操作时间</div>
                 <div>审批环节</div>
-                <div>意见</div>
+                <div>审批意见</div>
                 <div>意见描述</div>
             </li>
             <li v-for="item in data">
