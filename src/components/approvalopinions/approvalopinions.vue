@@ -311,16 +311,11 @@ export default {
         // 提交ajax
         submitajax() {
             let role = this.$route.query.arrangement;
-            let  reasonDescription= {
-                '20': this.textarea,
-                '21': this.senior,
-                '22': this.conclusion,
-                '23': this.director
-            }[role];
-            if(!this.validateDesc(reasonDescription)){
-                this.$message.warning({message: '请输入意见描述', duration: 2000});
+
+            if(!this.validateDesc()){
                 return;
             }
+
             this.$post({
                 '20': '/LoanApprove/submitApprove',
                 '21': '/LoanApprove/seniorApprovalSubmit',
@@ -377,14 +372,7 @@ export default {
         exit() {
             let role = this.$route.query.arrangement;
 
-            let  reasonDescription= {
-                '20': this.textarea,
-                '21': this.senior,
-                '22': this.conclusion,
-                '23': this.director
-            }[role];
-            if(!this.validateDesc(reasonDescription)){
-                this.$message.warning({message: '请输入意见描述', duration: 2000});
+            if(!this.validateDesc()){
                 return;
             }
 
@@ -423,14 +411,7 @@ export default {
         save() {
             let role = this.$route.query.arrangement;
 
-            let  reasonDescription= {
-                '20': this.textarea,
-                '21': this.senior,
-                '22': this.conclusion,
-                '23': this.director
-            }[role];
-            if(!this.validateDesc(reasonDescription)){
-                this.$message.warning({message: '请输入意见描述', duration: 2000});
+            if(!this.validateDesc()){
                 return;
             }
             // '/LoanApprove/save'
@@ -522,8 +503,12 @@ export default {
 
             return false
         },
-        validateDesc(data){ // 审批意见描述校验
-            return data !== null && data !== '';
+        validateDesc(){ // 审批意见描述校验
+            if(this.$route.query.arrangement === '20' && '01234'.indexOf(this.radio) === -1){
+                this.$message.warning({message: '请选择审批意见', duration: 1000});
+                return false;
+            }
+            return true;
         }
     },
     components: {
