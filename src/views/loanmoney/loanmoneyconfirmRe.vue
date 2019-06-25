@@ -289,8 +289,10 @@
                     disabledDate(time) {
                         return time.getTime() > Date.now();
                     },
-                }
-            }
+                },
+                submitStatus: false
+
+        }
         },
         created() {
             this.query();
@@ -339,10 +341,14 @@
                     });
             },
             batchConfirmation() {
+                if(this.submitStatus)
+                    return
+                this.submitStatus = true;
                 this.$post('/LoanGrantConfirm/batchGrantConfirm', {
                     bussNos: this.bussNoarr,
                     loanGrantDate: this.endTime
                 }).then(res => {
+                    this.submitStatus = false;
                     // console.log(res);
                     if (res.data.code == '2000000') {
                         this.$message.success('批量放款成功');

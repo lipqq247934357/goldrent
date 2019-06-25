@@ -284,7 +284,8 @@ export default {
                 disabledDate(time) {
                     return time.getTime() > Date.now();
                 },
-            }
+            },
+            submitStatus:false
         }
     },
     created() {
@@ -332,10 +333,14 @@ export default {
             .catch(_ => {});
         },
         batchConfirmation() {
+            if(this.submitStatus)
+                return
+            this.submitStatus = true;
             this.$post('/LoanGrantConfirm/batchDoGrantConfirm',{
                 bussNos: this.bussNoarr,
                 loanGrantDate: this.endTime
             }).then(res => {
+                this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('批量放款成功');
                     this.query();
