@@ -213,7 +213,8 @@ export default {
             rolelist: [], // 角色列表
             departmentindex: null, // 用于渲染class
             checkList: [],
-            haveAgreement:false // 是否已经提交或者保存了审批意见
+            haveAgreement:false, // 是否已经提交或者保存了审批意见
+            submitStatus:false
     }
     },
     watch: {
@@ -316,6 +317,11 @@ export default {
                 return;
             }
 
+            if(this.submitStatus)
+                return;
+            this.submitStatus = true;
+
+            this.timer = setTimeout(function(){},300);
             this.$post({
                 '20': '/LoanApprove/submitApprove',
                 '21': '/LoanApprove/seniorApprovalSubmit',
@@ -341,6 +347,7 @@ export default {
                 loanPrecondition: this.conditions,// 放款前提条件
                 postRentManage: this.requirements// 租后管理要求
             }).then( res => {
+                this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('提交成功');
                     this.$router.push({
@@ -376,6 +383,10 @@ export default {
                 return;
             }
 
+            if(this.submitStatus)
+                return;
+            this.submitStatus = true;
+
             this.$post({
                 '20': '/LoanApprove/withdrawApprove',
                 '21': '/LoanApprove/seniorApprovalReject',
@@ -399,6 +410,7 @@ export default {
                 loanPrecondition: this.conditions,// 放款前提条件
                 postRentManage: this.requirements// 租后管理要求
             }).then( res => {
+                this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('退回成功');
                     this.$router.push({
@@ -414,6 +426,9 @@ export default {
             if(!this.validateDesc()){
                 return;
             }
+            if(this.submitStatus)
+                return;
+            this.submitStatus = true;
             // '/LoanApprove/save'
             this.$post({
                 '20': 'LoanApprove/saveApprove',
@@ -439,6 +454,7 @@ export default {
                 loanPrecondition: this.conditions,// 放款前提条件
                 postRentManage: this.requirements// 租后管理要求
             }).then( res => {
+                this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('保存成功');
                     this.$router.push({

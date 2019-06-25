@@ -80,7 +80,8 @@ export default {
             describewhy: '', // 原因描述
             radio2: '', // 后补租赁物识别号
             arrangement:'',
-            saveStatus:false
+            saveStatus:false,
+            submitStatus:false
         }
     },
     created() {
@@ -139,12 +140,16 @@ export default {
         },
         // 保存
         save() {
+            if(this.submitStatus)
+                return;
+            this.submitStatus = true;
             this.$post('/LoanGrantOpinion/saveGrant',{
                 bussNo: this.$route.query.bussNo,
                 approvalComments: this.radio1,
                 reasonDescription: this.describewhy,
                 needSupplement: this.radio2
             }).then(res => {
+                this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('保存成功');
                     this.$router.push({
@@ -158,12 +163,16 @@ export default {
         },
         // 提交
         adopt() {
+            if(this.submitStatus)
+                return;
+            this.submitStatus = true;
             this.$post('/LoanGrantOpinion/submitApprove',{
                 bussNo: this.$route.query.bussNo,
                 approvalComments: this.radio1,
                 reasonDescription: this.describewhy,
                 needSupplement: this.radio2
             }).then(res => {
+                this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('通过');
                     this.$router.push({
@@ -177,11 +186,15 @@ export default {
         },
         // 同意或者退回
         agreeOrBack(val) {
+            if(this.submitStatus)
+                return;
+            this.submitStatus = true;
             this.$post('/LoanGrantOpinion/submitApproveReview',{
                 bussNo: this.$route.query.bussNo,
                 approvalComments: val,
                 needSupplement: this.radio2
             }).then(res => {
+                this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('通过');
                     this.$router.push({
