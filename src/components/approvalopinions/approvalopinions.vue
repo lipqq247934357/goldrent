@@ -504,7 +504,8 @@ export default {
             return false
         },
         validateDesc(){ // 审批意见描述校验
-            if(this.$route.query.arrangement == '20' && '01234'.indexOf(this.radio) === -1){
+            console.log(this.radio1);
+            if(this.$route.query.arrangement == '20' && '01234'.indexOf(this.radio1) === -1){
                 this.$message.warning({message: '请选择审批意见', duration: 1000});
                 return false;
             }
