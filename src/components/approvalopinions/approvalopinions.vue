@@ -9,7 +9,7 @@
                     <p>审批报告：</p>
                     <el-button type="primary" class="spreport" @click="viewreport" v-if="haveAgreement">查看调查报告</el-button>
                     <el-button type="primary" @click="surveyprot"  v-if="haveAgreement">生成审批报告</el-button>
-                    <div v-if="!haveAgreement" class="no-have-aggrement">保存或提交后可以查看调查报告和审批报告</div>
+                    <div v-if="!haveAgreement" class="no-have-aggrement">选择审批意见后，保存或提交可以查看调查报告和审批报告</div>
                 </div>
                 <div class="subone" style="clear:both;">
                     <p class="contract">面签合同：</p>
