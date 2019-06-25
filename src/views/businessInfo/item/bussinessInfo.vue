@@ -1,25 +1,25 @@
 <template>
     <div class="tabsinfo">
-        <componentitle :message="message"/>
+<!--        <componentitle :message="message"/>-->
         <div class="tableinfo">
-            <template>
-                <table border=1 class="toplist">
-                    <tr>
-                        <td>业务编号</td>
-                        <td>任务名称</td>
-                        <td>任务创建时间</td>
-                        <td>任务开始时间</td>
-                        <td>任务结束时间</td>
-                    </tr>
-                    <tr v-for="item in task.task">
-                        <td>{{item.bussNo}}</td>
-                        <td>{{item.taskName}}</td>
-                        <td>{{item.createTime}}</td>
-                        <td>{{item.beginTime}}</td>
-                        <td>{{item.finishTime}}</td>
-                    </tr>
-                </table>
-            </template>
+<!--            <template >-->
+<!--                <table border=1 class="toplist">-->
+<!--                    <tr>-->
+<!--                        <td>业务编号</td>-->
+<!--                        <td>任务名称</td>-->
+<!--                        <td>任务创建时间</td>-->
+<!--                        <td>任务开始时间</td>-->
+<!--                        <td>任务结束时间</td>-->
+<!--                    </tr>-->
+<!--                    <tr v-for="item in task.task">-->
+<!--                        <td>{{item.bussNo}}</td>-->
+<!--                        <td>{{item.taskName}}</td>-->
+<!--                        <td>{{item.createTime}}</td>-->
+<!--                        <td>{{item.beginTime}}</td>-->
+<!--                        <td>{{item.finishTime}}</td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </template>-->
 
             <!--  审批流水  -->
             <approvallist :bussNo="task.custNature.bussNo" v-if="task.task.length !== 0"/>
