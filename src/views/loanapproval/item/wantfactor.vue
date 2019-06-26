@@ -130,6 +130,7 @@
                         <td class="tabletable">租赁利息（元）</td>
                         <td class="tabletable">租金总额（元）</td>
                         <td class="tabletable">支付日期</td>
+                        <td  v-if="$route.query.writeOffFlag" class="tabletable">是否核销</td>
                     </tr>
                     <tr v-for="item in tableData" v-if="item.costType == 'rent'">
                         <td>{{item.period}}</td>
@@ -138,6 +139,7 @@
                         <td>{{item.interest && formatNumber(item.interest) }}</td>
                         <td>{{item.dueAmout && formatNumber(item.dueAmout)}}</td>
                         <td>{{item.dueDate}}</td>
+                        <td v-if="$route.query.writeOffFlag">{{item.writeOffFlag == 'NOT'?'未核销':'已核销'}}</td>
                     </tr>
                 </table>
             </template>

@@ -315,7 +315,7 @@
             },
             handleClick(row) {
                 this.$router.push({
-                    path: '/layout/businessdetail',query: {task_id:row.id,disabled:1,bussNo:row.bussNo,arrangementtype:'5'}
+                    path: '/layout/businessdetail',query: {task_id:row.id,disabled:1,bussNo:row.bussNo,arrangementtype:'5',writeOffFlag:1}
                 });
             }
         },
