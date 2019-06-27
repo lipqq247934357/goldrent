@@ -3,7 +3,7 @@
         <img alt="" class="loginbg" src="./loginbg.png">
         <div class="inputText">
             <p class="logintext">Log in</p>
-            <img alt="" class="logintextimg" src="./logintext.png">
+            <img alt="" class="logintextimg" src="./logintext.jpg">
             <div class="subTextdiv">
                 <img alt="" class="pwdicon" src="./loginname.png">
                 <input placeholder="用户名" type="text" v-model="name">
@@ -121,6 +121,7 @@
 
             .logintextimg {
                 margin: 18px 0 60px 0;
+                width: 290px;
             }
 
             .subTextdiv {
