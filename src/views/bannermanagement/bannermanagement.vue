@@ -22,7 +22,6 @@
                 <img :src="item.url + '&v=' +Math.ceil(Math.random()*10)" alt="" width="90%" height="200">
                 <el-button type="primary" class="edit" @click="editupload(item)">编辑</el-button>
             </li>
-
         </ul>
     </div>
     <div class="bottomdiv bannerimglist">
@@ -274,6 +273,7 @@ export default {
                     if(res.data.code == '2000000') {
                         this.handleClose();
                         this.$nextTick(this.topbanner());
+                        this.$nextTick(this.bottombanner());
                         return;
                     }
                 });
