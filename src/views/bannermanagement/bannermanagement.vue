@@ -126,10 +126,11 @@
                 <ul class="editimg" v-if="uploadactive == '0'">
                     <li style="min-height: 200px;">
                         <el-upload
+                            ref="upload"
                             class="avatar-uploader"
                             action="/web/banner/modifyBannerPic"
                             :headers="{token:this.token}"
-                            :data="{id: imgId}"
+                            :data="{id: this.imgId}"
                             :show-file-list="false"
                             :limit="1"
                             :on-success="handleAvatarSuccess"
@@ -153,7 +154,7 @@
                 </ul>
             </div>
             <span slot="footer" class="dialog-footer">
-            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button @click="handleClose">取 消</el-button>
             <el-button type="primary" @click="submit">确 定</el-button>
             </span>
         </el-dialog>
@@ -259,6 +260,7 @@ export default {
         },
         handleClose() {
             // 关闭弹框
+            this.$refs.upload.clearFiles();
             this.dialogVisible = false;
         },
         submit() {
@@ -270,7 +272,7 @@ export default {
                 data.append('redirectUrl',this.bannerLinkurl);
                 this.$post('/banner/modifyBanner',data).then(res => {
                     if(res.data.code == '2000000') {
-                        this.dialogVisible = false;
+                        this.handleClose();
                         this.$nextTick(this.topbanner());
                         return;
                     }
@@ -334,8 +336,8 @@ export default {
             this.bannerLinkurl = item.redirectUrl;
             this.bannerTitle = item.title;
             this.imgstatus = item.status;
-            this.imgId = item.id;
-            this.echoimgId = item.imageId;
+            this.imgId = item.id; // imgId
+            this.echoimgId = item.imageId; // 回显图片id
         },
         // 修改图片上传
         handleAvatarSuccess(file) {
@@ -345,7 +347,6 @@ export default {
                     this.topbanner()
                 }.bind(this),1000);
             }
-
         },
         beforeAvatarUpload(file) {
             // console.log(file)
