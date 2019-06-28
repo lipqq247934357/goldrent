@@ -169,7 +169,7 @@
             }
         },
         created() {
-            let arrangementtype = this.$route.query.arrangement;
+            let arrangementtype = this.$route.query.arrangementtype;
             if (arrangementtype != 5 && arrangementtype != 6) {
                 this.taskType = '10'
             } else {
