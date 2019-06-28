@@ -171,12 +171,20 @@
                                 </span>
                             </li>
                             <li>
-                                <span>姓名</span>
-                                <span>{{item.custName}}</span>
+                                <span>婚姻状况</span>
+                                <span v-for="marriagestatus in statuslist.marriage" v-if="item.custMarriage ==marriagestatus.optionCode">
+                                    <!-- <select class="" name="" disabled>
+                                        <option value="" v-for="marriagestatus in statuslist.marriage" :selected="item.custMarriage ==marriagestatus.optionCode ? true : false">
+                                            {{marriagestatus.optionName}}
+                                        </option>
+                                    </select> -->
+                                    {{marriagestatus.optionName}}
+                                </span>
+                                <span v-if="item.custMarriage == ''"></span>
                             </li>
                             <li>
-                                <span>联系电话</span>
-                                <span>{{item.custMobile}}</span>
+                                <span>姓名</span>
+                                <span>{{item.custName}}</span>
                             </li>
                             <li>
                                 <span>性别</span>
@@ -191,44 +199,33 @@
                                 <span v-if="item.custSex == ''"></span>
                             </li>
                             <li>
-                                <span>微信</span>
-                                <span>{{item.custWechat}}</span>
-                            </li>
-                            <li>
                                 <span>身份证号码</span>
                                 <span>{{item.certNo}}</span>
                             </li>
                             <li>
-                                <span>教育程度</span>
-                                <span v-for="ducation in statuslist.custEducation" v-if="item.custEducation == ducation.optionCode">
-                                    {{ducation.optionName}}
-                                </span>
-                                <span v-if="item.custEducation == ''"></span>
+                                <span>申请地居住年限（年）</span>
+                                <span>{{item.residenceYears}}</span>
                             </li>
                             <li>
                                 <span>户籍地址</span>
                                 <span>{{item.custHomeplace}}</span>
                             </li>
                             <li>
-                                <span>婚姻状况</span>
-                                <span v-for="marriagestatus in statuslist.marriage" v-if="item.custMarriage ==marriagestatus.optionCode">
-                                    <!-- <select class="" name="" disabled>
-                                        <option value="" v-for="marriagestatus in statuslist.marriage" :selected="item.custMarriage ==marriagestatus.optionCode ? true : false">
-                                            {{marriagestatus.optionName}}
-                                        </option>
-                                    </select> -->
-                                    {{marriagestatus.optionName}}
+                                <span>身份类型</span>
+                                <span v-for="tityType in statuslist.identityType" v-if="tityType.optionCode == item.identityType">
+                                    {{tityType.optionName}}
                                 </span>
-                                <span v-if="item.custMarriage == ''"></span>
+                                <span v-if="item.identityType == ''"></span>
                             </li>
                             <li>
                                 <span>年龄</span>
                                 <span>{{item.custAge}}</span>
                             </li>
                             <li>
-                                <span>申请地居住年限（年）</span>
-                                <span>{{item.residenceYears}}</span>
+                                <span>现住址</span>
+                                <span>{{item.custAddress}}</span>
                             </li>
+
                             <li>
                                 <span>与承租人关系</span>
                                 <span  v-for="custRelation in statuslist.custRelation" v-if="item.custRelation == custRelation.optionCode">
@@ -242,25 +239,28 @@
                                 <span v-if="item.custRelation == ''"></span>
                             </li>
                             <li>
-                                <span>现住址</span>
-                                <span>{{item.custAddress}}</span>
-                            </li>
-                            <li>
                                 <span>工作单位</span>
                                 <span>{{item.company}}</span>
                             </li>
-                            <li style="border-bottom: 0">
+                            <li>
+                                <span>联系电话</span>
+                                <span>{{item.custMobile}}</span>
+                            </li>
+                            <li>
                                 <span>征信报告</span>
                                 <span>{{item.hasCreditReport == 'Y' ? '有' : item.hasCreditReport == 'N' ? '无' : '' }}</span>
                             </li>
-                            <li>
-                                <span>身份类型</span>
-                                <span v-for="tityType in statuslist.identityType" v-if="tityType.optionCode == item.identityType">
-                                    {{tityType.optionName}}
-                                </span>
-                                <span v-if="item.identityType == ''"></span>
+                            <li style="border-bottom: 0">
+                                <span>微信</span>
+                                <span>{{item.custWechat}}</span>
                             </li>
-
+                            <li>
+                                <span>教育程度</span>
+                                <span v-for="ducation in statuslist.custEducation" v-if="item.custEducation == ducation.optionCode">
+                                    {{ducation.optionName}}
+                                </span>
+                                <span v-if="item.custEducation == ''"></span>
+                            </li>
                         </ul>
                     </div>
                     <!-- 配偶信息 -->
