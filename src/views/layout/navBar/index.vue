@@ -30,6 +30,14 @@
                     </span>
                     &nbsp;更改密码
                 </li>
+                <li
+                        @click="downloadCZSC" @mouseout="czscunhover"
+                        @mouseover="czschover">
+                    <span class="iconfont">
+                        <img :src="czsc" alt="" width="15px" height="22px">
+                    </span>
+                    &nbsp;操作手册
+                </li>
             </ul>
             <ul class="second">
                 <li
@@ -114,7 +122,8 @@
                 admina: require('./iconadmina.png'),
                 personal: require('./icongerena.png'),
                 password: require('./passworda.png'),
-                out: require('./outa.png')
+                out: require('./outa.png'),
+                czsc:require('./czsc.png')
             }
         },
         directives: {Clickoutside},
@@ -136,6 +145,13 @@
             },
             passwordicona() {
                 this.password = require('./passworda.png');
+            },
+            // 操作手册
+            czscunhover() {
+                this.czsc = require('./czsc.png');
+            },
+            czschover() {
+                this.czsc = require('./czsc_f.png');
             },
             // 个人信息
             personalimg() {
@@ -222,6 +238,9 @@
                 let data = await this.$get(`/user/getUserInfo?token=${Cookies.get('token')}`);
                 let user = data.data.data;
                 this.roleName = user.roleName;
+            },
+            downloadCZSC() {
+                window.open('http://47.101.104.234/%E5%93%88%E9%93%B6%E9%87%91%E7%A7%9F%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.pdf');
             }
         }
     }
