@@ -11,8 +11,7 @@
                     <span class="iconfont">
                         <img :src="admina" alt="">
                     </span>
-                    &nbsp;
-                    {{roleName}}
+                    &nbsp;{{roleName}}
                 </li>
                 <li @click="showUpdateInfoPop" @mouseout="personalhover"
                     @mouseover="personalimg">
@@ -34,7 +33,7 @@
                         @click="downloadCZSC" @mouseout="czscunhover"
                         @mouseover="czschover">
                     <span class="iconfont">
-                        <img :src="czsc" alt="" width="15px" height="22px">
+                        <img :src="czsc" alt="" height="22px" width="15px">
                     </span>
                     &nbsp;操作手册
                 </li>
@@ -123,7 +122,7 @@
                 personal: require('./icongerena.png'),
                 password: require('./passworda.png'),
                 out: require('./outa.png'),
-                czsc:require('./czsc.png')
+                czsc: require('./czsc.png')
             }
         },
         directives: {Clickoutside},
