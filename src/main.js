@@ -19,6 +19,12 @@ import {get, post} from './http';
 import './utils/beforeEach';
 
 
+// Vue 注册全局组件
+import Clickoutside from './utils/clickoutside';
+
+Vue.directive("Clickoutside", Clickoutside);
+
+
 //定义全局变量
 Vue.prototype.$get = get;
 Vue.prototype.$post = post;

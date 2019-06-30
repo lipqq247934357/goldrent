@@ -100,7 +100,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-    import Clickoutside from 'element-ui/src/utils/clickoutside';
+    // import Clickoutside from 'element-ui/src/utils/clickoutside';
     import {setStore, getStore} from "../../../utils/utils";
     import Cookies from 'js-cookie';
 
@@ -125,7 +125,7 @@
                 czsc: require('./czsc.png')
             }
         },
-        directives: {Clickoutside},
+        // directives: {Clickoutside},
         created() {
             this.userName = this.newUserName = getStore('userName') || '';
             this.loginName = getStore('loginName') || '';
