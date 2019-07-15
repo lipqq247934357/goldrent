@@ -239,7 +239,7 @@
                 this.roleName = user.roleName;
             },
             downloadCZSC() {
-                window.open('http://47.101.104.234/%E5%93%88%E9%93%B6%E9%87%91%E7%A7%9F%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.pdf');
+                window.location.href = "/web/importOrder/instruction";
             }
         }
     }

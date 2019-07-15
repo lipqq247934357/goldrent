@@ -28,6 +28,7 @@ import appversion from './views/appversion/appversion.vue'; // app版本管理
 import configuration from './views/configuration/configuration.vue'; // 用户权限管理
 import tubepeople from './views/configuration/tubepeople.vue'; // 用户权限管理
 // import loanmoneydetail from './views/loanmoney/loanmoneydetail.vue';
+import importOrder from './views/importOrder/index.vue';  // 订单导入
 Vue.use(Router)
 
 export default new Router({
@@ -169,6 +170,11 @@ export default new Router({
                     path: '/tubepeople', // 用户权限管理
                     name: 'tubepeople',
                     component: tubepeople
+                },
+                {
+                    path: 'importOrder', // 订单导入
+                    name: 'importOrder',
+                    component: importOrder
                 }
             ]
         },
