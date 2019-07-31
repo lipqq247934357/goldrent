@@ -175,7 +175,7 @@
                 }
             },
             logout() {
-                Cookies.remove('session');
+                Cookies.remove('token');
                 this.$router.push('/login');
             },
             closeUserInfoPop() {

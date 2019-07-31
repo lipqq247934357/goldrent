@@ -68,6 +68,11 @@
                     this.$router.push('/');
                 } else if (data.data.code === '2000010') {//失败
                     this.visible = false;
+                    // } else if (data.data.code === '2000010' || data.data.code === '2000006') {//失败
+                    //     this.$message.error(data.data.msg);
+                    //     setTimeout(() => {
+                    //         this.visible = false;
+                    //     }, 600);
                 } else {
                     this.ajaxWX = setTimeout(this.getWXStatus, 1000);
                 }
