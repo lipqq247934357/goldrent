@@ -1,5 +1,30 @@
 <template>
 <div class="loanmoneycomp">
+    <!--    收款账户信息-->
+    <componentitle :message="message='收款账户信息'" class="componentitle"/>
+    <ul class="factorlist">
+        <li>
+            <span>收款类型</span>
+            <span>{{payeeAccount.receiptType && payeeAccount.receiptType === 'public' ?'对公':'对私'}}</span>
+        </li>
+        <li>
+            <span>账户名称</span>
+            <span>{{payeeAccount.certNo}}</span>
+        </li>
+        <li>
+            <span>身份证号（如有）</span>
+            <span>{{payeeAccount.receiptAccount}}</span>
+        </li>
+        <li>
+            <span>银行卡号</span>
+            <span>{{payeeAccount.receiptAccountBank}}</span>
+        </li>
+        <li>
+            <span>开户银行</span>
+            <span>{{payeeAccount.receiptAccountName}}</span>
+        </li>
+    </ul>
+
     <div class="div3">
         <componentitle :message="message='放款审批'" />
         <div class="imgbox" v-for="value in imgFile">
@@ -79,6 +104,7 @@ export default {
             inputdisabled: '', // 判断是否是可编辑状态
             describewhy: '', // 原因描述
             radio2: '', // 后补租赁物识别号
+            payeeAccount:{}, // 收款账户信息
             arrangement:'',
             saveStatus:false,
             submitStatus:false
@@ -112,6 +138,13 @@ export default {
                 }
                 this.radio2 = res.data.data.needSupplement;
                 this.radio1 = res.data.data.approvalComments;
+            }
+        });
+        // 获取收款账户信息
+        this.$post(`/contractclause/info`,{bussNo:this.$route.query.bussNo}).then(res => {
+            if(res.data.code == '2000000') {
+                this.payeeAccount = res.data.data;
+                console.log(this.payeeAccount);
             }
         });
     },
