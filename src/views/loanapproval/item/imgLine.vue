@@ -54,11 +54,13 @@
                         arr.push('/web/fileView?fileId=' + val);
                     });
                     this.fileList = arr;
-                    console.log(arr);
                 }
             }
         },
     }
 </script>
 <style lang="less">
+    .tabletitleul {
+        color: #606266;
+    }
 </style>

@@ -109,7 +109,7 @@
                 </div>
 
                 <componentitle :message="message='回购人相关影像资料'"/>
-                <div class="imgbox-less" v-for="value in imgFile">
+                <div class="imgbox" v-for="value in imgFile">
                     <h3>{{value.nodeName}}</h3>
                     <ul>
                         <imgLine :name="val" :type="key" :relationId="item.basicInfo.id" :bussNo="bussNo" v-for="(val,key) in value.nodes"/>
@@ -218,7 +218,6 @@ export default {
               if (this.partner == undefined) {
                   return;
               }
-              console.log(this.partner);
               return this.$post('/materialTree',{
                   materialType: matType[this.partner]
               }).then( res => {
@@ -287,7 +286,7 @@ export default {
             &:last-child {
                 margin-bottom: 30px;
             }
-            li {
+            >li {
                 width: 100%;
                 text-align: center;
                 clear: both;
@@ -296,9 +295,6 @@ export default {
                 overflow: hidden;
                 position: relative;
                 min-height: 100px;
-                div {
-                    color: #606266;
-                }
             }
         }
     }
