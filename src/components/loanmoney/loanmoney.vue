@@ -9,19 +9,19 @@
         </li>
         <li>
             <span>账户名称</span>
-            <span>{{payeeAccount.certNo}}</span>
+            <span>{{payeeAccount.receiptAccountName}}</span>
         </li>
         <li>
             <span>身份证号（如有）</span>
-            <span>{{payeeAccount.receiptAccount}}</span>
+            <span>{{payeeAccount.certNo}}</span>
         </li>
         <li>
             <span>银行卡号</span>
-            <span>{{payeeAccount.receiptAccountBank}}</span>
+            <span>{{payeeAccount.receiptAccount}}</span>
         </li>
         <li>
             <span>开户银行</span>
-            <span>{{payeeAccount.receiptAccountName}}</span>
+            <span>{{payeeAccount.receiptAccountBank}}</span>
         </li>
     </ul>
 
