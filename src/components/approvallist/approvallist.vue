@@ -1,27 +1,40 @@
 <template>
     <div>
         <componentitle :message="message='审批历史'"/>
-        <ul class="approval-history">
-            <li>
-                <div>序号</div>
-                <div>处理人</div>
-                <div>操作时间</div>
-                <div>审批环节</div>
-                <div>审批意见</div>
-                <div>意见描述</div>
-            </li>
-            <li v-for="item in data">
-                <div>{{item.index}}</div>
-                <div>{{item.operator}}</div>
-                <div>{{item.editTime}}</div>
-                <div>{{item.taskName}}</div>
-                <div>{{item.opinion}}</div>
-                <div>{{item.comments}}</div>
-            </li>
-            <li v-if="data.length === 0">
-                <p>暂无数据</p>
-            </li>
-        </ul>
+        <el-table
+                :data="data"
+                border
+                size="small"
+                row-key="id"
+                style="width: 100%">
+            <el-table-column
+                    label="序号"
+                    min-width="110px"
+                    type="index">
+            </el-table-column>
+            <el-table-column
+                    label="处理人"
+                    prop="operator">
+            </el-table-column>
+            <el-table-column
+                    label="操作时间"
+                    min-width="110px"
+                    prop="editTime">
+            </el-table-column>
+            <el-table-column
+                    label="审批环节"
+                    prop="taskName">
+            </el-table-column>
+            <el-table-column
+                    label="审批意见"
+                    prop="opinion">
+            </el-table-column>
+            <el-table-column
+                    min-width="250px"
+                    label="意见描述"
+                    prop="comments">
+            </el-table-column>
+        </el-table>
     </div>
 
 </template>
@@ -53,52 +66,4 @@
     }
 </script>
 <style lang="less" scoped>
-
-
-    .approval-history {
-        color: #909399;
-        overflow: hidden;
-        margin-top: 1px;
-        border-right: 1px solid #cccccc;
-        border-top: 1px solid #cccccc;
-
-        > li {
-            > div {
-                float: left;
-                width: 16.6667%;
-                text-align: center;
-                font-size: 14px;
-                line-height: 40px;
-                height: 40px;
-                border-left: 1px solid #cccccc;
-                border-bottom: 1px solid #cccccc;
-                box-sizing: border-box;
-            }
-
-            > div:first-child {
-                width: 6.6667%;
-            }
-
-            > div:nth-child(2) {
-                width: 10.6667%;
-            }
-
-            > div:last-child {
-                width: 32.6667%;
-            }
-
-            > p {
-                float: left;
-                font-size: 14px;
-                text-align: center;
-                width: 100%;
-                height: 40px;
-                line-height: 40px;
-                border-left: 1px solid #cccccc;
-                border-bottom: 1px solid #cccccc;
-
-            }
-        }
-    }
-
 </style>
