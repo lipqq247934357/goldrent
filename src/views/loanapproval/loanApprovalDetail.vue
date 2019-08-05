@@ -120,9 +120,9 @@ export default {
         color: #333;
         text-decoration: none;
     }
-    .el-icon-arrow-right {
-        color: #333;
-    }
+    /*.el-icon-arrow-right {*/
+    /*    color: #333;*/
+    /*}*/
     .el-tabs--border-card>.el-tabs__header {
         border-bottom: 2px solid #ff8f2b;
         padding-bottom: 1px;

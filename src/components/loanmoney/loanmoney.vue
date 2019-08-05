@@ -294,9 +294,6 @@ export default {
                     &:last-child {
                         border-bottom: 0;
                     }
-                    div {
-                        color: #606266;
-                    }
                 }
             }
         }

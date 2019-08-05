@@ -791,7 +791,7 @@
                 <div class="assetsinfo">
                     <div class="div3">
                         <componentitle :message="message='保证人相关影像资料'" />
-                        <div class="imgbox" v-for="value in imgFile[item.id]">
+                        <div class="imgbox-less" v-for="value in imgFile[item.id]">
                             <h3>{{value.nodeName}}</h3>
                             <ul>
                                 <imgLine v-for="(val,key,index) in value.nodes" :name="val" :type="key" :relationId="item.id" :bussNo="bussNo" :index="index"/>

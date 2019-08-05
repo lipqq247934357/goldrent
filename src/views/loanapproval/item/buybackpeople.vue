@@ -109,7 +109,7 @@
                 </div>
 
                 <componentitle :message="message='回购人相关影像资料'"/>
-                <div class="imgbox" v-for="value in imgFile">
+                <div class="imgbox-less" v-for="value in imgFile">
                     <h3>{{value.nodeName}}</h3>
                     <ul>
                         <imgLine :name="val" :type="key" :relationId="item.basicInfo.id" :bussNo="bussNo" v-for="(val,key) in value.nodes"/>
