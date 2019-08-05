@@ -4,8 +4,8 @@ import router from './router';
 import './public/public.less';
 import './public/iconfont.css';
 
-// import preview from 'vue-photo-preview'; // 图片预览插件
-// import 'vue-photo-preview/dist/skin.css';
+import preview from 'vue-photo-preview'; // 图片预览插件
+import 'vue-photo-preview/dist/skin.css';
 
 import 'normalize.css/normalize.css'
 
@@ -31,7 +31,7 @@ Vue.prototype.$post = post;
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
-// Vue.use(preview)
+Vue.use(preview)
 
 new Vue({
     router,
