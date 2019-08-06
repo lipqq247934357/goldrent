@@ -1,71 +1,3 @@
-<!--<template>-->
-<!--    <li>-->
-<!--        <div>-->
-<!--            <div class="tabletitleul">-->
-<!--                {{name.value}}-->
-<!--            </div>-->
-<!--            <div class="imgRelevant">-->
-<!--                <div class="imglist">-->
-<!--                    <span :key="item" v-for="item in fileList">-->
-<!--                        <el-image :preview-src-list="fileList"-->
-<!--                                  :src="item"-->
-<!--                                  style="width: 100px;height: 100px;float: left;margin-left: 20px;"-->
-<!--                        >-->
-<!--                    </el-image>-->
-<!--                    </span>-->
-<!--                </div>-->
-<!--                &lt;!&ndash; preview="0" preview编号一致为一组 &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </li>-->
-<!--</template>-->
-
-<!--<script type="text/ecmascript-6">-->
-<!--    import componentitle from '../../../components/title/title.vue';-->
-
-<!--    export default {-->
-<!--        components: {-->
-<!--            componentitle,-->
-<!--        },-->
-<!--        data() {-->
-<!--            return {-->
-<!--                fileList: [],-->
-<!--                marginLeftPx: 0,-->
-<!--                marginRightPx: 0,-->
-<!--                b: '',-->
-<!--                dataNum: 0,-->
-<!--            }-->
-<!--        },-->
-<!--        props: ['name', 'type', 'relationId', 'bussNo', 'index'],-->
-<!--        created() {-->
-<!--            this.getList();-->
-<!--        },-->
-<!--        methods: {-->
-<!--            // 获取图片-->
-<!--            async getList() {-->
-<!--                let data = await this.$post('/getFileIdByType', {-->
-<!--                    relationId: this.relationId + '', // 用户id-->
-<!--                    dataType: this.name.key, // 类型-->
-<!--                    bussNo: this.bussNo // 订单号-->
-<!--                });-->
-<!--                if (data.data.code === '2000000') { // 状态正确，执行更新操作-->
-<!--                    let arr = [];-->
-<!--                    data.data.data.forEach((val) => {-->
-<!--                        arr.push('/web/fileView?fileId=' + val);-->
-<!--                    });-->
-<!--                    this.fileList = arr;-->
-<!--                }-->
-<!--            }-->
-<!--        },-->
-<!--    }-->
-<!--</script>-->
-<!--<style lang="less">-->
-<!--    .tabletitleul {-->
-<!--        color: #606266;-->
-<!--    }-->
-<!--</style>-->
-
-
 <template>
     <li>
         <div>
@@ -74,15 +6,12 @@
             </div>
             <div class="imgRelevant">
                 <div class="imglist">
-                    <span
-                            class="imagescss"
-                            v-for="item in fileList"
-                    >
-                        <img :src="item.url"
-                             alt=""
-                             height="100"
-                             preview="0"
-                             width="100">
+                    <span :key="item" v-for="item in fileList">
+                        <el-image :preview-src-list="fileList"
+                                  :src="item"
+                                  style="width: 100px;height: 100px;float: left;margin-left: 20px;"
+                        >
+                    </el-image>
                     </span>
                 </div>
                 <!-- preview="0" preview编号一致为一组 -->
@@ -115,61 +44,22 @@
             // 获取图片
             async getList() {
                 let data = await this.$post('/getFileIdByType', {
-                    relationId: this.relationId + '',
-                    dataType: this.name.key,
-                    bussNo: this.bussNo
+                    relationId: this.relationId + '', // 用户id
+                    dataType: this.name.key, // 类型
+                    bussNo: this.bussNo // 订单号
                 });
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
+                    let arr = [];
                     data.data.data.forEach((val) => {
-
-                        let obj = {};
-                        obj.id = val;
-                        obj.url = '/web/fileView?fileId=' + val;
-                        this.fileList.push(obj);
-                        this.$nextTick(() => {
-                            // 异步调用放大组件方法
-                            this.$previewRefresh();
-                        });
+                        arr.push('/web/fileView?fileId=' + val);
                     });
+                    this.fileList = arr;
                 }
-            },
-            // 左切换 暂时废弃
-            left(index) {
-                var imglist = document.querySelectorAll(".imglist");
-                imglist[this.index].setAttribute('data-num', this.dataNum += 100);
-                let nownum = parseInt(imglist[this.index].getAttribute('data-num'));
-                let a = this.marginLeftPx -= 100;
-                imglist[this.index].style.marginLeft = -nownum + "px";
-                this.b = parseInt(imglist[this.index].style.marginLeft.split('px')[0])
-
-            },
-            // 右切换 暂时废弃
-            right(item) {
-                let rightrun = this.dataNum -= 100;
-                var imglist = document.querySelectorAll(".imglist");
-                imglist[this.index].setAttribute('data-num', rightrun);
-
-                if (imglist[this.index].style.marginLeft == '' || imglist[this.index].style.marginLeft == '0px') {
-                    return;
-                }
-                let a = this.b += 100;
-                imglist[this.index].style.marginLeft = a + "px";
-
             }
         },
     }
 </script>
 <style lang="less">
-    .imagescss {
-        display: inline-block;
-        width: 100px;
-        height: 100px;
-        position: relative;
-        background-color: #e1e1e1;
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-
     .tabletitleul {
         color: #606266;
     }
