@@ -38,7 +38,8 @@ axios.interceptors.response.use(
 
         if (response.data.code == '5000050') {
             Cookies.remove('token');
-            window.location.hash = '/login';
+            localStorage.setItem('errorMsg',response.data.msg);
+            window.location.href = '/';
         }
         return response;
     },

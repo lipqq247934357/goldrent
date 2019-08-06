@@ -29,6 +29,9 @@
                 <el-tab-pane :label="list.investigation" :lazy="true" :name="list.investigation">
                     <investigation/>
                 </el-tab-pane>
+                <el-tab-pane :label="list.riskAssess" :lazy="true" :name="list.riskAssess">
+                    <riskAssess/>
+                </el-tab-pane>
             </el-tabs>
         </div>
 
@@ -43,7 +46,9 @@
     import leasehold from '../loanapproval/item/leasehold.vue'; //租赁物信息
     import externalinfo from '../loanapproval/item/externalinfo.vue'; //外部信息
     import investigation from '../loanapproval/item/investigation.vue'; //调查环节
+    import riskAssess from '../loanapproval/item/riskAssess.vue'; //调查结论及风险评价
     import businfo from './item/bussinessInfo' // 业务信息
+
     export default {
         components: {
             wantfactor, //租赁要素
@@ -53,6 +58,7 @@
             leasehold, //租赁物信息
             externalinfo, //外部信息
             investigation, //调查环节
+            riskAssess, // 调查结论及风险评价
             businfo // 业务信息
         },
         data() {
@@ -65,6 +71,7 @@
                     leasegoods: '租赁物情况',
                     externalnews: '外部信息',
                     investigation: '增信措施及综述',
+                    riskAssess: '调查结论及风险评价',
                     businfo: '业务信息'
                 },
                 bindText: '业务信息'

@@ -49,6 +49,13 @@
                 showPWD: false
             }
         },
+        created() {
+            let errorMsg = localStorage.getItem('errorMsg');
+            if (errorMsg !== null) {
+                this.$message.error(errorMsg);
+                localStorage.removeItem('errorMsg')
+            }
+        },
         methods: {
             async login() {
                 let data = await this.$post('/user/login', {
