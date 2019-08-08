@@ -1,6 +1,6 @@
 <template>
     <div class="loanapproval">
-        <div class="content">
+        <div class="content have-tabs-container">
             <h3 class="titleh3"></h3>
             <el-tabs
                     type="border-card"
@@ -168,6 +168,14 @@
             color: #d76500;
             background: #fff !important;
         }
+
     }
+
+    .have-tabs-container /deep/ .el-tabs__item {
+        padding: 0 10px !important;
+    }
+
+
+
 
 </style>
