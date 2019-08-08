@@ -50,11 +50,13 @@
             }
         },
         created() {
-            let errorMsg = localStorage.getItem('errorMsg');
-            if (errorMsg !== null) {
-                this.$message.error(errorMsg);
-                localStorage.removeItem('errorMsg')
-            }
+            setTimeout(() => {
+                let errorMsg = localStorage.getItem('errorMsg');
+                if (errorMsg !== null) {
+                    this.$message.error(errorMsg);
+                    localStorage.removeItem('errorMsg')
+                }
+            })
         },
         methods: {
             async login() {
