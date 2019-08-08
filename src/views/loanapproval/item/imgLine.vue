@@ -7,9 +7,9 @@
             <div class="imgRelevant">
                 <div class="imglist">
                     <span :key="item" v-for="item in fileList">
-                        <el-image :preview-src-list="fileList"
+                        <el-image :preview-src-list="sortNewList(fileList,item)"
                                   :src="item"
-                                  style="width: 100px;height: 100px;float: left;margin-left: 20px;"
+                                  style="width: 100px;height: 100px;float: left;margin-left: 20px;margin-bottom: 20px;"
                         >
                     </el-image>
                     </span>
@@ -55,6 +55,12 @@
                     });
                     this.fileList = arr;
                 }
+            },
+            sortNewList(list, item) {
+                let index = list.indexOf(item);
+                let newArray = list.concat(); // 新的数组
+                let after = newArray.splice(0, index); // 截取前半部分
+                return newArray.concat(after); // 前半部分加到后半部分
             }
         },
     }
