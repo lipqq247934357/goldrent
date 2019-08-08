@@ -25,29 +25,44 @@
                 <div class="text item">5.请保证填写的信息在excel内就已经达到清晰无误的状态,否则导入的数据有可能会乱码</div>
             </el-card>
         </div>
-        
+
         <div class="topTitle">
-            <componentTitle :message="message = '订单数据导入'"/>
+            <componentTitle :message="message = '订单导入'"/>
             <el-upload
-                class="upload-cell"
-                ref="upload"
-                action="/web/importOrder/single"
-                :before-upload="beforeUpload"
-                :before-remove="beforeRemove"
-                :on-change="onChange"
-                :on-success="onSuccess"
-                :headers="{token:this.adminToken}"
-                :on-exceed="onExceed"
-                :multiple="true"
-                :limit="5"
-                :auto-upload="false"
-                :file-list="fileList"
-                accept=".xlsx"
-                name="file">
+                    class="upload-cell"
+                    ref="upload"
+                    action="/web/importOrder/single"
+                    :before-upload="beforeUpload"
+                    :before-remove="beforeRemove"
+                    :on-change="onChange"
+                    :on-success="onSuccess"
+                    :headers="{token:this.adminToken}"
+                    :on-exceed="onExceed"
+                    :multiple="true"
+                    :limit="5"
+                    :auto-upload="false"
+                    :file-list="fileList"
+                    accept=".xlsx"
+                    name="file">
                 <el-button slot="trigger" size="middle" type="primary">选取文件</el-button>
                 <el-button style="margin-left: 10px;" size="middle" type="success" @click="submitUpload">上传到服务器</el-button>
                 <div slot="tip" class="el-upload__tip">只能上传xlsx文件，且不超过200kb</div>
             </el-upload>
+        </div>
+        <div class="topTitle">
+            <componentTitle :message="message = '导入订单删除'"/>
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <div class="grid-content bg-purple">
+                        <el-input v-model="delBussNo" placeholder="请输入完整单号"></el-input>
+                    </div>
+                </el-col>
+                <el-col :span="1">
+                    <div class="grid-content bg-purple-light">
+                        <el-button size="middle" type="danger" @click="delOrder">删除</el-button>
+                    </div>
+                </el-col>
+            </el-row>
         </div>
     </div>
 </template>
@@ -63,10 +78,11 @@
         data() {
             return {
                 loading: false,
-                firstTitle: '温馨提示', // 第一个标题
+                firstTitle: '先读我', // 第一个标题
                 maxTitle: '订单导入', // 大标题
                 fileList: [],
-                adminToken: ''
+                adminToken: '',
+                delBussNo: ''
             }
         },
         mounted() {
@@ -78,7 +94,21 @@
             },
             onSuccess(response,file,filelist) {
                 if(response.code !== "2000000") {
-                    this.$message.error(file.name + "导入失败了")
+                    if(response.msg !== undefined && response.msg !== null && response.msg !== "" ) {
+                        this.$message({
+                            showClose: true,
+                            type: 'error',
+                            message: file.name + '导入失败了 ' + response.msg,
+                            duration: 0
+                        })
+                    } else {
+                        this.$message({
+                            showClose: true,
+                            type: 'error',
+                            message: file.name + '导入失败了 ',
+                            duration: 0
+                        })
+                    }
                     file.status = 'fail'    // 隐藏文件列表后面的成功图标
                 }
             },
@@ -105,7 +135,25 @@
             },
             downTemplate () {
                 window.location.href = "/web/importOrder/template"
-            }
+            },
+            async delOrder() { // 删除订单
+                let data = await this.$post('/importOrder/delOrderByBussNo', {bussNo: this.delBussNo});
+                if (data.data.code === '2000000') {
+                    this.$message({
+                        showClose: true,
+                        type: 'success',
+                        message: '删除成功'
+                        // duration: 0
+                    })
+                } else {
+                    this.$message({
+                        showClose: true,
+                        type: 'error',
+                        message: data.data.msg
+                        // duration: 0
+                    })
+                }
+            },
         },
     }
 </script>
@@ -115,5 +163,12 @@
         padding: 5px 5px;
         text-align: right;
         // width: 50%;
+    }
+    .el-row {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 </style>
