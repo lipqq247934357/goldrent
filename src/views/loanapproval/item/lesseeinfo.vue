@@ -268,12 +268,12 @@
                                         <span>面积（㎡）</span>
                                         <span>{{assetsinfouls.acreage}}</span>
                                     </li>
-                                    <li>
+                                    <li class="line-height2">
                                         <span>抵押物地址/坐落</span>
                                         <span>{{assetsinfouls.address}}</span>
 
                                     </li>
-                                    <li>
+                                    <li class="line-height2-neighbour">
                                         <span>当前估价（元）</span>
                                         <span>{{assetsinfouls.currEvaluation && formatNumber(assetsinfouls.currEvaluation)}}</span>
                                     </li>
@@ -300,11 +300,11 @@
                                             <span>价值（元）</span>
                                             <span>{{assetsLands.value && formatNumber(assetsLands.value)}}</span>
                                         </li>
-                                        <li>
+                                        <li class="line-height2">
                                             <span>土地地址/坐落</span>
                                             <span>{{assetsLands.address}}</span>
                                         </li>
-                                        <li>
+                                        <li class="line-height2-neighbour">
                                             <span>是否抵押</span>
                                             <span>{{assetsLands.mortgage == 'Y' ? '已抵押' : assetsLands.mortgage == 'N' ? '未抵押' : '' }}</span>
                                         </li>
@@ -1417,6 +1417,35 @@
     .batextarrear .el-textarea {
         vertical-align: middle;
         margin-left: 5px;
+    }
+
+    .line-height2 {
+        height: 200px;
+
+        >span:nth-child(1) {
+            line-height: 200px;
+            height: 200px;
+        }
+
+        >span:nth-child(2) {
+            height: 200px;
+            text-overflow: inherit;
+            white-space: inherit;
+        }
+
+    }
+
+    .line-height2-neighbour {
+        height: 200px;
+
+        >span:nth-child(1) {
+            line-height: 200px;
+            height: 200px;
+        }
+
+        >span:nth-child(2) {
+            height: 200px;
+        }
     }
 
 </style>
