@@ -4,7 +4,7 @@
         <el-tabs type="border-card">
             <el-tab-pane v-for="(item,index) in backpeople" :label="'回购人' + parseInt(index+1)">
                 <componentitle :message="message='基本信息'" />
-                <ul class="infolist byinfolist" v-if="item.basicInfo.socialSerial" >
+                <ul class="infolist byinfolist">
                     <li>
                         <span>统一社会信用代码</span>
                         <span>{{item.basicInfo == null ? '' : item.basicInfo.socialSerial}}</span>
