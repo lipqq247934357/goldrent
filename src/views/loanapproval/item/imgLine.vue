@@ -6,15 +6,19 @@
             </div>
             <div class="imgRelevant">
                 <div class="imglist">
-                    <span :key="item" v-for="item in fileList">
-                        <el-image :preview-src-list="sortNewList(fileList,item)"
+                    <span :key="item" v-for="item in imgList">
+                        <el-image :preview-src-list="sortNewList(imgList,item)"
                                   :src="item"
                                   style="width: 100px;height: 100px;float: left;margin-left: 20px;margin-bottom: 20px;"
                         >
                     </el-image>
                     </span>
                 </div>
-                <!-- preview="0" preview编号一致为一组 -->
+            </div>
+            <div class="imgRelevant file-style" v-if="fileMap && fileMap.size > 0">
+                <span v-for="item in fileMap">
+                    <el-link :href="item[1]" type="primary">{{item[0]}}</el-link>
+                </span>
             </div>
         </div>
     </li>
@@ -29,7 +33,8 @@
         },
         data() {
             return {
-                fileList: [],
+                imgList: [],
+                fileMap: null,
                 marginLeftPx: 0,
                 marginRightPx: 0,
                 b: '',
@@ -49,11 +54,20 @@
                     bussNo: this.bussNo // 订单号
                 });
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
-                    let arr = [];
+                    // let fileIndex = ["pdf", "doc", "docx", "xls", "xlsx", "txt", "ppt", "pptx", "rar", "zip"];
+                    let imgArr = []; // 图片数组
+                    let fileMap = new Map(); // 文件对象
+                    let imgIndex = ["png", "jpg", "jpeg", "gif", "webp"];
                     data.data.data.forEach((val) => {
-                        arr.push('/web/fileView?fileId=' + val);
+                        let index = val.fileType.substring(1); // 文件名字
+                        if (imgIndex.includes(index)) { // 是图片
+                            imgArr.push('/web/fileView?fileId=' + val.id);
+                        } else {
+                            fileMap.set(val.fileName, '/web/fileDown?fileId=' + val.id);
+                        }
                     });
-                    this.fileList = arr;
+                    this.imgList = imgArr;
+                    this.fileMap = fileMap;
                 }
             },
             sortNewList(list, item) {
@@ -68,5 +82,18 @@
 <style lang="less">
     .tabletitleul {
         color: #606266;
+    }
+
+    .file-style {
+        border-top: 1px solid #afafaf;
+        text-align: left;
+        padding: 30px 0;
+        box-sizing: border-box;
+
+        > span {
+            display: block;
+            margin-left: 20px;
+            padding: 5px 0;
+        }
     }
 </style>
