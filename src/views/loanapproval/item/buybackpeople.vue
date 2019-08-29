@@ -69,12 +69,12 @@
                 <div class="assetsinfoul" v-for="otherpeople in item.debtInfo">
                     <h3>&nbsp;&nbsp;&nbsp;{{otherpeople.repurchaseType == '1' ? '回购人' : '回购方实际控制人'}}</h3>
                     <ul class="infolist byinfolist">
-                        <li>
-                            <span>{{otherpeople.repurchaseType == '1' ? '回购人' : '回购方实际控制人'}}</span>
-                            <span>
-                                {{otherpeople.personName}}
-                            </span>
-                        </li>
+<!--                        <li>-->
+<!--                            <span>{{otherpeople.repurchaseType == '1' ? '回购人' : '回购方实际控制人'}}</span>-->
+<!--                            <span>-->
+<!--                                {{otherpeople.personName}}-->
+<!--                            </span>-->
+<!--                        </li>-->
                         <li>
                             <span>债务种类</span>
                             <span>{{otherpeople.debtType}}</span>

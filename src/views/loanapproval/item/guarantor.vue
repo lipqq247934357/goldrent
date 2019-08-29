@@ -39,7 +39,7 @@
                             </li>
 
                             <li>
-                                <span>公司性质</span>
+                                <span>企业性质</span>
                                 <span>
                                     {{item.comNature == 'QY01' ?'企业法人':'个体工商户'}}
                                 </span>
@@ -110,10 +110,17 @@
                                     {{certType[item.legalCertType]}}
                                 </span>
                             </li>
+
                             <li>
                                 <span>法人证件号码</span>
                                 <span>
                                     {{item.legalCertNo}}
+                                </span>
+                            </li>
+                            <li>
+                                <span>是否长期有效</span>
+                                <span>
+                                    {{item.certEndDateOption === 'Y'?'是':'否'}}
                                 </span>
                             </li>
                             <li>
@@ -522,13 +529,21 @@
                                     <span>所有权人</span>
                                     <span>{{assetsFarmTools.owner}}</span>
                                 </li>
-                                <li  style="border-bottom: 0">
+                                <li>
                                     <span>号牌/车架号</span>
                                     <span>{{assetsFarmTools.serialNo}}</span>
                                 </li>
                                 <li>
                                     <span>发票金额(元)</span>
                                     <span>{{assetsFarmTools.invoiceAmount && formatNumber(assetsFarmTools.invoiceAmount)}}</span>
+                                </li>
+                                <li style="border-bottom: 0;">
+                                    <span>是否获取发票</span>
+                                    <span>{{assetsFarmTools.invoice === 'Y'?'是':'否'}}</span>
+                                </li>
+                                <li style="border-bottom: 0;">
+                                    <span>品牌及型号</span>
+                                    <span>{{assetsFarmTools.brandModels}}</span>
                                 </li>
                             </ul>
                         </div>

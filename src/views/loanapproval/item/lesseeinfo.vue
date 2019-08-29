@@ -394,13 +394,22 @@
                                         <span>所有权人</span>
                                         <span>{{assetsFarmTools.owner}}</span>
                                     </li>
-                                    <li style="border-bottom: 0;">
+
+                                    <li>
                                         <span>号牌/车架号</span>
                                         <span>{{assetsFarmTools.serialNo}}</span>
                                     </li>
                                     <li>
                                         <span>是否抵押</span>
                                         <span>{{assetsFarmTools.mortgage == 'Y' ? '已抵押' : assetsFarmTools.mortgage == 'N' ? '未抵押' : '' }}</span>
+                                    </li>
+                                    <li style="border-bottom: 0;">
+                                        <span>是否获取发票</span>
+                                        <span>{{assetsFarmTools.invoice === 'Y'?'是':'否'}}</span>
+                                    </li>
+                                    <li style="border-bottom: 0;">
+                                        <span>品牌及型号</span>
+                                        <span>{{assetsFarmTools.brandModels}}</span>
                                     </li>
                                 </ul>
                             </div>
