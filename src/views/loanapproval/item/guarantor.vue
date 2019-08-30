@@ -153,12 +153,12 @@
                                     {{item.contactUser}}
                                 </span>
                             </li>
-                            <li>
-                                <span>管户人</span>
-                                <span>
-                                    {{item.accountHolder}}
-                                </span>
-                            </li>
+<!--                            <li>-->
+<!--                                <span>管户人</span>-->
+<!--                                <span>-->
+<!--                                    {{item.accountHolder}}-->
+<!--                                </span>-->
+<!--                            </li>-->
                             <li>
                                 <span>贷款卡号</span>
                                 <span>
