@@ -509,13 +509,21 @@
                                         <span>车辆牌号</span>
                                         <span>{{assetsVehicles.serialNo}}</span>
                                     </li>
-                                    <li style="border-bottom: 0">
+                                    <li>
                                         <span>所有权人</span>
                                         <span>{{assetsVehicles.owner}}</span>
                                     </li>
                                     <li>
                                         <span>发票金额(元)</span>
                                         <span>{{assetsVehicles.invoiceAmount && formatNumber(assetsVehicles.invoiceAmount)}}</span>
+                                    </li>
+                                    <li style="border-bottom: 0;">
+                                        <span>是否获取发票</span>
+                                        <span>{{assetsVehicles.invoice == '' ? '':(assetsFarmTools.invoice === 'Y'?'是':'否')}}</span>
+                                    </li>
+                                    <li style="border-bottom: 0;">
+                                        <span>品牌及型号</span>
+                                        <span>{{assetsVehicles.brandModels}}</span>
                                     </li>
                                 </ul>
                             </div>
