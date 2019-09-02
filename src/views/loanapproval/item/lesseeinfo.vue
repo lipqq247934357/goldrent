@@ -375,7 +375,7 @@
                                     </li>
                                     <li style="border-bottom: 0;">
                                         <span>是否获取发票</span>
-                                        <span>{{car.invoice == '' ? '':(assetsFarmTools.invoice === 'Y'?'是':'否')}}</span>
+                                        <span>{{car.invoice == '' ? '':(car.invoice === 'Y'?'是':'否')}}</span>
                                     </li>
                                     <li style="border-bottom: 0;">
                                         <span>品牌及型号</span>
