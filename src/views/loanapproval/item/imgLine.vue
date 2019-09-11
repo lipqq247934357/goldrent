@@ -57,7 +57,7 @@
                     // let fileIndex = ["pdf", "doc", "docx", "xls", "xlsx", "txt", "ppt", "pptx", "rar", "zip"];
                     let imgArr = []; // 图片数组
                     let fileMap = new Map(); // 文件对象
-                    let imgIndex = ["png", "jpg", "jpeg", "gif", "webp"];
+                    let imgIndex = ["png", "jpg", "jpeg", "gif", "webp", "bmp"];
                     data.data.data.forEach((val) => {
                         let index = val.fileType.substring(1); // 文件名字
                         if (imgIndex.includes(index)) { // 是图片
