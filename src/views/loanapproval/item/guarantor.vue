@@ -347,24 +347,24 @@
                                     {{spouse.residenceYears}}
                                 </span>
                                 </li>
-                                <li>
-                                    <span>与承租人关系</span>
-                                    <span v-for="custRelation in statuslist.custRelation"
-                                          v-if="spouse.custRelation == custRelation.optionCode">
-                                    <!-- <select class="" name="" disabled>
-                                        <option value="" v-for="custRelation in statuslist.custRelation" :selected="spouse.custRelation == custRelation.optionCode ? true : false">
-                                            {{spouse.custRelation == '' ? '本人' : custRelation.optionName}}
-                                        </option>
-                                    </select> -->
-                                    {{custRelation.optionName}}
-                                </span>
-                                    <span v-if="spouse.custRelation == ''"></span>
-                                </li>
+<!--                                <li>-->
+<!--                                    <span>与承租人关系</span>-->
+<!--                                    <span v-for="custRelation in statuslist.custRelation"-->
+<!--                                          v-if="spouse.custRelation == custRelation.optionCode">-->
+<!--                                    &lt;!&ndash; <select class="" name="" disabled>-->
+<!--                                        <option value="" v-for="custRelation in statuslist.custRelation" :selected="spouse.custRelation == custRelation.optionCode ? true : false">-->
+<!--                                            {{spouse.custRelation == '' ? '本人' : custRelation.optionName}}-->
+<!--                                        </option>-->
+<!--                                    </select> &ndash;&gt;-->
+<!--                                    {{custRelation.optionName}}-->
+<!--                                </span>-->
+<!--                                    <span v-if="spouse.custRelation == ''"></span>-->
+<!--                                </li>-->
                                 <li>
                                     <span>工作单位</span>
                                     <span>{{item.company}}</span>
                                 </li>
-                                <li style="border-bottom: 0">
+                                <li>
                                     <span>现住址</span>
                                     <span>{{spouse.custAddress}}</span>
                                 </li>

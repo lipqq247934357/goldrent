@@ -43,16 +43,19 @@ export default {
 </script>
 <style lang="less">
 .operation {
+
     .againbutton {
-        position: absolute;
-        top: 28px;
-        right: 15px;
+        position: fixed;
+        top: 135px;
+        right: 2.5%;
         height: 30px;
-        line-height: 0px;
-        color: #d76500;
-        background: #fff;
+        line-height: 0;
         border: 1px solid #ffcb9d;
+        z-index: 100;
+        background: #fd8f3a;
+        color: #ffffff;
     }
+
     .presentation {
         margin: 15px 0;
         i {

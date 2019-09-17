@@ -47,3 +47,5 @@ export const urlParse = function () {
     }
     return obj;
 };
+
+// todo 获取某个对象中某个属性为某个值的对象，返回这个对象

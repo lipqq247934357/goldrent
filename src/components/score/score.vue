@@ -1,8 +1,16 @@
 <template>
 <!-- 评分卡table -->
 <div class="">
+    <el-button :disabled="inputdisabled || this.$route.query.arrangement != '20'"
+               @click="again"
+               class="againbutton"
+               round
+               size="mini"
+               type="primary"
+               v-if="this.$route.query.arrangement == '20'">
+        重 评
+    </el-button>
     <componentitle :message="message='评分卡结果'" />
-    <el-button type="primary" class="againbutton" @click="again" :disabled="inputdisabled || this.$route.query.arrangement != '20'" v-if="this.$route.query.arrangement == '20'">重评</el-button>
     <!-- 承租人 -->
     <div class="loanpeopletyle">
         承租人
@@ -869,7 +877,7 @@ export default {
              //    }
              //    this.buyback = list;
              // });
-         },
+         }
     },
     components: {
         componentitle
