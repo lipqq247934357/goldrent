@@ -196,6 +196,8 @@
 import componentitle from '../../components/title/title.vue';
 import axios from 'axios';
 import formatter from '@/components/mixins/formatter';
+import {getObjPropByPop} from '../../utils/utils';
+
 
 export default {
     mixins:[formatter],
@@ -348,10 +350,10 @@ export default {
             this.dialogVisible = true;
         },
         updateEndTime(){
-            this.bankCode = '';
-            this.bankId = '';
             if(this.bussNoarr.length > 1){
                 this.endTime = '';
+                this.bankCode = '';
+                this.bankId = '';
             }else {
                 let currentData = {};
                 for (let i = 0, len = this.tableData.length; i < len; i++) {
@@ -359,7 +361,9 @@ export default {
                         currentData = this.tableData[i];
                     }
                 }
-                this.endTime = currentData.startDate;
+                this.endTime = currentData.loanDate || currentData.startDate;
+                this.bankId = currentData.lendAccountBank && this.getObjPropByPop('value','label',currentData.lendAccountBank,this.bankOptions);
+                this.bankCode = currentData.lendAccount;
             }
         },
         handleClose(done) {
@@ -510,7 +514,8 @@ export default {
                     return item.label;
                 }
             }
-        }
+        },
+        getObjPropByPop
     },
 }
 </script>

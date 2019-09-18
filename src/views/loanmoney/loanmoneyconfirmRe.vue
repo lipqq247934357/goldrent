@@ -457,8 +457,7 @@
                         ids: this.bussNoarr
                     }, // 参数
                     responseType: 'blob' // 表明返回服务器返回的数据类型
-                })
-                    .then((res) => { // 处理返回的文件流
+                }).then((res) => { // 处理返回的文件流
                         const content = res;
                         const blob = new Blob([res.data], {type: 'application/vnd.ms-excel'});
                         const fileName = window.decodeURI(res.headers['content-disposition'].split('filename=')[1]);
@@ -495,8 +494,12 @@
                         bussNo: this.bussNoarr[0]
                     }, // 参数
                 }).then((res) => { // 退回成功，刷新页面
-                    this.dialogVisible = false;
-                    this.query();
+                    if(res.data.code === "2000000"){
+                        this.dialogVisible = false;
+                        this.query();
+                    }else{
+                        this.$message.success(res.data.msg);
+                    }
                     this.submitStatus = false;
                 })
             }
