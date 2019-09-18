@@ -332,10 +332,11 @@
             },
             updateEndTime() {
                 if (this.bussNoarr.length > 1) { // 提示用户是否确认取消
-                    this.$confirm('您选择了多条待放款的数据，放款时间和放款账户信息可能不同，若要查看放款信息，请单笔放款', '提示', {
+                    this.$confirm('您选择了多条待放款的数据，放款时间和放款账户信息可能不同，' +
+                        '若要查看放款信息，请单笔放款，若确认多条放款，请点击通过', '放款确认', {
                         confirmButtonText: '通过',
                         cancelButtonText: '关闭',
-                        type: 'warning'
+                        type: 'info'
                     }).then(() => {
                         this.batchConfirmation();
                     }).catch(() => {
@@ -495,6 +496,7 @@
                     }, // 参数
                 }).then((res) => { // 退回成功，刷新页面
                     if(res.data.code === "2000000"){
+                        this.$message.success('退回成功');
                         this.dialogVisible = false;
                         this.query();
                     }else{

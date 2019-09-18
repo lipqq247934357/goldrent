@@ -383,11 +383,11 @@ export default {
                 lendAccount: this.bankCode,
                 lendAccountBank:this.getValueByParam('value',this.bankId,this.bankOptions)
         }).then(res => {
-                this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('批量放款成功');
                     this.query();
                     this.dialogVisible = false;
+                    this.submitStatus = false;
                 }
             });
         },
