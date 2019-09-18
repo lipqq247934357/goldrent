@@ -61,24 +61,40 @@
         </div>
         <!-- 弹出框 -->
         <el-dialog
-            title="放款确认"
-            :visible.sync="dialogVisible"
-            width="30%"
-            :before-close="handleClose">
-                <span>放款日期：</span>
-                <el-date-picker
-                    v-model="endTime"
-                    type="date"
-                    format="yyyy 年 MM 月 dd 日"
-                    value-format="yyyy-MM-dd"
+                :before-close="handleClose"
+                :visible.sync="dialogVisible"
+                title="放款确认"
+                width="30%">
+            <span>放款日期: </span>
+            <el-date-picker
                     :picker-options="pickerOptions"
-                    placeholder="选择日期">
-                </el-date-picker>
-                <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="batchConfirmation">确认</el-button>
+                    format="yyyy 年 MM 月 dd 日"
+                    placeholder="选择日期"
+                    type="date"
+                    v-model="endTime"
+                    style="min-width: 200px;width: 50%;"
+                    value-format="yyyy-MM-dd">
+            </el-date-picker>
+            <div style="margin-top: 20px;">
+                开户行:&nbsp;&nbsp;&nbsp;
+                <el-select v-model="bankId" style="min-width: 200px;width: 50%;">
+                    <el-option
+                            v-for="item in bankOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                    </el-option>
+                </el-select>
+            </div>
+            <div style="margin-top: 20px;">
+                放款账号:
+                <el-input readonly style="min-width: 200px;width: 50%;" v-model="bankCode"></el-input>
+            </div>
+            <span class="dialog-footer" slot="footer">
+                <el-button @click="batchConfirmation" type="primary">通过</el-button>
                 <el-button @click="dialogVisible = false">关闭</el-button>
                 </span>
-            </el-dialog>
+        </el-dialog>
         <!-- 弹出框end -->
         <!-- 表格 -->
         <template>
@@ -274,6 +290,9 @@ export default {
             currentPage2: 1,
             beginTime: '', // 开始控件时间
             endTime: '',  // 结束控件时间
+            bankId:'', // 开户行
+            bankOptions:[], // 开户行options
+            bankCode:'', // 开户行号
             alsoSize: 10, // 默认10条
             nowPage: 1, // 当前页
             dialogVisible: false, // 弹出框
@@ -291,6 +310,22 @@ export default {
     created() {
         this.query();
         this.jurisdiction();
+        this.getBankInfo(); // 获取银行信息
+    },
+    watch: {
+        bankId: function (val) {
+            if(val){
+                axios({
+                    method: 'post',
+                    url: 'accountinfo', // 请求地址
+                    data: {
+                        payType: val
+                    }, // 参数
+                }).then((res) => {
+                    this.bankCode = res.data.data.lendAccount;
+                })
+            }
+        },
     },
     components: {
         componentitle,
@@ -313,6 +348,8 @@ export default {
             this.dialogVisible = true;
         },
         updateEndTime(){
+            this.bankCode = '';
+            this.bankId = '';
             if(this.bussNoarr.length > 1){
                 this.endTime = '';
             }else {
@@ -334,12 +371,14 @@ export default {
         },
         batchConfirmation() {
             if(this.submitStatus)
-                return
+                return;
             this.submitStatus = true;
             this.$post('/LoanGrantConfirm/batchDoGrantConfirm',{
                 bussNos: this.bussNoarr,
-                loanGrantDate: this.endTime
-            }).then(res => {
+                loanGrantDate: this.endTime,
+                lendAccount: this.bankCode,
+                lendAccountBank:this.getValueByParam('value',this.bankId,this.bankOptions)
+        }).then(res => {
                 this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('批量放款成功');
@@ -453,6 +492,25 @@ export default {
               return true  //可勾选
             }
         },
+        getBankInfo(){ // 获取银行数据
+            this.$post('/getConstantConfig',{
+                dictionaryCode: ['lendAccount']
+            }).then(res => {
+                for(let item of res.data.data.lendAccount){
+                    let obj = {};
+                    obj.label = item.optionName;
+                    obj.value = item.optionCode;
+                    this.bankOptions.push(obj);
+                }
+            });
+        },
+        getValueByParam(name, value, arr) { // 获取某个对象中某个属性为某个值的对象，返回这个对象
+            for(let item of arr){
+                if(item[name] === value){
+                    return item.label;
+                }
+            }
+        }
     },
 }
 </script>

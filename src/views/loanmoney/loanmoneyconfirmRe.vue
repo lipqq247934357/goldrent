@@ -69,18 +69,28 @@
                     :visible.sync="dialogVisible"
                     title="放款确认"
                     width="30%">
-                <span>放款日期：</span>
+                <span>放款日期:  </span>
                 <el-date-picker
+                        readonly
+                        :picker-options="pickerOptions"
                         format="yyyy 年 MM 月 dd 日"
                         placeholder="选择日期"
+                        style="min-width: 200px;width: 50%;"
                         type="date"
                         v-model="endTime"
-                        :picker-options="pickerOptions"
                         value-format="yyyy-MM-dd">
                 </el-date-picker>
+                <div style="margin-top: 20px;">
+                    开户行:&nbsp;&nbsp;&nbsp;
+                    <el-input readonly style="min-width: 200px;width: 50%;" v-model="bankName"></el-input>
+                </div>
+                <div style="margin-top: 20px;">
+                    放款账号:
+                    <el-input readonly style="min-width: 200px;width: 50%;" v-model="bankCode"></el-input>
+                </div>
                 <span class="dialog-footer" slot="footer">
                 <el-button @click="batchConfirmation" type="primary">确认</el-button>
-                <el-button @click="dialogVisible = false">关闭</el-button>
+                <el-button @click="back">退回</el-button>
                 </span>
             </el-dialog>
             <!-- 弹出框end -->
@@ -187,7 +197,7 @@
 
 
     export default {
-        mixins:[formatter],
+        mixins: [formatter],
         data() {
             return {
                 loading: false,
@@ -279,20 +289,22 @@
                 currentPage2: 1,
                 beginTime: '', // 开始控件时间
                 endTime: '',  // 结束控件时间
+                bankName: '', // 开户行名称
+                bankCode: '', // 开户行号
                 alsoSize: 10, // 默认10条
                 nowPage: 1, // 当前页
                 dialogVisible: false, // 弹出框
                 bussNoarr: [], // 用于批量上传的bussNo
                 downlod: '',
                 sbmit: '',
-                pickerOptions:{
+                pickerOptions: {
                     disabledDate(time) {
                         return time.getTime() > Date.now();
                     },
                 },
                 submitStatus: false
 
-        }
+            }
         },
         created() {
             this.query();
@@ -317,12 +329,18 @@
                     return;
                 }
                 this.updateEndTime();
-                this.dialogVisible = true;
             },
             updateEndTime() {
-                if (this.bussNoarr.length > 1) {
-                    this.endTime = '';
-                } else {
+                if (this.bussNoarr.length > 1) { // 提示用户是否确认取消
+                    this.$confirm('您选择了多条待放款的数据，放款时间和放款账户信息可能不同，若要查看放款信息，请单笔放款', '提示', {
+                        confirmButtonText: '通过',
+                        cancelButtonText: '关闭',
+                        type: 'warning'
+                    }).then(() => {
+                        this.batchConfirmation();
+                    }).catch(() => {
+                    })
+                } else { // 展示弹框
                     let currentData = [];
                     for (let i = 0, len = this.tableData.length; i < len; i++) {
                         if (this.tableData[i].bussNo == this.bussNoarr[0]) {
@@ -330,6 +348,9 @@
                         }
                     }
                     this.endTime = currentData.loanDate;
+                    this.bankName = currentData.lendAccountBank;
+                    this.bankCode = currentData.lendAccount;
+                    this.dialogVisible = true;
                 }
             },
             handleClose(done) {
@@ -341,12 +362,12 @@
                     });
             },
             batchConfirmation() {
-                if(this.submitStatus)
-                    return
+                if (this.submitStatus)
+                    return;
                 this.submitStatus = true;
                 this.$post('/LoanGrantConfirm/batchGrantConfirm', {
                     bussNos: this.bussNoarr,
-                    loanGrantDate: this.endTime
+                    loanGrantDate: this.endTime // 可以不传
                 }).then(res => {
                     this.submitStatus = false;
                     // console.log(res);
@@ -462,6 +483,23 @@
                     return true  //可勾选
                 }
             },
+            back() {
+                if (this.submitStatus) {
+                    return;
+                }
+                this.submitStatus = true;
+                axios({
+                    method: 'post',
+                    url: '/LoanGrantConfirm/backGrantConfirm', // 请求地址
+                    data: {
+                        bussNo: this.bussNoarr[0]
+                    }, // 参数
+                }).then((res) => { // 退回成功，刷新页面
+                    this.dialogVisible = false;
+                    this.query();
+                    this.submitStatus = false;
+                })
+            }
         },
     }
 </script>
