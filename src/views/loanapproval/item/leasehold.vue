@@ -21,7 +21,7 @@
                 </li>
                 <li>
                     <span>是否抵押登记</span>
-                    <span>{{item.condition.mortgage == "Y" ? '是': item.condition.mortgage == "N" ? '否' : ''}}</span>
+                    <span>{{item.condition.mortgage == "Y" ? '是': item.condition.mortgage == "N" ? '未抵押' : '抵押'}}</span>
                 </li>
                 <li>
                     <span>唯一识别码</span>
