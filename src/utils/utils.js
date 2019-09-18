@@ -48,4 +48,18 @@ export const urlParse = function () {
     return obj;
 };
 
-// todo 获取某个对象中某个属性为某个值的对象，返回这个对象
+/**
+ * 获取某个对象中某个属性为某个值的对象，返回这个对象
+ * @param prop 需要获取的属性名称
+ * @param name 被判断值的属性名称
+ * @param val 被判断属性对应的值
+ * @param arr 被遍历的数组
+ * @returns {*}
+ */
+export const getObjPropByPop = (prop, name, val, arr) => {
+    for (let item of arr) {
+        if (item[name] === val) {
+            return item[prop];
+        }
+    }
+};

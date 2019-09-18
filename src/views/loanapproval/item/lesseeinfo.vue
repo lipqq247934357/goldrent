@@ -221,15 +221,7 @@
                                 </li>
                                 <li>
                                     <span>性别</span>
-                                    <span v-for="sex in statuslist.custSex" v-if="item.custSex == sex.optionCode">
-                                    <!-- <select class="" name="" disabled>
-                                        <option value="" v-for="sex in statuslist.custSex" :selected="item.custSex == childrenInfo.custSex ? true : false">
-                                            {{sex.optionName}}
-                                        </option>
-                                    </select> -->
-                                    {{sex.optionName}}
-                                </span>
-                                    <span v-if="item.custSex == ''"></span>
+                                    <span>{{getObjPropByPop('optionName','optionCode',childrenInfo.custSex,statuslist.custSex)}}</span>
                                 </li>
                                 <li>
                                     <span>身份证号码</span>
@@ -761,7 +753,7 @@
 <script type="text/ecmascript-6">
     import componentitle from '../../../components/title/title.vue';
     import imgLine from './imgLine';
-    import {urlParse} from "../../../utils/utils";
+    import {urlParse,getObjPropByPop} from "../../../utils/utils";
     import {formatNumber} from '../../../components/mixins/formatter/index';
 
 
@@ -1274,7 +1266,8 @@
                 }
                 this.plantExpDesc = Array.from(set);
             },
-            formatNumber
+            formatNumber,
+            getObjPropByPop
         },
         components: {
             componentitle,
