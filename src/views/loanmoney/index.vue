@@ -56,8 +56,15 @@
             <div class="topbox">
                 <span>任务信息</span>
             </div>
+            <el-select v-model="tableOptionsValue" class="tableSelect" placeholder="请选择" @change="tableListChange">
+                <el-option
+                    v-for="item in tableOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                </el-option>
+            </el-select>
         </div>
-
         <!-- 表格 -->
         <template>
             <el-table
@@ -190,6 +197,19 @@ export default {
                 //         "endPageIndex": 1
                 //     }
             ], // 表格
+            tableOptions: [
+                {
+                  value: '40,70',
+                  label: '全部'
+                }, {
+                  value: '40',
+                  label: '放款审批经办'
+                }, {
+                  value: '70',
+                  label: '后补资料'
+                }
+            ],
+            tableOptionsValue: '40', // 列表筛选储存
             alldata: '', // 总页数
             bussNumber: '', //业务编号
             loanName: '', // 承租人姓名
@@ -222,6 +242,10 @@ export default {
         componentitle,
     },
     methods: {
+        // 列表筛选
+        tableListChange() {
+            this.query();
+        },
         jurisdiction(val) {
             let sonresourceId = this.$route.query.idJurisdiction; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
             this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
@@ -244,7 +268,7 @@ export default {
                 createTimeEnd: this.endTime, // 任务结束时间
                 numPerPage: this.alsoSize, // 每页多少条
                 currentPage: this.currentPage2, // 每次点击查询按钮都是第一页
-                taskType: '40'
+                taskType: this.tableOptionsValue
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.alldata = res.data.data;
@@ -295,7 +319,8 @@ export default {
                     nowpath: this.$route.path,
                     nowurlName: '放款审批列表',
                     loanmoneyOperation: '放款审批操作',
-                    idJurisdiction: this.$route.query.idJurisdiction
+                    idJurisdiction: this.$route.query.idJurisdiction,
+                    taskType: val.taskType
                 }
             })
         },
@@ -319,6 +344,12 @@ export default {
     .content {
         width: 96%;
         margin: 0 auto;
+        position: relative;
+        .tableSelect {
+            position: absolute;
+            top: 2px;
+            right: 10px;
+        }
     }
 }
     .search {

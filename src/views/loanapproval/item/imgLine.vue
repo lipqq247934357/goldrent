@@ -7,11 +7,11 @@
             <div class="imgRelevant">
                 <div class="imglist">
                     <span :key="item" v-for="item in imgList">
-                        <el-image :preview-src-list="sortNewList(imgList,item)"
-                                  :src="item"
-                                  style="width: 100px;height: 100px;float: left;margin-left: 20px;margin-bottom: 20px;"
-                        >
-                    </el-image>
+                        <el-image
+                            :preview-src-list="sortNewList(imgList,item)"
+                            :src="item"
+                            style="width: 100px;height: 100px;float: left;margin-left: 20px;margin-bottom: 20px;">
+                        </el-image>
                     </span>
                 </div>
             </div>

@@ -30,8 +30,11 @@
                 <el-tab-pane :label="list.riskAssess" :lazy="true" :name="list.riskAssess">
                     <riskAssess/>
                 </el-tab-pane>
-                <el-tab-pane :label="list.loan" :lazy="true" :name="list.loan">
+                <el-tab-pane :label="list.loan" :lazy="true" :name="list.loan" v-if="tabType == '40'">
                     <operation/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.loan" :lazy="true" :name="list.loan" v-if="tabType == '70'">
+                    <supplement/>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -49,6 +52,7 @@
     import investigation from './item/investigation.vue'; //增信措施及综述
     import riskAssess from './item/riskAssess.vue'; //调查结论及风险评价
     import operation from './item/operation.vue'; //贷款审批操作
+    import supplement from './item/supplement.vue'; //贷款审批操作
     export default {
         components: {
             wantfactor, //租赁要素
@@ -59,7 +63,8 @@
             externalinfo, //外部信息
             investigation, //增信措施及综述
             riskAssess, // 调查结论及风险评价
-            operation //贷款审批操作
+            operation, //贷款审批操作
+            supplement // 补充资料
         },
         data() {
             return {
@@ -78,12 +83,13 @@
                 nowurl: '',
                 nowurlName: '',
                 loanmoneyOperation: '', // 储存放款审批操作
-                inputdisabled: false
-
+                inputdisabled: false,
+                tabType: '',
             }
         },
         created() {
-            this.list.loan = this.$route.query.loanmoneyOperation || '贷款审批操作'; // 放款审批操作
+            this.tabType = this.$route.query.taskType;
+            this.list.loan = this.tabType == '40' ? this.$route.query.loanmoneyOperation || '贷款审批操作' : '补充资料'; // 放款审批操作
             this.showText();
             this.nowurl = this.$route.query.nowpath + '?idJurisdiction=' + this.$route.query.idJurisdiction; // 当前路由
             this.nowurlName = this.$route.query.nowurlName; // 当前路由名字
