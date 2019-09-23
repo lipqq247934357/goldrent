@@ -17,7 +17,7 @@
             <!--            <div class="warrant">-->
             <!--                <el-checkbox v-model="isWarrant">是否微信授权登录</el-checkbox>-->
             <!--            </div>-->
-            <el-button @click="login" class="loginbutton" type="primary">登录</el-button>
+            <el-button @click="login" class="loginbutton" type="primary"  v-loading.fullscreen.lock="fullscreenLoading">登录</el-button>
             <p class="tips">忘记密码请联系管理员</p>
             <p class="copyright">Copyright ©️ 2019 哈银金租有限责任公司版权所有</p>
         </div>
@@ -46,7 +46,8 @@
                 id: 20,
                 timeOut: 30,
                 showCD: false,
-                showPWD: false
+                showPWD: false,
+                fullscreenLoading: false,
             }
         },
         created() {
@@ -60,11 +61,20 @@
         },
         methods: {
             async login() {
+                const loading = this.$loading({
+                                      lock: true,
+                                      text: 'Loading',
+                                      spinner: 'el-icon-loading',
+                                      background: 'rgba(0, 0, 0, 0.7)'
+                                    });
                 let data = await this.$post('/user/login', {
                     name: this.name,
                     pwd: this.pwd
                 });
                 if (data.data.code === '2000000') {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     // 保存用户数据
                     if (data.data.data.token) {
                         //跳首页

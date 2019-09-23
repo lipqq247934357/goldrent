@@ -154,7 +154,7 @@
             </div>
             <span slot="footer" class="dialog-footer">
             <el-button @click="handleClose">取 消</el-button>
-            <el-button type="primary" @click="submit">确 定</el-button>
+            <el-button type="primary" @click="submit" v-loading.fullscreen.lock="fullscreenLoading">确 定</el-button>
             </span>
         </el-dialog>
     </form>
@@ -200,6 +200,7 @@ export default {
             imgId: '',
             echoimgId: '', // 图片回显ID
             buttonSubmit: '',
+            fullscreenLoading: false,
         }
     },
     mounted() {
@@ -263,6 +264,12 @@ export default {
             this.dialogVisible = false;
         },
         submit() {
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             if(this.uploadactive == '0') {
                 let data = new FormData();
                 data.append('id',this.imgId);
@@ -271,6 +278,9 @@ export default {
                 data.append('redirectUrl',this.bannerLinkurl);
                 this.$post('/banner/modifyBanner',data).then(res => {
                     if(res.data.code == '2000000') {
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
                         this.handleClose();
                         this.$nextTick(this.topbanner());
                         this.$nextTick(this.bottombanner());

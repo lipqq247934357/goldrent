@@ -128,7 +128,7 @@
             </div>
             <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogsubmit">确 定</el-button>
+        <el-button type="primary" @click="dialogsubmit" v-loading.fullscreen.lock="fullscreenLoading">确 定</el-button>
         </span>
         </el-dialog>
     </template>
@@ -140,6 +140,7 @@ import componentitle from '../../components/title/title.vue';
 export default {
     data() {
         return {
+            fullscreenLoading: '',
             message: '',
             loading: false,
             tableData: [],
@@ -221,11 +222,17 @@ export default {
         },
         dialogsubmit() {
             // 确定按钮 editType 1编辑 0 新增
+
             if(this.inputName == '' || this.value == '') {
                 this.$message.error('角色名称或者匹配系统没有填写')
                 return;
             }
-
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             if(this.editType == '1') {
                 this.$post('/role/updataRole',{
                     resourceIds: this.value == '1' ? this.checkedData : this.checkedTask,
@@ -235,6 +242,9 @@ export default {
                     id: this.currentroleId
                 }).then(res => {
                     if(res.data.code == '2000000') {
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
                         this.$message.success('修改成功');
                         this.dialogVisible = false;
                         this.tablepage();
@@ -251,6 +261,9 @@ export default {
                     matchSystem: this.value
                 }).then(res => {
                     if(res.data.code == '2000000') {
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
                         this.$message.success('新增成功');
                         this.dialogVisible = false;
                         this.tablepage();

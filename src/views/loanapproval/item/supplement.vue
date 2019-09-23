@@ -82,8 +82,8 @@
         <el-input type="textarea" :row="3" v-model="inputTextarea" class="inputTextarea"></el-input>
     </div>
     <div class="bottombutton">
-        <el-button :disabled="inputdisabled" @click="save" type="primary">通过</el-button>
-        <el-button :disabled="inputdisabled" @click="adopt" type="primary">退回</el-button>
+        <el-button :disabled="inputdisabled" @click="save" type="primary" v-loading.fullscreen.lock="fullscreenLoading">通过</el-button>
+        <el-button :disabled="inputdisabled" @click="adopt" type="primary" v-loading.fullscreen.lock="fullscreenLoading">退回</el-button>
     </div>
 </div>
 </template>
@@ -105,6 +105,7 @@ export default {
             shibiehao: '',  //识别号
             shibieType: '', // 识别号类型
             selectlist: [], // 字典编码
+            fullscreenLoading: false,
         }
     },
     created() {
@@ -172,7 +173,12 @@ export default {
             }
         },
         save() {
-            this.loading = true;
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             this.$post('/LoanGrantOpinion/supplementSubmit',{
                 bussNo: this.$route.query.bussNo,
                 approvalComments: '1',
@@ -180,15 +186,27 @@ export default {
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('通过成功');
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.$router.push({
                         path: '/layout/loanmoney',
                     })
                 } else {
                     this.$message.error(res.data.msg);
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             });
         },
         adopt() {
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             this.$post('/LoanGrantOpinion/supplementSubmit',{
                 bussNo: this.$route.query.bussNo,
                 approvalComments: '0',
@@ -196,11 +214,17 @@ export default {
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('退回成功');
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.$router.push({
                         path: '/layout/loanmoney',
                     })
                 } else {
                     this.$message.error(res.data.msg);
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             });
         }

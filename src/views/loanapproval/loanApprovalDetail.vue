@@ -30,11 +30,11 @@
                 <el-tab-pane :label="list.riskAssess" :lazy="true" :name="list.riskAssess">
                     <riskAssess/>
                 </el-tab-pane>
-                <el-tab-pane :label="list.loan" :lazy="true" :name="list.loan" v-if="tabType == '40'">
-                    <operation/>
-                </el-tab-pane>
                 <el-tab-pane :label="list.loan" :lazy="true" :name="list.loan" v-if="tabType == '70'">
                     <supplement/>
+                </el-tab-pane>
+                <el-tab-pane :label="list.loan" :lazy="true" :name="list.loan" v-else>
+                    <operation/>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -88,8 +88,14 @@
             }
         },
         created() {
+            console.log(this.$route.query.loanmoneyOperation);
             this.tabType = this.$route.query.taskType;
-            this.list.loan = this.tabType == '40' ? this.$route.query.loanmoneyOperation || '贷款审批操作' : '补充资料'; // 放款审批操作
+            if(this.tabType == '40' || !this.tabType) {
+                this.list.loan = '贷款审批操作';
+            } else {
+                this.list.loan = '补充资料';
+            }
+            // this.list.loan = this.tabType == '40' ? this.$route.query.loanmoneyOperation || '贷款审批操作' : '补充资料'; // 放款审批操作
             this.showText();
             this.nowurl = this.$route.query.nowpath + '?idJurisdiction=' + this.$route.query.idJurisdiction; // 当前路由
             this.nowurlName = this.$route.query.nowurlName; // 当前路由名字

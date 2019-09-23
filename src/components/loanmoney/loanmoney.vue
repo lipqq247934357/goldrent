@@ -92,15 +92,15 @@
 
     <!-- 底部按钮 -->
     <div class="bottombutton" style="clear:both" v-if="arrangement == 5">
-        <el-button :disabled="inputdisabled" @click="save" type="primary">保存</el-button>
-        <el-button :disabled="inputdisabled" @click="adopt" type="primary">提交</el-button>
+        <el-button :disabled="inputdisabled" @click="save" type="primary" v-loading.fullscreen.lock="fullscreenLoading">保存</el-button>
+        <el-button :disabled="inputdisabled" @click="adopt" type="primary" v-loading.fullscreen.lock="fullscreenLoading">提交</el-button>
         <!-- <el-button type="primary" @click="exit" :disabled="inputdisabled">退回</el-button> -->
     </div>
 
 
     <div class="bottombutton" style="clear:both" v-if="arrangement == 6">
-        <el-button :disabled="inputdisabled" @click="agreeOrBack(1)" type="primary">同意</el-button>
-        <el-button :disabled="inputdisabled" @click="agreeOrBack(0)" type="primary">退回</el-button>
+        <el-button :disabled="inputdisabled" @click="agreeOrBack(1)" type="primary" v-loading.fullscreen.lock="fullscreenLoading">同意</el-button>
+        <el-button :disabled="inputdisabled" @click="agreeOrBack(0)" type="primary" v-loading.fullscreen.lock="fullscreenLoading">退回</el-button>
         <!-- <el-button type="primary" @click="exit" :disabled="inputdisabled">退回</el-button> -->
     </div>
     <!-- 底部按钮end -->
@@ -131,7 +131,8 @@ export default {
             saveStatus: false,
             submitStatus: false,
             postFillDescription: '农机唯一识别号、唯一识别号类型、发票、合格证、购机合同”，”其他补充材料', //后补信息描述
-            textAreaChange: ''
+            textAreaChange: '',
+            fullscreenLoading: false // element ui  指令式loading
         }
     },
     created() {
@@ -220,6 +221,12 @@ export default {
         },
         // 保存
         save() {
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             if (this.submitStatus)
                 return;
             this.submitStatus = true;
@@ -233,17 +240,30 @@ export default {
                 this.submitStatus = false;
                 if (res.data.code == '2000000') {
                     this.$message.success('保存成功');
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.$router.push({
                         path: '/layout/loanmoney',
                         query: {
                             idJurisdiction: this.$route.query.idJurisdiction
                         }
                     })
+                } else {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             });
         },
         // 提交
         adopt() {
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             if (this.submitStatus)
                 return;
             this.submitStatus = true;
@@ -257,17 +277,30 @@ export default {
                 this.submitStatus = false;
                 if (res.data.code == '2000000') {
                     this.$message.success('通过');
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.$router.push({
                         path: '/layout/loanmoney',
                         query: {
                             idJurisdiction: this.$route.query.idJurisdiction
                         }
                     })
+                } else {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             });
         },
         // 同意或者退回
         agreeOrBack(val) {
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             if (this.submitStatus)
                 return;
             this.submitStatus = true;
@@ -279,12 +312,19 @@ export default {
                 this.submitStatus = false;
                 if (res.data.code == '2000000') {
                     this.$message.success('通过');
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.$router.push({
                         path: '/layout/loanmoneyre',
                         query: {
                             idJurisdiction: this.$route.query.idJurisdiction
                         }
                     })
+                } else {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             });
         }

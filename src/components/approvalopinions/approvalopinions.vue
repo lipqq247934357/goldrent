@@ -156,9 +156,9 @@
             <!-- 资深审批end -->
 
             <div class="bottombutton">
-                <el-button type="primary" @click="save" :disabled="inputdisabled" >保存</el-button>
-                <el-button type="primary" @click="adopt" :disabled="inputdisabled">{{this.$route.query.arrangement == '23' ? '同意': '提交'}}</el-button>
-                <el-button type="primary" @click="exit" :disabled="inputdisabled" v-if="this.$route.query.arrangement != '20'">退回</el-button>
+                <el-button type="primary" @click="save" :disabled="inputdisabled" v-loading.fullscreen.lock="fullscreenLoading">保存</el-button>
+                <el-button type="primary" @click="adopt" :disabled="inputdisabled" v-loading.fullscreen.lock="fullscreenLoading">{{this.$route.query.arrangement == '23' ? '同意': '提交'}}</el-button>
+                <el-button type="primary" @click="exit" :disabled="inputdisabled" v-if="this.$route.query.arrangement != '20'" v-loading.fullscreen.lock="fullscreenLoading">退回</el-button>
             </div>
 
             <el-dialog
@@ -214,7 +214,8 @@ export default {
             departmentindex: null, // 用于渲染class
             checkList: [],
             haveAgreement:false, // 是否已经提交或者保存了审批意见
-            submitStatus:false
+            submitStatus:false,
+            fullscreenLoading: false,
     }
     },
     watch: {
@@ -311,6 +312,13 @@ export default {
         },
         // 提交ajax
         submitajax() {
+
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             let role = this.$route.query.arrangement;
 
             if(!this.validateDesc()){
@@ -350,12 +358,19 @@ export default {
                 this.submitStatus = false;
                 if(res.data.code == '2000000') {
                     this.$message.success('提交成功');
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.$router.push({
                         path: this.nowurl == undefined ? '/layout/loadapproval': this.nowurl,
                         query: {
                             idJurisdiction: this.$route.query.idJurisdiction
                         }
                     })
+                } else {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             })
         },
@@ -421,6 +436,12 @@ export default {
         },
         // 保存按钮
         save() {
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             let role = this.$route.query.arrangement;
 
             if(!this.validateDesc()){
@@ -456,6 +477,9 @@ export default {
             }).then( res => {
                 this.submitStatus = false;
                 if(res.data.code == '2000000') {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.$message.success('保存成功');
                     this.$router.push({
                         path: this.nowurl == undefined ? '/layout/loadapproval': this.nowurl,
@@ -463,6 +487,10 @@ export default {
                             idJurisdiction: this.$route.query.idJurisdiction
                         }
                     })
+                } else {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             })
         },
