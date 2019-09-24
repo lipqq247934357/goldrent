@@ -64,7 +64,7 @@
         <p class="titleloantext" style="line-height:normal;">后补信息描述：</p>
         <el-input
             type="textarea"
-            :disabled="radio2 == 'N'"
+            :disabled="radio2 == 'N' || inputdisabled || arrangement == 6"
             v-model="postFillDescription"
             :rows="3"
             class="postFillDescription"
@@ -164,6 +164,8 @@ export default {
                 this.radio2 = res.data.data.needSupplement;
                 this.radio1 = res.data.data.approvalComments;
                 this.postFillDescription = res.data.data.supplementDesc;
+                this.textAreaChange = res.data.data.supplementDesc;
+                console.log(this.postFillDescription);
             }
         });
 
@@ -202,7 +204,17 @@ export default {
         },
         radio2: function(val) {
             if(val == 'Y') {
-                this.postFillDescription = this.textAreaChange;
+                if(!this.textAreaChange) {
+                    this.postFillDescription = '农机唯一识别号、唯一识别号类型、发票、合格证、购机合同，其他补充材料';
+                } else {
+                    this.postFillDescription = this.textAreaChange;
+                }
+                // if(this.textAreaChange != null) {
+                //     this.postFillDescription = this.textAreaChange;
+                // } else {
+                //     this.postFillDescription = this.textAreaChange = '农机唯一识别号、唯一识别号类型、发票、合格证、购机合同”，”其他补充材料';
+                // }
+                // this.postFillDescription = '农机唯一识别号、唯一识别号类型、发票、合格证、购机合同”，”其他补充材料';
             } else {
                 this.textAreaChange = this.postFillDescription;
                 this.postFillDescription = '';

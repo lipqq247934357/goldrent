@@ -206,7 +206,7 @@ export default {
                   label: '放款审批经办'
                 }, {
                   value: '70',
-                  label: '后补资料'
+                  label: '补充资料'
                 }
             ],
             tableOptionsValue: '40', // 列表筛选储存

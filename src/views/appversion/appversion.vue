@@ -140,7 +140,7 @@
         </div>
         <span slot="footer" class="dialog-footer">
         <el-button @click="handleClose">取 消</el-button>
-        <el-button type="primary" @click="submitFunc">确 定</el-button>
+        <el-button type="primary" @click="submitFunc" v-loading.fullscreen.lock="fullscreenLoading">确 定</el-button>
         </span>
     </el-dialog>
 </div>
@@ -153,6 +153,7 @@ export default {
     data() {
         return {
             dialogVisible: false,
+            fullscreenLoading: false,
             message: '',
             tableData: [
                 // {
@@ -299,6 +300,12 @@ export default {
         },
         // 新增或者修改
         modifyandadd() {
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             this.$post('/appVersion/release',{
                 id: this.nowtype == 0 ? '' : this.id,
                 versionCode: this.versionNo,
@@ -309,11 +316,17 @@ export default {
                 forceUpdate: this.value
             }).then(res => {
                 if(res.data.code == '2000000') {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.fileList = [];
                     this.pages();
                     this.dialogVisible = false;
                 }else {
                     this.$message.error({message: res.data.msg, duration: 5 * 1000});
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             });
 

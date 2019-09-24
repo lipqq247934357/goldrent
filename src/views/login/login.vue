@@ -98,6 +98,10 @@
                     }
                 } else if (data.data.code === '2000009') {
                     this.showPWD = true;
+                } else {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             },
             //密码明文展示

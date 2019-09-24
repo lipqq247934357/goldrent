@@ -158,8 +158,8 @@
                 </div>
             </div>
             <div class="bottombut" v-if="type !== 'detail'">
-                <el-button @click="save" type="primary">保存</el-button>
-                <el-button @click="submit" type="primary">提交</el-button>
+                <el-button @click="save" type="primary"  v-loading.fullscreen.lock="fullscreenLoading">保存</el-button>
+                <el-button @click="submit" type="primary"  v-loading.fullscreen.lock="fullscreenLoading">提交</el-button>
             </div>
         </div>
         <el-dialog :visible.sync="dialogVisible">
@@ -243,7 +243,8 @@
                         label: "离异"
                     },
                 ],
-                relationId: '' //
+                relationId: '', //
+                fullscreenLoading: false,
             }
         },
         created() {
@@ -333,16 +334,35 @@
                 }
             },
             async save() { // 保存用户信息
-
+                const loading = this.$loading({
+                                      lock: true,
+                                      text: 'Loading',
+                                      spinner: 'el-icon-loading',
+                                      background: 'rgba(0, 0, 0, 0.7)'
+                                    });
                 if (this.type === 'add') { // 新增
                     let data = await this.$post('/bussPartner/addPartnerNature', this.data);
                     if (data.data.code === '2000000') {
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
                         this.$router.push('/layout/businessM');
+                    } else {
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
                     }
                 } else { // 修改
                     let data = await this.$post('/bussPartner/updatePartnerNature', this.data);
                     if (data.data.code === '2000000') {
                         this.$router.push('/layout/businessM');
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
+                    } else {
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
                     }
                 }
             },
