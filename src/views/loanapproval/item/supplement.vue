@@ -7,7 +7,7 @@
     element-loading-background="rgba(0, 0, 0, 0.8)">
     <componentitle :message="message='补充内容'" />
     <div class="supplementTextarea">
-        <p>需要补充的内容：</p>
+        <p>补充内容描述：</p>
         <el-input type="textarea" :row="3" v-model="needInputTextarea" class="inputTextarea" disabled></el-input>
     </div>
     <componentitle :message="message='租赁物情况'" />
@@ -24,13 +24,13 @@
     </div>
     <componentitle :message="message='影像资料'" />
     <div class="supplementImgList div3">
-        <div class="imgbox" v-for="value in imgFile">
+        <!-- <div class="imgbox" v-for="value in imgFile">
             <h3>{{value.nodeName}}</h3>
             <ul>
                 <imgLine :bussNo="bussNo" relationId="ASSIGN_MATERIAL" v-for="(val,key,index) in value.nodes"
                          :index="index" :name="val" :type="key" />
             </ul>
-        </div>
+        </div> -->
         <div class="imgbox" v-for="value in supplementimgFile">
             <h3>{{value.nodeName}}</h3>
             <ul>

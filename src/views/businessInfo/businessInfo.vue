@@ -219,6 +219,10 @@
                         label: '授信审批-主任审批'
                     },
                     {
+                        value: 'GRANT_SUPPLEMENT_REAPPROVE',
+                        label: '放款审批经办-补充资料'
+                    },
+                    {
                         value: 'CONTRACT_ASSIGN',
                         label: '合同签约'
                     },

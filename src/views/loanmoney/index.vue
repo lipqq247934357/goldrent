@@ -209,7 +209,7 @@ export default {
                   label: '补充资料'
                 }
             ],
-            tableOptionsValue: '40', // 列表筛选储存
+            tableOptionsValue: '40,70', // 列表筛选储存
             alldata: '', // 总页数
             bussNumber: '', //业务编号
             loanName: '', // 承租人姓名
