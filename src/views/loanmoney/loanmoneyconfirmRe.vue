@@ -89,7 +89,7 @@
                     <el-input readonly style="min-width: 200px;width: 50%;" v-model="bankCode"></el-input>
                 </div>
                 <span class="dialog-footer" slot="footer">
-                <el-button @click="batchConfirmation" type="primary">确认</el-button>
+                <el-button @click="batchConfirmation" type="primary" v-loading.fullscreen.lock="fullscreenLoading">确认</el-button>
                 <el-button @click="back">退回</el-button>
                 </span>
             </el-dialog>
@@ -302,7 +302,8 @@
                         return time.getTime() > Date.now();
                     },
                 },
-                submitStatus: false
+                submitStatus: false,
+                fullscreenLoading: false,
 
             }
         },
@@ -363,6 +364,12 @@
                     });
             },
             batchConfirmation() {
+                const loading = this.$loading({
+                                      lock: true,
+                                      text: 'Loading',
+                                      spinner: 'el-icon-loading',
+                                      background: 'rgba(0, 0, 0, 0.7)'
+                                    });
                 if (this.submitStatus)
                     return;
                 this.submitStatus = true;
@@ -374,8 +381,15 @@
                     // console.log(res);
                     if (res.data.code == '2000000') {
                         this.$message.success('批量放款成功');
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
                         this.query();
                         this.dialogVisible = false;
+                    } else {
+                        setTimeout(function() {
+                            loading.close();
+                        },200);
                     }
                 });
             },

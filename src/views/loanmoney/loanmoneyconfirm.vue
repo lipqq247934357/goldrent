@@ -91,7 +91,7 @@
                 <el-input readonly style="min-width: 200px;width: 50%;" v-model="bankCode"></el-input>
             </div>
             <span class="dialog-footer" slot="footer">
-                <el-button @click="batchConfirmation" type="primary">通过</el-button>
+                <el-button @click="batchConfirmation" type="primary" v-loading.fullscreen.lock="fullscreenLoading">通过</el-button>
                 <el-button @click="dialogVisible = false">关闭</el-button>
                 </span>
         </el-dialog>
@@ -306,7 +306,8 @@ export default {
                     return time.getTime() > Date.now();
                 },
             },
-            submitStatus:false
+            submitStatus:false,
+            fullscreenLoading: false,
         }
     },
     created() {
@@ -374,6 +375,12 @@ export default {
             .catch(_ => {});
         },
         batchConfirmation() {
+            const loading = this.$loading({
+                                  lock: true,
+                                  text: 'Loading',
+                                  spinner: 'el-icon-loading',
+                                  background: 'rgba(0, 0, 0, 0.7)'
+                                });
             if(this.submitStatus)
                 return;
             this.submitStatus = true;
@@ -382,12 +389,19 @@ export default {
                 loanGrantDate: this.endTime,
                 lendAccount: this.bankCode,
                 lendAccountBank:this.getValueByParam('value',this.bankId,this.bankOptions)
-        }).then(res => {
+            }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('批量放款成功');
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                     this.query();
                     this.dialogVisible = false;
                     this.submitStatus = false;
+                } else {
+                    setTimeout(function() {
+                        loading.close();
+                    },200);
                 }
             });
         },
