@@ -68,25 +68,31 @@
                     :before-close="handleClose"
                     :visible.sync="dialogVisible"
                     title="放款确认"
-                    width="30%">
-                <span>放款日期:  </span>
-                <el-date-picker
-                        readonly
-                        :picker-options="pickerOptions"
-                        format="yyyy 年 MM 月 dd 日"
-                        placeholder="选择日期"
-                        style="min-width: 200px;width: 50%;"
-                        type="date"
-                        v-model="endTime"
-                        value-format="yyyy-MM-dd">
-                </el-date-picker>
-                <div style="margin-top: 20px;">
-                    开户行:&nbsp;&nbsp;&nbsp;
-                    <el-input readonly style="min-width: 200px;width: 50%;" v-model="bankName"></el-input>
+                    width="40%">
+                <div class="dialogDivmargin">
+                    <span>放款日期:  </span>
+                    <el-date-picker
+                            readonly
+                            :picker-options="pickerOptions"
+                            format="yyyy 年 MM 月 dd 日"
+                            placeholder="选择日期"
+                            style="min-width: 200px;width: 80%;"
+                            type="date"
+                            v-model="endTime"
+                            value-format="yyyy-MM-dd">
+                    </el-date-picker>
                 </div>
-                <div style="margin-top: 20px;">
+                <div class="dialogDivmargin">
+                    开户行:&nbsp;&nbsp;&nbsp;
+                    <el-input readonly style="min-width: 200px;width: 80%;" v-model="bankName"></el-input>
+                </div>
+                <div class="dialogDivmargin">
                     放款账号:
-                    <el-input readonly style="min-width: 200px;width: 50%;" v-model="bankCode"></el-input>
+                    <el-input readonly style="min-width: 200px;width: 80%;" v-model="bankCode"></el-input>
+                </div>
+                <div class="dialogDivmargin">
+                    <span style="vertical-align: top;margin-top: 10px;">审批意见: </span>
+                    <el-input type="textarea" readonly :rows="10" style="min-width: 200px;width: 80%;" v-model="bankCode"></el-input>
                 </div>
                 <span class="dialog-footer" slot="footer">
                 <el-button @click="batchConfirmation" type="primary" v-loading.fullscreen.lock="fullscreenLoading">确认</el-button>
@@ -153,23 +159,6 @@
                             label="收款人开户行"
                             prop="receiptAccountBank">
                     </el-table-column>
-                    <!-- <el-table-column
-                        prop="taskName"
-                        label="任务名称">
-                    </el-table-column>
-                    <el-table-column
-                        prop="ownerName"
-                        label="当前处理人">
-                    </el-table-column>
-                    <el-table-column
-                        prop="status"
-                        label="操作">
-                        <template slot-scope="scope">
-                            <!-- status 待处理 00 ，02 已提交 -->
-                    <!-- <el-button @click="look(scope.row)" type="text" size="small" v-if="scope.row.status == '02'">查看</el-button>
-                    <el-button @click="tableloanconfirm(scope.row)" type="text" size="small" v-if="scope.row.status == '00'">放款确认</el-button>
-                </template>
-            </el-table-column> -->
                 </el-table>
             </template>
 
@@ -567,5 +556,9 @@
 
     .loanmoney .otheragainbutton {
         right: 150px;
+    }
+    .dialogDivmargin {
+        width: 80%;
+        margin: 10px auto;
     }
 </style>

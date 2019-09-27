@@ -119,6 +119,50 @@
                 <span>{{wantfactor.earningRate}}</span>
             </li>
         </ul>
+        <componentitle :message="message='租户收款账户'"/>
+
+        <ul class="infolist">
+            <li>
+                <span>收款账户类型</span>
+                <span v-for="item in statuslist.receiptType" v-show="item.optionCode == rentFactor.receiptType">{{item.optionName}}</span>
+            </li>
+            <li>
+                <span>账户名称</span>
+                <span>{{rentFactor.receiptAccountName}}</span>
+            </li>
+            <li>
+                <span>证件号码</span>
+                <span>{{rentFactor.certNo}}</span>
+            </li>
+            <li>
+                <span>开户银行</span>
+                <span>{{rentFactor.receiptAccountBank}}</span>
+            </li>
+            <li>
+                <span>银行卡号</span>
+                <span>{{rentFactor.receiptAccount}}</span>
+            </li>
+        </ul>
+
+        <componentitle :message="message='金租收款账户'"/>
+        <ul class="infolist">
+            <li>
+                <span>还租方式</span>
+                <span v-for="item in payTypeArr" v-show="item.optionCode == rentFactor.payType">{{item.optionName}}</span>
+            </li>
+            <li>
+                <span>账户名称</span>
+                <span>{{rentFactor.paymentAccountName}}</span>
+            </li>
+            <li style="border-bottom: 0;">
+                <span>开户银行</span>
+                <span>{{rentFactor.paymentAccountBank}}</span>
+            </li>
+            <li>
+                <span>银行卡号</span>
+                <span>{{rentFactor.paymentAccount}}</span>
+            </li>
+        </ul>
         <componentitle :message="message='租金计划表'"/>
         <div class="tables">
             <template>
@@ -159,13 +203,16 @@
                 wantfactor: {}, // 租赁要素
                 statuslist: { // 字典编码
                     payWay: [],
-                    leaseMode: []
+                    leaseMode: [],
+                    receiptType: []
                 },
                 rebateDate: {
                     before45: '起租前',
                     after45: '起租后45天'
                 },
-                taskType: ''
+                taskType: '',
+                rentFactor: [], //  租户收款和金租收款
+                payTypeArr: []
             }
         },
         created() {
@@ -175,12 +222,24 @@
             } else {
                 this.taskType = '30'
             }
+
+            this.$post('contractclause/info',{
+                bussNo: this.$route.query.bussNo
+            }).then(res => {
+                if (res.data.code == '2000000') {
+
+                    this.rentFactor = res.data.data.clauseData;
+                }
+            });
+
             //字典编码
             this.$post('/getConstantConfig', {
-                dictionaryCode: ['payWay', 'leaseMode']
+                dictionaryCode: ['payWay', 'leaseMode','payType','receiptType']
             }).then(res => {
                 this.statuslist.payWay = res.data.data.payWay;
                 this.statuslist.leaseMode = res.data.data.leaseMode;
+                this.payTypeArr = res.data.data.payType;
+                this.statuslist.receiptType = res.data.data.receiptType
             })
             // 请求租赁要素
             this.$post('/leaseinfo/queryElement', {
