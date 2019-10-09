@@ -344,7 +344,8 @@ export default {
                     custId: val.custId,
                     arrangement: 21, // 默认贷款审批20 上会审议22 主任审批23 资深审批21
                     nowpath: this.$route.path,
-                    nowurlName: '资深审批'
+                    nowurlName: '资深审批',
+                    roleOperation: 10 // 区别是放款管理还是授信审批管理 10授信审批 30放款审批
                 }
             })
         },
@@ -359,7 +360,8 @@ export default {
                     custId: val.custId,
                     arrangement: 21, // 默认贷款审批20 上会审议22 主任审批23 资深审批21
                     nowpath: this.$route.path,
-                    nowurlName: '资深审批'
+                    nowurlName: '资深审批',
+                    roleOperation: 10 // 区别是放款管理还是授信审批管理 10授信审批 30放款审批
                 }
             })
         },

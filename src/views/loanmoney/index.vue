@@ -302,7 +302,8 @@ export default {
                     nowpath: this.$route.path,
                     nowurlName: '放款审批列表',
                     loanmoneyOperation: '放款审批操作',
-                    idJurisdiction: this.$route.query.idJurisdiction
+                    idJurisdiction: this.$route.query.idJurisdiction,
+                    roleOperation: 30 // 区别是放款管理还是授信审批管理 10授信审批 30放款审批
                 }
             })
         },
@@ -320,7 +321,8 @@ export default {
                     nowurlName: '放款审批列表',
                     loanmoneyOperation: '放款审批操作',
                     idJurisdiction: this.$route.query.idJurisdiction,
-                    taskType: val.taskType
+                    taskType: val.taskType,
+                    roleOperation: 30 // 区别是放款管理还是授信审批管理 10授信审批 30放款审批
                 }
             })
         },

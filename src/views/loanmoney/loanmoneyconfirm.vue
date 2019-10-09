@@ -95,7 +95,7 @@
             </div>
             <div class="dialogDivmargin">
                 <span style="vertical-align: top;margin-top: 10px;">审批意见&nbsp;:</span>
-                <el-input type="textarea" readonly style="min-width: 200px;width: 80%;" v-model="bankCode"></el-input>
+                <el-input type="textarea" style="min-width: 200px;width: 80%;" v-model="bankOpinion"></el-input>
             </div>
             <span class="dialog-footer" slot="footer">
                 <el-button @click="batchConfirmation" type="primary" v-loading.fullscreen.lock="fullscreenLoading">通过</el-button>
@@ -216,6 +216,7 @@ export default {
             message: '筛选条件',
             titletext: '放款确认经办',
             contenttext: '任务信息',
+            bankOpinion: '' , //审批意见
             tableData: [
                 // 返回示例
                 // {
@@ -395,7 +396,8 @@ export default {
                 bussNos: this.bussNoarr,
                 loanGrantDate: this.endTime,
                 lendAccount: this.bankCode,
-                lendAccountBank:this.getValueByParam('value',this.bankId,this.bankOptions)
+                lendAccountBank:this.getValueByParam('value',this.bankId,this.bankOptions),
+                conclusion: this.bankOpinion
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('批量放款成功');

@@ -92,7 +92,7 @@
                 </div>
                 <div class="dialogDivmargin">
                     <span style="vertical-align: top;margin-top: 10px;">审批意见: </span>
-                    <el-input type="textarea" readonly :rows="10" style="min-width: 200px;width: 80%;" v-model="bankCode"></el-input>
+                    <el-input type="textarea" :rows="10" style="min-width: 200px;width: 80%;" v-model="bankOpinion"></el-input>
                 </div>
                 <span class="dialog-footer" slot="footer">
                 <el-button @click="batchConfirmation" type="primary" v-loading.fullscreen.lock="fullscreenLoading">确认</el-button>
@@ -191,6 +191,7 @@
             return {
                 loading: false,
                 parenTtext: '放款管理',
+                bankOpinion: '' , //审批意见
                 url: '/layout/loanmoneyconfirmre?idJurisdiction=9',
                 message: '筛选条件',
                 titletext: '放款确认复核',
@@ -364,7 +365,8 @@
                 this.submitStatus = true;
                 this.$post('/LoanGrantConfirm/batchGrantConfirm', {
                     bussNos: this.bussNoarr,
-                    loanGrantDate: this.endTime // 可以不传
+                    loanGrantDate: this.endTime, // 可以不传
+                    conclusion: this.bankOpinion // 审批意见
                 }).then(res => {
                     this.submitStatus = false;
                     // console.log(res);

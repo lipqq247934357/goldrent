@@ -732,6 +732,23 @@
                             </div>
                         </div>
 
+
+                        <componentitle :message="message='预计回款账户'"/>
+                        <ul class="infolist" v-for="accInfo in item.accountInfos">
+                            <li>
+                                <span>账户名称</span>
+                                <span>{{accInfo.accountName}}</span>
+                            </li>
+                            <li>
+                                <span>开户行</span>
+                                <span>{{accInfo.accountBank}}</span>
+                            </li>
+                            <li>
+                                <span>银行账号</span>
+                                <span>{{accInfo.account}}</span>
+                            </li>
+                        </ul>
+
                         <!-- 承租人相关影像资料 -->
                         <div class="div3">
                             <componentitle :message="message='承租人相关影像资料'"/>
@@ -779,24 +796,26 @@
                     houseType: [],
                     custducation: []
                 },
-                plantExpDesc: []
+                plantExpDesc: [],
+                roletaskType: '', //用于区别是授信审批还是放款管理
             }
         },
         created() {
+            this.roletaskType = this.$route.query.roleOperation; 
+        },
+        mounted() {
             let data = urlParse();
             this.id = data.id;
             this.bussNo = data.bussNo;
             this.getStockPriceByNames();
-
-        },
-        mounted() {
         },
         methods: {
             // 请求承租人详情接口拿到partnerType字段用于匹配循环出对应的图片树形结构title
             async getStockPriceByNames(res) {
                 this.partner = await (() =>
                         this.$post('/leasee/info', {
-                            bussNo: this.$route.query.bussNo
+                            bussNo: this.$route.query.bussNo,
+                            taskType: this.roletaskType
                         }).then(res => {
                             // 返回示例
                             //   {
