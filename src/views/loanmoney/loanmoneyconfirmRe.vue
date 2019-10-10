@@ -366,7 +366,8 @@
                 this.$post('/LoanGrantConfirm/batchGrantConfirm', {
                     bussNos: this.bussNoarr,
                     loanGrantDate: this.endTime, // 可以不传
-                    conclusion: this.bankOpinion // 审批意见
+                    conclusion: this.bankOpinion, // 审批意见
+
                 }).then(res => {
                     this.submitStatus = false;
                     // console.log(res);
@@ -497,7 +498,9 @@
                     method: 'post',
                     url: '/LoanGrantConfirm/backGrantConfirm', // 请求地址
                     data: {
-                        bussNo: this.bussNoarr[0]
+                        bussNos: this.bussNoarr,
+                        conclusion: this.bankOpinion // 审批意见
+
                     }, // 参数
                 }).then((res) => { // 退回成功，刷新页面
                     if(res.data.code === "2000000"){
