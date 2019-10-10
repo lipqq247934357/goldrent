@@ -313,7 +313,7 @@ export default {
                     nowpath: this.$route.path,
                     nowurlName: '上会审议',
                     custName: val.custName,
-                    roleOperation: 10 // 区别是放款管理还是授信审批管理 10授信审批 30放款审批
+                    roleOperation: '10' // 区别是放款管理还是授信审批管理 10授信审批 30放款审批
                 }
             })
         },
@@ -330,7 +330,7 @@ export default {
                     nowpath: this.$route.path,
                     nowurlName: '上会审议',
                     custName: val.custName,
-                    roleOperation: 10 // 区别是放款管理还是授信审批管理 10授信审批 30放款审批
+                    roleOperation: '10' // 区别是放款管理还是授信审批管理 10授信审批 30放款审批
                 }
             })
         },
