@@ -129,6 +129,14 @@
                             size="small">
                             详情
                         </el-button>
+                        <el-button
+                            @click="back(scope.row)"
+                            type="text"
+                            :disabled="buttoninfo == 'N'"
+                            v-show="scope.row.opButton == 'BTN_RETRACT_APPROVE'"
+                            size="small">
+                            撤回
+                        </el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -379,6 +387,19 @@ export default {
                     this.tableData = res.data.data.recordList;
                     this.currentPage2 = 1;
                     this.loading = false;
+                }
+            });
+        },
+        // 退回按钮
+        back(val) {
+            this.$post('/LoanApprove/retractLoanApproval',{
+                bussNo: val.bussNo
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    this.$message.success('撤回成功');
+                    this.query();
+                } else {
+                    this.$message.error(res.data.msg);
                 }
             });
         }
