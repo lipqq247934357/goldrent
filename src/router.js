@@ -181,6 +181,16 @@ export default new Router({
                     path: 'importOrder', // 订单导入
                     name: 'importOrder',
                     component: () => import(  './views/importOrder/index.vue')
+                },
+                {
+                    path: 'declarationfrom', // 报单列表页
+                    name: 'declarationfrom',
+                    component: () => import(  './views/declarationform/indexlist.vue')
+                },
+                {
+                    path: 'declarationfromSign', // 报单各页签页
+                    name: 'declarationfromSign',
+                    component: () => import(  './views/declarationform/declarationfromSign.vue')
                 }
             ]
         },
