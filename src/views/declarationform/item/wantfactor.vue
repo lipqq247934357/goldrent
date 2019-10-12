@@ -165,6 +165,7 @@
                         v-model="beginTime"
                         value-format="yyyy-MM-dd"
                         type="date"
+                        @blur="computedbeginTime"
                         placeholder="选择日期">
                     </el-date-picker>
                 </div>
@@ -347,6 +348,12 @@
            disabledDateEnd(time) {
                return time.getTime() < new Date(this.beginTime);
            },
+           // 计划起租日日
+           computedbeginTime() {
+               if(this.beginTime == '' || this.endTime == '') {
+                   this.term = '';
+               }
+           },
            // 计算租赁期限
            computedTime() {
 
@@ -377,12 +384,14 @@
                 // 如果两月相减等于0 默认为1个月
                 if(m == '0') {
                     m++;
+                    this.term = m;
                 }
+
                 // 不足一个月按一个月显示，1个月零几天按两个月显示
-                if(parseInt(m1[2]) - parseInt(m2[2]) < 0) {
-                    this.term++
+                if(parseInt(m1[2]) - parseInt(m2[2]) <= 1) {
+                    this.term+1;
                 }
-                this.term = m;
+
            },
         }
     }

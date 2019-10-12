@@ -5,7 +5,7 @@ module.exports = {
         proxy: {
             '/web': {
                 // target: 'http://172.19.1.179:8081/',
-                target: 'http://172.16.162.159:8081/', // 测试
+                target: 'http://39.97.172.66/', // 报单专用
                 // target: 'http://39.97.191.50', // 仿真
                 ws: false,
                 changeOrigin: true,

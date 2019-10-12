@@ -2,13 +2,9 @@
 <div class="loanapproval">
     <div class="content">
         <h3 class="titleh3">
-            <span class="urlTextt">贷款审批</span>
-            <i class="el-icon-arrow-right"></i>
-            <router-link to="/layout/loadapproval" class="urlTextt">
-                贷款审批列表
-                <i class="el-icon-arrow-right"></i>
-            </router-link>
-            <span>&nbsp;{{bindText}}</span>
+            <div class="el-icon-back back" @click="backUrl">
+                返回
+            </div>
         </h3>
         <el-tabs type="border-card"
             v-model="bindText"
@@ -16,10 +12,10 @@
             <el-tab-pane :lazy="true" :label="list.lease" :name="list.lease">
                 <wantfactor />
             </el-tab-pane>
-            <!-- <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
+            <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
                 <lesseeinfo />
             </el-tab-pane>
-            <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
+            <!-- <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
                 <guarantor />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.repurchase" :name="list.repurchase">
@@ -45,7 +41,7 @@
 
 <script  type="text/ecmascript-6">
 import wantfactor from './item/wantfactor.vue'; //租赁要素
-// import lesseeinfo from './item/lesseeinfo.vue'; //承租人信息
+import lesseeinfo from './item/lesseeinfo.vue'; //承租人信息
 // import guarantor from './item/guarantor.vue'; //保证人信息
 // import buybackpeople from './item/buybackpeople.vue'; //回购人信息
 // import leasehold from './item/leasehold.vue'; //租赁物信息
@@ -70,13 +66,19 @@ export default {
         }
     },
     methods: {
-        handleClicktas() {
+        handleClicktas(val) {
+            console.log(this.$store.state.lesseeinfoArr);
+        },
+        backUrl() {
+            this.$router.push({
+                path: '/layout/declarationfrom',
 
+            });
         }
     },
     components: {
         wantfactor, //租赁要素
-        // lesseeinfo, //承租人信息
+        lesseeinfo, //承租人信息
         // guarantor, //保证人信息
         // buybackpeople, //回购人信息
         // leasehold, //租赁物信息
@@ -93,6 +95,10 @@ export default {
     .titleh3 {
         font-size: 14px;
         margin: 15px 0;
+    }
+    .back {
+        cursor: pointer;
+        font-size: 15px;
     }
     .el-tabs--border-card>.el-tabs__content {
         padding: 0;

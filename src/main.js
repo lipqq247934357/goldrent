@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from './router';
 import './public/public.less';
 import './public/iconfont.css';
+import Vuex from 'vuex';
+import store from './store/store.js'; // vuex配置
 
 // import preview from 'vue-photo-preview'; // 图片预览插件
 // import 'vue-photo-preview/dist/skin.css';
@@ -34,5 +36,6 @@ Vue.use(ElementUI);
 
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app')
