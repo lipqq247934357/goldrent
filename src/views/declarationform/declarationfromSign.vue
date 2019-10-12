@@ -15,7 +15,7 @@
             <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
                 <lesseeinfo />
             </el-tab-pane>
-            <!-- <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
+            <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
                 <guarantor />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.repurchase" :name="list.repurchase">
@@ -30,9 +30,15 @@
             <el-tab-pane :lazy="true" :label="list.investigation" :name="list.investigation">
                 <investigation />
             </el-tab-pane>
+            <el-tab-pane :lazy="true" :label="list.evaluate" :name="list.evaluate">
+                <evaluate />
+            </el-tab-pane>
+            <el-tab-pane :lazy="true" :label="list.approvalOpinion" :name="list.approvalOpinion">
+                <approvalOpinion />
+            </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.loan" :name="list.loan">
-                <operation />
-            </el-tab-pane> -->
+                <clauseTable />
+            </el-tab-pane>
         </el-tabs>
     </div>
 
@@ -42,12 +48,15 @@
 <script  type="text/ecmascript-6">
 import wantfactor from './item/wantfactor.vue'; //租赁要素
 import lesseeinfo from './item/lesseeinfo.vue'; //承租人信息
-// import guarantor from './item/guarantor.vue'; //保证人信息
-// import buybackpeople from './item/buybackpeople.vue'; //回购人信息
-// import leasehold from './item/leasehold.vue'; //租赁物信息
-// import externalinfo from './item/externalinfo.vue'; //外部信息
-// import investigation from './item/investigation.vue'; //调查环节
-// import operation from './item/operation.vue'; //贷款审批操作
+import guarantor from './item/guarantor.vue'; //保证人信息
+import buybackpeople from './item/buybackpeople.vue'; //回购人信息
+import leasehold from './item/leasehold.vue'; //租赁物信息
+import externalinfo from './item/externalinfo.vue'; //外部信息
+import investigation from './item/investigation.vue'; //增信措施及综素
+import evaluate from './item/evaluate.vue'; //调查结论及风险评价
+import approvalOpinion from './item/approvalOpinion.vue'; //审批意见
+import clauseTable from './item/clauseTable.vue'; //商业条款表
+
 export default {
     data() {
         return {
@@ -58,8 +67,10 @@ export default {
                 repurchase: '回购人信息',
                 leasegoods: '租赁物信息',
                 externalnews: '外部信息',
-                investigation: '调查环节综素',
-                loan: '贷款审批操作',
+                investigation: '增信措施及综素',
+                evaluate: '调查结论及风险评价',
+                approvalOpinion: '审批意见',
+                loan: '商业条款表',
             },
             bindText: '租赁要素'
 
@@ -79,12 +90,14 @@ export default {
     components: {
         wantfactor, //租赁要素
         lesseeinfo, //承租人信息
-        // guarantor, //保证人信息
-        // buybackpeople, //回购人信息
-        // leasehold, //租赁物信息
-        // externalinfo, //外部信息
-        // investigation, //调查环节
-        // operation //贷款审批操作
+        guarantor, //保证人信息
+        buybackpeople, //回购人信息
+        leasehold, //租赁物信息
+        externalinfo, //外部信息
+        investigation, //调查环节
+        evaluate,  //调查结论及风险评价
+        approvalOpinion,  //审批意见
+        clauseTable //商业条款表
     }
 }
 </script>

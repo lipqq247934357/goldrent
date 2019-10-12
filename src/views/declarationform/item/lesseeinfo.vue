@@ -28,12 +28,8 @@ export default {
                 title: '承租人1',
                 name: '1',
                 content: '承租人1'
-            }, {
-                title: '承租人2',
-                name: '2',
-                content: '承租人2'
             }],
-            tabIndex: 2
+            tabIndex: 1
         }
     },
     created() {
@@ -41,25 +37,32 @@ export default {
     },
     methods: {
         addTab(targetName) {
-            console.log(targetName);
             let newTabName = ++this.tabIndex + '';
             this.editableTabs.push({
-                title: 'New Tab',
+                title: '承租人' + newTabName,
                 name: newTabName,
-                content: 'New Tab content'
+                content: '承租人' + newTabName
             });
             this.editableTabsValue = newTabName;
-            console.log(this.editableTabs);
         },
         removeTab(targetName) {
-            console.log(targetName);
+
             let tabs = this.editableTabs;
             let activeName = this.editableTabsValue;
+
+            // 至少要保留一个
+            if(this.editableTabs.length == 1) {
+                return;
+            }
+
+
             if (activeName === targetName) {
                 tabs.forEach((tab, index) => {
+
                     if (tab.name === targetName) {
                         let nextTab = tabs[index + 1] || tabs[index - 1];
                         if (nextTab) {
+
                             activeName = nextTab.name;
                         }
                     }
@@ -68,6 +71,9 @@ export default {
 
             this.editableTabsValue = activeName;
             this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+            for(let i = 0 ; i < this.editableTabs.length + 1; i++) {
+                console.log(this.editableTabs[i].title = '承租人' + i);
+            }
         }
     }
 }
