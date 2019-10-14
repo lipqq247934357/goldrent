@@ -11,7 +11,6 @@
                 <el-input class="contentinout" placeholder="请输入内容" v-model="custName"></el-input>
             </div>
             <div>
-
                 <label>任务状态</label>
                 <template>
                     <el-select class="choiceselect" placeholder="请选择" v-model="selectstatus" >
@@ -153,28 +152,12 @@
                 selectstatus: '', // 储存任务状态
                 statusOptions: [
                     {
-                        value: '全部',
-                        label: '全部'
-                    },
-                    {
                         value: '00',
                         label: '待处理'
                     },
                     {
-                        value: '01',
-                        label: '处理中'
-                    },
-                    {
                         value: '02',
                         label: '已提交',
-                    },
-                    {
-                        value: '03',
-                        label: '已拒绝'
-                    },
-                    {
-                        value: '04',
-                        label: '已退回'
                     }
                 ],
 
@@ -241,7 +224,6 @@
                         this.allpage = res.data.data.totalCount;
                         this.loading = false;
                     }
-
                 });
             },
             handleOrder(row) {
