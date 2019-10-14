@@ -10,10 +10,10 @@
             v-model="bindText"
             @tab-click="handleClicktas">
             <el-tab-pane :lazy="true" :label="list.lease" :name="list.lease">
-                <wantfactor />
+                <wantfactor/>
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
-                <lesseeinfo />
+                <lesseeinfo :rulesField="rulesField" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
                 <guarantor />
@@ -72,9 +72,57 @@ export default {
                 approvalOpinion: '审批意见',
                 loan: '商业条款表',
             },
-            bindText: '租赁要素'
-
+            bindText: '租赁要素',
+            rulesField: [] // 字典编码
         }
+    },
+    created() {
+        // 字典编码
+        this.$post('/getConstantConfig', {
+            dictionaryCode: [
+                'leaseMode',  //租赁模式选项
+                'comNature', //企业性质
+                'agencyLevel', //经销商层级
+                'feeRequire', // 咨询服务费
+                'partnerType', // 伙伴类型
+                'bussType', // 业务类型
+                'custType', // 客户类别
+                'custSex', //性别
+                'custEducation', //教育程度
+                'custMarriage', //婚姻状况
+                'hasChildren',//是否有子女
+                'certType', //证件类型
+                'custRelation' ,// 与承租人关系
+                'payWay', //租金支付方式
+                'serialNoType', //识别码类型
+                'mortgage' , //是否抵押
+                'hasCreditReport', //征信报告有无
+                'hasLawsuit', //是否涉诉
+                'hasEnforced', //是否被执行
+                'haveCertificate',//是否有房产证明
+                'houseType', //房产类别
+                'checkMode', //土地核实方法
+                'isGuarantee', //有无担保
+                'repayRate', //还款频率
+                'payType', //还租方式
+                'serialNumberType', //识别号类型
+                'InsurancePurchaseTime', //保险购买时间
+                'contractType', //合同类型
+                'costType', //费用类型
+                'identityType' ,//身份类型
+                'creditAdditionType', //增信类型
+                'receiptType' ,// 收款类型
+                'fileSuffix', // 合同文件后缀
+                'calcType', //计息方式
+                'marriageSettlement', //有无离婚协议
+                'rebateDate', //返利时间
+
+            ]
+        }).then(res => {
+            if(res.data.code == 2000000) {
+                this.rulesField = res.data.data;
+            }
+        })
     },
     methods: {
         handleClicktas(val) {
