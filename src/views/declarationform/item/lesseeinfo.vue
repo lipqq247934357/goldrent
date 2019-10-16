@@ -94,7 +94,7 @@
                         </td>
                         <td>是否有子女</td>
                         <td>
-                            <el-select v-model="item.naturalData.hasChildren" class="inputLessinfo" placeholder="请选择">
+                            <el-select v-model="item.naturalData.hasChildren" class="inputLessinfo" placeholder="请选择" @change="childChange">
                                 <el-option v-for="items in rulesField.hasChildren" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -144,12 +144,12 @@
                     </tr>
                 </table>
 
-                <div class="tableTitle">
+                <div class="tableTitle" v-show="item.naturalData.custMarriage == 'married'">
                     承租人配偶
                 </div>
                 <!-- 承租人信息表格 -->
 
-                <table class="lessinfoTbale">
+                <table class="lessinfoTbale" v-show="item.naturalData.custMarriage == 'married'">
                     <tr>
                         <td>姓名</td>
                         <td>
@@ -239,9 +239,34 @@
                     </tr>
 
                 </table>
+
+                <!-- 承租人子女 -->
+                <lessinfochild
+                    ref="headerChild"
+                    v-show="item.naturalData.hasChildren == 'Y'"
+                    :editableTabs="editableTabs"/>
+
+                <!-- 资产情况 -->
+                <componentitle :message="message='资产情况'" class="componentitle" />
+                <div class="assetsAll">
+                    <!-- 房产 -->
+                    <p class="tableTitle">房产（如有）</p>
+                    <assets ref="house" :rulesField="rulesField" />
+
+                    <!-- 土地（含代收代耕）（如有） -->
+                    <p class="tableTitle">土地（含代收代耕）（如有）</p>
+                    <lands ref="lands" :rulesField="rulesField"/>
+                </div>
+                <!-- 底部按钮 -->
+                <div class="bottomButtonDiv matchingDiv">
+                    <el-button type="primary" size="medium" class="matchingButton" @click="save">
+                        保存
+                    </el-button>
+                    <el-button type="primary" size="medium" class="matchingButton" @click="next">
+                        下一步
+                    </el-button>
+                </div>
             </el-tab-pane>
-
-
         </el-tabs>
     </div>
 </div>
@@ -249,7 +274,9 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../../components/title/title.vue';
-
+import lessinfochild from '../components/lessinfochild.vue'; // 承租人子女
+import assets from '../components/assets.vue'; // 资产情况
+import lands from '../components/lands.vue'; // 土地（含代收代耕）（如有）
 export default {
     data() {
         return {
@@ -299,7 +326,6 @@ export default {
         }
     },
     created() {
-        this.$store.state.lesseeinfoArr = this.lessinfoArr;
     },
     props: {
         rulesField: {
@@ -310,6 +336,7 @@ export default {
 
     },
     methods: {
+
         addTab(targetName) {
             let newTabName = ++this.tabIndex + '';
             this.editableTabs.push({
@@ -423,9 +450,10 @@ export default {
 
         // 获取录入的身份号
         idNumber(val) {
-            let idcontent = this.IDcode(val);
+            let idcontent = this.$idCard.IDcode(val);
             if(idcontent.Status == false) {
                 this.$message.error(idcontent.msg);
+                return;
             }
             let nowIndex = this.tabIndex - 1;
             setTimeout(function() {
@@ -434,7 +462,7 @@ export default {
             }.bind(this),100);
         },
         idNumberType(val) {
-            let idcontent = this.IDcode(val);
+            let idcontent = this.$idCard.IDcode(val);
             if(idcontent.Status == false) {
                 this.$message.error(idcontent.msg);
             }
@@ -444,155 +472,35 @@ export default {
                 this.editableTabs[nowIndex].mateInfo.lessinfoSex = idcontent.Sex;
                 this.editableTabs[nowIndex].mateInfo.lessinfoAge = idcontent.Age;
             }.bind(this),100);
-            console.log(this.editableTabs);
         },
-        IDcode(card){
-            //身份证地区
-            var areaID = {
-                11: "北京",
-                12: "天津",
-                13: "河北",
-                14: "山西",
-                15: "内蒙古",
-                21: "辽宁",
-                22: "吉林",
-                23: "黑龙江",
-                31: "上海",
-                32: "江苏",
-                33: "浙江",
-                34: "安徽",
-                35: "福建",
-                36: "江西",
-                37: "山东",
-                41: "河南",
-                42: "湖北",
-                43: "湖南",
-                44: "广东",
-                45: "广西",
-                46: "海南",
-                50: "重庆",
-                51: "四川",
-                52: "贵州",
-                53: "云南",
-                54: "西藏",
-                61: "陕西",
-                62: "甘肃",
-                63: "青海",
-                64: "宁夏",
-                65: "新疆",
-                71: "台湾",
-                81: "香港",
-                82: "澳门",
-                91: "国外"
-            };
-            //性别
-            var sexMap = {
-                0: "女",
-                1: "男"
-            };
-            /*********************************************
-             * 检验身份证格式是否正确
-             ********************************************/
-            var checkIdCard = function(IDCard) {
-                var iSum = 0;
-                var info = "";
-                if (!/^\d{17}(\d|x)$/i.test(IDCard))
-                    return {
-                        status: false,
-                        message: '你输入的身份证长度或格式错误!'
-                    };
-                IDCard = IDCard.replace(/x$/i, "a");
-                if (areaID[parseInt(IDCard.substr(0, 2))] == null)
-                    return {
-                        status: false,
-                        message: '你的身份证地区非法!'
-                    };
-                var sBirthday = IDCard.substr(6, 4) + "-" + Number(IDCard.substr(10, 2)) + "-" + Number(IDCard.substr(12, 2));
-                var d = new Date(sBirthday.replace(/-/g, "/"));
-                if (sBirthday != (d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()))
-                    return {
-                        status: false,
-                        message: '身份证上的出生日期非法!'
-                    };
-                for (var i = 17; i >= 0; i--)
-                    iSum += (Math.pow(2, i) % 11) * parseInt(IDCard.charAt(17 - i), 11);
-                if (iSum % 11 != 1)
-                    return {
-                        status: false,
-                        message: '你输入的身份证号非法!'
-                    };
-                //aCity[parseInt(sId.substr(0,2))]+","+sBirthday+","+(sId.substr(16,1)%2?"男":"女");//此次还可以判断出输入的身份证号的人性别
-                return {
-                    status: true,
-                    message: '校验成功！'
-                };
-            };
-            /*********************************************
-             * 根据身份证号获取性别
-             *********************************************/
-            var getSexByIdCard = function(idCard) {
-                if (idCard.length == 15) {
-                    return sexMap[idCard.substring(14, 15) % 2];
-                } else if (idCard.length == 18) {
-                    return sexMap[idCard.substring(14, 17) % 2];
-                } else {
-                    //不是15或者18,null
-                    return '';
-                }
-            };
-            /*********************************************
-             * 根据身份证号获取生日
-             *********************************************/
-            var getBirthdayByIdCard = function(idCard) {
-                var birthStr;
-                if (15 == idCard.length) {
-                    birthStr = idCard.charAt(6) + idCard.charAt(7);
-                    if (parseInt(birthStr) < 10) {
-                        birthStr = '20' + birthStr;
-                    } else {
-                        birthStr = '19' + birthStr;
-                    }
-                    birthStr = birthStr + '-' + idCard.charAt(8) + idCard.charAt(9) + '-' + idCard.charAt(10) + idCard.charAt(11);
-                } else if (18 == idCard.length) {
-                    birthStr = idCard.charAt(6) + idCard.charAt(7) + idCard.charAt(8) + idCard.charAt(9) + '-' + idCard.charAt(10) + idCard.charAt(11) + '-' + idCard.charAt(12) + idCard.charAt(13);
-                }
-                return birthStr;
-            };
-            /*********************************************
-             * 根据身份证号获取出生地
-             *********************************************/
-            var getAreaByIdCard = function(idCard) {
-                return areaID[parseInt(idCard.substr(0, 2))];
-            };
-            /*********************************************
-             * 根据身份证号获取年龄
-             *********************************************/
-            var getAgeByIdCard = function(idCard) {
-                var birthStr = getBirthdayByIdCard(idCard);
-                var r = birthStr.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
-                if (r == null) return '';
-                var d = new Date(r[1], r[3] - 1, r[4]);
-                if (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4]) {
-                    var Y = new Date().getFullYear();
-                    return (Y - r[1]);
-                } else {
-                    return '';
-                }
-            };
-            let $arr = new Array();
-            $arr['Status'] = checkIdCard(card).status;
-            $arr['msg'] = checkIdCard(card).message;
-            if (checkIdCard(card).status) {
-                $arr['Sex'] = getSexByIdCard(card);
-                $arr['Date'] = getBirthdayByIdCard(card);
-                $arr['Add'] = getAreaByIdCard(card);
-                $arr['Age'] = getAgeByIdCard(card);
+        // 是否有子女
+        childChange(val) {
+            if(val == 'Y') {
+                this.$store.state.lessinfoAddress = this.editableTabs[0].naturalData.householdArrress; // 承租人户籍地址
+        		this.$store.state.lessinfoNowAddress = this.editableTabs[0].naturalData.nowAddress; //承租人现住址
             }
-            return $arr;
-    }
+        },
+        // 保存
+        save() {
+            // this.editableTabs[0]['oooo']=this.$refs.headerChild[0].childrenInfo
+            for(let i = 0; i < this.$refs.headerChild.length; i++) {
+                if(this.editableTabs[i].naturalData.hasChildren == "Y") {
+                    this.editableTabs[i].childrenInfo = this.$refs.headerChild[i].childrenInfo
+                }
+            }
+            console.log(this.$refs.house);
+        },
+        // 下一步
+        next() {
+
+        },
+
 },
     components: {
         componentitle,
+        lessinfochild,
+        assets,
+        lands
     }
 }
 </script>
@@ -641,6 +549,10 @@ export default {
                 width: 80%;
             }
         }
+    }
+    .bottomButtonDiv {
+        width: 200px;
+        margin: 20px auto;
     }
 }
 </style>

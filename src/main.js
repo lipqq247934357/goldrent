@@ -5,7 +5,7 @@ import './public/public.less';
 import './public/iconfont.css';
 import Vuex from 'vuex';
 import store from './store/store.js'; // vuex配置
-
+import IDcode from './utils/idCheck.js';
 // import preview from 'vue-photo-preview'; // 图片预览插件
 // import 'vue-photo-preview/dist/skin.css';
 
@@ -29,7 +29,7 @@ Vue.directive("Clickoutside", Clickoutside);
 //定义全局变量
 Vue.prototype.$get = get;
 Vue.prototype.$post = post;
-
+Vue.prototype.$idCard = IDcode
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 // Vue.use(preview)
