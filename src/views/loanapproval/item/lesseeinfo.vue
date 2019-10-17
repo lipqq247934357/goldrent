@@ -801,7 +801,7 @@
             }
         },
         created() {
-            this.roletaskType = this.$route.query.roleOperation; 
+            this.roletaskType = this.$route.query.roleOperation;
         },
         mounted() {
             let data = urlParse();

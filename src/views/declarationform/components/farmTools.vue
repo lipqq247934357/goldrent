@@ -2,25 +2,25 @@
 <div class="lesseeinfoChild">
     <div class="addbutton">
         <el-button size="small" @click="addTab(childrenTabs)" class="el-icon-plus">
-            添加土地
+            添加农机具
         </el-button>
     </div>
     <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
-            v-for="(item, index) of assetsLands"
+            v-for="(item, index) of assetsFarmTools"
             :key="item.name"
             :label="item.title" :name="item.name">
             <table class="lessinfoTbale">
                 <tr>
-                    <td>面积</td>
+                    <td>购买时间</td>
                     <td>
-                        <el-input-number
+                        <el-date-picker
                             class="inputLessinfo"
-                            v-model="item.acreage"
-                            :precision="2"
-                            :step="0.1"
-                            :max="10000">
-                        </el-input-number> 亩
+                            v-model="item.buyTime"
+                            value-format="yyyy-MM-dd"
+                            type="date"
+                            placeholder="选择日期">
+                        </el-date-picker>
                     </td>
                     <td>是否抵押</td>
                     <td>
@@ -34,7 +34,23 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>当前估值</td>
+                    <td>是否获取发票</td>
+                    <td>
+                        <el-select v-model="item.invoice" class="inputLessinfo" placeholder="请选择">
+                            <el-option v-for="items in rulesField.invoice"
+                                :key="items.optionCode"
+                                :label="items.optionName"
+                                :value="items.optionCode">
+                            </el-option>
+                        </el-select>
+                    </td>
+                    <td>车辆号牌</td>
+                    <td>
+                        <el-input type="text" v-model="item.serialNo" class="inputLessinfo"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>当前估价</td>
                     <td>
                         <el-input-number
                             class="inputLessinfo"
@@ -44,26 +60,15 @@
                             :max="10000">
                         </el-input-number> 元
                     </td>
-                    <td>土地地址坐落</td>
+                    <td>品牌及型号</td>
                     <td>
-                        <el-input type="text" v-model="item.owner" class="inputLessinfo"></el-input>
+                        <el-input type="text" v-model="item.brandModels" class="inputLessinfo"></el-input>
                     </td>
                 </tr>
                 <tr>
-                    <td>承包期限</td>
+                    <td>所有权人</td>
                     <td>
-                        <!-- <el-input type="text" v-model="item.naturalData.custSex" class="inputLessinfo"></el-input> -->
-                        <el-input type="text" v-model="item.owner" class="inputLessinfo"></el-input> 年
-                    </td>
-                    <td>核实方法</td>
-                    <td>
-                        <el-select v-model="item.mortgage" class="inputLessinfo" placeholder="请选择">
-                            <el-option v-for="items in rulesField.checkMode"
-                                :key="items.optionCode"
-                                :label="items.optionName"
-                                :value="items.optionCode">
-                            </el-option>
-                        </el-select>
+                        <el-input type="text" v-model="item.owner" class="inputLessinfo"></el-input>
                     </td>
                 </tr>
 
@@ -79,30 +84,19 @@ export default {
 	data() {
 		return {
             childrenTabs: '1',
-            assetsLands: [
+            assetsFarmTools: [
                 {
-                    title: '土地1',
+                    title: '农机具1',
                     name: '1',
-                    // childData: {
-                    //     id: '',
-                    //     type: '', // 房产类别
-                    //     status: '', // 状态
-                    //     owner: '', // 所有权人
-                    //     mortgage: '', //是否抵押
-                    //     haveCertificate: '', //是否有房产证明
-                    //     currEvaluation: '', //当前估值
-                    //     address: '', //抵押物地址
-                    //     acreage: '' //面积
-                    // }
                     id: '',
-                    type: '', // 房产类别
-                    status: '', // 状态
+                    buyTime: '', // 购买时间
+                    currEvaluation: '', // 当前估值
                     owner: '', // 所有权人
                     mortgage: '', //是否抵押
-                    haveCertificate: '', //是否有房产证明
-                    currEvaluation: '', //当前估值
-                    address: '', //抵押物地址
-                    acreage: '' //面积
+                    serialNo: '', //号牌/车架号
+                    status: '', //状态
+                    invoice: '',//是否获取发票
+                    brandModels: '', //品牌及型号
                 }
             ],
             childIndex: 1
@@ -125,28 +119,28 @@ export default {
 	methods: {
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
-            this.assetsLands.push({
-                title: '土地' + newTabName,
+            this.assetsFarmTools.push({
+                title: '农机具' + newTabName,
                 name: newTabName,
                 id: '',
-                type: '', // 房产类别
-                status: '', // 状态
+                buyTime: '', // 购买时间
+                currEvaluation: '', // 当前估值
                 owner: '', // 所有权人
                 mortgage: '', //是否抵押
-                haveCertificate: '', //是否有房产证明
-                currEvaluation: '', //当前估值
-                address: '', //抵押物地址
-                acreage: '' //面积
+                serialNo: '', //号牌/车架号
+                status: '', //状态
+                invoice: '',//是否获取发票
+                brandModels: '', //品牌及型号
             });
             this.childrenTabs = newTabName;
         },
         removeTab(targetName) {
 
-            let tabs = this.assetsLands;
+            let tabs = this.assetsFarmTools;
             let activeName = this.childrenTabs;
 
             // 至少要保留一个
-            if (this.assetsLands.length == 1) {
+            if (this.assetsFarmTools.length == 1) {
                 return;
             }
 
@@ -165,17 +159,17 @@ export default {
             }
 
             this.childrenTabs = activeName;
-            this.assetsLands = tabs.filter(tab => tab.name !== targetName);
+            this.assetsFarmTools = tabs.filter(tab => tab.name !== targetName);
 
             // 当删除成功后后一项承租人继承前一项承租人index
-            this.assetsLands.forEach(function(item, index, arr) {
-                item.title = '土地' + parseInt(index + 1);
+            this.assetsFarmTools.forEach(function(item, index, arr) {
+                item.title = '农机具' + parseInt(index + 1);
                 item.name = parseInt(index + 1) + '';
-                item.content = '土地' + parseInt(index + 1);
+                item.content = '农机具' + parseInt(index + 1);
             })
-            this.childrenTabs = this.assetsLands.length + '';
+            this.childrenTabs = this.assetsFarmTools.length + '';
             //主要防止于添加的时候错误
-            this.childIndex = this.assetsLands.length;
+            this.childIndex = this.assetsFarmTools.length;
         },
 
     },

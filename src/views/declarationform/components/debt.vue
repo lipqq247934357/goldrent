@@ -2,70 +2,55 @@
 <div class="lesseeinfoChild">
     <div class="addbutton">
         <el-button size="small" @click="addTab(childrenTabs)" class="el-icon-plus">
-            添加金融资产
+            添加其他资产
         </el-button>
     </div>
     <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
-            v-for="(item, index) of assetsFinances"
+            v-for="(item, index) of debtSituations"
             :key="item.name"
             :label="item.title" :name="item.name">
             <table class="lessinfoTbale">
                 <tr>
-                    <td>存款</td>
+                    <td>债务种类</td>
                     <td>
-                        <el-input-number
-                            class="inputLessinfo"
-                            v-model="item.deposit"
-                            :precision="2"
-                            :step="0.1"
-                            :max="10000">
-                        </el-input-number> 元
+                        <el-input type="text" v-model="item.debtType" class="inputLessinfo"></el-input>
                     </td>
-                    <td>股票</td>
+                    <td>债务人</td>
                     <td>
-                        <el-input-number
-                            class="inputLessinfo"
-                            v-model="item.shares"
-                            :precision="2"
-                            :step="0.1"
-                            :max="10000">
-                        </el-input-number> 元
+                        <el-input type="text" v-model="item.debtPerson" class="inputLessinfo"></el-input>
                     </td>
                 </tr>
                 <tr>
-                    <td>大额存单</td>
+                    <td>债务余额(元)</td>
                     <td>
                         <el-input-number
                             class="inputLessinfo"
-                            v-model="item.bigDeposit"
+                            v-model="item.debtBalance"
                             :precision="2"
                             :step="0.1"
                             :max="10000">
                         </el-input-number> 元
                     </td>
-                    <td>理财产品</td>
+                    <td>债务期限</td>
                     <td>
-                        <el-input-number
-                            class="inputLessinfo"
-                            v-model="item.products"
-                            :precision="2"
-                            :step="0.1"
-                            :max="10000">
-                        </el-input-number> 元
+                        <el-input type="text" v-model="item.debtTerm" class="inputLessinfo"></el-input> 月
                     </td>
                 </tr>
                 <tr>
-                    <td>债券</td>
-                    <td>
-                        <el-input-number
-                            class="inputLessinfo"
-                            v-model="item.bond"
-                            :precision="2"
-                            :step="0.1"
-                            :max="10000">
-                        </el-input-number> 元
+                    <td>备注</td>
+                    <td colspan="4" style="padding: 5px 0;">
+                        <el-input
+                            type="textarea"
+                            style="width: 98%;height40px;"
+                            :rows="3"
+                            placeholder="请输入内容"
+                            maxlength="500"
+                            show-word-limit
+                            v-model="item.remark">
+                        </el-input>
                     </td>
+
                 </tr>
 
             </table>
@@ -80,17 +65,18 @@ export default {
 	data() {
 		return {
             childrenTabs: '1',
-            assetsFinances: [
+            debtSituations: [
                 {
-                    title: '金融资产1',
+                    title: '债务情况1',
                     name: '1',
                     id: '',
-                    deposit: '', // 存款
-                    bigDeposit: '', // 大额存单
-                    bond: '', // 债券
-                    shares: '', //股票
-                    products: '', //理财产品
+                    debtSituation: '', // 债务情况
+                    debtType: '',//	债务种类
+                    debtPerson: '', // 债务人
+                    debtBalance: '', // 债务余额
+                    debtTerm: '', //债务期限
                     status: '', //状态
+                    remark: '',//备注
                 }
             ],
             childIndex: 1
@@ -113,26 +99,27 @@ export default {
 	methods: {
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
-            this.assetsFinances.push({
-                title: '金融资产' + newTabName,
+            this.debtSituations.push({
+                title: '债务情况' + newTabName,
                 name: newTabName,
                 id: '',
-                deposit: '', // 存款
-                bigDeposit: '', // 大额存单
-                bond: '', // 债券
-                shares: '', //股票
-                products: '', //理财产品
+                debtSituation: '', // 债务情况
+                debtType: '',//	债务种类
+                debtPerson: '', // 债务人
+                debtBalance: '', // 债务余额
+                debtTerm: '', //债务期限
                 status: '', //状态
+                remark: '',//备注
             });
             this.childrenTabs = newTabName;
         },
         removeTab(targetName) {
 
-            let tabs = this.assetsFinances;
+            let tabs = this.debtSituations;
             let activeName = this.childrenTabs;
 
             // 至少要保留一个
-            if (this.assetsFinances.length == 1) {
+            if (this.debtSituations.length == 1) {
                 return;
             }
 
@@ -151,17 +138,17 @@ export default {
             }
 
             this.childrenTabs = activeName;
-            this.assetsFinances = tabs.filter(tab => tab.name !== targetName);
+            this.debtSituations = tabs.filter(tab => tab.name !== targetName);
 
             // 当删除成功后后一项承租人继承前一项承租人index
-            this.assetsFinances.forEach(function(item, index, arr) {
-                item.title = '金融资产' + parseInt(index + 1);
+            this.debtSituations.forEach(function(item, index, arr) {
+                item.title = '债务情况' + parseInt(index + 1);
                 item.name = parseInt(index + 1) + '';
-                item.content = '金融资产' + parseInt(index + 1);
+                item.content = '债务情况' + parseInt(index + 1);
             })
-            this.childrenTabs = this.assetsFinances.length + '';
+            this.childrenTabs = this.debtSituations.length + '';
             //主要防止于添加的时候错误
-            this.childIndex = this.assetsFinances.length;
+            this.childIndex = this.debtSituations.length;
         },
 
     },

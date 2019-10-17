@@ -116,7 +116,7 @@ export default {
                 'calcType', //计息方式
                 'marriageSettlement', //有无离婚协议
                 'rebateDate', //返利时间
-
+                'invoice', //是否有发票
             ]
         }).then(res => {
             if(res.data.code == 2000000) {
@@ -126,7 +126,7 @@ export default {
     },
     methods: {
         handleClicktas(val) {
-            console.log(this.$store.state.lesseeinfoArr);
+            // console.log(this.$store.state.lesseeinfoArr);
         },
         backUrl() {
             this.$router.push({

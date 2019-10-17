@@ -14,35 +14,35 @@
                 <tr>
                     <td>姓名</td>
                     <td>
-                        <el-input type="text" v-model="item.childData.custName" class="inputLessinfo">
+                        <el-input type="text" v-model="item.custName" class="inputLessinfo">
                         </el-input>
                     </td>
                     <td>户籍地址</td>
                     <td>
-                        <el-input type="text" maxlength="18" class="inputLessinfo" v-model="item.childData.custHomeplace">
+                        <el-input type="text" maxlength="18" class="inputLessinfo" v-model="item.custHomeplace">
                         </el-input>
                     </td>
                 </tr>
                 <tr>
                     <td>身份证号码</td>
                     <td>
-                        <el-input @change="idNumber" type="text" maxlength="18" class="inputLessinfo" v-model="item.childData.certNo">
+                        <el-input @change="idNumber" type="text" maxlength="18" class="inputLessinfo" v-model="item.certNo">
                         </el-input>
                     </td>
                     <td>年龄</td>
                     <td>
-                        {{item.childData.custAge}}
+                        {{item.custAge}}
                     </td>
                 </tr>
                 <tr>
                     <td>性别</td>
                     <td>
                         <!-- <el-input type="text" v-model="item.naturalData.custSex" class="inputLessinfo"></el-input> -->
-                        {{item.childData.custSex}}
+                        {{item.custSex}}
                     </td>
                     <td>现住址</td>
                     <td>
-                        <el-input type="text" v-model="item.childData.custAddress" class="inputLessinfo"></el-input>
+                        <el-input type="text" v-model="item.custAddress" class="inputLessinfo"></el-input>
                     </td>
                 </tr>
 
@@ -62,16 +62,14 @@ export default {
                 {
                     title: '承租人子女1',
                     name: '1',
-                    childData: {
-                        id: '', // ID
-                        certNo: '', // 身份证号
-                        custName: '', // 姓名
-                        custSex: '', //性别
-                        custHomeplace: '', //户籍地址
-                        custAge: '', //年龄
-                        custAddress: '', //现住址
-                        status: '' //状态
-                    }
+                    id: '', // ID
+                    certNo: '', // 身份证号
+                    custName: '', // 姓名
+                    custSex: '', //性别
+                    custHomeplace: '', //户籍地址
+                    custAge: '', //年龄
+                    custAddress: '', //现住址
+                    status: '' //状态
                 }
             ],
             childIndex: 1
@@ -94,16 +92,14 @@ export default {
             this.childrenInfo.push({
                 title: '承租人子女' + newTabName,
                 name: newTabName,
-                childData: {
-                    id: '', // ID
-                    certNo: '', // 身份证号
-                    custName: '', // 姓名
-                    custSex: '', //性别
-                    custHomeplace: '', //户籍地址
-                    custAge: '', //年龄
-                    custAddress: '', //现住址
-                    status: '' //状态
-                }
+                id: '', // ID
+                certNo: '', // 身份证号
+                custName: '', // 姓名
+                custSex: '', //性别
+                custHomeplace: '', //户籍地址
+                custAge: '', //年龄
+                custAddress: '', //现住址
+                status: '' //状态
             });
             this.childrenTabs = newTabName;
             console.log(this.childrenInfo);
@@ -154,8 +150,8 @@ export default {
                 return;
             }
             setTimeout(function() {
-                this.childrenInfo[nowIndex].childData.custSex = idcodeCheck.Sex;
-                this.childrenInfo[nowIndex].childData.custAge = idcodeCheck.Age;
+                this.childrenInfo[nowIndex].custSex = idcodeCheck.Sex;
+                this.childrenInfo[nowIndex].custAge = idcodeCheck.Age;
             }.bind(this),100);
         }
     },
