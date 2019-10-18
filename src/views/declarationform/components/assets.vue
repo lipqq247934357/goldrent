@@ -85,17 +85,6 @@ export default {
                 {
                     title: '房产1',
                     name: '1',
-                    // childData: {
-                    //     id: '',
-                    //     type: '', // 房产类别
-                    //     status: '', // 状态
-                    //     owner: '', // 所有权人
-                    //     mortgage: '', //是否抵押
-                    //     haveCertificate: '', //是否有房产证明
-                    //     currEvaluation: '', //当前估值
-                    //     address: '', //抵押物地址
-                    //     acreage: '' //面积
-                    // }
                     id: '',
                     type: '', // 房产类别
                     status: '', // 状态

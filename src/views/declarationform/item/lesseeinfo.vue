@@ -47,7 +47,7 @@
                         </td>
                         <td>教育程度</td>
                         <td>
-                            <el-select v-model="item.educationLevel" class="inputLessinfo" placeholder="请选择">
+                            <el-select v-model="item.custEducation" class="inputLessinfo" placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.custEducation"
                                     :key="items.optionCode"
@@ -76,23 +76,22 @@
                         </td>
                         <td>种植年限</td>
                         <td>
-                            <el-input type="text" v-model="item.plantYear" @change="plantYears" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="item.cultureYears" @change="plantYears" class="inputLessinfo"></el-input>
                         </td>
                     </tr>
                     <tr>
                         <td>户籍地址</td>
                         <td>
-                            <el-input type="text" v-model="item.householdArrress" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="item.custHomeplace" class="inputLessinfo"></el-input>
                         </td>
                         <td>现住址</td>
                         <td>
-                            <el-input type="text" v-model="item.nowAddress" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="item.custAddress" class="inputLessinfo"></el-input>
                         </td>
                     </tr>
                     <tr>
                         <td>年龄</td>
                         <td>
-                            <!-- <el-input v-model="item.naturalData.lessinfoAge" type="text" class="inputLessinfo"></el-input> -->
                             {{item.custAge}}
                         </td>
                         <td>是否有子女</td>
@@ -131,7 +130,7 @@
                         <td>联系电话</td>
                         <td>
                             <el-input type="text"
-                                v-model="item.custWechat"
+                                v-model="item.custMobile"
                                 class="inputLessinfo"
                                 @change="natural">
                             </el-input>
@@ -185,7 +184,7 @@
                         </td>
                         <td>教育程度</td>
                         <td>
-                            <el-select v-model="item.mateInfo.educationLevel" class="inputLessinfo" placeholder="请选择">
+                            <el-select v-model="item.mateInfo.custEducation" class="inputLessinfo" placeholder="请选择">
                                 <el-option v-for="items in rulesField.custEducation" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -199,7 +198,7 @@
                         </td>
                         <td>申请地居住年限（年）</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.residenceYear" class="inputLessinfo">
+                            <el-input type="text" v-model="item.mateInfo.residenceYears" class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
@@ -207,7 +206,7 @@
                         <td>性别</td>
                         <td>
                             <!-- <el-input type="text" v-model="item.naturalData.lessinfoSex" class="inputLessinfo"></el-input> -->
-                            {{item.mateInfo.lessinfoSex}}
+                            {{item.mateInfo.custSex}}
                         </td>
                         <td>种植年限</td>
                         <td>
@@ -217,11 +216,11 @@
                     <tr>
                         <td>户籍地址</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.householdArrress" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="item.mateInfo.custHomeplace" class="inputLessinfo"></el-input>
                         </td>
                         <td>现住址</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.nowAddress" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="item.mateInfo.custAddress" class="inputLessinfo"></el-input>
                         </td>
                     </tr>
                     <tr>
@@ -257,11 +256,11 @@
                     <tr>
                         <td>联系电话</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.lessinfoPhone" class="inputLessinfo" @change="phoneChange"></el-input>
+                            <el-input type="text" v-model="item.mateInfo.custMobile" class="inputLessinfo" @change="phoneChange"></el-input>
                         </td>
                         <td>微信</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.lessinfoWechat" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="item.mateInfo.custWechat" class="inputLessinfo"></el-input>
                         </td>
                     </tr>
 
@@ -324,11 +323,11 @@
                     <p class="tableTitle">种植收入</p>
                     <plant ref="plant" :rulesField="rulesField" />
 
-                    <!-- 种植收入 -->
+                    <!-- 农机作业收入 -->
                     <p class="tableTitle">农机作业收入</p>
                     <agriculture ref="agriculture" :rulesField="rulesField" />
 
-                    <!-- 种植收入 -->
+                    <!-- 其他收入 -->
                     <p class="tableTitle">其他收入（如有）</p>
                     <otherIncome ref="otherIncome" :rulesField="rulesField" />
 
@@ -481,33 +480,35 @@ export default {
                 title: '承租人1',
                 name: '1',
                 certNo: '', //身份证号码
-                residenceYear: '', //申请地居住年限
+                residenceYears: '', //申请地居住年限
                 custSex: '', // 性别
-                plantYear: '', //种植年限
+                cultureYears: '', //种植年限
                 custName: '', //承租人信息姓名
-                educationLevel: '', //存储选中的教育程度
+                custEducation: '', //存储选中的教育程度
                 custType: '', //存储选中的客户类别
                 hasChildren: '', //存储选中的是否有子女
                 hasCreditReport: '', //存储选中的征信报告
                 custMarriage: '', //存储选中的婚姻状况
                 marriageSettlement: '', //存储选中的离婚协议
-                householdArrress: '', // 户籍地址
-                nowAddress: '', //现住址
+                custHomeplace: '', // 户籍地址
+                custAddress: '', //现住址
                 custAge: '', //年龄
                 custWechat: '', // 微信
                 custMobile: '', // 电话
                 mateInfo: {
                     certNo: '', //身份证号码
-                    residenceYear: '', //申请地居住年限
+                    residenceYears: '', //申请地居住年限
                     custSex: '', // 性别
-                    plantYear: '', //种植年限
+                    cultureYears: '', //种植年限
                     custName: '', //承租人信息姓名
-                    educationLevel: '', //存储选中的教育程度
+                    custEducation: '', //存储选中的教育程度
                     custType: '', //存储选中的客户类别
+                    hasChildren: '', //存储选中的是否有子女
+                    hasCreditReport: '', //存储选中的征信报告
                     custMarriage: '', //存储选中的婚姻状况
                     marriageSettlement: '', //存储选中的离婚协议
-                    householdArrress: '', // 户籍地址
-                    nowAddress: '', //现住址
+                    custHomeplace: '', // 户籍地址
+                    custAddress: '', //现住址
                     custAge: '', //年龄
                     custWechat: '', // 微信
                     custMobile: '', // 电话
@@ -768,7 +769,12 @@ export default {
         },
         // 保存
         save() {
-
+            // this.$post('/leasee/info',{
+            //     bussNo: 'NJZL-HZ-201910-0018'
+            // }).then(res => {
+            //     console.log(res);
+            // });
+            // return;
             this.allTabData(this.naturalData);
             this.naturalData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                 delete item.name;
@@ -913,18 +919,18 @@ export default {
                     });
                 }
             });
-            console.log(this.naturalData);
-            // setTimeout(function() { 用于ajax提交完成后返回删除的tab name 和title
-            //     this.naturalData.forEach(function(item,index) {
-                        // item['name'] = index + 1 + '';
-                        // item['title'] = '承租人' + parseInt( index + 1);
-            //         item.assetsHouses.forEach(function(subItem,indexs) {
-            //             subItem['name'] = indexs + 1 + '';
-            //             subItem['title'] = '房产' + parseInt( indexs + 1);
-            //         });
-            //     });
-            //     console.log(this.naturalData);
-            // }.bind(this),1000);
+            setTimeout(function() { //用于ajax提交完成后返回删除的tab name 和title
+                this.naturalData.forEach(function(item,index) {
+                        item['name'] = index + 1 + '';
+                        item['title'] = '承租人' + parseInt( index + 1);
+                    item.assetsHouses.forEach(function(subItem,indexs) {
+                        subItem['name'] = indexs + 1 + '';
+                        subItem['title'] = '房产' + parseInt( indexs + 1);
+                    });
+                });
+                console.log(this.naturalData);
+            }.bind(this),1000);
+
         },
         // 下一步
         next() {

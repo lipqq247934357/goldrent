@@ -38,7 +38,7 @@
                     <td>
                         <el-input-number
                             class="inputLessinfo"
-                            v-model="item.currEvaluation"
+                            v-model="item.value"
                             :precision="2"
                             :step="0.1"
                             :max="10000">
@@ -46,18 +46,17 @@
                     </td>
                     <td>土地地址坐落</td>
                     <td>
-                        <el-input type="text" v-model="item.owner" class="inputLessinfo"></el-input>
+                        <el-input type="text" v-model="item.address" class="inputLessinfo"></el-input>
                     </td>
                 </tr>
                 <tr>
                     <td>承包期限</td>
                     <td>
-                        <!-- <el-input type="text" v-model="item.naturalData.custSex" class="inputLessinfo"></el-input> -->
-                        <el-input type="text" v-model="item.owner" class="inputLessinfo"></el-input> 年
+                        <el-input type="text" v-model="item.contractLife" class="inputLessinfo"></el-input> 年
                     </td>
                     <td>核实方法</td>
                     <td>
-                        <el-select v-model="item.mortgage" class="inputLessinfo" placeholder="请选择">
+                        <el-select v-model="item.checkMode" class="inputLessinfo" placeholder="请选择">
                             <el-option v-for="items in rulesField.checkMode"
                                 :key="items.optionCode"
                                 :label="items.optionName"
@@ -83,26 +82,14 @@ export default {
                 {
                     title: '土地1',
                     name: '1',
-                    // childData: {
-                    //     id: '',
-                    //     type: '', // 房产类别
-                    //     status: '', // 状态
-                    //     owner: '', // 所有权人
-                    //     mortgage: '', //是否抵押
-                    //     haveCertificate: '', //是否有房产证明
-                    //     currEvaluation: '', //当前估值
-                    //     address: '', //抵押物地址
-                    //     acreage: '' //面积
-                    // }
                     id: '',
-                    type: '', // 房产类别
-                    status: '', // 状态
-                    owner: '', // 所有权人
-                    mortgage: '', //是否抵押
-                    haveCertificate: '', //是否有房产证明
-                    currEvaluation: '', //当前估值
-                    address: '', //抵押物地址
-                    acreage: '' //面积
+                    acreage:'', //	面积/单位为百分位
+                    value: '',//	价值
+                    contractLife: '',//	承包年限
+                    mortgage: '',//	是否抵押 N:未抵押 Y:已抵押
+                    address: '',//	抵押物地址/坐落
+                    checkMode: '',//	核实方式
+                    status: '',//	状态
                 }
             ],
             childIndex: 1
@@ -129,14 +116,13 @@ export default {
                 title: '土地' + newTabName,
                 name: newTabName,
                 id: '',
-                type: '', // 房产类别
-                status: '', // 状态
-                owner: '', // 所有权人
-                mortgage: '', //是否抵押
-                haveCertificate: '', //是否有房产证明
-                currEvaluation: '', //当前估值
-                address: '', //抵押物地址
-                acreage: '' //面积
+                acreage:'', //	面积/单位为百分位
+                value: '',//	价值
+                contractLife: '',//	承包年限
+                mortgage: '',//	是否抵押 N:未抵押 Y:已抵押
+                address: '',//	抵押物地址/坐落
+                checkMode: '',//	核实方式
+                status: '',//	状态
             });
             this.childrenTabs = newTabName;
         },
