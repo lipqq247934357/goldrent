@@ -173,18 +173,18 @@
                 <div class="tableTitle" v-show="item.custMarriage == 'married'">
                     承租人配偶
                 </div>
-                <!-- 承租人信息表格 -->
+                <!-- 承租人配偶信息表格 -->
 
-                <table class="lessinfoTbale" v-show="item.custMarriage == 'married'">
+                <table class="lessinfoTbale" v-show="item.custMarriage == 'married'" v-for="(mateinfoTbale,mateinfoIndex) in item.mateInfo">
                     <tr>
                         <td>姓名</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.custName" class="inputLessinfo">
+                            <el-input type="text" v-model="mateinfoTbale.custName" class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>教育程度</td>
                         <td>
-                            <el-select v-model="item.mateInfo.custEducation" class="inputLessinfo" placeholder="请选择">
+                            <el-select v-model="mateinfoTbale.custEducation" class="inputLessinfo" placeholder="请选择">
                                 <el-option v-for="items in rulesField.custEducation" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -193,12 +193,12 @@
                     <tr>
                         <td>身份证号码</td>
                         <td>
-                            <el-input @change="idNumberType" type="text" maxlength="18" class="inputLessinfo" v-model="item.mateInfo.certNo">
+                            <el-input @change="idNumberType" type="text" maxlength="18" class="inputLessinfo" v-model="mateinfoTbale.certNo">
                             </el-input>
                         </td>
                         <td>申请地居住年限（年）</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.residenceYears" class="inputLessinfo">
+                            <el-input type="text" v-model="mateinfoTbale.residenceYears" class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
@@ -206,32 +206,31 @@
                         <td>性别</td>
                         <td>
                             <!-- <el-input type="text" v-model="item.naturalData.lessinfoSex" class="inputLessinfo"></el-input> -->
-                            {{item.mateInfo.custSex}}
+                            {{mateinfoTbale.custSex}}
                         </td>
                         <td>种植年限</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.plantYear" @change="plantYears" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="mateinfoTbale.plantYear" @change="plantYears" class="inputLessinfo"></el-input>
                         </td>
                     </tr>
                     <tr>
                         <td>户籍地址</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.custHomeplace" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="mateinfoTbale.custHomeplace" class="inputLessinfo"></el-input>
                         </td>
                         <td>现住址</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.custAddress" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="mateinfoTbale.custAddress" class="inputLessinfo"></el-input>
                         </td>
                     </tr>
                     <tr>
                         <td>年龄</td>
                         <td>
-                            <!-- <el-input v-model="item.naturalData.lessinfoAge" type="text" class="inputLessinfo"></el-input> -->
-                            {{item.mateInfo.lessinfoAge}}
+                            {{mateinfoTbale.custAge}}
                         </td>
                         <td>婚姻状况</td>
                         <td>
-                            <el-select v-model="item.mateInfo.custMarriage" class="inputLessinfo" @change="custMarriageChange" placeholder="请选择">
+                            <el-select v-model="mateinfoTbale.custMarriage" class="inputLessinfo" @change="custMarriageChange" placeholder="请选择">
                                 <el-option v-for="items in rulesField.custMarriage" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -240,14 +239,14 @@
                     <tr>
                         <td>客户类别</td>
                         <td>
-                            <el-select v-model="item.mateInfo.custType" class="inputLessinfo" placeholder="请选择">
+                            <el-select v-model="mateinfoTbale.custType" class="inputLessinfo" placeholder="请选择">
                                 <el-option v-for="items in rulesField.custType" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
                         </td>
                         <td>是否有离婚协议</td>
                         <td>
-                            <el-select v-model="item.mateInfo.marriageSettlement" class="inputLessinfo" :disabled="item.mateInfo.custMarriage != 'divorced'" placeholder="请选择">
+                            <el-select v-model="mateinfoTbale.marriageSettlement" class="inputLessinfo" :disabled="item.mateInfo.custMarriage != 'divorced'" placeholder="请选择">
                                 <el-option v-for="items in rulesField.marriageSettlement" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -256,11 +255,11 @@
                     <tr>
                         <td>联系电话</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.custMobile" class="inputLessinfo" @change="phoneChange"></el-input>
+                            <el-input type="text" v-model="mateinfoTbale.custMobile" class="inputLessinfo" @change="phoneChange"></el-input>
                         </td>
                         <td>微信</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.custWechat" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="mateinfoTbale.custWechat" class="inputLessinfo"></el-input>
                         </td>
                     </tr>
 
@@ -473,6 +472,7 @@ export default {
     data() {
         return {
             message: '', //title
+            maritalStatus: '',
             editableTabsValue: '1',
             matchingId: '', // 匹配按钮的身份证号
             otherData: [],//用来储存naturalData 承租人数组数据，因为删除页签之后会出现问题
@@ -495,7 +495,7 @@ export default {
                 custAge: '', //年龄
                 custWechat: '', // 微信
                 custMobile: '', // 电话
-                mateInfo: {
+                mateInfo: [{
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
                     custSex: '', // 性别
@@ -512,7 +512,7 @@ export default {
                     custAge: '', //年龄
                     custWechat: '', // 微信
                     custMobile: '', // 电话
-                },
+                }],
                 childrenInfo: [],
                 childrenInfo: [], //子女信息
                 assetsHouses: [], //房产
@@ -588,7 +588,7 @@ export default {
                 lessinfoAge: '', //年龄
                 lessinfoWechat: '', // 微信
                 lessinfoPhone: '', // 电话
-                mateInfo: {
+                mateInfo: [{
                     idNum: '', //身份证号码
                     residenceYear: '', //申请地居住年限
                     lessinfoSex: '', // 性别
@@ -603,7 +603,7 @@ export default {
                     lessinfoAge: '', //年龄
                     lessinfoWechat: '', // 微信
                     lessinfoPhone: '', // 电话
-                },
+                }],
                 childrenInfo: [], //子女信息
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
@@ -685,13 +685,14 @@ export default {
 
             let nowIndex = this.tabIndex - 1;
             setTimeout(function() {
-                this.naturalData[nowIndex].mateInfo.lessinfoWechat = this.naturalData[nowIndex].mateInfo.lessinfoPhone;
+                this.naturalData[nowIndex].mateInfo.custWechat = this.naturalData[nowIndex].mateInfo.custMobile;
             }.bind(this),100);
         },
         natural(val) {
             let nowIndex = this.tabIndex - 1;
             setTimeout(function() {
-                this.naturalData[nowIndex].naturalData.lessinfoWechat = this.naturalData[nowIndex].naturalData.lessinfoPhone;
+                this.naturalData[nowIndex].custWechat = this.naturalData[nowIndex].custMobile;
+                console.log(this.naturalData[nowIndex].custMobile);
             }.bind(this),100);
         },
         // 判断种植年限
@@ -704,7 +705,27 @@ export default {
         },
         // 婚姻状况切换
         custMarriageChange(val) {
-            console.log(val);
+            if(this.maritalStatus == 'married') {
+                this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                  this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                  });
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: '已取消删除',
+                    // this.naturalData.mateInfo[this.tabIndex].custMarriage = 'married';
+
+                  });
+                });
+            }
+            this.maritalStatus = val;
+
         },
         // 债偿比计算
         incomeComputed() {
@@ -744,8 +765,8 @@ export default {
             }
             let nowIndex = this.tabIndex - 1;
             setTimeout(function() {
-                this.naturalData[nowIndex].lessinfoSex = idcontent.Sex;
-                this.naturalData[nowIndex].lessinfoAge = idcontent.Age;
+                this.naturalData[nowIndex].custSex = idcontent.Sex;
+                this.naturalData[nowIndex].custAge = idcontent.Age;
             }.bind(this),100);
         },
         idNumberType(val) {
@@ -756,8 +777,9 @@ export default {
             let nowIndex = this.tabIndex - 1;
 
             setTimeout(function() {
-                this.naturalData[nowIndex].mateInfo.lessinfoSex = idcontent.Sex;
-                this.naturalData[nowIndex].mateInfo.lessinfoAge = idcontent.Age;
+                this.naturalData[nowIndex].mateInfo[nowIndex].custSex = idcontent.Sex;
+                this.naturalData[nowIndex].mateInfo[nowIndex].custAge = idcontent.Age;
+                console.log(this.naturalData[nowIndex].mateInfo[nowIndex].custAge);
             }.bind(this),100);
         },
         // 是否有子女
@@ -850,7 +872,7 @@ export default {
             }).then(res => {
                 console.log(res);
                 if(res.data.code == 2000000) {
-                    this.naturalData.forEach(function(item,index) {
+                    this.naturalData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
                         item['name'] = index + 1 + '';
                         item['title'] = '承租人' + parseInt( index + 1);
                         item.assetsHouses.forEach(function(subItem,indexs) {
@@ -862,75 +884,63 @@ export default {
                             subItem['title'] = '承租人子女' + parseInt( indexs + 1);
                         });
 
-                        item.assetsLands.forEach(function(subItem) { // 土地
+                        item.assetsLands.forEach(function(subItem,indexs) { // 土地
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '土地' + parseInt( indexs + 1);
                         });
 
-                        item.assetsFinances.forEach(function(subItem) { // 金融资产
+                        item.assetsFinances.forEach(function(subItem,indexs) { // 金融资产
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '金融资产' + parseInt( indexs + 1);
                         });
 
-                        item.assetsVehicles.forEach(function(subItem) { // 自用车
+                        item.assetsVehicles.forEach(function(subItem,indexs) { // 自用车
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '自用车' + parseInt( indexs + 1);
                         });
 
-                        item.assetsFarmTools.forEach(function(subItem) { // 农机具
+                        item.assetsFarmTools.forEach(function(subItem,indexs) { // 农机具
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '农机具' + parseInt( indexs + 1);
                         });
 
-                        item.assetsOthers.forEach(function(subItem) { // 其他资产
+                        item.assetsOthers.forEach(function(subItem,indexs) { // 其他资产
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '其他资产' + parseInt( indexs + 1);
                         });
 
-                        item.debtSituations.forEach(function(subItem) { // 债务情况
+                        item.debtSituations.forEach(function(subItem,indexs) { // 债务情况
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '债务情况' + parseInt( indexs + 1);
                         });
 
-                        item.debtGuarantees.forEach(function(subItem) { // 对外担保
+                        item.debtGuarantees.forEach(function(subItem,indexs) { // 对外担保
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '对外担保' + parseInt( indexs + 1);
                         });
 
-                        item.debtOthers.forEach(function(subItem) { // 其他负债
+                        item.debtOthers.forEach(function(subItem,indexs) { // 其他负债
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '其他负债' + parseInt( indexs + 1);
                         });
 
-                        item.incomePlants.forEach(function(subItem) { // 种植收入
+                        item.incomePlants.forEach(function(subItem,indexs) { // 种植收入
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '种植收入' + parseInt( indexs + 1);
                         });
 
-                        item.incomeFarmMachineryWork.forEach(function(subItem) { // 农机作业收入
+                        item.incomeFarmMachineryWork.forEach(function(subItem,indexs) { // 农机作业收入
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '农机作业收入' + parseInt( indexs + 1);
                         });
 
-                        item.incomeOthers.forEach(function(subItem) { // 其他收入
+                        item.incomeOthers.forEach(function(subItem,indexs) { // 其他收入
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '其他收入' + parseInt( indexs + 1);
                         });
                     });
                 }
             });
-            setTimeout(function() { //用于ajax提交完成后返回删除的tab name 和title
-                this.naturalData.forEach(function(item,index) {
-                        item['name'] = index + 1 + '';
-                        item['title'] = '承租人' + parseInt( index + 1);
-                    item.assetsHouses.forEach(function(subItem,indexs) {
-                        subItem['name'] = indexs + 1 + '';
-                        subItem['title'] = '房产' + parseInt( indexs + 1);
-                    });
-                });
-                console.log(this.naturalData);
-            }.bind(this),1000);
-
         },
         // 下一步
         next() {
@@ -945,20 +955,6 @@ export default {
         },
         // 整合所有tab的数据
         allTabData() {
-
-            // childrenInfo: [], //子女信息
-            // assetsHouses: [], //房产
-            // assetsLands: [],//土地
-            // assetsFinances: [],// 金融资产
-            // assetsVehicles: [], //自用车
-            // assetsFarmTools: [],//农机具
-            // assetsOthers: [], //其他资产
-            // debtSituations: [], //债务情况
-            // debtGuarantees: [], //对外担保
-            // debtOthers: [], //其他负债
-            // incomePlants: [], //种植收入
-            // incomeFarmMachineryWork: [],//农机作业收入
-            // incomeOthers: [], //其他收入
 
             // console.log(assetschild);
             // console.log(this.$refs.headerChild,'承租人子女') //承租人子女
