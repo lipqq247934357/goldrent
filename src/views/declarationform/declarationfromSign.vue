@@ -6,11 +6,11 @@
                 返回
             </div>
         </h3>
-        <el-tabs type="border-card"
+        <el-tabs v-if="bussNo" type="border-card"
             v-model="bindText"
             @tab-click="handleClicktas">
             <el-tab-pane :lazy="true" :label="list.lease" :name="list.lease">
-                <wantfactor/>
+                <wantfactor :bussNo="bussNo"/>
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
                 <lesseeinfo :rulesField="rulesField" />
@@ -73,10 +73,17 @@ export default {
                 loan: '商业条款表',
             },
             bindText: '租赁要素',
-            rulesField: [] // 字典编码
+            rulesField: [], // 字典编码
+            bussNo:''
         }
     },
     created() {
+
+        // 获取订单号
+        this.bussNo = this.$route.query.bussNo; // 从url上获取
+        if(!this.bussNo){ // url上没有参数
+            this.getBussNo();
+        }
         // 字典编码
         this.$post('/getConstantConfig', {
             dictionaryCode: [
@@ -122,18 +129,25 @@ export default {
             if(res.data.code == 2000000) {
                 this.rulesField = res.data.data;
             }
-        })
+        });
     },
     methods: {
+        getBussNo(){ // 生成订单号
+            this.$post('/buss/genBussNo',{
+                leaseMode:'ZZ02'
+            }).then(res => {
+                console.log(res);
+                this.bussNo = res.data.data.bussNo;
+            });
+        },
         handleClicktas(val) {
             // console.log(this.$store.state.lesseeinfoArr);
         },
         backUrl() {
             this.$router.push({
                 path: '/layout/declarationfrom',
-
             });
-        }
+        },
     },
     components: {
         wantfactor, //租赁要素
@@ -146,6 +160,26 @@ export default {
         evaluate,  //调查结论及风险评价
         approvalOpinion,  //审批意见
         clauseTable //商业条款表
+    },
+    beforeRouteLeave (to, from, next) {
+        // todo 通过订单号查询订单状态，如果订单数据不全，那么就提示弹框，如果继续离开就离开，否则取消离开
+        // 1.发起ajax查询订单状态
+        this.$post('/giveUpEditNoticeDelete',{
+            bussNo:this.bussNo
+        }).then(res => {
+            // 2.如果数据不全，弹框
+            if(res.data.data.deleteFlag === 'N'){ // 需要校验
+                next();
+            }else{
+                // 3.如果拒绝退出，next（false）
+                if (answer) {
+                    next()
+                } else {
+                    next(false)
+                }
+            }
+
+        });
     }
 }
 </script>
