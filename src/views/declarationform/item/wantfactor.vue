@@ -263,8 +263,83 @@
                 </td>
             </tr>
         </table>
-        <div class="buttonNext">
+
+        <div class="section2">
+            <componentitle :message="message='(二) 相关条款'"/>
+            <div class="tableTitle">
+                2.1 金租收款账户
+            </div>
+            <table class="lessinfoTbale">
+                <tr>
+                    <td>还租方式</td>
+                    <td>
+                        <el-select class="input-width-2column" clearable placeholder="请选择" v-model="discount">
+                            <el-option
+                                    :key="item.optionCode"
+                                    :label="item.optionName"
+                                    :value="item.optionCode"
+                                    v-for="item in payType">
+                            </el-option>
+                        </el-select>
+                    </td>
+                    <td>账户名称</td>
+                    <td>
+                        <el-input class="input-width-2column" v-model="condition"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>开户银行</td>
+                    <td>
+                        <el-input class="input-width-2column" v-model="condition"></el-input>
+                    </td>
+                    <td>银行卡号</td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+            <div class="tableTitle">
+                2.2 租户收款账户信息
+            </div>
+            <table class="lessinfoTbale">
+                <tr>
+                    <td>收款账户类型</td>
+                    <td>
+                        <el-select class="input-width-2column" clearable placeholder="请选择" v-model="discount">
+                            <el-option
+                                    :key="item.optionCode"
+                                    :label="item.optionName"
+                                    :value="item.optionCode"
+                                    v-for="item in receiptType">
+                            </el-option>
+                        </el-select>
+                    </td>
+                    <td>账户名称</td>
+                    <td>
+                        <el-input class="input-width-2column" v-model="insurance"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>身份证号（如有）</td>
+                    <td>
+                        <el-input class="input-width-2column" v-model="insurance"></el-input>
+                    </td>
+                    <td>开户银行</td>
+                    <td>
+                        <el-input class="input-width-2column" v-model="insurance"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>银行卡号</td>
+                    <td>
+                        <el-input class="input-width-2column" v-model="insurance"></el-input>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="buttonNext" style="width: 300px;">
             <el-button @click="save('save')" class="buttonClass" type="primary">保存</el-button>
+            <el-button @click="save('save')" class="buttonClass" type="primary">租金计划表</el-button>
             <el-button @click="save('next')" class="buttonClass" type="primary">下一步</el-button>
         </div>
     </div>
@@ -282,6 +357,8 @@
                 rebateDate: [], // 预计补贴时间和厂商贴息时间字典
                 payWay: [], // 租金支付方式字典
                 repayRate: [], // 还款频次字典
+                payType:[], // 还租方式字典
+                receiptType:[], // 收款账户类型
                 endpickerOptions: {
                     disabledDate: this.disabledDateEnd
                 },
@@ -306,6 +383,9 @@
                 frequency: '', // 还款频次
                 remainStock: '', //留购价款
                 advance: '',// 提前结清手续费
+
+                insurance: '',
+                condition: '',
             }
         },
         created() {
@@ -323,11 +403,13 @@
 
             //字典编码
             this.$post('/getConstantConfig', {
-                dictionaryCode: ['rebateDate', 'payWay', 'repayRate']
+                dictionaryCode: ['rebateDate', 'payWay', 'repayRate','payType','receiptType']
             }).then(res => {
                 this.rebateDate = res.data.data.rebateDate;
                 this.payWay = res.data.data.payWay;
                 this.repayRate = res.data.data.repayRate;
+                this.payType = res.data.data.payType;
+                this.receiptType = res.data.data.receiptType;
             });
         },
         components: {
@@ -398,6 +480,10 @@
 
                 .input-width {
                     width: 60%;
+                }
+
+                .input-width-2column {
+                    width: 80%;
                 }
             }
         }

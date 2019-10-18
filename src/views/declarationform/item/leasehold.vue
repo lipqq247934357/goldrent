@@ -9,35 +9,51 @@
                 <tr>
                     <td>租赁物名称及规格型号</td>
                     <td>
-                        <el-input class="inputLessinfo" v-model="condition.leaseName"></el-input>
+                        <el-input class="input-width-2column" v-model="condition.leaseName"></el-input>
                     </td>
                     <td>交付地点</td>
                     <td>
-                        <el-input class="inputLessinfo" v-model="condition.detrveryPlace"></el-input>
+                        <el-input class="input-width-2column" v-model="condition.detrveryPlace"></el-input>
                     </td>
                 </tr>
                 <tr>
                     <td>购置价格(元)</td>
                     <td>
-                        <el-input class="inputLessinfo" v-model="condition.purchasePrice"></el-input>
+                        <el-input class="input-width-2column" v-model="condition.purchasePrice"></el-input>
                     </td>
                     <td>是否抵押登记</td>
                     <td>
+                        <el-select class="input-width-2column" clearable placeholder="请选择" v-model="condition.purchasePrice">
+                            <el-option
+                                    :key="item.optionCode"
+                                    :label="item.optionName"
+                                    :value="item.optionCode"
+                                    v-for="item in mortgage">
+                            </el-option>
+                        </el-select>
                     </td>
                 </tr>
                 <tr>
                     <td>唯一识别码</td>
                     <td>
-                        <el-input class="inputLessinfo" v-model="condition.serialNo"></el-input>
+                        <el-input class="input-width-2column" v-model="condition.serialNo"></el-input>
                     </td>
                     <td>抵押管理机关</td>
                     <td>
-                        <el-input class="inputLessinfo" v-model="condition.mortgageAgency"></el-input>
+                        <el-input class="input-width-2column" v-model="condition.mortgageAgency"></el-input>
                     </td>
                 </tr>
                 <tr>
                     <td>识别号类型</td>
                     <td>
+                        <el-select class="input-width-2column" clearable placeholder="请选择" v-model="condition.purchasePrice">
+                            <el-option
+                                    :key="item.optionCode"
+                                    :label="item.optionName"
+                                    :value="item.optionCode"
+                                    v-for="item in serialNoType">
+                            </el-option>
+                        </el-select>
                     </td>
                 </tr>
             </table>
@@ -49,37 +65,45 @@
             <tr>
                 <td>险种</td>
                 <td>
-                    <el-input class="inputLessinfo" v-model="insurance.insuranceType"></el-input>
+                    <el-input class="input-width-2column" v-model="insurance.insuranceType"></el-input>
                 </td>
                 <td>保险公司</td>
                 <td>
-                    <el-input class="inputLessinfo" v-model="insurance.insuranceCompany"></el-input>
+                    <el-input class="input-width-2column" v-model="insurance.insuranceCompany"></el-input>
                 </td>
             </tr>
             <tr>
                 <td>保额（元）</td>
                 <td>
-                    <el-input class="inputLessinfo" v-model="insurance.coverage"></el-input>
+                    <el-input class="input-width-2column" v-model="insurance.coverage"></el-input>
                 </td>
                 <td>保险期限（月）</td>
                 <td>
-                    <el-input class="inputLessinfo" v-model="insurance.insuranceTerm"></el-input>
+                    <el-input class="input-width-2column" v-model="insurance.insuranceTerm"></el-input>
                 </td>
             </tr>
             <tr>
                 <td>购买时间</td>
                 <td>
+                    <el-select class="input-width-2column" clearable placeholder="请选择" v-model="condition.purchasePrice">
+                        <el-option
+                                :key="item.optionCode"
+                                :label="item.optionName"
+                                :value="item.optionCode"
+                                v-for="item in InsurancePurchaseTime">
+                        </el-option>
+                    </el-select>
                 </td>
                 <td v-if="insurance.insuranceBuyTime == ''"></td>
                 <td>第一受益人</td>
                 <td>
-                    <el-input class="inputLessinfo" v-model="insurance.firstBeneficiary"></el-input>
+                    哈银金融租赁有限责任公司
                 </td>
             </tr>
             <tr>
                 <td>备注</td>
                 <td>
-                    <el-input class="inputLessinfo" placeholder="字数限制0-200字" v-model="insurance.remark"></el-input>
+                    <el-input class="input-width-2column" placeholder="字数限制0-200字" v-model="insurance.remark"></el-input>
                 </td>
             </tr>
         </table>
@@ -100,11 +124,9 @@
         data() {
             return {
                 message: '',
-                rentinfo: [], //租赁物
-                statuslist: {
-                    insurancePurchaseTime: [],
-                    serialNumberType: []
-                },
+                mortgage:[], // 抵押登记字典
+                serialNoType:[], // 识别号类型字典
+                InsurancePurchaseTime:[], // 保险购买时间字典
                 condition: {},
                 insurance: {}
             }
@@ -112,10 +134,11 @@
         created() {
             //  1.获取3个字典
             this.$post('/getConstantConfig', {
-                dictionaryCode: ['InsurancePurchaseTime', 'serialNumberType']
+                dictionaryCode: ['mortgage','serialNoType','InsurancePurchaseTime']
             }).then(res => {
-                this.statuslist.insurancePurchaseTime = res.data.data.InsurancePurchaseTime;
-                this.statuslist.serialNumberType = res.data.data.serialNumberType;
+                this.mortgage = res.data.data.mortgage;
+                this.serialNoType = res.data.data.serialNoType;
+                this.InsurancePurchaseTime = res.data.data.InsurancePurchaseTime;
             });
 
             // 2.查看url上是否有订单编号参数
@@ -142,7 +165,6 @@
             margin: 20px 10px;
         }
 
-
         .lessinfoTbale {
             width: 100%;
 
@@ -153,7 +175,7 @@
                 text-align: center;
                 border: 1px solid #e5e5e5;
 
-                .inputLessinfo {
+                .input-width-2column {
                     width: 80%;
                 }
             }
