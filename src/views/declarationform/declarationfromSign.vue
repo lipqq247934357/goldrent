@@ -10,7 +10,7 @@
             v-model="bindText"
             @tab-click="handleClicktas">
             <el-tab-pane :lazy="true" :label="list.lease" :name="list.lease">
-                <wantfactor :bussNo="bussNo"/>
+                <wantfactor :bussNo="bussNo" :bindText.sync="bindText" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
                 <lesseeinfo :bussNo="bussNo" :rulesField="rulesField" />
@@ -36,9 +36,9 @@
             <el-tab-pane :lazy="true" :label="list.approvalOpinion" :name="list.approvalOpinion">
                 <approvalOpinion />
             </el-tab-pane>
-            <el-tab-pane :lazy="true" :label="list.loan" :name="list.loan">
-                <clauseTable />
-            </el-tab-pane>
+            <!--            <el-tab-pane :lazy="true" :label="list.loan" :name="list.loan">-->
+            <!--                <clauseTable />-->
+            <!--            </el-tab-pane>-->
         </el-tabs>
     </div>
 
@@ -136,7 +136,6 @@ export default {
             this.$post('/buss/genBussNo',{
                 leaseMode:'ZZ02'
             }).then(res => {
-                console.log(res);
                 this.bussNo = res.data.data.bussNo;
             });
         },
@@ -147,7 +146,7 @@ export default {
             this.$router.push({
                 path: '/layout/declarationfrom',
             });
-        },
+        }
     },
     components: {
         wantfactor, //租赁要素
@@ -162,24 +161,24 @@ export default {
         clauseTable //商业条款表
     },
     beforeRouteLeave (to, from, next) {
-        // todo 通过订单号查询订单状态，如果订单数据不全，那么就提示弹框，如果继续离开就离开，否则取消离开
-        // 1.发起ajax查询订单状态
-        // this.$post('/giveUpEditNoticeDelete',{
-        //     bussNo:this.bussNo
-        // }).then(res => {
-        //     // 2.如果数据不全，弹框
-        //     if(res.data.data.deleteFlag === 'N'){ // 需要校验
-        //         next();
-        //     }else{
-        //         // 3.如果拒绝退出，next（false）
-        //         if (answer) {
-        //             next()
-        //         } else {
-        //             next(false)
-        //         }
-        //     }
-        //
-        // });
+        // 通过订单号查询订单状态，如果订单数据不全，那么就提示弹框，如果继续离开就离开，否则取消离开
+        this.$post('/giveUpEditNoticeDelete', { // 发起ajax查询订单状态
+            bussNo: this.bussNo
+        }).then(res => {
+            if (res.data.data.deleteFlag === 'N') {
+                next();
+            } else { // 如果数据不全，弹框
+                this.$confirm('退出后此单将作废，如果不想作废请填写完整租赁要素与承租人信息?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    next();
+                }).catch(() => {
+                    next(false);
+                });
+            }
+        });
     }
 }
 </script>
