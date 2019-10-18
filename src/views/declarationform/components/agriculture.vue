@@ -51,8 +51,14 @@
                 </tr>
                 <tr>
                     <td>结余</td>
-                    <td colspan="4" style="padding: 5px 0;">
-                        <el-input type="text" v-model="item.surplus" class="inputLessinfo"></el-input> 元
+                    <td style="padding: 5px 0;">
+                        <el-input-number
+                            class="inputLessinfo"
+                            v-model="item.surplus"
+                            :precision="2"
+                            :step="0.1"
+                            :max="10000">
+                        </el-input-number> 元
                     </td>
                 </tr>
 

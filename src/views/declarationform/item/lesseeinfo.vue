@@ -42,7 +42,7 @@
                     <tr>
                         <td>姓名</td>
                         <td>
-                            <el-input type="text" v-model="item.lessinfoName" class="inputLessinfo">
+                            <el-input type="text" v-model="item.custName" class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>教育程度</td>
@@ -60,7 +60,7 @@
                     <tr>
                         <td>身份证号码</td>
                         <td>
-                            <el-input @change="idNumber" type="text" maxlength="18" class="inputLessinfo" v-model="item.idNum">
+                            <el-input @change="idNumber" type="text" maxlength="18" class="inputLessinfo" v-model="item.certNo">
                             </el-input>
                         </td>
                         <td>申请地居住年限（年）</td>
@@ -72,7 +72,7 @@
                     <tr>
                         <td>性别</td>
                         <td>
-                            {{item.lessinfoSex}}
+                            {{item.custSex}}
                         </td>
                         <td>种植年限</td>
                         <td>
@@ -93,7 +93,7 @@
                         <td>年龄</td>
                         <td>
                             <!-- <el-input v-model="item.naturalData.lessinfoAge" type="text" class="inputLessinfo"></el-input> -->
-                            {{item.lessinfoAge}}
+                            {{item.custAge}}
                         </td>
                         <td>是否有子女</td>
                         <td>
@@ -131,7 +131,7 @@
                         <td>联系电话</td>
                         <td>
                             <el-input type="text"
-                                v-model="item.lessinfoPhone"
+                                v-model="item.custWechat"
                                 class="inputLessinfo"
                                 @change="natural">
                             </el-input>
@@ -151,7 +151,7 @@
                     <tr>
                         <td>微信</td>
                         <td>
-                            <el-input type="text" v-model="item.lessinfoWechat" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="item.custWechat" class="inputLessinfo"></el-input>
                         </td>
                         <td>是否有离婚协议</td>
                         <td>
@@ -180,7 +180,7 @@
                     <tr>
                         <td>姓名</td>
                         <td>
-                            <el-input type="text" v-model="item.mateInfo.lessinfoName" class="inputLessinfo">
+                            <el-input type="text" v-model="item.mateInfo.custName" class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>教育程度</td>
@@ -194,7 +194,7 @@
                     <tr>
                         <td>身份证号码</td>
                         <td>
-                            <el-input @change="idNumberType" type="text" maxlength="18" class="inputLessinfo" v-model="item.mateInfo.idNum">
+                            <el-input @change="idNumberType" type="text" maxlength="18" class="inputLessinfo" v-model="item.mateInfo.certNo">
                             </el-input>
                         </td>
                         <td>申请地居住年限（年）</td>
@@ -334,7 +334,12 @@
 
                     <!-- 收入偿债比 -->
                     <p class="tableTitle" style="display:inline-block;">收入偿债比</p>
-                    <el-button type="primary" size="medium" class="matchingButton" style="float:right;background:#ff8f2b;border: 0;">
+                    <el-button
+                        @click="incomeComputed"
+                        type="primary"
+                        size="medium"
+                        class="matchingButton"
+                        style="float:right;background:#ff8f2b;border: 0;">
                         计算
                     </el-button>
                     <table class="lessinfoTbale" v-for="(debtrepayment,index) in item.incomeDebtRatios">
@@ -470,15 +475,16 @@ export default {
         return {
             message: '', //title
             editableTabsValue: '1',
+            matchingId: '', // 匹配按钮的身份证号
+            otherData: [],//用来储存naturalData 承租人数组数据，因为删除页签之后会出现问题
             naturalData: [{
                 title: '承租人1',
                 name: '1',
-                matchingId: '', // 匹配按钮的身份证号
-                idNum: '', //身份证号码
+                certNo: '', //身份证号码
                 residenceYear: '', //申请地居住年限
-                lessinfoSex: '', // 性别
+                custSex: '', // 性别
                 plantYear: '', //种植年限
-                lessinfoName: '', //承租人信息姓名
+                custName: '', //承租人信息姓名
                 educationLevel: '', //存储选中的教育程度
                 custType: '', //存储选中的客户类别
                 hasChildren: '', //存储选中的是否有子女
@@ -487,24 +493,24 @@ export default {
                 marriageSettlement: '', //存储选中的离婚协议
                 householdArrress: '', // 户籍地址
                 nowAddress: '', //现住址
-                lessinfoAge: '', //年龄
-                lessinfoWechat: '', // 微信
-                lessinfoPhone: '', // 电话
+                custAge: '', //年龄
+                custWechat: '', // 微信
+                custMobile: '', // 电话
                 mateInfo: {
-                    idNum: '', //身份证号码
+                    certNo: '', //身份证号码
                     residenceYear: '', //申请地居住年限
-                    lessinfoSex: '', // 性别
+                    custSex: '', // 性别
                     plantYear: '', //种植年限
-                    lessinfoName: '', //承租人信息姓名
+                    custName: '', //承租人信息姓名
                     educationLevel: '', //存储选中的教育程度
                     custType: '', //存储选中的客户类别
                     custMarriage: '', //存储选中的婚姻状况
                     marriageSettlement: '', //存储选中的离婚协议
                     householdArrress: '', // 户籍地址
                     nowAddress: '', //现住址
-                    lessinfoAge: '', //年龄
-                    lessinfoWechat: '', // 微信
-                    lessinfoPhone: '', // 电话
+                    custAge: '', //年龄
+                    custWechat: '', // 微信
+                    custMobile: '', // 电话
                 },
                 childrenInfo: [],
                 childrenInfo: [], //子女信息
@@ -549,15 +555,19 @@ export default {
     props: {
         rulesField: {
             type: Object
+        },
+        bussNo: {
+            type: String
         }
     },
     mounted() {
-
+        console.log(this.bussNo);
     },
     methods: {
 
         addTab(targetName) {
             let newTabName = ++this.tabIndex + '';
+            this.otherData = this.naturalData;
             this.naturalData.push({
                 title: '承租人' + newTabName,
                 name: newTabName,
@@ -565,7 +575,6 @@ export default {
                 residenceYear: '', //申请地居住年限
                 lessinfoSex: '', // 性别
                 plantYear: '', //种植年限
-                matchingId: '', // 匹配按钮的身份证号
                 lessinfoName: '', //承租人信息姓名
                 educationLevel: '', //存储选中的教育程度
                 custType: '', //存储选中的客户类别
@@ -696,7 +705,35 @@ export default {
         custMarriageChange(val) {
             console.log(val);
         },
-
+        // 债偿比计算
+        incomeComputed() {
+            let a = [];
+            for(let i = 0; i < this.$refs.plant.length; i++) {
+                // this.naturalData[i].incomePlants =
+                // a.push();
+                this.$refs.plant[i].incomePlants.forEach(function(item) {
+                    a.push(item.surplus)
+                });
+            }
+            for(let i = 0; i < this.$refs.agriculture.length; i++) {
+                this.$refs.agriculture[i].incomeFarmMachineryWork.forEach(function(item) {
+                    a.push(item.surplus)
+                });
+            }
+            for(let i = 0; i < this.$refs.otherIncome.length; i++) {
+                this.$refs.otherIncome[i].incomeOthers.forEach(function(item) {
+                    a.push(item.surplus)
+                });
+            }
+            let summation = 0;
+            let nowIndex = this.tabIndex - 1;
+            for (let i = a.length-1; i>=0; i--) {
+                summation += a[i];
+            }
+            // incomeDebtRatios
+            this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus = summation;
+            console.log(summation);
+        },
         // 获取录入的身份号
         idNumber(val) {
             let idcontent = this.$idCard.IDcode(val);
@@ -706,8 +743,8 @@ export default {
             }
             let nowIndex = this.tabIndex - 1;
             setTimeout(function() {
-                this.naturalData[nowIndex].naturalData.lessinfoSex = idcontent.Sex;
-                this.naturalData[nowIndex].naturalData.lessinfoAge = idcontent.Age;
+                this.naturalData[nowIndex].lessinfoSex = idcontent.Sex;
+                this.naturalData[nowIndex].lessinfoAge = idcontent.Age;
             }.bind(this),100);
         },
         idNumberType(val) {
@@ -731,8 +768,163 @@ export default {
         },
         // 保存
         save() {
-            // this.allTabData();
-            console.log(this.$refs.house);
+
+            this.allTabData(this.naturalData);
+            this.naturalData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
+                delete item.name;
+                delete item.title;
+                item.childrenInfo.forEach(function(subItem) { // 子女
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.assetsHouses.forEach(function(subItem) { // 房产
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.assetsLands.forEach(function(subItem) { // 土地
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.assetsFinances.forEach(function(subItem) { // 金融资产
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.assetsVehicles.forEach(function(subItem) { // 自用车
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.assetsFarmTools.forEach(function(subItem) { // 农机具
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.assetsOthers.forEach(function(subItem) { // 其他资产
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.debtSituations.forEach(function(subItem) { // 债务情况
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.debtGuarantees.forEach(function(subItem) { // 对外担保
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.debtOthers.forEach(function(subItem) { // 其他负债
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.incomePlants.forEach(function(subItem) { // 种植收入
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.incomeFarmMachineryWork.forEach(function(subItem) { // 农机作业收入
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+
+                item.incomeOthers.forEach(function(subItem) { // 其他收入
+                    delete subItem.name;
+                    delete subItem.title;
+                });
+            });
+            this.$post('/leasee/add',{
+                bussNo: this.bussNo,
+                data: this.naturalData
+            }).then(res => {
+                console.log(res);
+                if(res.data.code == 2000000) {
+                    this.naturalData.forEach(function(item,index) {
+                        item['name'] = index + 1 + '';
+                        item['title'] = '承租人' + parseInt( index + 1);
+                        item.assetsHouses.forEach(function(subItem,indexs) {
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '房产' + parseInt( indexs + 1);
+                        });
+                        item.childrenInfo.forEach(function(subItem,indexs) { // 子女
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '承租人子女' + parseInt( indexs + 1);
+                        });
+
+                        item.assetsLands.forEach(function(subItem) { // 土地
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '土地' + parseInt( indexs + 1);
+                        });
+
+                        item.assetsFinances.forEach(function(subItem) { // 金融资产
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '金融资产' + parseInt( indexs + 1);
+                        });
+
+                        item.assetsVehicles.forEach(function(subItem) { // 自用车
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '自用车' + parseInt( indexs + 1);
+                        });
+
+                        item.assetsFarmTools.forEach(function(subItem) { // 农机具
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '农机具' + parseInt( indexs + 1);
+                        });
+
+                        item.assetsOthers.forEach(function(subItem) { // 其他资产
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '其他资产' + parseInt( indexs + 1);
+                        });
+
+                        item.debtSituations.forEach(function(subItem) { // 债务情况
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '债务情况' + parseInt( indexs + 1);
+                        });
+
+                        item.debtGuarantees.forEach(function(subItem) { // 对外担保
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '对外担保' + parseInt( indexs + 1);
+                        });
+
+                        item.debtOthers.forEach(function(subItem) { // 其他负债
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '其他负债' + parseInt( indexs + 1);
+                        });
+
+                        item.incomePlants.forEach(function(subItem) { // 种植收入
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '种植收入' + parseInt( indexs + 1);
+                        });
+
+                        item.incomeFarmMachineryWork.forEach(function(subItem) { // 农机作业收入
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '农机作业收入' + parseInt( indexs + 1);
+                        });
+
+                        item.incomeOthers.forEach(function(subItem) { // 其他收入
+                            subItem['name'] = indexs + 1 + '';
+                            subItem['title'] = '其他收入' + parseInt( indexs + 1);
+                        });
+                    });
+                }
+            });
+            console.log(this.naturalData);
+            // setTimeout(function() { 用于ajax提交完成后返回删除的tab name 和title
+            //     this.naturalData.forEach(function(item,index) {
+                        // item['name'] = index + 1 + '';
+                        // item['title'] = '承租人' + parseInt( index + 1);
+            //         item.assetsHouses.forEach(function(subItem,indexs) {
+            //             subItem['name'] = indexs + 1 + '';
+            //             subItem['title'] = '房产' + parseInt( indexs + 1);
+            //         });
+            //     });
+            //     console.log(this.naturalData);
+            // }.bind(this),1000);
         },
         // 下一步
         next() {
@@ -784,10 +976,7 @@ export default {
                 }
             }
             for(let i = 0; i < this.$refs.house.length; i++) {
-                delete this.$refs.house[i].assetsHouses[i].name;
-                delete this.$refs.house[i].assetsHouses[i].title;
                 this.naturalData[i].assetsHouses = this.$refs.house[i].assetsHouses;
-                console.log(this.naturalData[i].assetsHouses);
             }
             for(let i = 0; i < this.$refs.lands.length; i++) {
                 this.naturalData[i].assetsLands = this.$refs.lands[i].assetsLands

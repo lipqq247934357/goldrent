@@ -13,7 +13,7 @@
                 <wantfactor :bussNo="bussNo"/>
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
-                <lesseeinfo :rulesField="rulesField" />
+                <lesseeinfo :bussNo="bussNo" :rulesField="rulesField" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
                 <guarantor />
@@ -164,22 +164,22 @@ export default {
     beforeRouteLeave (to, from, next) {
         // todo 通过订单号查询订单状态，如果订单数据不全，那么就提示弹框，如果继续离开就离开，否则取消离开
         // 1.发起ajax查询订单状态
-        this.$post('/giveUpEditNoticeDelete',{
-            bussNo:this.bussNo
-        }).then(res => {
-            // 2.如果数据不全，弹框
-            if(res.data.data.deleteFlag === 'N'){ // 需要校验
-                next();
-            }else{
-                // 3.如果拒绝退出，next（false）
-                if (answer) {
-                    next()
-                } else {
-                    next(false)
-                }
-            }
-
-        });
+        // this.$post('/giveUpEditNoticeDelete',{
+        //     bussNo:this.bussNo
+        // }).then(res => {
+        //     // 2.如果数据不全，弹框
+        //     if(res.data.data.deleteFlag === 'N'){ // 需要校验
+        //         next();
+        //     }else{
+        //         // 3.如果拒绝退出，next（false）
+        //         if (answer) {
+        //             next()
+        //         } else {
+        //             next(false)
+        //         }
+        //     }
+        //
+        // });
     }
 }
 </script>
