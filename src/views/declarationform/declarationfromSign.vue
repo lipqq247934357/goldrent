@@ -13,10 +13,10 @@
                 <wantfactor :bussNo="bussNo" :bindText.sync="bindText" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
-                <lesseeinfo :bussNo="bussNo" :rulesField="rulesField" />
+                <lesseeinfo :bussNo="bussNo" :rulesField="rulesField" @childVal="childVal" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
-                <guarantor />
+                <guarantor :bussNo="bussNo" :rulesField="rulesField" @childVal="childVal" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.repurchase" :name="list.repurchase">
                 <buybackpeople />
@@ -60,6 +60,7 @@ import clauseTable from './item/clauseTable.vue'; //商业条款表
 export default {
     data() {
         return {
+            lessinfosData: [], //储存承租人信息
             list: {
                 lease: '租赁要素',
                 rentpeople: '承租人信息',
@@ -139,8 +140,12 @@ export default {
                 this.bussNo = res.data.data.bussNo;
             });
         },
+        childVal(data) {
+            this.lessinfosData = data;
+            console.log(this.lessinfosData); //拿到承租人数据结构
+        },
         handleClicktas(val) {
-            // console.log(this.$store.state.lesseeinfoArr);
+
         },
         backUrl() {
             this.$router.push({

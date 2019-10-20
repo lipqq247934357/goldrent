@@ -2,87 +2,50 @@
 <div class="lesseeinfoChild">
     <div class="addbutton">
         <el-button size="small" @click="addTab(childrenTabs)" class="el-icon-plus">
-            添加种植类别
+            添加其他收入
         </el-button>
     </div>
     <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
-            v-for="(item, index) of incomePlants"
+            v-for="(item, index) of incomeOthers"
             :key="item.name"
             :label="item.title" :name="item.name">
             <table class="lessinfoTbale">
                 <tr>
-                    <td>作物种类</td>
-                    <td>
-                        <el-input type="text" v-model="item.plantType" class="inputLessinfo"></el-input>
-                    </td>
-                    <td>种植面积</td>
+                    <td>近一年收入</td>
                     <td>
                         <el-input-number
                             class="inputLessinfo"
-                            v-model="item.plantArea"
+                            v-model="item.prevYearIncome"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
-                        </el-input-number> 亩
+                            >
+                        </el-input-number>
                     </td>
-                </tr>
-                <tr>
-                    <td>单亩成本</td>
+                    <td>近一年支出</td>
                     <td>
                         <el-input-number
                             class="inputLessinfo"
-                            v-model="item.oneCost"
+                            v-model="item.prevYearPay"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
-                        </el-input-number> 亩
-                    </td>
-                    <td>单亩收入</td>
-                    <td>
-                        <el-input-number
-                            class="inputLessinfo"
-                            v-model="item.oneIncome"
-                            :precision="2"
-                            :step="0.1"
-                            :max="10000">
-                        </el-input-number> 元
+                            >
+                        </el-input-number>
                     </td>
                 </tr>
                 <tr>
                     <td>结余</td>
-                    <td style="padding: 5px 0;">
+                    <td>
                         <el-input-number
                             class="inputLessinfo"
                             v-model="item.surplus"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
-                        </el-input-number> 元
-                    </td>
-
-                </tr>
-                <tr>
-                    <td colspan="4" style="text-align: left;border-bottom: 0;padding-left: 20px;">
-                        种植经验描述
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="border-top: 0;">
-                        <el-input
-                            type="textarea"
-                            style="width: 98%;height40px;margin-bottom: 10px;"
-                            :rows="3"
-                            placeholder="请输入内容"
-                            maxlength="500"
-                            show-word-limit
-                            v-model="item.remark">
-                        </el-input>
+                            >
+                        </el-input-number>
                     </td>
                 </tr>
             </table>
-
-
         </el-tab-pane>
     </el-tabs>
 </div>
@@ -94,15 +57,15 @@ export default {
 	data() {
 		return {
             childrenTabs: '1',
-            incomePlants: [
+            incomeOthers: [
                 {
-                    title: '种植类别1',
+                    title: '其他收入1',
                     name: '1',
                     id: '',
-                    plantType: '', // 作物种类
-                    plantArea: '', //种植面积
-                    oneCost: '',//	单亩成本
-                    oneIncome: '', //单亩收入
+                    prevYearIncome: '', // 上年收入
+                    prevYearPay: '', //上年支出
+                    currYearIncome: '',//	本年收入
+                    currYearPay: '', //本年支出
                     surplus: '',// 结余
                     status: '', //状态
                     remark: '',//备注
@@ -128,14 +91,14 @@ export default {
 	methods: {
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
-            this.incomePlants.push({
-                title: '种植类别' + newTabName,
+            this.incomeOthers.push({
+                title: '其他收入' + newTabName,
                 name: newTabName,
                 id: '',
-                plantType: '', // 作物种类
-                plantArea: '', //种植面积
-                oneCost: '',//	单亩成本
-                oneIncome: '', //单亩收入
+                prevYearIncome: '', // 上年收入
+                prevYearPay: '', //上年支出
+                currYearIncome: '',//	本年收入
+                currYearPay: '', //本年支出
                 surplus: '',// 结余
                 status: '', //状态
                 remark: '',//备注
@@ -144,11 +107,11 @@ export default {
         },
         removeTab(targetName) {
 
-            let tabs = this.incomePlants;
+            let tabs = this.incomeOthers;
             let activeName = this.childrenTabs;
 
             // 至少要保留一个
-            if (this.incomePlants.length == 1) {
+            if (this.incomeOthers.length == 1) {
                 return;
             }
 
@@ -167,17 +130,17 @@ export default {
             }
 
             this.childrenTabs = activeName;
-            this.incomePlants = tabs.filter(tab => tab.name !== targetName);
+            this.incomeOthers = tabs.filter(tab => tab.name !== targetName);
 
             // 当删除成功后后一项承租人继承前一项承租人index
-            this.incomePlants.forEach(function(item, index, arr) {
-                item.title = '种植类别' + parseInt(index + 1);
+            this.incomeOthers.forEach(function(item, index, arr) {
+                item.title = '其他收入' + parseInt(index + 1);
                 item.name = parseInt(index + 1) + '';
-                item.content = '种植类别' + parseInt(index + 1);
+                item.content = '其他收入' + parseInt(index + 1);
             })
-            this.childrenTabs = this.incomePlants.length + '';
+            this.childrenTabs = this.incomeOthers.length + '';
             //主要防止于添加的时候错误
-            this.childIndex = this.incomePlants.length;
+            this.childIndex = this.incomeOthers.length;
         },
 
     },

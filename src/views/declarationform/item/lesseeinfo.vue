@@ -1,10 +1,6 @@
 <template>
 <div class="businfosss tabsinfo">
     <div class="subtabs newfrom">
-        <!-- <el-tabs type="border-card">
-                <el-tab-pane :label="'承租人'">
-                </el-tab-pane>
-            </el-tabs> -->
         <div class="addbutton">
             <el-button size="small" @click="addTab(editableTabsValue)" class="el-icon-plus">
                 增加承租人
@@ -65,18 +61,27 @@
                         </td>
                         <td>申请地居住年限（年）</td>
                         <td>
-                            <el-input type="text" v-model="item.residenceYear" class="inputLessinfo">
+                            <el-input
+                                type="text"
+                                @change="liveYears"
+                                v-model="item.residenceYear"
+                                class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
                     <tr>
                         <td>性别</td>
                         <td>
-                            {{item.custSex}}
+                            {{item.custSex == "M" ? "男" : item.custSex == "F" ? "女" : ""}}
                         </td>
                         <td>种植年限</td>
                         <td>
-                            <el-input type="text" v-model="item.cultureYears" @change="plantYears" class="inputLessinfo"></el-input>
+                            <el-input
+                                type="text"
+                                v-model="item.cultureYears"
+                                @change="plantYears"
+                                class="inputLessinfo">
+                            </el-input>
                         </td>
                     </tr>
                     <tr>
@@ -198,19 +203,22 @@
                         </td>
                         <td>申请地居住年限（年）</td>
                         <td>
-                            <el-input type="text" v-model="mateinfoTbale.residenceYears" class="inputLessinfo">
+                            <el-input
+                                type="text"
+                                @change="spouseLiveYears"
+                                v-model="mateinfoTbale.residenceYears"
+                                class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
                     <tr>
                         <td>性别</td>
                         <td>
-                            <!-- <el-input type="text" v-model="item.naturalData.lessinfoSex" class="inputLessinfo"></el-input> -->
-                            {{mateinfoTbale.custSex}}
+                            {{mateinfoTbale.custSex == "M" ? "男" :mateinfoTbale.custSex == "F" ? "女" : ""}}
                         </td>
                         <td>种植年限</td>
                         <td>
-                            <el-input type="text" v-model="mateinfoTbale.plantYear" @change="plantYears" class="inputLessinfo"></el-input>
+                            <el-input type="text" v-model="mateinfoTbale.cultureYears" @change="spousePlantYears" class="inputLessinfo"></el-input>
                         </td>
                     </tr>
                     <tr>
@@ -268,7 +276,7 @@
                 <!-- 承租人子女 -->
                 <lessinfochild
                     ref="headerChild"
-                    v-show="item.hasChildren == 'Y'"
+                    v-if="item.hasChildren == 'Y'"
                     :naturalData="naturalData"/>
 
                 <!-- 资产情况 -->
@@ -403,10 +411,6 @@
                 <!-- 回款账户 -->
                 <componentitle :message="message='回款账户'" class="componentitle" />
                 <p class="tableTitle">预计回款账户（如有）</p>
-                <!-- "accountInfos": "预计回款账户",
-  "account": "银行账号",
-  "accountBank": "开户银行",
-  "accountName": "账户名称", -->
                 <table class="lessinfoTbale" v-for="(itemsName,index) in item.accountInfos">
                     <tr>
                         <td>账户名称</td>
@@ -562,7 +566,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.bussNo);
     },
     methods: {
 
@@ -589,20 +592,22 @@ export default {
                 lessinfoWechat: '', // 微信
                 lessinfoPhone: '', // 电话
                 mateInfo: [{
-                    idNum: '', //身份证号码
-                    residenceYear: '', //申请地居住年限
-                    lessinfoSex: '', // 性别
-                    plantYear: '', //种植年限
-                    lessinfoName: '', //承租人信息姓名
-                    educationLevel: '', //存储选中的教育程度
+                    certNo: '', //身份证号码
+                    residenceYears: '', //申请地居住年限
+                    custSex: '', // 性别
+                    cultureYears: '', //种植年限
+                    custName: '', //承租人信息姓名
+                    custEducation: '', //存储选中的教育程度
                     custType: '', //存储选中的客户类别
+                    hasChildren: '', //存储选中的是否有子女
+                    hasCreditReport: '', //存储选中的征信报告
                     custMarriage: '', //存储选中的婚姻状况
                     marriageSettlement: '', //存储选中的离婚协议
-                    householdArrress: '', // 户籍地址
-                    nowAddress: '', //现住址
-                    lessinfoAge: '', //年龄
-                    lessinfoWechat: '', // 微信
-                    lessinfoPhone: '', // 电话
+                    custHomeplace: '', // 户籍地址
+                    custAddress: '', //现住址
+                    custAge: '', //年龄
+                    custWechat: '', // 微信
+                    custMobile: '', // 电话
                 }],
                 childrenInfo: [], //子女信息
                 assetsHouses: [], //房产
@@ -695,16 +700,54 @@ export default {
                 console.log(this.naturalData[nowIndex].custMobile);
             }.bind(this),100);
         },
-        // 判断种植年限
+        // 判断承租人申请地居住年限
+        liveYears(val) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabIndex - 1].custAge)) {
+                this.$message.error('申请地居住年限不能大于年龄');
+                this.naturalData[this.tabIndex - 1].residenceYear = '';
+            }
+        },
+        // 判断承租人配偶申请地居住年限
+        spouseLiveYears(val) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabIndex - 1].custAge)) {
+                this.$message.error('申请地居住年限不能大于年龄');
+                this.naturalData[this.tabIndex - 1].residenceYear = '';
+            }
+        },
+        // 承租人判断种植年限
         plantYears(val) {
-            console.log(val);
-            if(parseInt(val) > parseInt(this.naturalData.naturalData.lessinfoAge)) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabIndex - 1].custAge)) {
                 this.$message.error('种植年限不能大于年龄');
-                this.naturalData.naturalData.plantYear = '';
+                this.naturalData[this.tabIndex - 1].cultureYears = '';
+            }
+        },
+        // 承租人配偶判断种植年限
+        spousePlantYears(val) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabIndex - 1].mateInfo[this.tabIndex - 1].custAge)) {
+                this.$message.error('种植年限不能大于年龄');
+                this.naturalData[this.tabIndex - 1].mateInfo[this.tabIndex - 1].cultureYears = '';
             }
         },
         // 婚姻状况切换
         custMarriageChange(val) {
+            let infowifi = [{
+                certNo: '', //身份证号码
+                residenceYears: '', //申请地居住年限
+                custSex: '', // 性别
+                cultureYears: '', //种植年限
+                custName: '', //承租人信息姓名
+                custEducation: '', //存储选中的教育程度
+                custType: '', //存储选中的客户类别
+                hasChildren: '', //存储选中的是否有子女
+                hasCreditReport: '', //存储选中的征信报告
+                custMarriage: '', //存储选中的婚姻状况
+                marriageSettlement: '', //存储选中的离婚协议
+                custHomeplace: '', // 户籍地址
+                custAddress: '', //现住址
+                custAge: '', //年龄
+                custWechat: '', // 微信
+                custMobile: '', // 电话
+            }];
             if(this.maritalStatus == 'married') {
                 this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
                   confirmButtonText: '确定',
@@ -715,13 +758,18 @@ export default {
                     type: 'success',
                     message: '删除成功!'
                   });
-                }).catch(() => {
-                  this.$message({
-                    type: 'info',
-                    message: '已取消删除',
-                    // this.naturalData.mateInfo[this.tabIndex].custMarriage = 'married';
 
-                  });
+                  this.naturalData[this.tabIndex - 1].mateInfo = infowifi;
+
+
+                }).catch(() => {
+                   this.$message({
+                       type: 'info',
+                       message: '已取消删除',
+                       // this.naturalData.mateInfo[this.tabIndex].custMarriage = 'married';
+
+                    });
+                    this.naturalData[this.tabIndex - 1].custMarriage = 'married'; // 恢复成已婚
                 });
             }
             this.maritalStatus = val;
@@ -731,8 +779,6 @@ export default {
         incomeComputed() {
             let a = [];
             for(let i = 0; i < this.$refs.plant.length; i++) {
-                // this.naturalData[i].incomePlants =
-                // a.push();
                 this.$refs.plant[i].incomePlants.forEach(function(item) {
                     a.push(item.surplus)
                 });
@@ -754,7 +800,6 @@ export default {
             }
             // incomeDebtRatios
             this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus = summation;
-            console.log(summation);
         },
         // 获取录入的身份号
         idNumber(val) {
@@ -764,6 +809,11 @@ export default {
                 return;
             }
             let nowIndex = this.tabIndex - 1;
+            if(idcontent.Sex == "男") {
+                idcontent.Sex = "M"
+            } else {
+                idcontent.Sex = "F";
+            }
             setTimeout(function() {
                 this.naturalData[nowIndex].custSex = idcontent.Sex;
                 this.naturalData[nowIndex].custAge = idcontent.Age;
@@ -774,29 +824,30 @@ export default {
             if(idcontent.Status == false) {
                 this.$message.error(idcontent.msg);
             }
+
+            if(idcontent.Sex == "男") {
+                idcontent.Sex = "M"
+            } else {
+                idcontent.Sex = "F";
+            }
             let nowIndex = this.tabIndex - 1;
 
             setTimeout(function() {
                 this.naturalData[nowIndex].mateInfo[nowIndex].custSex = idcontent.Sex;
                 this.naturalData[nowIndex].mateInfo[nowIndex].custAge = idcontent.Age;
-                console.log(this.naturalData[nowIndex].mateInfo[nowIndex].custAge);
             }.bind(this),100);
         },
         // 是否有子女
         childChange(val) {
+            let nowIndex = this.tabIndex - 1;
             if(val == 'Y') {
-                this.$store.state.lessinfoAddress = this.naturalData[0].householdArrress; // 承租人户籍地址
-        		this.$store.state.lessinfoNowAddress = this.naturalData[0].nowAddress; //承租人现住址
+                this.$store.state.lessinfoAddress = this.naturalData[nowIndex].custHomeplace; // 承租人户籍地址
+                this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址
+                console.log(this.$store.state.lessinfoAddress,this.$store.state.lessinfoNowAddress)
             }
         },
         // 保存
         save() {
-            // this.$post('/leasee/info',{
-            //     bussNo: 'NJZL-HZ-201910-0018'
-            // }).then(res => {
-            //     console.log(res);
-            // });
-            // return;
             this.allTabData(this.naturalData);
             this.naturalData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                 delete item.name;
@@ -866,12 +917,13 @@ export default {
                     delete subItem.title;
                 });
             });
+
             this.$post('/leasee/add',{
                 bussNo: this.bussNo,
                 data: this.naturalData
             }).then(res => {
-                console.log(res);
                 if(res.data.code == 2000000) {
+                    this.$message.success('承租人保存成功');
                     this.naturalData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
                         item['name'] = index + 1 + '';
                         item['title'] = '承租人' + parseInt( index + 1);
@@ -939,12 +991,13 @@ export default {
                             subItem['title'] = '其他收入' + parseInt( indexs + 1);
                         });
                     });
-                }
+                    this.$emit('childVal',this.naturalData); // 子传父 承租人数据传递给父组件
+                 }
             });
         },
         // 下一步
         next() {
-
+            this.save();
         },
 
         tabsFor(arrList) {

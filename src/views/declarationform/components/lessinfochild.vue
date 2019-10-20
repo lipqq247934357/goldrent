@@ -66,9 +66,9 @@ export default {
                     certNo: '', // 身份证号
                     custName: '', // 姓名
                     custSex: '', //性别
-                    custHomeplace: '', //户籍地址
+                    custHomeplace: this.$store.state.lessinfoAddress, //户籍地址
                     custAge: '', //年龄
-                    custAddress: '', //现住址
+                    custAddress: this.$store.state.lessinfoNowAddress, //现住址
                     status: '' //状态
                 }
             ],
