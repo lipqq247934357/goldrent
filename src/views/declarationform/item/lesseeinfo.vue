@@ -6,7 +6,7 @@
                 增加承租人
             </el-button>
         </div>
-        <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
+        <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
             <el-tab-pane v-for="(item, index) of naturalData" :key="item.name" :label="item.title" :name="item.name">
                 <div class="matchingDiv">
                     <div class="matchingText">
@@ -490,11 +490,10 @@
                 <div class="imgbox">
                     <div v-if="imgFile">
                         <template v-for="value in imgFile">
-                            <div v-for=" subvalue in value.itemTree">
-                                <h3>{{subvalue.nodeName}}</h3>
+                                <h3>{{value.nodeName}}</h3>
                                 <ul>
                                     <imgUpload
-                                        v-for="(val,key) in subvalue.nodes"
+                                        v-for="(val,key) in value.nodes"
                                         :disabled="type === 'detail'"
                                         :name="val"
                                         :bussNo="bussNo"
@@ -502,7 +501,6 @@
                                         :type="val.key"
                                         @handlePictureCardPreview="handlePictureCardPreview"/>
                                 </ul>
-                            </div>
 
                         </template>
                     </div>
@@ -519,6 +517,19 @@
             </el-button>
         </div>
     </div>
+
+    <el-dialog
+        width="90%"
+        :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+        <!-- <div class="demo-image__preview">
+            <el-image
+                style="width: 100px; height: 100px"
+                :src="dialogImageUrl"
+                :preview-src-list="srcList">
+            </el-image>
+        </div> -->
+    </el-dialog>
 </div>
 </template>
 
@@ -541,6 +552,10 @@ import imgUpload from '../imgUpload.vue'; //图片组件
 export default {
     data() {
         return {
+            srcList: [],
+            dialogImageUrl: '',
+            dialogVisible: false,
+            tabChange: 1, //存储切换的tab name
             imgFile: [],
             relationId: '', //图片影像资料需要用到的
             type: '', // 图片影像资料需要用到的
@@ -638,29 +653,33 @@ export default {
         this.imgData();
     },
     methods: {
-
+        handlePictureCardPreview(file) { // 图片浏览功能
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
         addTab(targetName) {
             let newTabName = ++this.tabIndex + '';
             this.otherData = this.naturalData;
+            this.tabChange++;
             this.naturalData.push({
                 title: '承租人' + newTabName,
                 name: newTabName,
-                idNum: '', //身份证号码
-                residenceYear: '', //申请地居住年限
-                lessinfoSex: '', // 性别
-                plantYear: '', //种植年限
-                lessinfoName: '', //承租人信息姓名
-                educationLevel: '', //存储选中的教育程度
+                certNo: '', //身份证号码
+                residenceYears: '', //申请地居住年限
+                custSex: '', // 性别
+                cultureYears: '', //种植年限
+                custName: '', //承租人信息姓名
+                custEducation: '', //存储选中的教育程度
                 custType: '', //存储选中的客户类别
                 hasChildren: '', //存储选中的是否有子女
                 hasCreditReport: '', //存储选中的征信报告
                 custMarriage: '', //存储选中的婚姻状况
                 marriageSettlement: '', //存储选中的离婚协议
-                householdArrress: '', // 户籍地址
-                nowAddress: '', //现住址
-                lessinfoAge: '', //年龄
-                lessinfoWechat: '', // 微信
-                lessinfoPhone: '', // 电话
+                custHomeplace: '', // 户籍地址
+                custAddress: '', //现住址
+                custAge: '', //年龄
+                custWechat: '', // 微信
+                custMobile: '', // 电话
                 mateInfo: [{
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
@@ -712,7 +731,6 @@ export default {
                 ]
             });
             this.editableTabsValue = newTabName;
-            console.log(this.naturalData);
         },
         removeTab(targetName) {
 
@@ -756,18 +774,18 @@ export default {
                 materialType: 'NATURE_MATERIAL',
             }).then(res => {
                 if(res.data.code == '2000000') {
-                    console.log(res);
-                    let treeInfo = res.data.data.leaseholder;
+                    let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
                     let tempArr = [];
                     Object.keys(treeInfo).forEach((key) => {
                         tempArr.push(treeInfo[key]);
                     });
                     this.imgFile = tempArr;
-                    this.relationId = tempArr[0].custId;
-                    console.log(tempArr);
+                    console.log(this.imgFile);
+                    this.relationId = tempArr[this.tabChange - 1].custId;
                 }
             });
         },
+
         // 匹配信息按钮
         handleMatching() {
 
@@ -775,13 +793,13 @@ export default {
         // 联系电话关联微信号
         phoneChange(val) {
 
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             setTimeout(function() {
                 this.naturalData[nowIndex].mateInfo.custWechat = this.naturalData[nowIndex].mateInfo.custMobile;
             }.bind(this),100);
         },
         natural(val) {
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             setTimeout(function() {
                 this.naturalData[nowIndex].custWechat = this.naturalData[nowIndex].custMobile;
                 console.log(this.naturalData[nowIndex].custMobile);
@@ -789,30 +807,30 @@ export default {
         },
         // 判断承租人申请地居住年限
         liveYears(val) {
-            if(parseInt(val) > parseInt(this.naturalData[this.tabIndex - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.naturalData[this.tabIndex - 1].residenceYear = '';
+                this.naturalData[this.tabChange - 1].residenceYear = '';
             }
         },
         // 判断承租人配偶申请地居住年限
         spouseLiveYears(val) {
-            if(parseInt(val) > parseInt(this.naturalData[this.tabIndex - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.naturalData[this.tabIndex - 1].residenceYear = '';
+                this.naturalData[this.tabChange - 1].residenceYear = '';
             }
         },
         // 承租人判断种植年限
         plantYears(val) {
-            if(parseInt(val) > parseInt(this.naturalData[this.tabIndex - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].custAge)) {
                 this.$message.error('种植年限不能大于年龄');
-                this.naturalData[this.tabIndex - 1].cultureYears = '';
+                this.naturalData[this.tabChange - 1].cultureYears = '';
             }
         },
         // 承租人配偶判断种植年限
         spousePlantYears(val) {
-            if(parseInt(val) > parseInt(this.naturalData[this.tabIndex - 1].mateInfo[this.tabIndex - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].custAge)) {
                 this.$message.error('种植年限不能大于年龄');
-                this.naturalData[this.tabIndex - 1].mateInfo[this.tabIndex - 1].cultureYears = '';
+                this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].cultureYears = '';
             }
         },
         // 婚姻状况切换
@@ -846,7 +864,7 @@ export default {
                     message: '删除成功!'
                   });
 
-                  this.naturalData[this.tabIndex - 1].mateInfo = infowifi;
+                  this.naturalData[this.tabChange - 1].mateInfo = infowifi;
 
 
                 }).catch(() => {
@@ -856,7 +874,7 @@ export default {
                        // this.naturalData.mateInfo[this.tabIndex].custMarriage = 'married';
 
                     });
-                    this.naturalData[this.tabIndex - 1].custMarriage = 'married'; // 恢复成已婚
+                    this.naturalData[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
                 });
             }
             this.maritalStatus = val;
@@ -881,12 +899,17 @@ export default {
                 });
             }
             let summation = 0;
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             for (let i = a.length-1; i>=0; i--) {
                 summation += a[i];
             }
-            // incomeDebtRatios
             this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus = summation;
+            this.naturalData[nowIndex].incomeDebtRatios[nowIndex].incomeDebtRatio = this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalAnnualExpense/this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus;
+            console.log(this.naturalData[nowIndex].incomeDebtRatios[nowIndex].incomeDebtRatio)
+        },
+        // 页签切换
+        changeTables(val) {
+            this.tabChange = val.name;
         },
         // 获取录入的身份号
         idNumber(val) {
@@ -895,23 +918,15 @@ export default {
                 this.$message.error(idcontent.msg);
                 return;
             }
-            // let nowIndex = parseInt(this.tabIndex) - 1;
-            // console.log(val);
-            // console.log(nowIndex);
+            let nowIndex = parseInt(this.tabChange) - 1;
             if(idcontent.Sex == "男") {
                 idcontent.Sex = "M"
             } else {
                 idcontent.Sex = "F";
             }
-            this.naturalData.forEach(function(item,index) {
-                item.custSex = idcontent.Sex;
-                item.custAge = idcontent.Age;
-            })
-            console.log(this.naturalData)
-            // setTimeout(function() {
-            //     this.naturalData[nowIndex].custSex = idcontent.Sex;
-            //     this.naturalData[nowIndex].custAge = idcontent.Age;
-            // }.bind(this),100);
+
+            this.naturalData[nowIndex].custSex = idcontent.Sex; // 赋值性别
+            this.naturalData[nowIndex].custAge = idcontent.Age; // 赋值年龄
         },
         idNumberType(val) {
             let idcontent = this.$idCard.IDcode(val);
@@ -924,7 +939,7 @@ export default {
             } else {
                 idcontent.Sex = "F";
             }
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
 
             setTimeout(function() {
                 this.naturalData[nowIndex].mateInfo[nowIndex].custSex = idcontent.Sex;
@@ -933,7 +948,7 @@ export default {
         },
         // 是否有子女
         childChange(val) {
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             if(val == 'Y') {
                 this.$store.state.lessinfoAddress = this.naturalData[nowIndex].custHomeplace; // 承租人户籍地址
                 this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址

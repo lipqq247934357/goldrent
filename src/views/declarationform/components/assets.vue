@@ -30,7 +30,7 @@
                             v-model="item.acreage"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number>
                          ㎡
                     </td>
@@ -43,7 +43,7 @@
                             v-model="item.currEvaluation"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                     <td>所有权人</td>

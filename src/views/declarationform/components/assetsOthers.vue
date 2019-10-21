@@ -35,7 +35,7 @@
                             v-model="item.value"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                     <td>是否抵押</td>

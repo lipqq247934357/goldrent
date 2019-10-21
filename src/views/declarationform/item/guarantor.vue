@@ -6,7 +6,7 @@
                 增加保证人
             </el-button>
         </div>
-        <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
+        <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
             <el-tab-pane v-for="(item, index) of warrantorDatas" :key="item.name" :label="item.title" :name="item.name">
                 <div class="matchingDiv">
                     <div class="matchingText">
@@ -734,6 +734,7 @@ import guaranteeIncome from '../components/guaranteeIncome.vue'; // 其他收入
 export default {
     data() {
         return {
+            tabChange: 1, //存储切换的tab name
             message: '', //title
             maritalStatus: '',
             editableTabsValue: '1',
@@ -833,8 +834,14 @@ export default {
     },
     methods: {
 
+        // 页签切换
+        changeTables(val) {
+            this.tabChange = val.name;
+        },
+
         addTab(targetName) {
             let newTabName = ++this.tabIndex + '';
+            this.tabChange++;
             this.otherData = this.warrantorDatas;
             this.warrantorDatas.push({
                 id: '',
@@ -955,13 +962,13 @@ export default {
         // 联系电话关联微信号
         phoneChange(val) {
 
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             setTimeout(function() {
                 this.warrantorDatas[nowIndex].mateInfo.custWechat = this.warrantorDatas[nowIndex].mateInfo.custMobile;
             }.bind(this),100);
         },
         natural(val) {
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             setTimeout(function() {
                 this.warrantorDatas[nowIndex].custWechat = this.warrantorDatas[nowIndex].custMobile;
                 console.log(this.warrantorDatas[nowIndex].custMobile);
@@ -969,30 +976,30 @@ export default {
         },
         // 判断承租人申请地居住年限
         liveYears(val) {
-            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabIndex - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.warrantorDatas[this.tabIndex - 1].residenceYear = '';
+                this.warrantorDatas[this.tabChange - 1].residenceYear = '';
             }
         },
         // 判断承租人配偶申请地居住年限
         spouseLiveYears(val) {
-            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabIndex - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.warrantorDatas[this.tabIndex - 1].residenceYear = '';
+                this.warrantorDatas[this.tabChange - 1].residenceYear = '';
             }
         },
         // 承租人判断种植年限
         plantYears(val) {
-            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabIndex - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].custAge)) {
                 this.$message.error('种植年限不能大于年龄');
-                this.warrantorDatas[this.tabIndex - 1].cultureYears = '';
+                this.warrantorDatas[this.tabChange - 1].cultureYears = '';
             }
         },
         // 承租人配偶判断种植年限
         spousePlantYears(val) {
-            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabIndex - 1].mateInfo[this.tabIndex - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].mateInfo[this.tabChange - 1].custAge)) {
                 this.$message.error('种植年限不能大于年龄');
-                this.warrantorDatas[this.tabIndex - 1].mateInfo[this.tabIndex - 1].cultureYears = '';
+                this.warrantorDatas[this.tabChange - 1].mateInfo[this.tabChange - 1].cultureYears = '';
             }
         },
         // 婚姻状况切换
@@ -1026,7 +1033,7 @@ export default {
                     message: '删除成功!'
                   });
 
-                  this.warrantorDatas[this.tabIndex - 1].mateInfo = infowifi;
+                  this.warrantorDatas[this.tabChange - 1].mateInfo = infowifi;
 
 
                 }).catch(() => {
@@ -1035,7 +1042,7 @@ export default {
                        message: '已取消删除',
 
                     });
-                    this.warrantorDatas[this.tabIndex - 1].custMarriage = 'married'; // 恢复成已婚
+                    this.warrantorDatas[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
                 });
             }
             this.maritalStatus = val;
@@ -1060,7 +1067,7 @@ export default {
                 });
             }
             let summation = 0;
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             for (let i = a.length-1; i>=0; i--) {
                 summation += a[i];
             }
@@ -1074,16 +1081,14 @@ export default {
                 this.$message.error(idcontent.msg);
                 return;
             }
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             if(idcontent.Sex == "男") {
                 idcontent.Sex = "M"
             } else {
                 idcontent.Sex = "F";
             }
-            setTimeout(function() {
-                this.warrantorDatas[nowIndex].custSex = idcontent.Sex;
-                this.warrantorDatas[nowIndex].custAge = idcontent.Age;
-            }.bind(this),100);
+            this.warrantorDatas[nowIndex].custSex = idcontent.Sex;
+            this.warrantorDatas[nowIndex].custAge = idcontent.Age;
         },
         idNumberType(val) {
             let idcontent = this.$idCard.IDcode(val);
@@ -1096,16 +1101,14 @@ export default {
             } else {
                 idcontent.Sex = "F";
             }
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
 
-            setTimeout(function() {
-                this.warrantorDatas[nowIndex].mateInfo[nowIndex].custSex = idcontent.Sex;
-                this.warrantorDatas[nowIndex].mateInfo[nowIndex].custAge = idcontent.Age;
-            }.bind(this),100);
+            this.warrantorDatas[nowIndex].mateInfo[nowIndex].custSex = idcontent.Sex;
+            this.warrantorDatas[nowIndex].mateInfo[nowIndex].custAge = idcontent.Age;
         },
         // 是否有子女
         childChange(val) {
-            let nowIndex = this.tabIndex - 1;
+            let nowIndex = this.tabChange - 1;
             if(val == 'Y') {
                 this.$store.state.lessinfoAddress = this.warrantorDatas[nowIndex].custHomeplace; // 承租人户籍地址
                 this.$store.state.lessinfoNowAddress = this.warrantorDatas[nowIndex].custAddress; //承租人现住址

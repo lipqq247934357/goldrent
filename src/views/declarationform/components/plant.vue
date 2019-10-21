@@ -23,7 +23,7 @@
                             v-model="item.plantArea"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 亩
                     </td>
                 </tr>
@@ -35,7 +35,7 @@
                             v-model="item.oneCost"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 亩
                     </td>
                     <td>单亩收入</td>
@@ -45,7 +45,7 @@
                             v-model="item.oneIncome"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                 </tr>
@@ -57,7 +57,7 @@
                             v-model="item.surplus"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
 

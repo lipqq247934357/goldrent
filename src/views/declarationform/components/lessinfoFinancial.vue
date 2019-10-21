@@ -19,7 +19,7 @@
                             v-model="item.deposit"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                     <td>股票</td>
@@ -29,7 +29,7 @@
                             v-model="item.shares"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                 </tr>
@@ -41,7 +41,7 @@
                             v-model="item.bigDeposit"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                     <td>理财产品</td>
@@ -51,7 +51,7 @@
                             v-model="item.products"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                 </tr>
@@ -63,7 +63,7 @@
                             v-model="item.bond"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                 </tr>

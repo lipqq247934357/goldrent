@@ -23,8 +23,8 @@
             </el-upload>
           <!-- </el-image> -->
         </div>
-
     </li>
+
 </template>
 
 <script type="text/ecmascript-6">
@@ -37,7 +37,8 @@
                 fileList: [],
                 token: '',
                 url: '',
-                srcList: '',
+                srcList: [],
+
             }
         },
         props: ['name', 'type', 'relationId', 'disabled','bussNo'],
@@ -53,7 +54,6 @@
             this.token = Cookies.get('token');
         },
         mounted() {
-            
         },
         methods: {
             async query() {
@@ -66,8 +66,8 @@
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
                     data.data.data.forEach((val) => {
                         let obj = {};
-                        obj.id = val;
-                        obj.url = '/web/fileView?fileId=' + val;
+                        obj.id = val.id;
+                        obj.url = '/web/fileView?fileId=' + val.id;
                         this.fileList.push(obj);
                     });
                 }

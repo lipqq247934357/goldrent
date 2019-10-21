@@ -29,7 +29,7 @@
                             v-model="item.debtBalance"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                     <td>债务期限</td>

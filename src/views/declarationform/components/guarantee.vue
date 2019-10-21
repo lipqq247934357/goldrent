@@ -23,7 +23,7 @@
                             v-model="item.guaranteeBalance"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                 </tr>

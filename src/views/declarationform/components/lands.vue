@@ -19,7 +19,7 @@
                             v-model="item.acreage"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 亩
                     </td>
                     <td>是否抵押</td>
@@ -41,7 +41,7 @@
                             v-model="item.value"
                             :precision="2"
                             :step="0.1"
-                            :max="10000">
+                            >
                         </el-input-number> 元
                     </td>
                     <td>土地地址坐落</td>
