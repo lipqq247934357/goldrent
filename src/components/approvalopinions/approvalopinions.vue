@@ -159,6 +159,7 @@
                 <el-button type="primary" @click="save" :disabled="inputdisabled" v-loading.fullscreen.lock="fullscreenLoading">保存</el-button>
                 <el-button type="primary" @click="adopt" :disabled="inputdisabled" v-loading.fullscreen.lock="fullscreenLoading">{{this.$route.query.arrangement == '23' ? '同意': '提交'}}</el-button>
                 <el-button type="primary" @click="exit" :disabled="inputdisabled" v-if="this.$route.query.arrangement != '20'" v-loading.fullscreen.lock="fullscreenLoading">退回</el-button>
+                <el-button type="primary" @click="exitSponsor" :disabled="inputdisabled" v-if="this.$route.query.arrangement != '20'" v-loading.fullscreen.lock="fullscreenLoading">退回主办</el-button>
             </div>
 
             <el-dialog
@@ -284,6 +285,19 @@ export default {
         this.textareinput(); //资深 上会 主任审批需要展示的内容
     },
     methods: {
+        // 退回主办
+        exitSponsor() {
+            this.$post('/LoanApprove/backToSponsor',{
+                bussNo: this.$route.query.bussNo,
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    this.$message.success('退回成功');
+                    this.$router.push({
+                        path: this.nowurl == undefined ? '/layout/loadapproval': this.nowurl
+                    })
+                }
+            });
+        },
         textareinput() {
             //贷款审批：20 资深审批：21 上会审议：22 主任审批：23
             let roletype = this.$route.query.arrangement;
