@@ -159,7 +159,7 @@
                 <el-button type="primary" @click="save" :disabled="inputdisabled" v-loading.fullscreen.lock="fullscreenLoading">保存</el-button>
                 <el-button type="primary" @click="adopt" :disabled="inputdisabled" v-loading.fullscreen.lock="fullscreenLoading">{{this.$route.query.arrangement == '23' ? '同意': '提交'}}</el-button>
                 <el-button type="primary" @click="exit" :disabled="inputdisabled" v-if="this.$route.query.arrangement != '20'" v-loading.fullscreen.lock="fullscreenLoading">退回</el-button>
-                <el-button type="primary" @click="exitSponsor" :disabled="inputdisabled" v-if="this.$route.query.arrangement != '20'" v-loading.fullscreen.lock="fullscreenLoading">退回主办</el-button>
+                <el-button type="primary" @click="exitSponsor" :disabled="inputdisabled" v-if="this.$route.query.arrangement == '20'" v-loading.fullscreen.lock="fullscreenLoading">退回主办</el-button>
             </div>
 
             <el-dialog
