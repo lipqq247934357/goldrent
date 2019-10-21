@@ -43,7 +43,11 @@
                         </td>
                         <td>教育程度</td>
                         <td>
-                            <el-select v-model="item.custEducation" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.custEducation"
+                                class="inputLessinfo"
+                                clearable
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.custEducation"
                                     :key="items.optionCode"
@@ -56,7 +60,12 @@
                     <tr>
                         <td>身份证号码</td>
                         <td>
-                            <el-input @change="idNumber" type="text" maxlength="18" class="inputLessinfo" v-model="item.certNo">
+                            <el-input
+                                @change="idNumber"
+                                type="text"
+                                maxlength="18"
+                                class="inputLessinfo"
+                                v-model="item.certNo">
                             </el-input>
                         </td>
                         <td>申请地居住年限（年）</td>
@@ -101,7 +110,12 @@
                         </td>
                         <td>是否有子女</td>
                         <td>
-                            <el-select v-model="item.hasChildren" class="inputLessinfo" placeholder="请选择" @change="childChange">
+                            <el-select
+                                v-model="item.hasChildren"
+                                class="inputLessinfo"
+                                clearable
+                                placeholder="请选择"
+                                @change="childChange">
                                 <el-option v-for="items in rulesField.hasChildren" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -110,7 +124,11 @@
                     <tr>
                         <td>客户类别</td>
                         <td>
-                            <el-select v-model="item.custType" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.custType"
+                                class="inputLessinfo"
+                                clearable
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.custType"
                                     :key="items.optionCode"
@@ -121,7 +139,11 @@
                         </td>
                         <td>征信报告</td>
                         <td>
-                            <el-select v-model="item.hasCreditReport" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.hasCreditReport"
+                                class="inputLessinfo"
+                                clearable
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.hasCreditReport"
                                     :key="items.optionCode"
@@ -142,7 +164,12 @@
                         </td>
                         <td>婚姻状况</td>
                         <td>
-                            <el-select v-model="item.custMarriage" class="inputLessinfo" @change="custMarriageChange" placeholder="请选择">
+                            <el-select
+                                v-model="item.custMarriage"
+                                class="inputLessinfo"
+                                clearable
+                                @change="custMarriageChange"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.custMarriage"
                                     :key="items.optionCode"
@@ -162,6 +189,7 @@
                             <el-select
                                 v-model="item.marriageSettlement"
                                 class="inputLessinfo"
+                                clearable
                                 :disabled="item.custMarriage != 'divorced'"
                                 placeholder="请选择">
                                 <el-option
@@ -189,7 +217,11 @@
                         </td>
                         <td>教育程度</td>
                         <td>
-                            <el-select v-model="mateinfoTbale.custEducation" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="mateinfoTbale.custEducation"
+                                clearable
+                                class="inputLessinfo"
+                                placeholder="请选择">
                                 <el-option v-for="items in rulesField.custEducation" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -238,7 +270,12 @@
                         </td>
                         <td>婚姻状况</td>
                         <td>
-                            <el-select v-model="mateinfoTbale.custMarriage" class="inputLessinfo" @change="custMarriageChange" placeholder="请选择">
+                            <el-select
+                                v-model="mateinfoTbale.custMarriage"
+                                clearable
+                                class="inputLessinfo"
+                                @change="custMarriageChange"
+                                placeholder="请选择">
                                 <el-option v-for="items in rulesField.custMarriage" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -247,14 +284,22 @@
                     <tr>
                         <td>客户类别</td>
                         <td>
-                            <el-select v-model="mateinfoTbale.custType" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="mateinfoTbale.custType"
+                                class="inputLessinfo"
+                                clearable
+                                placeholder="请选择">
                                 <el-option v-for="items in rulesField.custType" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
                         </td>
                         <td>是否有离婚协议</td>
                         <td>
-                            <el-select v-model="mateinfoTbale.marriageSettlement" class="inputLessinfo" :disabled="item.mateInfo.custMarriage != 'divorced'" placeholder="请选择">
+                            <el-select
+                                v-model="mateinfoTbale.marriageSettlement"
+                                clearable
+                                class="inputLessinfo"
+                                :disabled="item.mateInfo.custMarriage != 'divorced'" placeholder="请选择">
                                 <el-option v-for="items in rulesField.marriageSettlement" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -441,7 +486,27 @@
                         </td>
                     </tr>
                 </table>
+                <componentitle :message="message='承租人相关影像资料'" class="componentitle" />
+                <div class="imgbox">
+                    <div v-if="imgFile">
+                        <template v-for="value in imgFile">
+                            <div v-for=" subvalue in value.itemTree">
+                                <h3>{{subvalue.nodeName}}</h3>
+                                <ul>
+                                    <imgUpload
+                                        v-for="(val,key) in subvalue.nodes"
+                                        :disabled="type === 'detail'"
+                                        :name="val"
+                                        :bussNo="bussNo"
+                                        :relationId="relationId"
+                                        :type="val.key"
+                                        @handlePictureCardPreview="handlePictureCardPreview"/>
+                                </ul>
+                            </div>
 
+                        </template>
+                    </div>
+                </div>
             </el-tab-pane>
         </el-tabs>
         <!-- 底部按钮 -->
@@ -472,9 +537,13 @@ import otherLiabilities from '../components/otherLiabilities.vue'; // 其他负�
 import plant from '../components/plant.vue'; // 种植收入
 import agriculture from '../components/agriculture.vue'; // 农机作业收入
 import otherIncome from '../components/otherIncome.vue'; // 其他收入
+import imgUpload from '../imgUpload.vue'; //图片组件
 export default {
     data() {
         return {
+            imgFile: [],
+            relationId: '', //图片影像资料需要用到的
+            type: '', // 图片影像资料需要用到的
             message: '', //title
             maritalStatus: '',
             editableTabsValue: '1',
@@ -566,6 +635,7 @@ export default {
         }
     },
     mounted() {
+        this.imgData();
     },
     methods: {
 
@@ -680,6 +750,23 @@ export default {
             this.editableTabsValue = this.naturalData.length + '';
             //主要防止于添加的时候错误
             this.tabIndex = this.naturalData.length;
+        },
+        imgData() {
+            this.$post('/buss/materialTree',{
+                materialType: 'NATURE_MATERIAL',
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    console.log(res);
+                    let treeInfo = res.data.data.leaseholder;
+                    let tempArr = [];
+                    Object.keys(treeInfo).forEach((key) => {
+                        tempArr.push(treeInfo[key]);
+                    });
+                    this.imgFile = tempArr;
+                    this.relationId = tempArr[0].custId;
+                    console.log(tempArr);
+                }
+            });
         },
         // 匹配信息按钮
         handleMatching() {
@@ -808,16 +895,23 @@ export default {
                 this.$message.error(idcontent.msg);
                 return;
             }
-            let nowIndex = this.tabIndex - 1;
+            // let nowIndex = parseInt(this.tabIndex) - 1;
+            // console.log(val);
+            // console.log(nowIndex);
             if(idcontent.Sex == "男") {
                 idcontent.Sex = "M"
             } else {
                 idcontent.Sex = "F";
             }
-            setTimeout(function() {
-                this.naturalData[nowIndex].custSex = idcontent.Sex;
-                this.naturalData[nowIndex].custAge = idcontent.Age;
-            }.bind(this),100);
+            this.naturalData.forEach(function(item,index) {
+                item.custSex = idcontent.Sex;
+                item.custAge = idcontent.Age;
+            })
+            console.log(this.naturalData)
+            // setTimeout(function() {
+            //     this.naturalData[nowIndex].custSex = idcontent.Sex;
+            //     this.naturalData[nowIndex].custAge = idcontent.Age;
+            // }.bind(this),100);
         },
         idNumberType(val) {
             let idcontent = this.$idCard.IDcode(val);
@@ -1006,6 +1100,10 @@ export default {
                 delete item.name;
             });
         },
+        handlePictureCardPreview(file) { // 图片浏览功能
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
         // 整合所有tab的数据
         allTabData() {
 
@@ -1082,7 +1180,8 @@ export default {
         otherLiabilities,
         plant,
         agriculture,
-        otherIncome
+        otherIncome,
+        imgUpload
     }
 }
 </script>
@@ -1135,6 +1234,20 @@ export default {
     .bottomButtonDiv {
         width: 200px;
         margin: 20px auto;
+    }
+    .imgbox {
+        border: 1px solid #EBEEF5;
+        margin: 20px 0px;
+        border-bottom: 0;
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            background: #f5f5f5;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 15px;
+            color: #585858;
+        }
     }
 }
 </style>

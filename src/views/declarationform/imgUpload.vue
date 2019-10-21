@@ -4,6 +4,10 @@
             <p class="imgtitlename">{{name.value}}</p>
         </div>
         <div class="edit-pic">
+            <!-- <el-image
+            style="width: 100px; height: 100px"
+            :src="url"
+            :preview-src-list="srcList"> -->
             <el-upload
                     :limit="Number(6)"
                     :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
@@ -17,6 +21,7 @@
                     list-type="picture-card">
                 <i class="el-icon-plus"></i>
             </el-upload>
+          <!-- </el-image> -->
         </div>
 
     </li>
@@ -29,12 +34,13 @@
     export default {
         data() {
             return {
-                bussNo: '',
                 fileList: [],
-                token: ''
+                token: '',
+                url: '',
+                srcList: '',
             }
         },
-        props: ['name', 'type', 'relationId', 'disabled'],
+        props: ['name', 'type', 'relationId', 'disabled','bussNo'],
         created() {
             /**
              * 思路：
@@ -45,6 +51,9 @@
              */
             this.query();
             this.token = Cookies.get('token');
+        },
+        mounted() {
+            
         },
         methods: {
             async query() {
@@ -67,7 +76,6 @@
                 let id = '';
                 console.log(file);
                 if (file.id) {
-
                     id = file.id;
                 } else {
                     id = file.response.data.id;

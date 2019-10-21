@@ -735,12 +735,12 @@ export default {
     data() {
         return {
             message: '', //title
-            partnerTypeData: '', //头部商业伙伴类型下拉框
             maritalStatus: '',
             editableTabsValue: '1',
             matchingId: '', // 匹配按钮的身份证号
             otherData: [],//用来储存warrantorDatas 承租人数组数据，因为删除页签之后会出现问题
             warrantorDatas: [{
+                partnerTypeData: 'NAT',//头部商业伙伴类型下拉框
                 id: '',
                 partnerType: '', //商业伙伴类型
                 title: '保证人',
