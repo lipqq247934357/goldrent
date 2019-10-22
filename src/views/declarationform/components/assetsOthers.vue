@@ -36,7 +36,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                     <td>是否抵押</td>
                     <td>

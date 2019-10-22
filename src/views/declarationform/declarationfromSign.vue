@@ -19,7 +19,7 @@
                 <guarantor :bussNo="bussNo" :rulesField="rulesField" @childVal="childVal" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.repurchase" :name="list.repurchase">
-                <buybackpeople />
+                <buybackpeople :rulesField="rulesField" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.leasegoods" :name="list.leasegoods">
                 <leasehold />
@@ -88,6 +88,7 @@ export default {
         // 字典编码
         this.$post('/getConstantConfig', {
             dictionaryCode: [
+                'overdueDays', //回购条件
                 'leaseMode',  //租赁模式选项
                 'comNature', //企业性质
                 'agencyLevel', //经销商层级
@@ -125,6 +126,7 @@ export default {
                 'marriageSettlement', //有无离婚协议
                 'rebateDate', //返利时间
                 'invoice', //是否有发票
+                'certEndDateOption', //证件长期有效
             ]
         }).then(res => {
             if(res.data.code == 2000000) {

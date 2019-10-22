@@ -1241,6 +1241,7 @@ export default {
             line-height: 50px;
             text-align: center;
             border: 1px solid #e5e5e5;
+            position: relative;
             .inputLessinfo {
                 width: 80%;
             }

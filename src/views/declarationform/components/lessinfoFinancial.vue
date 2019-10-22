@@ -20,7 +20,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                     <td>股票</td>
                     <td>
@@ -30,7 +33,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -42,7 +48,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                     <td>理财产品</td>
                     <td>
@@ -52,7 +61,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -64,7 +76,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                 </tr>
 

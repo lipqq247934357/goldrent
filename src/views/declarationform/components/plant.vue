@@ -24,7 +24,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 亩
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            亩
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -36,7 +39,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 亩
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            亩
+                        </span>
                     </td>
                     <td>单亩收入</td>
                     <td>
@@ -46,7 +52,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                 </tr>
                 <tr>
@@ -58,7 +67,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
 
                 </tr>

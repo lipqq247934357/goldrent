@@ -24,13 +24,19 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                 </tr>
                 <tr>
                     <td>至今账龄</td>
                     <td>
-                        <el-input type="text" v-model="item.debtMaturity" class="inputLessinfo"></el-input> 月
+                        <el-input type="text" v-model="item.debtMaturity" class="inputLessinfo"></el-input>
+                        <span style="position:absolute;right: 10px;">
+                            月
+                        </span>
                     </td>
                     <td>有无担保</td>
                     <td>

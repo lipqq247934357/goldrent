@@ -21,6 +21,9 @@
                             :step="0.1"
                             >
                         </el-input-number> 亩
+                        <span style="position:absolute;right: 10px;">
+                            亩
+                        </span>
                     </td>
                     <td>是否抵押</td>
                     <td>
@@ -42,7 +45,10 @@
                             :precision="2"
                             :step="0.1"
                             >
-                        </el-input-number> 元
+                        </el-input-number>
+                        <span style="position:absolute;right: 10px;">
+                            元
+                        </span>
                     </td>
                     <td>土地地址坐落</td>
                     <td>
@@ -52,7 +58,10 @@
                 <tr>
                     <td>承包期限</td>
                     <td>
-                        <el-input type="text" v-model="item.contractLife" class="inputLessinfo"></el-input> 年
+                        <el-input type="text" v-model="item.contractLife" class="inputLessinfo"></el-input>
+                        <span style="position:absolute;right: 10px;">
+                            年
+                        </span>
                     </td>
                     <td>核实方法</td>
                     <td>

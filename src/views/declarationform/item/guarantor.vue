@@ -14,8 +14,10 @@
                     </div>
                     <div class="matchingText">
                         <el-select
-                            v-model="item.partnerTypeData"
+                            style="width: 90%;"
+                            v-model="item.partnerType"
                             class="inputLessinfo"
+                            @change="friendType"
                             placeholder="请选择">
                             <el-option
                                 v-for="items in rulesField.partnerType"
@@ -43,8 +45,7 @@
                     保证人信息
                 </div>
                 <!-- 保证人人信息表格 自然人 -->
-
-                <table class="lessinfoTbale" v-if="item.partnerTypeData == 'NAT'">
+                <table class="lessinfoTbale" v-if="item.partnerType == 'NAT'">
                     <tr>
                         <td>姓名</td>
                         <td>
@@ -192,21 +193,22 @@
                 </table>
 
                 <!-- 保证人信息法人 -->
-                <table class="lessinfoTbale"  v-if="item.partnerTypeData == 'LEG'">
+                <table class="lessinfoTbale"  v-if="item.partnerType == 'LEG'">
                     <tr>
                         <td>商业伙伴全称</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comFullname"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
+
                         <td>统一社会信用代码</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.socialSerial"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -216,37 +218,42 @@
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.partnerSerial"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>证件生效时间</td>
                         <td>
                             <el-date-picker
-                                    class="input-width"
+                                    class="input-width inputLessinfo"
                                     placeholder="选择日期"
                                     type="date"
-                                    v-model="item.custName"
+                                    v-model="item.certStartDate"
                                     value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
                     </tr>
                     <tr>
+
                         <td>证件长期有效</td>
                         <td>
-                            <el-input
-                                type="text"
-                                v-model="item.custName"
-                                class="inputLessinfo">
-                            </el-input>
+                            <el-select v-model="item.certEndDateOption" class="inputLessinfo" placeholder="请选择">
+                                <el-option
+                                    v-for="items in rulesField.certEndDateOption"
+                                    :key="items.optionCode"
+                                    :label="items.optionName"
+                                    :value="items.optionCode">
+                                </el-option>
+                            </el-select>
                         </td>
+
                         <td>证件失效时间</td>
                         <td>
                             <el-date-picker
-                                    class="input-width"
+                                    class="input-width inputLessinfo"
                                     placeholder="选择日期"
                                     type="date"
-                                    v-model="item.custName"
+                                    v-model="item.legalCertDeadline"
                                     value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
@@ -256,53 +263,63 @@
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comNature"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
+
                         <td>所属行业</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comIndustry"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
                     <tr>
+
                         <td>注册资本</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comRegisteredCapital"
                                 class="inputLessinfo">
-                            </el-input> 万元
+                            </el-input>
+                            <span style="position:absolute;right: 10px;">
+                                万元
+                            </span>
                         </td>
                         <td>成立时间</td>
                         <td>
                             <el-date-picker
-                                    class="input-width"
+                                    class="input-width inputLessinfo"
                                     placeholder="选择日期"
                                     type="date"
-                                    v-model="item.custName"
+                                    v-model="item.comEstablishDate"
                                     value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
                     </tr>
                     <tr>
+
                         <td>营业收入</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comIncome"
                                 class="inputLessinfo">
-                            </el-input> 万元
+                            </el-input>
+                            <span style="position:absolute;right: 10px;">
+                                万元
+                            </span>
                         </td>
+
                         <td>经营范围</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comScope"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -312,49 +329,54 @@
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comAddress"
                                 class="inputLessinfo">
-                            </el-input> 万元
+                            </el-input>
                         </td>
                         <td>从业人数</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comMembers"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
                     <tr>
+
                         <td>资产总额</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.totalAssets"
                                 class="inputLessinfo">
-                            </el-input> 万元
+                            </el-input>
+                            <span style="position:absolute;right: 10px;">
+                                万元
+                            </span>
                         </td>
                         <td>企业规模</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.comScale"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
                     <tr>
+
                         <td>法定代表人</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.legalPerson"
                                 class="inputLessinfo">
-                            </el-input> 万元
+                            </el-input>
                         </td>
                         <td>法人证件类型</td>
                         <td>
-                            <el-select v-model="item.custName" class="inputLessinfo" placeholder="请选择">
+                            <el-select v-model="item.legalCertType" class="inputLessinfo" placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.certType"
                                     :key="items.optionCode"
@@ -365,21 +387,22 @@
                         </td>
                     </tr>
                     <tr>
+
                         <td>法人证件号码</td>
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.legalCertNo"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>法人证件失效时间</td>
                         <td>
                             <el-date-picker
-                                    class="input-width"
+                                    class="input-width inputLessinfo"
                                     placeholder="选择日期"
                                     type="date"
-                                    v-model="item.custName"
+                                    v-model="item.legalCertDeadline"
                                     value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
@@ -389,7 +412,7 @@
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.legalMobile"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -397,7 +420,7 @@
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.legalAddress"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -407,7 +430,7 @@
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.contactUser"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -415,7 +438,7 @@
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.contactAddress"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -425,7 +448,7 @@
                         <td>
                             <el-input
                                 type="text"
-                                v-model="item.custName"
+                                v-model="item.bankAccount"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -532,15 +555,9 @@
 
                 </table>
 
-                <!-- 承租人子女 -->
-                <!-- <lessinfochild
-                    ref="headerChild"
-                    v-if="item.hasChildren == 'Y'"
-                    :warrantorDatas="warrantorDatas"/> -->
-
                 <!-- 资产情况 -->
-                <componentitle :message="message='资产情况'" class="componentitle"  v-if="item.partnerTypeData == 'NAT'" />
-                <div class="assetsAll" v-if="item.partnerTypeData == 'NAT'">
+                <componentitle :message="message='资产情况'" class="componentitle"  v-if="item.partnerType == 'NAT'" />
+                <div class="assetsAll" v-if="item.partnerType == 'NAT'">
                     <!-- 房产 -->
                     <p class="tableTitle">房产（如有）</p>
                     <assets ref="house" :rulesField="rulesField" />
@@ -549,9 +566,6 @@
                     <p class="tableTitle">土地（含代收代耕）（如有）</p>
                     <lands ref="lands" :rulesField="rulesField"/>
 
-                    <!-- 金融资产 -->
-                    <!-- <p class="tableTitle">金融资产（如有）</p>
-                    <financial ref="financial" :rulesField="rulesField"/> -->
 
                     <!-- 自用车 -->
                     <p class="tableTitle">自用车（如有）</p>
@@ -566,8 +580,8 @@
                     <assetsOthers ref="assetsOthers" :rulesField="rulesField"/>
                 </div>
                 <!-- 负债情况 -->
-                <componentitle :message="message='负债情况'" class="componentitle"  v-if="item.partnerTypeData == 'NAT'" />
-                <div class="liabilitiesDiv"  v-if="item.partnerTypeData == 'NAT'">
+                <componentitle :message="message='负债情况'" class="componentitle"  v-if="item.partnerType == 'NAT'" />
+                <div class="liabilitiesDiv"  v-if="item.partnerType == 'NAT'">
                     <!-- 债务情况 -->
                     <p class="tableTitle">债务情况（如有）</p>
                     <debt ref="debt" :rulesField="rulesField" />
@@ -583,123 +597,20 @@
                 </div>
 
                 <!-- 收入情况 -->
-                <componentitle :message="message='收入情况'" class="componentitle"  v-if="item.partnerTypeData == 'NAT'" />
-                <div class="IncomeDiv"  v-if="item.partnerTypeData == 'NAT'">
+                <componentitle :message="message='收入情况'" class="componentitle"  v-if="item.partnerType == 'NAT'" />
+                <div class="IncomeDiv"  v-if="item.partnerType == 'NAT'">
                     <!-- 种植收入 -->
                     <p class="tableTitle">种植收入</p>
                     <plant ref="plant" :rulesField="rulesField" />
 
-                    <!-- 农机作业收入 -->
-                    <!-- <p class="tableTitle">农机作业收入</p>
-                    <agriculture ref="agriculture" :rulesField="rulesField" /> -->
+
 
                     <!-- 其他收入 -->
                     <p class="tableTitle">其他收入（如有）</p>
                     <guaranteeIncome ref="otherIncome" :rulesField="rulesField" />
-
-                    <!-- 收入偿债比 -->
-                    <!-- <p class="tableTitle" style="display:inline-block;">收入偿债比</p>
-                    <el-button
-                        @click="incomeComputed"
-                        type="primary"
-                        size="medium"
-                        class="matchingButton"
-                        style="float:right;background:#ff8f2b;border: 0;">
-                        计算
-                    </el-button> -->
-                    <!-- <table class="lessinfoTbale" v-for="(debtrepayment,index) in item.incomeDebtRatios">
-                         <tr>
-                            <td>结余合计</td>
-                            <td>
-                                <el-input-number
-                                    class="inputLessinfo"
-                                    v-model="debtrepayment.totalSurplus"
-                                    :precision="2"
-                                    :step="0.1"
-                                    >
-                                </el-input-number>
-                            </td>
-                            <td>年租金支出</td>
-                            <td>
-                                <el-input-number
-                                    class="inputLessinfo"
-                                    v-model="debtrepayment.annualRentalExpense"
-                                    :precision="2"
-                                    :step="0.1"
-                                    >
-                                </el-input-number>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>其他负债支出</td>
-                            <td>
-                                <el-input-number
-                                    class="inputLessinfo"
-                                    v-model="debtrepayment.otherDebtExpense"
-                                    :precision="2"
-                                    :step="0.1"
-                                    >
-                                </el-input-number>
-                            </td>
-                            <td>年支出合计</td>
-                            <td>
-                                <el-input-number
-                                    class="inputLessinfo"
-                                    v-model="debtrepayment.totalAnnualExpense"
-                                    :precision="2"
-                                    :step="0.1"
-                                    >
-                                </el-input-number>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>债偿比（年支出、年结余）</td>
-                            <td>
-                                <el-input-number
-                                    class="inputLessinfo"
-                                    v-model="debtrepayment.incomeDebtRatio"
-                                    :precision="2"
-                                    :step="0.1"
-                                    >
-                                </el-input-number>
-                            </td>
-                        </tr>
-                    </table> -->
                 </div>
 
-                <!-- 回款账户 -->
-                <!-- <componentitle :message="message='回款账户'" class="componentitle" /> -->
-                <!-- <p class="tableTitle">预计回款账户（如有）</p> -->
-                <!-- <table class="lessinfoTbale" v-for="(itemsName,index) in item.accountInfos">
-                    <tr>
-                        <td>账户名称</td>
-                        <td>
-                            <el-input
-                                type="text"
-                                v-model="itemsName.accountName"
-                                class="inputLessinfo">
-                            </el-input>
-                        </td>
-                        <td>开户银行</td>
-                        <td>
-                            <el-input
-                                type="text"
-                                class="inputLessinfo"
-                                v-model="itemsName.accountBank">
-                            </el-input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>银行账号</td>
-                        <td>
-                            <el-input
-                                type="text"
-                                v-model="itemsName.account"
-                                class="inputLessinfo">
-                            </el-input>
-                        </td>
-                    </tr>
-                </table> -->
+
 
             </el-tab-pane>
         </el-tabs>
@@ -740,11 +651,41 @@ export default {
             editableTabsValue: '1',
             matchingId: '', // 匹配按钮的身份证号
             otherData: [],//用来储存warrantorDatas 承租人数组数据，因为删除页签之后会出现问题
-            warrantorDatas: [{
-                partnerTypeData: 'NAT',//头部商业伙伴类型下拉框
+            warrantorDatass:[{ // 保证人为法人时
                 id: '',
                 partnerType: '', //商业伙伴类型
-                title: '保证人',
+                title: '保证人1',
+                name: '1',
+                comFullname: '', //商业伙伴全称
+                socialSerial: '', //统一社会信用代码
+                partnerSerial: '', //商业伙伴编码
+                certStartDate: '', //证件生效时间
+                certEndDateOption: '', //证件长期有效
+                legalCertDeadline: '', //证件失效时间
+                comNature: '', //企业性质
+                comIndustry: '', //所属行业
+                comRegisteredCapital: '', //注册资本
+                comEstablishDate: '', //成立时间
+                comIncome: '', //营业收入
+                comScope: '', //经营范围
+                comAddress: '', //营业地址
+                comMembers: '', //从业人数
+                totalAssets: '',//资产总额
+                comScale: '', //企业规模
+                legalPerson: '',//法定代表人
+                legalCertType: '', //法人证件类型
+                legalCertNo: '', //法人证件号码
+                legalCertDeadline: '',//法人证件失效时间
+                legalMobile: '',//法人电话,
+                legalAddress: '',//法人地址
+                contactUser: '',//联系人
+                contactAddress: '',//联系地址
+                bankAccount: '',//贷款卡号
+            }],
+            warrantorDatas: [{
+                id: '',
+                partnerType: 'NAT', //商业伙伴类型
+                title: '保证人1',
                 name: '1',
                 certNo: '', //身份证号码
                 residenceYears: '', //申请地居住年限
@@ -782,7 +723,6 @@ export default {
                     identityType: ''// 身份类型
                 }],
                 childrenInfo: [],
-                childrenInfo: [], //子女信息
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
                 assetsFinances: [],// 进入资产
@@ -793,28 +733,8 @@ export default {
                 debtGuarantees: [], //对外担保
                 debtOthers: [], //其他负债
                 incomePlants: [], //种植收入
-                incomeFarmMachineryWork: [],//农机作业收入
                 incomeOthers: [], //其他收入
-                incomeDebtRatios: [
-                    {
-                        id: '', //主键ID
-                        totalSurplus: '', //结余合计
-                        annualRentalExpense: '', //年租金支出
-                        otherDebtExpense: '', //其他负债支出
-                        totalAnnualExpense: '', //年支出合计
-                        incomeDebtRatio: '', //收入债偿比
-                        status: '' //状态
-                    }
-                ],
-                accountInfos:[
-                    {
-                        account: "", //银行账号
-                        accountBank: "", //开户银行
-                        accountName: "", //账户名称
-                    }
-                ]
             }],
-
             tabIndex: 1,
 
         }
@@ -830,13 +750,106 @@ export default {
         }
     },
     mounted() {
-        console.log(this.rulesField);
     },
     methods: {
+        friendType(val) {
+            this.warrantorDatas[this.tabChange -1] = [];
+            // 商业伙伴类型切换
+            let a = {
+                id: '',
+                partnerType: 'NAT', //商业伙伴类型
+                title: '保证人' + this.tabChange,
+                name: this.tabChange + '',
+                certNo: '', //身份证号码
+                residenceYears: '', //申请地居住年限
+                custSex: '', // 性别
+                cultureYears: '', //种植年限
+                custName: '', //承租人信息姓名
+                custEducation: '', //存储选中的教育程度
+                custType: '', //存储选中的客户类别
+                creditRating: '', //存储选中的征信报告
+                custMarriage: '', //存储选中的婚姻状况
+                marriageSettlement: '', //存储选中的离婚协议
+                custRelation: '', //与承租人关系
+                custHomeplace: '', // 户籍地址
+                custAddress: '', //现住址
+                custAge: '', //年龄
+                custWechat: '', // 微信
+                custMobile: '', // 电话
+                company: '',//工作单位
+                identityType: '',// 身份类型
+                mateInfo: [{
+                    certNo: '', //身份证号码
+                    residenceYears: '', //申请地居住年限
+                    custSex: '', // 性别
+                    cultureYears: '', //种植年限
+                    custName: '', //保证人信息姓名
+                    custEducation: '', //存储选中的教育程度
+                    custType: '', //存储选中的客户类别
+                    custMarriage: '', //存储选中的婚姻状况
+                    custHomeplace: '', // 户籍地址
+                    custAddress: '', //现住址
+                    custAge: '', //年龄
+                    custWechat: '', // 微信
+                    custMobile: '', // 电话
+                    company: '',//工作单位
+                    identityType: ''// 身份类型
+                }],
+                childrenInfo: [],
+                assetsHouses: [], //房产
+                assetsLands: [],//土地
+                assetsFinances: [],// 进入资产
+                assetsVehicles: [], //自用车
+                assetsFarmTools: [],//农机具
+                assetsOthers: [], //其他资产
+                debtSituations: [], //债务情况
+                debtGuarantees: [], //对外担保
+                debtOthers: [], //其他负债
+                incomePlants: [], //种植收入
+                incomeOthers: [], //其他收入
+            }
+            let b = {
+                id: '',
+                partnerType: 'LEG', //商业伙伴类型
+                title: '保证人' + this.tabChange,
+                name: this.tabChange + '',
+                comFullname: '', //商业伙伴全称
+                socialSerial: '', //统一社会信用代码
+                partnerSerial: '', //商业伙伴编码
+                certStartDate: '', //证件生效时间
+                certEndDateOption: '', //证件长期有效
+                legalCertDeadline: '', //证件失效时间
+                comNature: '', //企业性质
+                comIndustry: '', //所属行业
+                comRegisteredCapital: '', //注册资本
+                comEstablishDate: '', //成立时间
+                comIncome: '', //营业收入
+                comScope: '', //经营范围
+                comAddress: '', //营业地址
+                comMembers: '', //从业人数
+                totalAssets: '',//资产总额
+                comScale: '', //企业规模
+                legalPerson: '',//法定代表人
+                legalCertType: '', //法人证件类型
+                legalCertNo: '', //法人证件号码
+                legalCertDeadline: '',//法人证件失效时间
+                legalMobile: '',//法人电话,
+                legalAddress: '',//法人地址
+                contactUser: '',//联系人
+                contactAddress: '',//联系地址
+                bankAccount: '',//贷款卡号
+            };
+            if(val == 'LEG') {
+                this.$set(this.warrantorDatas,this.tabChange - 1,b);
+            } else {
+                this.$set(this.warrantorDatas,this.tabChange - 1,a)
+            }
 
+        },
         // 页签切换
         changeTables(val) {
             this.tabChange = val.name;
+            console.log(this.tabChange);
         },
 
         addTab(targetName) {
@@ -845,7 +858,7 @@ export default {
             this.otherData = this.warrantorDatas;
             this.warrantorDatas.push({
                 id: '',
-                partnerType: '', //商业伙伴类型
+                partnerType: 'NAT', //商业伙伴类型
                 title: '保证人' + newTabName,
                 name: newTabName,
                 certNo: '', //身份证号码
@@ -883,10 +896,8 @@ export default {
                     company: '',//工作单位
                     identityType: ''// 身份类型
                 }],
-                childrenInfo: [], //子女信息
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
-                assetsFinances: [],// 进入资产
                 assetsVehicles: [], //自用车
                 assetsFarmTools: [],//农机具
                 assetsOthers: [], //其他资产
@@ -894,29 +905,10 @@ export default {
                 debtGuarantees: [], //对外担保
                 debtOthers: [], //其他负债
                 incomePlants: [], //种植收入
-                incomeFarmMachineryWork: [],//农机作业收入
                 incomeOthers: [], //其他收入
-                incomeDebtRatios: [ //收入偿债比
-                    {
-                        id: '', //主键ID
-                        totalSurplus: '', //结余合计
-                        annualRentalExpense: '', //年租金支出
-                        otherDebtExpense: '', //其他负债支出
-                        totalAnnualExpense: '', //年支出合计
-                        incomeDebtRatio: '', //收入债偿比
-                        status: '' //状态
-                    }
-                ],
-                accountInfos:[
-                    {
-                        account: "", //银行账号
-                        accountBank: "", //开户银行
-                        accountName: "", //账户名称
-                    }
-                ]
+
             });
             this.editableTabsValue = newTabName;
-            console.log(this.warrantorDatas);
         },
         removeTab(targetName) {
 
@@ -945,11 +937,11 @@ export default {
             this.editableTabsValue = activeName;
             this.warrantorDatas = tabs.filter(tab => tab.name !== targetName);
 
-            // 当删除成功后后一项承租人继承前一项承租人index
+            // 当删除成功后后一项承租人继承前一项保证人人index
             this.warrantorDatas.forEach(function(item, index, arr) {
-                item.title = '承租人' + parseInt(index + 1);
+                item.title = '保证人' + parseInt(index + 1);
                 item.name = parseInt(index + 1) + '';
-                item.content = '承租人' + parseInt(index + 1);
+                item.content = '保证人' + parseInt(index + 1);
             })
             this.editableTabsValue = this.warrantorDatas.length + '';
             //主要防止于添加的时候错误
@@ -1121,10 +1113,10 @@ export default {
             this.warrantorDatas.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                 delete item.name;
                 delete item.title;
-                item.childrenInfo.forEach(function(subItem) { // 子女
-                    delete subItem.name;
-                    delete subItem.title;
-                });
+                // item.childrenInfo.forEach(function(subItem) { // 子女
+                //     delete subItem.name;
+                //     delete subItem.title;
+                // });
 
                 item.assetsHouses.forEach(function(subItem) { // 房产
                     delete subItem.name;
@@ -1136,10 +1128,10 @@ export default {
                     delete subItem.title;
                 });
 
-                item.assetsFinances.forEach(function(subItem) { // 金融资产
-                    delete subItem.name;
-                    delete subItem.title;
-                });
+                // item.assetsFinances.forEach(function(subItem) { // 金融资产
+                //     delete subItem.name;
+                //     delete subItem.title;
+                // });
 
                 item.assetsVehicles.forEach(function(subItem) { // 自用车
                     delete subItem.name;
@@ -1176,44 +1168,45 @@ export default {
                     delete subItem.title;
                 });
 
-                item.incomeFarmMachineryWork.forEach(function(subItem) { // 农机作业收入
-                    delete subItem.name;
-                    delete subItem.title;
-                });
+                // item.incomeFarmMachineryWork.forEach(function(subItem) { // 农机作业收入
+                //     delete subItem.name;
+                //     delete subItem.title;
+                // });
 
                 item.incomeOthers.forEach(function(subItem) { // 其他收入
                     delete subItem.name;
                     delete subItem.title;
                 });
             });
+            console.log(this.warrantorDatas);
             return;
             this.$post('/leasee/add',{
                 bussNo: this.bussNo,
                 data: this.warrantorDatas
             }).then(res => {
                 if(res.data.code == 2000000) {
-                    this.$message.success('承租人保存成功');
+                    this.$message.success('保证人保存成功');
                     this.warrantorDatas.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
                         item['name'] = index + 1 + '';
-                        item['title'] = '承租人' + parseInt( index + 1);
+                        item['title'] = '保证人' + parseInt( index + 1);
                         item.assetsHouses.forEach(function(subItem,indexs) {
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '房产' + parseInt( indexs + 1);
                         });
-                        item.childrenInfo.forEach(function(subItem,indexs) { // 子女
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '承租人子女' + parseInt( indexs + 1);
-                        });
+                        // item.childrenInfo.forEach(function(subItem,indexs) { // 子女
+                        //     subItem['name'] = indexs + 1 + '';
+                        //     subItem['title'] = '承租人子女' + parseInt( indexs + 1);
+                        // });
 
                         item.assetsLands.forEach(function(subItem,indexs) { // 土地
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '土地' + parseInt( indexs + 1);
                         });
 
-                        item.assetsFinances.forEach(function(subItem,indexs) { // 金融资产
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '金融资产' + parseInt( indexs + 1);
-                        });
+                        // item.assetsFinances.forEach(function(subItem,indexs) { // 金融资产
+                        //     subItem['name'] = indexs + 1 + '';
+                        //     subItem['title'] = '金融资产' + parseInt( indexs + 1);
+                        // });
 
                         item.assetsVehicles.forEach(function(subItem,indexs) { // 自用车
                             subItem['name'] = indexs + 1 + '';
@@ -1250,10 +1243,10 @@ export default {
                             subItem['title'] = '种植收入' + parseInt( indexs + 1);
                         });
 
-                        item.incomeFarmMachineryWork.forEach(function(subItem,indexs) { // 农机作业收入
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '农机作业收入' + parseInt( indexs + 1);
-                        });
+                        // item.incomeFarmMachineryWork.forEach(function(subItem,indexs) { // 农机作业收入
+                        //     subItem['name'] = indexs + 1 + '';
+                        //     subItem['title'] = '农机作业收入' + parseInt( indexs + 1);
+                        // });
 
                         item.incomeOthers.forEach(function(subItem,indexs) { // 其他收入
                             subItem['name'] = indexs + 1 + '';
@@ -1293,20 +1286,20 @@ export default {
             // console.log(this.$refs.agriculture,'农机作业收入') //农机作业收入
             // console.log(this.$refs.otherIncome,'其他收入') //其他收入
             // console.log(this.$refs.headerChild);
-            for(let i = 0; i < this.$refs.headerChild.length; i++) {
-                if(this.warrantorDatas[i].hasChildren == "Y") {
-                    this.warrantorDatas[i].childrenInfo = this.$refs.headerChild[i].childrenInfo
-                }
-            }
+            // for(let i = 0; i < this.$refs.headerChild.length; i++) {
+            //     if(this.warrantorDatas[i].hasChildren == "Y") {
+            //         this.warrantorDatas[i].childrenInfo = this.$refs.headerChild[i].childrenInfo
+            //     }
+            // }
             for(let i = 0; i < this.$refs.house.length; i++) {
                 this.warrantorDatas[i].assetsHouses = this.$refs.house[i].assetsHouses;
             }
             for(let i = 0; i < this.$refs.lands.length; i++) {
                 this.warrantorDatas[i].assetsLands = this.$refs.lands[i].assetsLands
             }
-            for(let i = 0; i < this.$refs.financial.length; i++) {
-                    this.warrantorDatas[i].assetsFinances = this.$refs.financial[i].assetsFinances
-            }
+            // for(let i = 0; i < this.$refs.financial.length; i++) {
+            //         this.warrantorDatas[i].assetsFinances = this.$refs.financial[i].assetsFinances
+            // }
             for(let i = 0; i < this.$refs.homecar.length; i++) {
                 this.warrantorDatas[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
             }
@@ -1328,9 +1321,9 @@ export default {
             for(let i = 0; i < this.$refs.plant.length; i++) {
                 this.warrantorDatas[i].incomePlants = this.$refs.plant[i].incomePlants
             }
-            for(let i = 0; i < this.$refs.agriculture.length; i++) {
-                this.warrantorDatas[i].incomeFarmMachineryWork = this.$refs.agriculture[i].incomeFarmMachineryWork
-            }
+            // for(let i = 0; i < this.$refs.agriculture.length; i++) {
+            //     this.warrantorDatas[i].incomeFarmMachineryWork = this.$refs.agriculture[i].incomeFarmMachineryWork
+            // }
             for(let i = 0; i < this.$refs.otherIncome.length; i++) {
                 this.warrantorDatas[i].incomeOthers = this.$refs.otherIncome[i].incomeOthers
             }
