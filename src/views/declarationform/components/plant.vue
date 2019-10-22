@@ -23,6 +23,7 @@
                             v-model="item.plantArea"
                             :precision="2"
                             :step="0.1"
+                            :min="0.00"
                             >
                         </el-input-number>
                         <span style="position:absolute;right: 10px;">
@@ -38,6 +39,7 @@
                             v-model="item.oneCost"
                             :precision="2"
                             :step="0.1"
+                            :min="0.00"
                             >
                         </el-input-number>
                         <span style="position:absolute;right: 10px;">
@@ -51,6 +53,7 @@
                             v-model="item.oneIncome"
                             :precision="2"
                             :step="0.1"
+                            :min="0.00"
                             >
                         </el-input-number>
                         <span style="position:absolute;right: 10px;">
@@ -66,6 +69,7 @@
                             v-model="item.surplus"
                             :precision="2"
                             :step="0.1"
+                            :min="0.00"
                             >
                         </el-input-number>
                         <span style="position:absolute;right: 10px;">

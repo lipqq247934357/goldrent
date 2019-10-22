@@ -19,7 +19,7 @@
                 <guarantor :bussNo="bussNo" :rulesField="rulesField" @childVal="childVal" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.repurchase" :name="list.repurchase">
-                <buybackpeople :rulesField="rulesField" />
+                <buybackpeople :bussNo="bussNo" :rulesField="rulesField" />
             </el-tab-pane>
             <el-tab-pane :lazy="true" :label="list.leasegoods" :name="list.leasegoods">
                 <leasehold />

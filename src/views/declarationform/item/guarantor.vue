@@ -629,10 +629,8 @@
 
 <script  type="text/ecmascript-6">
 import componentitle from '../../../components/title/title.vue';
-import lessinfochild from '../components/lessinfochild.vue'; // 承租人子女
 import assets from '../components/assets.vue'; // 资产情况
 import lands from '../components/lands.vue'; // 土地（含代收代耕）（如有）
-import financial from '../components/lessinfoFinancial.vue'; // 金融资产
 import homecar from '../components/homeCar.vue'; // 自用车
 import farmtools from '../components/farmTools.vue'; // 农机具
 import assetsOthers from '../components/assetsOthers.vue'; // 其他资产
@@ -640,7 +638,6 @@ import debt from '../components/debt.vue'; // 债务情况
 import guarantee from '../components/guarantee.vue'; // 对外担保
 import otherLiabilities from '../components/otherLiabilities.vue'; // 其他负债
 import plant from '../components/plant.vue'; // 种植收入
-import agriculture from '../components/agriculture.vue'; // 农机作业收入
 import guaranteeIncome from '../components/guaranteeIncome.vue'; // 其他收入
 export default {
     data() {
@@ -798,7 +795,6 @@ export default {
                 childrenInfo: [],
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
-                assetsFinances: [],// 进入资产
                 assetsVehicles: [], //自用车
                 assetsFarmTools: [],//农机具
                 assetsOthers: [], //其他资产
@@ -1113,11 +1109,9 @@ export default {
             this.warrantorDatas.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                 delete item.name;
                 delete item.title;
-                // item.childrenInfo.forEach(function(subItem) { // 子女
-                //     delete subItem.name;
-                //     delete subItem.title;
-                // });
-
+                if(item.partnerType == 'LEG') {
+                    return;
+                }
                 item.assetsHouses.forEach(function(subItem) { // 房产
                     delete subItem.name;
                     delete subItem.title;
@@ -1128,10 +1122,6 @@ export default {
                     delete subItem.title;
                 });
 
-                // item.assetsFinances.forEach(function(subItem) { // 金融资产
-                //     delete subItem.name;
-                //     delete subItem.title;
-                // });
 
                 item.assetsVehicles.forEach(function(subItem) { // 自用车
                     delete subItem.name;
@@ -1168,10 +1158,6 @@ export default {
                     delete subItem.title;
                 });
 
-                // item.incomeFarmMachineryWork.forEach(function(subItem) { // 农机作业收入
-                //     delete subItem.name;
-                //     delete subItem.title;
-                // });
 
                 item.incomeOthers.forEach(function(subItem) { // 其他收入
                     delete subItem.name;
@@ -1179,8 +1165,7 @@ export default {
                 });
             });
             console.log(this.warrantorDatas);
-            return;
-            this.$post('/leasee/add',{
+            this.$post('/warrantor/add',{
                 bussNo: this.bussNo,
                 data: this.warrantorDatas
             }).then(res => {
@@ -1193,20 +1178,14 @@ export default {
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '房产' + parseInt( indexs + 1);
                         });
-                        // item.childrenInfo.forEach(function(subItem,indexs) { // 子女
-                        //     subItem['name'] = indexs + 1 + '';
-                        //     subItem['title'] = '承租人子女' + parseInt( indexs + 1);
-                        // });
+
 
                         item.assetsLands.forEach(function(subItem,indexs) { // 土地
                             subItem['name'] = indexs + 1 + '';
                             subItem['title'] = '土地' + parseInt( indexs + 1);
                         });
 
-                        // item.assetsFinances.forEach(function(subItem,indexs) { // 金融资产
-                        //     subItem['name'] = indexs + 1 + '';
-                        //     subItem['title'] = '金融资产' + parseInt( indexs + 1);
-                        // });
+
 
                         item.assetsVehicles.forEach(function(subItem,indexs) { // 自用车
                             subItem['name'] = indexs + 1 + '';
@@ -1243,10 +1222,6 @@ export default {
                             subItem['title'] = '种植收入' + parseInt( indexs + 1);
                         });
 
-                        // item.incomeFarmMachineryWork.forEach(function(subItem,indexs) { // 农机作业收入
-                        //     subItem['name'] = indexs + 1 + '';
-                        //     subItem['title'] = '农机作业收入' + parseInt( indexs + 1);
-                        // });
 
                         item.incomeOthers.forEach(function(subItem,indexs) { // 其他收入
                             subItem['name'] = indexs + 1 + '';
@@ -1286,20 +1261,14 @@ export default {
             // console.log(this.$refs.agriculture,'农机作业收入') //农机作业收入
             // console.log(this.$refs.otherIncome,'其他收入') //其他收入
             // console.log(this.$refs.headerChild);
-            // for(let i = 0; i < this.$refs.headerChild.length; i++) {
-            //     if(this.warrantorDatas[i].hasChildren == "Y") {
-            //         this.warrantorDatas[i].childrenInfo = this.$refs.headerChild[i].childrenInfo
-            //     }
-            // }
+
             for(let i = 0; i < this.$refs.house.length; i++) {
                 this.warrantorDatas[i].assetsHouses = this.$refs.house[i].assetsHouses;
             }
             for(let i = 0; i < this.$refs.lands.length; i++) {
                 this.warrantorDatas[i].assetsLands = this.$refs.lands[i].assetsLands
             }
-            // for(let i = 0; i < this.$refs.financial.length; i++) {
-            //         this.warrantorDatas[i].assetsFinances = this.$refs.financial[i].assetsFinances
-            // }
+
             for(let i = 0; i < this.$refs.homecar.length; i++) {
                 this.warrantorDatas[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
             }
@@ -1321,9 +1290,7 @@ export default {
             for(let i = 0; i < this.$refs.plant.length; i++) {
                 this.warrantorDatas[i].incomePlants = this.$refs.plant[i].incomePlants
             }
-            // for(let i = 0; i < this.$refs.agriculture.length; i++) {
-            //     this.warrantorDatas[i].incomeFarmMachineryWork = this.$refs.agriculture[i].incomeFarmMachineryWork
-            // }
+
             for(let i = 0; i < this.$refs.otherIncome.length; i++) {
                 this.warrantorDatas[i].incomeOthers = this.$refs.otherIncome[i].incomeOthers
             }
@@ -1331,10 +1298,8 @@ export default {
 },
     components: {
         componentitle,
-        lessinfochild,
         assets,
         lands,
-        financial,
         homecar,
         farmtools,
         assetsOthers,
@@ -1342,7 +1307,6 @@ export default {
         guarantee,
         otherLiabilities,
         plant,
-        agriculture,
         guaranteeIncome
     }
 }

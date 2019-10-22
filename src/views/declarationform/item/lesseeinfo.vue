@@ -519,16 +519,13 @@
     </div>
 
     <el-dialog
-        width="90%"
+        width="70%"
         :visible.sync="dialogVisible">
-        <img width="100%" :src="dialogImageUrl" alt="">
-        <!-- <div class="demo-image__preview">
-            <el-image
-                style="width: 100px; height: 100px"
-                :src="dialogImageUrl"
-                :preview-src-list="srcList">
-            </el-image>
-        </div> -->
+        <el-image
+            style="width: 100%; height: 100%"
+            :src="dialogImageUrl"
+            :preview-src-list="srcList">
+        </el-image>
     </el-dialog>
 </div>
 </template>
@@ -552,6 +549,7 @@ import imgUpload from '../imgUpload.vue'; //图片组件
 export default {
     data() {
         return {
+            imgsUrl: '',
             srcList: [],
             dialogImageUrl: '',
             dialogVisible: false,
@@ -650,11 +648,11 @@ export default {
         }
     },
     mounted() {
-        this.imgData();
     },
     methods: {
         handlePictureCardPreview(file) { // 图片浏览功能
             this.dialogImageUrl = file.url;
+
             this.dialogVisible = true;
         },
         addTab(targetName) {
@@ -771,9 +769,12 @@ export default {
         },
         imgData() {
             this.$post('/buss/materialTree',{
-                materialType: 'NATURE_MATERIAL',
+                bussNo: this.bussNo
             }).then(res => {
                 if(res.data.code == '2000000') {
+                    if(res.data.data.leaseholder.length == '0') {
+                        return;
+                    }
                     let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
                     let tempArr = [];
                     Object.keys(treeInfo).forEach((key) => {
@@ -792,10 +793,9 @@ export default {
         },
         // 联系电话关联微信号
         phoneChange(val) {
-
             let nowIndex = this.tabChange - 1;
             setTimeout(function() {
-                this.naturalData[nowIndex].mateInfo.custWechat = this.naturalData[nowIndex].mateInfo.custMobile;
+                this.naturalData[nowIndex].mateInfo[nowIndex].custWechat = this.naturalData[nowIndex].mateInfo[nowIndex].custMobile;
             }.bind(this),100);
         },
         natural(val) {
@@ -1032,6 +1032,7 @@ export default {
                 data: this.naturalData
             }).then(res => {
                 if(res.data.code == 2000000) {
+                    this.imgData();
                     this.$message.success('承租人保存成功');
                     this.naturalData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
                         item['name'] = index + 1 + '';
@@ -1115,8 +1116,9 @@ export default {
                 delete item.name;
             });
         },
-        handlePictureCardPreview(file) { // 图片浏览功能
+        handlePictureCardPreview(file,imgUrls) { // 图片浏览功能
             this.dialogImageUrl = file.url;
+            this.srcList.push(file.url);
             this.dialogVisible = true;
         },
         // 整合所有tab的数据
@@ -1137,12 +1139,12 @@ export default {
             // console.log(this.$refs.agriculture,'农机作业收入') //农机作业收入
             // console.log(this.$refs.otherIncome,'其他收入') //其他收入
             // this.tabsFor(this.naturalData)
-            // console.log(this.$refs.headerChild);
-            for(let i = 0; i < this.$refs.headerChild.length; i++) {
-                if(this.naturalData[i].hasChildren == "Y") {
+            if(this.naturalData[this.tabChange -1].hasChildren == "Y") {
+                for(let i = 0; i < this.$refs.headerChild.length; i++) {
                     this.naturalData[i].childrenInfo = this.$refs.headerChild[i].childrenInfo
                 }
             }
+
             for(let i = 0; i < this.$refs.house.length; i++) {
                 this.naturalData[i].assetsHouses = this.$refs.house[i].assetsHouses;
             }

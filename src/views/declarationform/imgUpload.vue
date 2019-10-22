@@ -38,7 +38,7 @@
                 token: '',
                 url: '',
                 srcList: [],
-
+                previewImgArr: [],
             }
         },
         props: ['name', 'type', 'relationId', 'disabled','bussNo'],
@@ -65,6 +65,8 @@
                 });
                 if (data.data.code === '2000000') { // 状态正确，执行更新操作
                     data.data.data.forEach((val) => {
+
+                        this.previewImgArr.push('/web/fileView?fileId=' + val.id);
                         let obj = {};
                         obj.id = val.id;
                         obj.url = '/web/fileView?fileId=' + val.id;
@@ -85,7 +87,7 @@
                 });
             },
             handlePictureCardPreview(file) { // 图片浏览功能
-                this.$emit('handlePictureCardPreview', file);
+                this.$emit('handlePictureCardPreview', file,this.previewImgArr);
             },
             onExceed(){
                 Message.error({message: '超出文件上传数量限制！', duration: 5 * 1000});
