@@ -15,7 +15,7 @@
                     <wantfactor ref="lease" :bussNo="bussNo" :bindText.sync="bindText" @saveData="lease"/>
                 </el-tab-pane>
                 <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
-                    <lesseeinfo :bussNo="bussNo" :rulesField="rulesField" @saveData="lesseeinfo" :bindText.sync="bindText"/>
+                    <lesseeinfo :bussNo="bussNo" :rulesField="rulesField" @saveData="rentpeople" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
                     <guarantor :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText"/>
