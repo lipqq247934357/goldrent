@@ -1,146 +1,137 @@
 <template>
     <div class="externalinfo">
-        <componentitle :message="message='征信信息查询'" />
+        <componentitle :message="message='征信信息查询'"/>
         <div class="">
             <h3>承租人征信状况描述（含配偶）</h3>
             <el-input
-                    type="textarea"
                     :rows="3"
                     class="inputtext"
                     placeholder="字数限制0-500字"
-                    v-model="textarea.lesseeCredit">
+                    type="textarea"
+                    v-model="surveyInformation.lesseeCredit">
             </el-input>
         </div>
         <div class="">
             <h3>保证人征信状况描述（含配偶）</h3>
             <el-input
-                    type="textarea"
                     :rows="3"
                     class="inputtext"
                     placeholder="字数限制0-500字"
-                    v-model="textarea.guarantorCredit">
+                    type="textarea"
+                    v-model="surveyInformation.guarantorCredit">
             </el-input>
         </div>
         <div class="">
             <h3>回购人征信状况描述（含实际控制人）</h3>
             <el-input
-                    type="textarea"
                     :rows="3"
                     class="inputtext"
                     placeholder="字数限制0-500字"
-                    v-model="textarea.repurchaseCredit">
+                    type="textarea"
+                    v-model="surveyInformation.repurchaseCredit">
             </el-input>
         </div>
 
-        <componentitle :message="message='中登网查询'" />
+        <componentitle :message="message='中登网查询'"/>
 
         <div class="">
             <h3>承租人中登网查询描述</h3>
             <el-input
-                    type="textarea"
                     :rows="3"
                     class="inputtext"
                     placeholder="字数限制0-500字"
-                    v-model="textarea.lesseeCreditZhongdeng">
+                    type="textarea"
+                    v-model="surveyInformation.lesseeCreditZhongdeng">
             </el-input>
         </div>
 
-        <componentitle :message="message='其他外部信息查询（含工商局信息、裁判文书网、失信被执行信息等）'" />
+        <componentitle :message="message='其他外部信息查询（含工商局信息、裁判文书网、失信被执行信息等）'"/>
 
         <div class="">
             <h3>承租人外部信息查询描述（含配偶）</h3>
             <el-input
-                    type="textarea"
                     :rows="3"
                     class="inputtext"
                     placeholder="字数限制0-500字"
-                    v-model="textarea.lesseeCreditExternal">
+                    type="textarea"
+                    v-model="surveyInformation.lesseeCreditExternal">
             </el-input>
         </div>
         <div class="">
             <h3>保证人外部信息查询描述（含配偶）</h3>
             <el-input
-                    type="textarea"
                     :rows="3"
                     class="inputtext"
                     placeholder="字数限制0-500字"
-                    v-model="textarea.guarantorCreditExternal">
+                    type="textarea"
+                    v-model="surveyInformation.guarantorCreditExternal">
             </el-input>
         </div>
         <div class="">
             <h3>回购人外部信息查询描述（含实际控制人）</h3>
             <el-input
-                    type="textarea"
                     :rows="3"
                     class="inputtext"
                     placeholder="字数限制0-500字"
-                    v-model="textarea.repurchaseCreditExternal">
+                    type="textarea"
+                    v-model="surveyInformation.repurchaseCreditExternal">
             </el-input>
         </div>
 
         <div class="buttonNext">
-            <el-button class="buttonClass" type="primary">保存</el-button>
-            <el-button class="buttonClass" type="primary">下一步</el-button>
+            <el-button @click="save('save')" class="buttonClass" type="primary">保存</el-button>
+            <el-button @click="save('next')" class="buttonClass" type="primary">下一步</el-button>
         </div>
     </div>
 </template>
 
-<script  type="text/ecmascript-6">
+<script type="text/ecmascript-6">
     import componentitle from '../../../components/title/title.vue';
+
     export default {
+        props: ['bussNo', 'bindText'],
         data() {
             return {
                 message: '',
-                textarea: {}, // ajax获取的主对象
-                inputdisabled: false
+                surveyInformation: {
+                    id:"",
+                    lesseeCredit: "",
+                    guarantorCredit: "",
+                    repurchaseCredit: "",
+                    lesseeCreditZhongdeng: "",
+                    lesseeCreditExternal: "",
+                    guarantorCreditExternal: "",
+                    repurchaseCreditExternal: ""
+                } // ajax获取的主对象
             }
         },
         created() {
-            this.$post('/surveyinformation/info',{
-                bussNo: this.$route.query.bussNo
-            }).then( res => {
-                // 返回示例
-                // {
-                //     "msg": "success",
-                //     "code": "2000000",
-                //     "data": {
-                //         "surveyInformation": {
-                //             "id": "8932f859056048379bdf60c2b1a5b182",
-                //             "version": 0,
-                //             "status": null,
-                //             "creator": "",
-                //             "createTime": "2019-04-12T02:19:36.000+0000",
-                //             "editor": "",
-                //             "editTime": "2019-04-12T02:19:36.000+0000",
-                //             "remark": null,
-                //             "bussNo": "test_data_for_app_0411_02",
-                //             "lesseeCredit": "someone1",
-                //             "guarantorCredit": "rela",
-                //             "repurchaseCredit": "",
-                //             "lesseeCreditZhongdeng": "",
-                //             "lesseeCreditExternal": "",
-                //             "guarantorCreditExternal": "",
-                //             "repurchaseCreditExternal": ""
-                //         },
-                //         "bussNo": "test_data_for_app_0411_02"
-                //     }
-                // }
-                if(res.data.code == '2000000') {
-                    if(res.data.data.surveyInformation == null) {
-                        return;
-                    }
-                    this.textarea = res.data.data.surveyInformation;
-                }
-            });
-            if(this.$route.query.disabled == 1) {
-                this.inputdisabled = true;
-            } else {
-                this.inputdisabled = false;
-            }
+            this.getData(); // 外部信息查询
         },
         components: {
             componentitle,
 
+        },
+        methods: {
+            getData() {
+                this.$post('/surveyinformation/info', {
+                    bussNo: this.bussNo
+                }).then(res => {
+                    if (res.data.code == '2000000') {
+                        if (res.data.data.surveyInformation == null) {
+                            return;
+                        }
+                        this.surveyInformation = res.data.data.surveyInformation;
+                    }
+                });
+            },
+            save(param) { // 保存页面或者下一步
+                if (param === 'save') {
+                    this.$emit("saveData");
+                } else {
+                    this.$emit('update:bindText', '增信措施及综素')
+                }
+            }
         }
     }
 </script>
@@ -149,22 +140,22 @@
         h3 {
             padding-left: 15px;
             background: #f5f5f5;
-            margin: 0;
-            margin-top: -5px;
+            margin: -5px 0 0;
             position: relative;
             height: 50px;
             line-height: 50px;
             color: #585858;
             border: 1px solid #afafaf;
-            padding-left: 15px;
             font-size: 14px;
         }
+
         .inputtext {
             width: 100%;
             display: block;
             margin: 0 auto 20px;
+
             textarea {
-                border-radius: 0px;
+                border-radius: 0;
             }
         }
 

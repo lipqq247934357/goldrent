@@ -8,8 +8,12 @@
                     class="inputtext"
                     placeholder="字数限制0-500字"
                     type="textarea"
-                    v-model="item.conclusion">
+                    v-model="sponsor.conclusion">
             </el-input>
+        </div>
+        <div class="buttonNext">
+            <el-button @click="save('save')" class="buttonClass" type="primary">保存</el-button>
+            <el-button @click="save('next')" class="buttonClass" type="primary">下一步</el-button>
         </div>
     </div>
 </template>
@@ -18,26 +22,43 @@
     import componentitle from '../../../components/title/title.vue';
 
     export default {
+        props: ['bussNo', 'bindText'],
         components: {
             componentitle,
         },
         data() {
             return {
-                item:{},
                 message: '',
-                sponsor: '', //主办人
+                sponsor: {
+                    id: '',
+                    ownerId: '',
+                    ownerType: 'ZB',
+                    conclusion: ''
+                }
             }
         },
         created() {
-            // 主办人
-            this.$post('/getSurveyConclusion', {
-                bussNo: this.$route.query.bussNo,
-                ownerType: 'ZB'
-            }).then(res => {
-                if (res.data.code == '2000000') {
-                    this.sponsor = res.data.data;
+            this.getData();
+        },
+        methods: {
+            getData() {
+                // 主办人
+                this.$post('/getSurveyConclusion', {
+                    bussNo: this.bussNo,
+                    ownerType: 'ZB'
+                }).then(res => {
+                    if (res.data.code == '2000000' && res.data.data.length !== 0) {
+                        this.sponsor = res.data.data[0];
+                    }
+                });
+            },
+            save(param) { // 保存页面或者下一步
+                if (param === 'save') {
+                    this.$emit("saveData");
+                } else {
+                    this.$emit('update:bindText', '审批意见')
                 }
-            });
+            }
         }
     }
 </script>
