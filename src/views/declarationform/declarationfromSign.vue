@@ -15,13 +15,13 @@
                     <wantfactor ref="lease" :bussNo="bussNo" :bindText.sync="bindText" @saveData="lease"/>
                 </el-tab-pane>
                 <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
-                    <lesseeinfo :bussNo="bussNo" :rulesField="rulesField" @saveData="rentpeople" :bindText.sync="bindText"/>
+                    <lesseeinfo ref="rentpeople" :bussNo="bussNo" :rulesField="rulesField" @saveData="rentpeople" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
-                    <guarantor :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText"/>
+                    <guarantor ref="guarantor" :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :lazy="true"  :bussNo="bussNo" :label="list.repurchase" :name="list.repurchase">
-                    <buybackpeople :bussNo="bussNo" :rulesField="rulesField" @saveData="repurchase" :bindText.sync="bindText"/>
+                    <buybackpeople ref="repurchase" :bussNo="bussNo" :rulesField="rulesField" @saveData="repurchase" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :label="list.leasehold" :name="list.leasehold">
                     <leasehold ref="leasehold" :bussNo="bussNo" :bindText.sync="bindText" @saveData="leasehold"/>
