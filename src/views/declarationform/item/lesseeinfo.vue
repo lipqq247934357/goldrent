@@ -640,7 +640,7 @@ export default {
     },
     created() {
     },
-    props: ['rulesField'],
+    props: ['rulesField','bussNo'],
     mounted() {
     },
     methods: {
@@ -652,6 +652,10 @@ export default {
             }).then(res => {
                 if (res.data.code == '2000000') {
                     console.log(res.data);
+                    if(res.data.data.length == '0') {
+                        return;
+                    }
+                    this.naturalData = res.data.data;
                 }
             });
         },
