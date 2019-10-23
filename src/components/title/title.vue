@@ -54,7 +54,7 @@ export default {
         position: relative;
         padding-bottom: 5px;
         margin-top: 20px;
-        span {
+        > span {
             margin-left: 15px;
         }
         label {
