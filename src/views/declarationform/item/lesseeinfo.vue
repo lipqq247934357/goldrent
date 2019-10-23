@@ -651,11 +651,15 @@ export default {
                 taskType:"10"
             }).then(res => {
                 if (res.data.code == '2000000') {
-                    console.log(res.data);
-                    if(res.data.data.length == '0') {
-                        return;
+                    if(res.data.data) {
+                        this.naturalData = res.data.data.data;
+                        console.log(this.naturalData);
+                        this.naturalData.forEach(function(item,index) {
+                            console.log(item);
+                            item['name'] = index + 1 + '';
+                            item['title'] = "承租人" + parseInt(index + 1);
+                        });
                     }
-                    this.naturalData = res.data.data;
                 }
             });
         },
@@ -966,6 +970,7 @@ export default {
         save(param) { // 保存页面或者下一步
             if(param === 'save'){
                 this.$emit("saveData");
+                // this.imgData();
             }else{
                 this.$emit('update:bindText','保证人信息')
             }

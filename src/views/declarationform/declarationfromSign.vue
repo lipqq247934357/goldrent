@@ -78,6 +78,7 @@
                 rulesField: {}, // 字典编码
                 bussNo:'',
                 leaseInfoData: [],// 承租人
+                guarantorData: [], // 保证人数据
             }
         },
         created() {
@@ -182,14 +183,10 @@
             },
             rentpeople() {
                 this.leaseInfoData = this.$refs.rentpeople.naturalData;
-                console.log(this.leaseInfoData);
-                // this.allTabData(this.leaseInfoData);
                 this.leaseInfoData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                     delete item.name;
                     delete item.title;
-                    // if(item.childrenInfo.length == '0') {
-                    //     return;
-                    // }
+
                     item.childrenInfo.forEach(function(subItem) { // 子女
                         delete subItem.name;
                         delete subItem.title;
@@ -333,7 +330,134 @@
                 });
             },
             guarantor() {
+                this.guarantorData = this.$refs.rentpeople.warrantorDatas;
+                this.guarantorData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
+                    delete item.name;
+                    delete item.title;
+                    if(item.partnerType == 'LEG') {
+                        return;
+                    } else {
+                        item.assetsHouses.forEach(function(subItem) { // 房产
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
 
+                        item.assetsLands.forEach(function(subItem) { // 土地
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+
+
+                        item.assetsVehicles.forEach(function(subItem) { // 自用车
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+
+                        item.assetsFarmTools.forEach(function(subItem) { // 农机具
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+
+                        item.assetsOthers.forEach(function(subItem) { // 其他资产
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+
+                        item.debtSituations.forEach(function(subItem) { // 债务情况
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+
+                        item.debtGuarantees.forEach(function(subItem) { // 对外担保
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+
+                        item.debtOthers.forEach(function(subItem) { // 其他负债
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+
+                        item.incomePlants.forEach(function(subItem) { // 种植收入
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+
+
+                        item.incomeOthers.forEach(function(subItem) { // 其他收入
+                            delete subItem.name;
+                            delete subItem.title;
+                        });
+                    }
+
+                });
+                console.log(this.warrantorDatas);
+                this.$post('/warrantor/add',{
+                    bussNo: this.bussNo,
+                    data: this.warrantorDatas
+                }).then(res => {
+                    if(res.data.code == 2000000) {
+                        this.$message.success('保证人保存成功');
+                        this.warrantorDatas.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
+                            item['name'] = index + 1 + '';
+                            item['title'] = '保证人' + parseInt( index + 1);
+                            item.assetsHouses.forEach(function(subItem,indexs) {
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '房产' + parseInt( indexs + 1);
+                            });
+
+
+                            item.assetsLands.forEach(function(subItem,indexs) { // 土地
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '土地' + parseInt( indexs + 1);
+                            });
+
+
+
+                            item.assetsVehicles.forEach(function(subItem,indexs) { // 自用车
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '自用车' + parseInt( indexs + 1);
+                            });
+
+                            item.assetsFarmTools.forEach(function(subItem,indexs) { // 农机具
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '农机具' + parseInt( indexs + 1);
+                            });
+
+                            item.assetsOthers.forEach(function(subItem,indexs) { // 其他资产
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '其他资产' + parseInt( indexs + 1);
+                            });
+
+                            item.debtSituations.forEach(function(subItem,indexs) { // 债务情况
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '债务情况' + parseInt( indexs + 1);
+                            });
+
+                            item.debtGuarantees.forEach(function(subItem,indexs) { // 对外担保
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '对外担保' + parseInt( indexs + 1);
+                            });
+
+                            item.debtOthers.forEach(function(subItem,indexs) { // 其他负债
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '其他负债' + parseInt( indexs + 1);
+                            });
+
+                            item.incomePlants.forEach(function(subItem,indexs) { // 种植收入
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '种植收入' + parseInt( indexs + 1);
+                            });
+
+
+                            item.incomeOthers.forEach(function(subItem,indexs) { // 其他收入
+                                subItem['name'] = indexs + 1 + '';
+                                subItem['title'] = '其他收入' + parseInt( indexs + 1);
+                            });
+                        });
+                        this.$emit('childVal',this.warrantorDatas); // 子传父 承租人数据传递给父组件
+                     }
+                });
             },
             repurchase() {
 

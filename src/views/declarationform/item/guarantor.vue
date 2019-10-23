@@ -616,10 +616,10 @@
         </el-tabs>
         <!-- 底部按钮 -->
         <div class="bottomButtonDiv matchingDiv">
-            <el-button type="primary" size="medium" class="matchingButton" @click="save">
+            <el-button type="primary" size="medium" class="matchingButton" @click="save('save')">
                 保存
             </el-button>
-            <el-button type="primary" size="medium" class="matchingButton" @click="next">
+            <el-button type="primary" size="medium" class="matchingButton" @click="save('next')">
                 下一步
             </el-button>
         </div>
@@ -738,17 +738,27 @@ export default {
     },
     created() {
     },
-    props: {
-        rulesField: {
-            type: Object
-        },
-        bussNo: {
-            type: String
-        }
-    },
+    props: ['rulesField','bussNo'],
     mounted() {
     },
     methods: {
+        getData() {
+            this.$post('/warrantor/info',{
+                bussNo: this.bussNo,
+                taskType:"10"
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    if(res.data.data) {
+                        this.warrantorDatas = res.data.data.data;
+                        this.warrantorDatas.forEach(function(item,index) {
+                            console.log(item);
+                            item['name'] = index + 1 + '';
+                            item['title'] = "保证人" + parseInt(index + 1);
+                        });
+                    }
+                }
+            });
+        },
         friendType(val) {
             this.warrantorDatas[this.tabChange -1] = [];
             // 商业伙伴类型切换
@@ -1103,8 +1113,16 @@ export default {
                 console.log(this.$store.state.lessinfoAddress,this.$store.state.lessinfoNowAddress)
             }
         },
+        save(param) { // 保存页面或者下一步
+            if(param === 'save'){
+                this.$emit("saveData");
+                // this.imgData();
+            }else{
+                this.$emit('update:bindText','回购人信息')
+            }
+        },
         // 保存
-        save() {
+        saveData() {
             this.allTabData(this.warrantorDatas);
             this.warrantorDatas.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                 delete item.name;
