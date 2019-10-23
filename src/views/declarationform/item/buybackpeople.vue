@@ -258,10 +258,10 @@
         </el-tabs>
         <!-- 底部按钮 -->
         <div class="bottomButtonDiv matchingDiv">
-            <el-button type="primary" size="medium" class="matchingButton" @click="save">
+            <el-button type="primary" size="medium" class="matchingButton" @click="save('save')">
                 保存
             </el-button>
-            <el-button type="primary" size="medium" class="matchingButton" @click="next">
+            <el-button type="primary" size="medium" class="matchingButton" @click="save('next')">
                 下一步
             </el-button>
         </div>
@@ -348,18 +348,28 @@ export default {
     },
     created() {
     },
-    props: {
-        rulesField: {
-            type: Object
-        },
-        bussNo: {
-            type: String
-        }
-    },
+    props: ['rulesField','bussNo'],
     mounted() {
         this.imgData();
     },
     methods: {
+        getData() {
+            this.$post('/repurchase/info',{
+                bussNo: this.bussNo,
+                taskType:"10"
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    if(res.data.data.length != '0') {
+                        this.legalMan = res.data.data;
+                        // console.log(this.legalMan,111);
+                        res.data.data.forEach(function(item,index) {
+                            item['name'] = index + 1 + '';
+                            item['title'] = "保证人" + parseInt(index + 1);
+                        });
+                    }
+                }
+            });
+        },
         handlePictureCardPreview(file) { // 图片浏览功能
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
@@ -474,9 +484,16 @@ export default {
         changeTables(val) {
             this.tabChange = val.name;
         },
-
+        save(param) { // 保存页面或者下一步
+            if(param === 'save'){
+                this.$emit("saveData");
+                // this.imgData();
+            }else{
+                this.$emit('update:bindText','租赁物信息')
+            }
+        },
         // 保存
-        save() {
+        saveData() {
 
             this.legalMan.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                 delete item.name;

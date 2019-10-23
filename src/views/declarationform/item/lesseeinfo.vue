@@ -651,9 +651,9 @@ export default {
                 taskType:"10"
             }).then(res => {
                 if (res.data.code == '2000000') {
-                    if(res.data.data) {
+                    if(res.data.data.data.length != '0') {
                         this.naturalData = res.data.data.data;
-                        console.log(this.naturalData);
+                        console.log(this.naturalData,res.data.data.data);
                         this.naturalData.forEach(function(item,index) {
                             console.log(item);
                             item['name'] = index + 1 + '';

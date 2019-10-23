@@ -748,8 +748,8 @@ export default {
                 taskType:"10"
             }).then(res => {
                 if(res.data.code == '2000000') {
-                    if(res.data.data) {
-                        this.warrantorDatas = res.data.data.data;
+                    if(res.data.data.length != '0') {
+                        this.warrantorDatas = res.data.data.warrantorData;
                         this.warrantorDatas.forEach(function(item,index) {
                             console.log(item);
                             item['name'] = index + 1 + '';
@@ -1249,10 +1249,6 @@ export default {
                     this.$emit('childVal',this.warrantorDatas); // 子传父 承租人数据传递给父组件
                  }
             });
-        },
-        // 下一步
-        next() {
-            this.save();
         },
 
         tabsFor(arrList) {

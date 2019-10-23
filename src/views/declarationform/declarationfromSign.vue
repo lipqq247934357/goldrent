@@ -17,10 +17,10 @@
                 <el-tab-pane :label="list.rentpeople" :name="list.rentpeople">
                     <lesseeinfo ref="rentpeople" :bussNo="bussNo" :rulesField="rulesField" @saveData="rentpeople" :bindText.sync="bindText"/>
                 </el-tab-pane>
-                <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
+                <el-tab-pane :label="list.guarantor" :name="list.guarantor">
                     <guarantor ref="guarantor" :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText"/>
                 </el-tab-pane>
-                <el-tab-pane :lazy="true"  :bussNo="bussNo" :label="list.repurchase" :name="list.repurchase">
+                <el-tab-pane :bussNo="bussNo" :label="list.repurchase" :name="list.repurchase">
                     <buybackpeople ref="repurchase" :bussNo="bussNo" :rulesField="rulesField" @saveData="repurchase" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :label="list.leasehold" :name="list.leasehold">
@@ -79,6 +79,7 @@
                 bussNo:'',
                 leaseInfoData: [],// 承租人
                 guarantorData: [], // 保证人数据
+                repurchaseData: [], //回购人
             }
         },
         created() {
@@ -330,7 +331,8 @@
                 });
             },
             guarantor() {
-                this.guarantorData = this.$refs.rentpeople.warrantorDatas;
+                console.log(this.$refs.guarantor.warrantorDatas);
+                this.guarantorData = this.$refs.guarantor.warrantorDatas;
                 this.guarantorData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                     delete item.name;
                     delete item.title;
@@ -391,14 +393,14 @@
                     }
 
                 });
-                console.log(this.warrantorDatas);
+                console.log(this.guarantorData);
                 this.$post('/warrantor/add',{
                     bussNo: this.bussNo,
-                    data: this.warrantorDatas
+                    data: this.guarantorData
                 }).then(res => {
                     if(res.data.code == 2000000) {
                         this.$message.success('保证人保存成功');
-                        this.warrantorDatas.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
+                        this.guarantorData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
                             item['name'] = index + 1 + '';
                             item['title'] = '保证人' + parseInt( index + 1);
                             item.assetsHouses.forEach(function(subItem,indexs) {
@@ -455,12 +457,28 @@
                                 subItem['title'] = '其他收入' + parseInt( indexs + 1);
                             });
                         });
-                        this.$emit('childVal',this.warrantorDatas); // 子传父 承租人数据传递给父组件
                      }
                 });
             },
             repurchase() {
-
+                this.repurchaseData = this.$refs.repurchase.legalMan;
+                this.repurchaseData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
+                    delete item.name;
+                    delete item.title;
+                });
+                this.$post('repurchase/add',{
+                    bussNo: this.bussNo,
+                    legalMan: this.repurchaseData
+                }).then(res => {
+                    if(res.data.code == 2000000) {
+                        this.$message.success('回购人保存成功');
+                        this.repurchaseData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
+                            item['name'] = index + 1 + '';
+                            item['title'] = '承租人' + parseInt( index + 1);
+                        });
+                        // this.$emit('childVal',this.legalMan); // 子传父 承租人数据传递给父组件
+                     }
+                });
             },
             leasehold(activeName) { // 租赁物信息save方法
                 let leaseInfo = this.$refs.leasehold.rentInfo;
@@ -629,6 +647,7 @@
                 return val;
             },
             initData(activeName){
+                debugger;
                 let ref = this.getKey(activeName);
                 this.$refs[ref].getData();
             },
