@@ -143,22 +143,22 @@
                     this.bussNo = res.data.data.bussNo;
                 });
             },
-            // beforeLeave:function(activeName, oldActiveName){ // 切换处理
-            //     /**
-            //      * 思路:
-            //      *  1.获取新打开标签和以前标签的名字
-            //      *  2.通过名字获取对应的标签
-            //      *  3.通过对应的标签获取对应的数据 (通过ref获取)
-            //      *  4.对旧标签对应的数据执行保存操作
-            //      *  5.保存成功之后切换到新的页签
-            //      *  6.保存失败返回false，不跳转，弹出错误提示
-            //      *  7.return true
-            //      */
-            //
-            //     let ref = this.getKey(oldActiveName);
-            //     // 保存数据
-            //     return this[ref](activeName);
-            // },
+            beforeLeave:function(activeName, oldActiveName){ // 切换处理
+                /**
+                 * 思路:
+                 *  1.获取新打开标签和以前标签的名字
+                 *  2.通过名字获取对应的标签
+                 *  3.通过对应的标签获取对应的数据 (通过ref获取)
+                 *  4.对旧标签对应的数据执行保存操作
+                 *  5.保存成功之后切换到新的页签
+                 *  6.保存失败返回false，不跳转，弹出错误提示
+                 *  7.return true
+                 */
+
+                let ref = this.getKey(oldActiveName);
+                // 保存数据
+                return this[ref](activeName);
+            },
             lease(activeName) { // 租赁要素save方法
                 let leaseInfo = this.$refs.lease.leaseInfo;
                 let rentFactor = this.$refs.lease.rentFactor;

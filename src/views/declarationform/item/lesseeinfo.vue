@@ -651,6 +651,17 @@ export default {
     mounted() {
     },
     methods: {
+        getData() {
+            // 2.承租人
+            this.$post('/leasee/info', {
+                bussNo: this.bussNo,
+                taskType:"10"
+            }).then(res => {
+                if (res.data.code == '2000000') {
+                    console.log(res.data);
+                }
+            });
+        },
         handlePictureCardPreview(file) { // 图片浏览功能
             this.dialogImageUrl = file.url;
 
