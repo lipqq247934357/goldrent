@@ -505,10 +505,10 @@
 
                         <!-- 底部按钮 -->
                         <div class="bottomButtonDiv matchingDiv">
-                            <el-button type="primary" size="medium" class="matchingButton" @click="save">
+                            <el-button type="primary" size="medium" class="matchingButton" @click="save('save')">
                                 保存
                             </el-button>
-                            <el-button type="primary" size="medium" class="matchingButton" @click="next">
+                            <el-button type="primary" size="medium" class="matchingButton" @click="save('next')">
                                 下一步
                             </el-button>
                         </div>
@@ -640,19 +640,12 @@ export default {
     },
     created() {
     },
-    props: {
-        rulesField: {
-            type: Object
-        },
-        bussNo: {
-            type: String
-        }
-    },
+    props: ['rulesField'],
     mounted() {
     },
     methods: {
         getData() {
-            // 2.承租人
+            // 承租人详情
             this.$post('/leasee/info', {
                 bussNo: this.bussNo,
                 taskType:"10"
@@ -966,6 +959,13 @@ export default {
                 this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址
             }
         },
+        save(param) { // 保存页面或者下一步
+            if(param === 'save'){
+                this.$emit("saveData");
+            }else{
+                this.$emit('update:bindText','保证人信息')
+            }
+        },
         // 保存
         saveData() {
             this.allTabData(this.naturalData);
@@ -1116,10 +1116,6 @@ export default {
                  }
             });
         },
-        // 下一步
-        next() {
-            this.save();
-        },
 
         tabsFor(arrList) {
             arrList.forEach(function(item) {
@@ -1132,67 +1128,7 @@ export default {
             this.srcList.push(file.url);
             this.dialogVisible = true;
         },
-        // 整合所有tab的数据
-        allTabData() {
 
-            // console.log(assetschild);
-            // console.log(this.$refs.headerChild,'承租人子女') //承租人子女
-            // console.log(this.$refs.house,'房产')  //房产
-            // console.log(this.$refs.lands,'土地（含代收代耕）（如有）') //土地（含代收代耕）（如有）
-            // console.log(this.$refs.financial,'金融资产')  // 金融资产
-            // console.log(this.$refs.homecar,'自用车') // 自用车
-            // console.log(this.$refs.farmtools,'农机具') //农机具
-            // console.log(this.$refs.assetsOthers,'其他资产')  // 其他资产
-            // console.log(this.$refs.debt,'债务情况') // 债务情况
-            // console.log(this.$refs.guarantee,'对外担保') // 对外担保
-            // console.log(this.$refs.otherLiabilities,'其他负债')  // 其他负债
-            // console.log(this.$refs.plant,'种植收入') //种植收入
-            // console.log(this.$refs.agriculture,'农机作业收入') //农机作业收入
-            // console.log(this.$refs.otherIncome,'其他收入') //其他收入
-            // this.tabsFor(this.naturalData)
-            if(this.naturalData[this.tabChange -1].hasChildren == "Y") {
-                for(let i = 0; i < this.$refs.headerChild.length; i++) {
-                    this.naturalData[i].childrenInfo = this.$refs.headerChild[i].childrenInfo
-                }
-            }
-
-            for(let i = 0; i < this.$refs.house.length; i++) {
-                this.naturalData[i].assetsHouses = this.$refs.house[i].assetsHouses;
-            }
-            for(let i = 0; i < this.$refs.lands.length; i++) {
-                this.naturalData[i].assetsLands = this.$refs.lands[i].assetsLands
-            }
-            for(let i = 0; i < this.$refs.financial.length; i++) {
-                    this.naturalData[i].assetsFinances = this.$refs.financial[i].assetsFinances
-            }
-            for(let i = 0; i < this.$refs.homecar.length; i++) {
-                this.naturalData[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
-            }
-            for(let i = 0; i < this.$refs.farmtools.length; i++) {
-                this.naturalData[i].assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
-            }
-            for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
-                this.naturalData[i].assetsOthers = this.$refs.assetsOthers[i].assetsOthers
-            }
-            for(let i = 0; i < this.$refs.debt.length; i++) {
-                this.naturalData[i].debtSituations = this.$refs.debt[i].debtSituations
-            }
-            for(let i = 0; i < this.$refs.guarantee.length; i++) {
-                this.naturalData[i].debtGuarantees = this.$refs.guarantee[i].debtGuarantees
-            }
-            for(let i = 0; i < this.$refs.otherLiabilities.length; i++) {
-                this.naturalData[i].debtOthers = this.$refs.otherLiabilities[i].debtOthers
-            }
-            for(let i = 0; i < this.$refs.plant.length; i++) {
-                this.naturalData[i].incomePlants = this.$refs.plant[i].incomePlants
-            }
-            for(let i = 0; i < this.$refs.agriculture.length; i++) {
-                this.naturalData[i].incomeFarmMachineryWork = this.$refs.agriculture[i].incomeFarmMachineryWork
-            }
-            for(let i = 0; i < this.$refs.otherIncome.length; i++) {
-                this.naturalData[i].incomeOthers = this.$refs.otherIncome[i].incomeOthers
-            }
-        },
 },
     components: {
         componentitle,
