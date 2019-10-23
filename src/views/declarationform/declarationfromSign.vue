@@ -15,7 +15,7 @@
                     <wantfactor ref="lease" :bussNo="bussNo" :bindText.sync="bindText" @saveData="lease"/>
                 </el-tab-pane>
                 <el-tab-pane :label="list.rentpeople" :name="list.rentpeople">
-                    <lesseeinfo v-if="rulesField.length > 0" ref="rentpeople" :bussNo="bussNo" :rulesField="rulesField" @saveData="rentpeople" :bindText.sync="bindText"/>
+                    <lesseeinfo ref="rentpeople" :bussNo="bussNo" :rulesField="rulesField" @saveData="rentpeople" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
                     <guarantor ref="guarantor" :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText"/>
@@ -75,7 +75,7 @@
                     approvalOpinion: '审批意见'
                 },
                 bindText: '租赁要素',
-                rulesField: [], // 字典编码
+                rulesField: {}, // 字典编码
                 bussNo:'',
                 leaseInfoData: [],// 承租人
             }
