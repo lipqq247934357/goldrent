@@ -16,22 +16,25 @@
             <el-button @click="save('save')" class="buttonClass" type="primary">保存</el-button>
             <el-button @click="save('submit')" class="buttonClass" type="primary">提交</el-button>
         </div>
-
+        <xbPop :show.sync="showXB" :bussNo="bussNo"></xbPop>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import componentitle from '../../../components/title/title.vue';
+    import xbPop from '../components/selectXB.vue';
 
     export default {
         props: ['bussNo', 'bindText'],
         components: {
             componentitle,
+            xbPop
         },
         data() {
             return {
                 message: '',
                 opinion: {}, //主办人
+                showXB:false
             }
         },
         created() {
@@ -52,7 +55,7 @@
                 if (param == 'save') { // 保存数据
                     this.$emit("saveData");
                 } else { // 提交数据
-
+                    this.showXB = true;
                 }
             }
         }

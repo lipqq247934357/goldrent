@@ -605,11 +605,10 @@
                 });
             },
             evaluate(activeName) {
-                debugger
                 let sponsor = this.$refs.evaluate.sponsor;
                 return new Promise((resolve, reject) => {
                     // 主办人
-                    this.$post('/submitSurveyConclusion', {
+                    this.$post('/setSurveyEvaluation', {
                         bussNo: this.bussNo,
                         ...sponsor,
                         ownerType: 'ZB'
@@ -647,7 +646,6 @@
                 return val;
             },
             initData(activeName){
-                debugger;
                 let ref = this.getKey(activeName);
                 this.$refs[ref].getData();
             },
