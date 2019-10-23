@@ -14,14 +14,14 @@
                     <!--    bussNo:业务编号  bindText:跳转tabs   -->
                     <wantfactor ref="lease" :bussNo="bussNo" :bindText.sync="bindText" @saveData="lease"/>
                 </el-tab-pane>
-                <el-tab-pane :label="list.rentpeople" :name="list.rentpeople">
-                    <lesseeinfo :bussNo="bussNo" :rulesField="rulesField"/>
+                <el-tab-pane :lazy="true" :label="list.rentpeople" :name="list.rentpeople">
+                    <lesseeinfo :bussNo="bussNo" :rulesField="rulesField" @saveData="lesseeinfo" :bindText.sync="bindText"/>
                 </el-tab-pane>
-                <el-tab-pane :label="list.guarantor" :name="list.guarantor">
-                    <guarantor :bussNo="bussNo" :rulesField="rulesField"/>
+                <el-tab-pane :lazy="true" :label="list.guarantor" :name="list.guarantor">
+                    <guarantor :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText"/>
                 </el-tab-pane>
-                <el-tab-pane :bussNo="bussNo" :label="list.repurchase" :name="list.repurchase">
-                    <buybackpeople />
+                <el-tab-pane :lazy="true"  :bussNo="bussNo" :label="list.repurchase" :name="list.repurchase">
+                    <buybackpeople :bussNo="bussNo" :rulesField="rulesField" @saveData="repurchase" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :label="list.leasehold" :name="list.leasehold">
                     <leasehold ref="leasehold" :bussNo="bussNo" :bindText.sync="bindText" @saveData="leasehold"/>
