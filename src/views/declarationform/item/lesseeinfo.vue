@@ -501,21 +501,22 @@
                                         :type="val.key"
                                         @handlePictureCardPreview="handlePictureCardPreview"/>
                                 </ul>
-
                         </template>
+
+                        <!-- 底部按钮 -->
+                        <div class="bottomButtonDiv matchingDiv">
+                            <el-button type="primary" size="medium" class="matchingButton" @click="save">
+                                保存
+                            </el-button>
+                            <el-button type="primary" size="medium" class="matchingButton" @click="next">
+                                下一步
+                            </el-button>
+                        </div>
                     </div>
                 </div>
             </el-tab-pane>
         </el-tabs>
-        <!-- 底部按钮 -->
-        <div class="bottomButtonDiv matchingDiv">
-            <el-button type="primary" size="medium" class="matchingButton" @click="save">
-                保存
-            </el-button>
-            <el-button type="primary" size="medium" class="matchingButton" @click="next">
-                下一步
-            </el-button>
-        </div>
+
     </div>
 
     <el-dialog
@@ -776,13 +777,14 @@ export default {
                         return;
                     }
                     let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
+                    this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
                     let tempArr = [];
                     Object.keys(treeInfo).forEach((key) => {
                         tempArr.push(treeInfo[key]);
                     });
                     this.imgFile = tempArr;
-                    console.log(this.imgFile);
-                    this.relationId = tempArr[this.tabChange - 1].custId;
+                    console.log(this.imgFile)
+                    console.log(res.data.data.leaseholder,111);
                 }
             });
         },
@@ -905,7 +907,6 @@ export default {
             }
             this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus = summation;
             this.naturalData[nowIndex].incomeDebtRatios[nowIndex].incomeDebtRatio = this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalAnnualExpense/this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus;
-            console.log(this.naturalData[nowIndex].incomeDebtRatios[nowIndex].incomeDebtRatio)
         },
         // 页签切换
         changeTables(val) {
@@ -952,11 +953,10 @@ export default {
             if(val == 'Y') {
                 this.$store.state.lessinfoAddress = this.naturalData[nowIndex].custHomeplace; // 承租人户籍地址
                 this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址
-                console.log(this.$store.state.lessinfoAddress,this.$store.state.lessinfoNowAddress)
             }
         },
         // 保存
-        save() {
+        saveData() {
             this.allTabData(this.naturalData);
             this.naturalData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                 delete item.name;
