@@ -360,11 +360,12 @@ export default {
             }).then(res => {
                 if(res.data.code == '2000000') {
                     if(res.data.data.length != '0') {
-                        this.legalMan = res.data.data;
-                        // console.log(this.legalMan,111);
                         res.data.data.forEach(function(item,index) {
-                            item['name'] = index + 1 + '';
-                            item['title'] = "保证人" + parseInt(index + 1);
+                            if(item.debtInfo) {
+                                this.legalMan = res.data.data;
+                                item['name'] = index + 1 + '';
+                                item['title'] = "保证人" + parseInt(index + 1);
+                            }
                         });
                     }
                 }

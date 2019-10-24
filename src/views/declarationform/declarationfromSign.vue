@@ -18,7 +18,7 @@
                     <lesseeinfo ref="rentpeople" :bussNo="bussNo" :rulesField="rulesField" @saveData="rentpeople" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :label="list.guarantor" :name="list.guarantor">
-                    <guarantor ref="guarantor" :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText"/>
+                    <guarantor ref="guarantor" :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText" @childVal="childVal"/>
                 </el-tab-pane>
                 <el-tab-pane :bussNo="bussNo" :label="list.repurchase" :name="list.repurchase">
                     <buybackpeople ref="repurchase" :bussNo="bussNo" :rulesField="rulesField" @saveData="repurchase" :bindText.sync="bindText"/>
@@ -139,6 +139,11 @@
             });
         },
         methods: {
+            childVal(data) {
+                this.guarantorData = data;
+                console.log(data,'<<<<<::::::保证人')
+                console.log(this.guarantorData,'<<<<<::::::保证人')
+           },
             getBussNo(){ // 生成订单号
                 this.$post('/buss/genBussNo',{
                     leaseMode:'ZZ02'
@@ -182,78 +187,23 @@
                     })
                 });
             },
-            rentpeople() {
-                this.leaseInfoData = this.$refs.rentpeople.naturalData;
-                this.leaseInfoData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
-                    delete item.name;
-                    delete item.title;
+            rentpeople(res) {
 
-                    item.childrenInfo.forEach(function(subItem) { // 子女
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.assetsHouses.forEach(function(subItem) { // 房产
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.assetsLands.forEach(function(subItem) { // 土地
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.assetsFinances.forEach(function(subItem) { // 金融资产
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.assetsVehicles.forEach(function(subItem) { // 自用车
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.assetsFarmTools.forEach(function(subItem) { // 农机具
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.assetsOthers.forEach(function(subItem) { // 其他资产
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.debtSituations.forEach(function(subItem) { // 债务情况
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.debtGuarantees.forEach(function(subItem) { // 对外担保
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.debtOthers.forEach(function(subItem) { // 其他负债
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.incomePlants.forEach(function(subItem) { // 种植收入
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.incomeFarmMachineryWork.forEach(function(subItem) { // 农机作业收入
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
-
-                    item.incomeOthers.forEach(function(subItem) { // 其他收入
-                        delete subItem.name;
-                        delete subItem.title;
-                    });
+                this.$refs.rentpeople.naturalData.forEach((item,i) => {
+                    item.assetsHouses = this.$refs.rentpeople.$refs.house[i].assetsHouses;
+                    item.incomeFarmMachineryWork = this.$refs.rentpeople.$refs.agriculture[i].incomeFarmMachineryWork;
+                    item.assetsOthers = this.$refs.rentpeople.$refs.assetsOthers[i].assetsOthers;
+                    item.debtSituations = this.$refs.rentpeople.$refs.debt[i].debtSituations;
+                    item.assetsFarmTools = this.$refs.rentpeople.$refs.farmtools[i].assetsFarmTools;
+                    item.assetsFinances = this.$refs.rentpeople.$refs.financial[i].assetsFinances;
+                    item.debtGuarantees = this.$refs.rentpeople.$refs.guarantee[i].debtGuarantees;
+                    item.assetsVehicles = this.$refs.rentpeople.$refs.homecar[i].assetsVehicles;
+                    item.assetsLands = this.$refs.rentpeople.$refs.lands[i].assetsLands;
+                    item.incomeOthers = this.$refs.rentpeople.$refs.otherIncome[i].incomeOthers;
+                    item.debtOthers = this.$refs.rentpeople.$refs.otherLiabilities[i].debtOthers;
+                    item.incomePlants = this.$refs.rentpeople.$refs.plant[i].incomePlants
                 });
-
+                this.leaseInfoData = this.$refs.rentpeople.naturalData;
                 this.$post('/leasee/add',{
                     bussNo: this.bussNo,
                     data: this.leaseInfoData
@@ -330,133 +280,41 @@
                      }
                 });
             },
-            guarantor() {
-                console.log(this.$refs.guarantor.warrantorDatas);
-                this.guarantorData = this.$refs.guarantor.warrantorDatas;
-                this.guarantorData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
-                    delete item.name;
-                    delete item.title;
-                    if(item.partnerType == 'LEG') {
-                        return;
-                    } else {
-                        item.assetsHouses.forEach(function(subItem) { // 房产
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
+            guarantor(msg,data) {
+                console.log(msg,data)
+                // this.guarantorData = this.$refs.guarantor.warrantorDatas
+                // this.guarantorData.forEach((item,index) => {
+                //     if(this.$refs.guarantor.warrantorDatas[index].partnerType == 'NAT') {
+                //         console.log(item,'自然人');
+                //         item.assetsOthers = this.$refs.guarantor.$refs.assetsOthers[index].assetsOthers;
+                //         item.debtSituations = this.$refs.guarantor.$refs.debt[index].debtSituations;
+                //         item.assetsFarmTools = this.$refs.guarantor.$refs.farmtools[index].assetsFarmTools;
+                //         item.debtGuarantees = this.$refs.guarantor.$refs.guarantee[index].debtGuarantees;
+                //         item.assetsVehicles = this.$refs.guarantor.$refs.homecar[index].assetsVehicles;
+                //         item.assetsHouses = this.$refs.guarantor.$refs.house[index].assetsHouses;
+                //         item.assetsLands = this.$refs.guarantor.$refs.lands[index].assetsLands;
+                //         item.incomeOthers = this.$refs.guarantor.$refs.otherIncome[index].incomeOthers;
+                //         item.debtOthers = this.$refs.guarantor.$refs.otherLiabilities[index].debtOthers;
+                //         item.incomePlants = this.$refs.guarantor.$refs.plant[index].incomePlants;
+                //     }
+                // });
+                // assetsOthers.assetsOthers
+                // debt.debtSituations
+                // farmtools.assetsFarmTools
+                // guarantee.debtGuarantees
+                // homecar.assetsVehicles
+                // house.assetsHouses
+                // lands.assetsLands
+                // otherIncome.incomeOthers
+                // otherLiabilities.debtOthers
+                // plant.incomePlants
 
-                        item.assetsLands.forEach(function(subItem) { // 土地
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-
-
-                        item.assetsVehicles.forEach(function(subItem) { // 自用车
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-
-                        item.assetsFarmTools.forEach(function(subItem) { // 农机具
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-
-                        item.assetsOthers.forEach(function(subItem) { // 其他资产
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-
-                        item.debtSituations.forEach(function(subItem) { // 债务情况
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-
-                        item.debtGuarantees.forEach(function(subItem) { // 对外担保
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-
-                        item.debtOthers.forEach(function(subItem) { // 其他负债
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-
-                        item.incomePlants.forEach(function(subItem) { // 种植收入
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-
-
-                        item.incomeOthers.forEach(function(subItem) { // 其他收入
-                            delete subItem.name;
-                            delete subItem.title;
-                        });
-                    }
-
-                });
-                console.log(this.guarantorData);
                 this.$post('/warrantor/add',{
                     bussNo: this.bussNo,
                     data: this.guarantorData
                 }).then(res => {
                     if(res.data.code == 2000000) {
                         this.$message.success('保证人保存成功');
-                        this.guarantorData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
-                            item['name'] = index + 1 + '';
-                            item['title'] = '保证人' + parseInt( index + 1);
-                            item.assetsHouses.forEach(function(subItem,indexs) {
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '房产' + parseInt( indexs + 1);
-                            });
-
-
-                            item.assetsLands.forEach(function(subItem,indexs) { // 土地
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '土地' + parseInt( indexs + 1);
-                            });
-
-
-
-                            item.assetsVehicles.forEach(function(subItem,indexs) { // 自用车
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '自用车' + parseInt( indexs + 1);
-                            });
-
-                            item.assetsFarmTools.forEach(function(subItem,indexs) { // 农机具
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '农机具' + parseInt( indexs + 1);
-                            });
-
-                            item.assetsOthers.forEach(function(subItem,indexs) { // 其他资产
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '其他资产' + parseInt( indexs + 1);
-                            });
-
-                            item.debtSituations.forEach(function(subItem,indexs) { // 债务情况
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '债务情况' + parseInt( indexs + 1);
-                            });
-
-                            item.debtGuarantees.forEach(function(subItem,indexs) { // 对外担保
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '对外担保' + parseInt( indexs + 1);
-                            });
-
-                            item.debtOthers.forEach(function(subItem,indexs) { // 其他负债
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '其他负债' + parseInt( indexs + 1);
-                            });
-
-                            item.incomePlants.forEach(function(subItem,indexs) { // 种植收入
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '种植收入' + parseInt( indexs + 1);
-                            });
-
-
-                            item.incomeOthers.forEach(function(subItem,indexs) { // 其他收入
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '其他收入' + parseInt( indexs + 1);
-                            });
-                        });
                      }
                 });
             },

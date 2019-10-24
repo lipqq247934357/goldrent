@@ -748,10 +748,9 @@ export default {
                 taskType:"10"
             }).then(res => {
                 if(res.data.code == '2000000') {
-                    if(res.data.data.length != '0') {
+                    if(res.data.data.warrantorData.length != '0') {
                         this.warrantorDatas = res.data.data.warrantorData;
                         this.warrantorDatas.forEach(function(item,index) {
-                            console.log(item);
                             item['name'] = index + 1 + '';
                             item['title'] = "保证人" + parseInt(index + 1);
                         });
@@ -1114,10 +1113,13 @@ export default {
             }
         },
         save(param) { // 保存页面或者下一步
+            // console.log(this.warrantorDatas,111);
             if(param === 'save'){
-                this.$emit("saveData");
+                this.$emit('childVal',this.warrantorDatas); // 子传父
+                this.$emit("saveData",this.warrantorDatas);
                 // this.imgData();
             }else{
+                this.$emit('childVal',this.warrantorDatas); // 子传父
                 this.$emit('update:bindText','回购人信息')
             }
         },
