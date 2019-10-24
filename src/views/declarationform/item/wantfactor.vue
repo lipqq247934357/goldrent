@@ -21,11 +21,11 @@
                     <td>购置价格（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.purchaseAmt">
                         </el-input-number>
                     </td>
@@ -34,11 +34,11 @@
                     <td>首付款金额（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.firstPayAmt">
                         </el-input-number>
                     </td>
@@ -47,11 +47,11 @@
                     <td>融资金额（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.financeAmt">
                         </el-input-number>
                     </td>
@@ -60,11 +60,11 @@
                     <td>厂商返利（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.rebateAmt">
                         </el-input-number>
                     </td>
@@ -73,11 +73,11 @@
                     <td>厂商贴息（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.rebateFirmAmt">
                         </el-input-number>
                     </td>
@@ -100,11 +100,11 @@
                     <td>其他支出</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.otherExpense">
                         </el-input-number>
                     </td>
@@ -126,11 +126,11 @@
                     <td>承租人风险金（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.lesseeRiskAmt">
                         </el-input-number>
                     </td>
@@ -139,11 +139,11 @@
                     <td>其他风险金（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.otherRiskAmt">
                         </el-input-number>
                     </td>
@@ -152,11 +152,11 @@
                     <td>补贴金额（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.allowanceAmt">
                         </el-input-number>
                     </td>
@@ -252,11 +252,11 @@
                     <td>留购价款（元）</td>
                     <td>
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.depositAmt">
                         </el-input-number>
                     </td>
@@ -266,11 +266,11 @@
                     <td>
 
                         <el-input-number
+                                :min="0.00"
                                 :precision="2"
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
-                                :min="0.00"
                                 v-model="leaseInfo.settleAhead">
                         </el-input-number>
                     </td>
@@ -529,7 +529,7 @@
                 // 3.相关条款查询
                 this.$post('/leaseinfo/queryScheduleNew', {
                     bussNo: this.bussNo,
-                    taskType:10
+                    taskType: 10
                 }).then(res => {
                     this.rentData = res.data.data;
                 });
@@ -577,9 +577,9 @@
                     bussNo: this.bussNo,
                     data: this.rentData
                 }).then(res => {
-                    if(res.data.code == '2000000'){
+                    if (res.data.code == '2000000') {
                         console.log(res);
-                        this.$message.success(`该笔业务的内部收益率为${res.data.data.earningRate*100}%`);
+                        this.$message.success(`该笔业务的内部收益率为${res.data.data.earningRate * 100}%`);
                     }
                 });
             },
@@ -593,7 +593,7 @@
                     bussNo: this.bussNo,
                     data: this.rentData
                 }).then(res => {
-                    if(res.data.code == '2000000'){
+                    if (res.data.code == '2000000') {
                         this.$message.success('试算成功');
                     }
                 });
@@ -614,7 +614,7 @@
                         sums[index] = values.reduce((prev, curr) => {
                             const value = Number(curr);
                             if (!isNaN(value)) {
-                                return this.add(prev,curr);
+                                return this.add(prev, curr);
                             } else {
                                 return prev;
                             }
@@ -636,7 +636,19 @@
                     r2 = 0
                 }
                 m = Math.pow(10, Math.max(r1, r2))
-                return (arg1 * m + arg2 * m) / m
+                return (this.mul(arg1, m) + this.mul(arg2, m)) / m
+            },
+            mul(arg1, arg2) { //js乘法
+                let m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+                try {
+                    m += s1.split(".")[1].length
+                } catch (e) {
+                }
+                try {
+                    m += s2.split(".")[1].length
+                } catch (e) {
+                }
+                return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
             }
         }
     }
