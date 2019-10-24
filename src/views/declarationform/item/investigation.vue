@@ -201,7 +201,6 @@
                     bussNo: this.bussNo,
                     ownerType: 'ZB'
                 }).then(res => {
-                    console.log(res);
                     if (res.data.code == '2000000') {
                         if (res.data.data.houseMortgager.length > 0) {
                             this.houseMortgager = res.data.data.houseMortgager[0];

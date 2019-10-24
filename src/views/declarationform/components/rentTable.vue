@@ -156,81 +156,80 @@
 </script>
 <style lang="less">
 
-    .repay-table {
-        width: 80%;
-        margin: 0 auto 20px;
-        border: 1px solid #f5f5f5;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
+/*    .repay-table {*/
+/*        width: 80%;*/
+/*        margin: 0 auto 20px;*/
+/*        border: 1px solid #f5f5f5;*/
+/*        padding: 0;*/
+/*        display: flex;*/
+/*        flex-wrap: wrap;*/
 
-        li {
-            width: 70%;
-            list-style: none;
-            line-height: 30px;
-            border-bottom: 1px solid #f5f5f5;
-            border-right: 1px solid #f5f5f5;
-            display: inline-block;
-            text-align: center;
-            font-size: 14px;
+/*        li {*/
+/*            width: 70%;*/
+/*            list-style: none;*/
+/*            line-height: 30px;*/
+/*            border-bottom: 1px solid #f5f5f5;*/
+/*            border-right: 1px solid #f5f5f5;*/
+/*            display: inline-block;*/
+/*            text-align: center;*/
+/*            font-size: 14px;*/
 
-            &:nth-child(odd) {
-                width: 30%;
-            }
+/*            &:nth-child(odd) {*/
+/*                width: 30%;*/
+/*            }*/
 
-            &:nth-child(2n) {
-                border-right: 0;
-            }
-        }
+/*            &:nth-child(2n) {*/
+/*                border-right: 0;*/
+/*            }*/
+/*        }*/
 
-        .bottom-0 {
-            border-bottom: 0;
-        }
-    }
+/*        .bottom-0 {*/
+/*            border-bottom: 0;*/
+/*        }*/
+/*    }*/
 
-    :global {
-        /*修改标题默认字体*/
-        .header-cell-class-name {
-            background: #f4f4f5 !important;
-        }
+/*    :global {*/
+/*        !*修改标题默认字体*!*/
+/*        .header-cell-class-name {*/
+/*            background: #f4f4f5 !important;*/
+/*        }*/
 
-        // 修改弹框默认样式
-        .repay-pop-custom-class {
+/*        // 修改弹框默认样式*/
+/*        .repay-pop-custom-class {*/
 
-            .el-dialog__header {
-                padding: 0;
-            }
+/*            .el-dialog__header {*/
+/*                padding: 0;*/
+/*            }*/
 
-            .el-dialog__body {
-                padding: 0;
-            }
+/*            .el-dialog__body {*/
+/*                padding: 0;*/
+/*            }*/
 
-            .el-dialog__footer {
-                padding: 0;
-            }
+/*            .el-dialog__footer {*/
+/*                padding: 0;*/
+/*            }*/
 
-        }
-    }
+/*        }*/
+/*    }*/
 
-    .pop-title {
-        border-bottom: 2px solid #cccccc;
-        overflow: hidden;
+/*    .pop-title {*/
+/*        border-bottom: 2px solid #cccccc;*/
+/*        overflow: hidden;*/
 
-        & > div {
-            float: left;
-            margin: 10px 0 10px 10px;
-        }
-    }
+/*        & > div {*/
+/*            float: left;*/
+/*            margin: 10px 0 10px 10px;*/
+/*        }*/
+/*    }*/
 
-    .pop-footer {
-        width: 80%;
-        margin: 30px auto 30px;
+/*    .pop-footer {*/
+/*        margin: 30px auto 30px;*/
 
-        :global {
-            .el-button {
-                box-shadow: 0 1px 0 #cccccc;
-            }
-        }
-    }
+/*        :global {*/
+/*            .el-button {*/
+/*                box-shadow: 0 1px 0 #cccccc;*/
+/*            }*/
+/*        }*/
+/*    }*/
 
 </style>

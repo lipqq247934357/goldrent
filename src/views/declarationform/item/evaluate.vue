@@ -43,7 +43,7 @@
         methods: {
             getData() {
                 // 主办人
-                this.$post('/getSurveyConclusion', {
+                this.$post('/getSurveyEvaluation', {
                     bussNo: this.bussNo,
                     ownerType: 'ZB'
                 }).then(res => {
