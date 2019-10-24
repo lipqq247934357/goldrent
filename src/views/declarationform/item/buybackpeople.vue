@@ -30,7 +30,7 @@
 
                 <componentitle :message="message='基本信息'" class="componentitle" />
                 <div class="tableTitle">
-                    承租人信息
+                    回购人信息
                 </div>
                 <!-- 回购人信息表格 -->
                 <table class="lessinfoTbale">

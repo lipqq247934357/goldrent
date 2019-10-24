@@ -122,7 +122,6 @@ export default {
                     console.log(index);
                     item['name'] = index+1 + '';
                     item['title'] = '其他资产' + (index+1);
-                    item.type = item.type + '';
                 });
                 this.childrenTabs = '1';
             }

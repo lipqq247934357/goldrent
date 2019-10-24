@@ -91,7 +91,6 @@ export default {
                     console.log(index);
                     item['name'] = index+1 + '';
                     item['title'] = '承租人子女' + (index+1);
-                    item.type = item.type + '';
                 });
                 this.childrenTabs = '1';
             }

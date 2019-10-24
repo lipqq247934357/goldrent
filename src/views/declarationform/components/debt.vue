@@ -109,7 +109,6 @@ export default {
                     console.log(index);
                     item['name'] = index+1 + '';
                     item['title'] = '债务情况' + (index+1);
-                    item.type = item.type + '';
                 });
                 this.childrenTabs = '1';
             }

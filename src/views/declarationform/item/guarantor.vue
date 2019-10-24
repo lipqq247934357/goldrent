@@ -1114,10 +1114,9 @@ export default {
             }
         },
         save(param) { // 保存页面或者下一步
-            this.save();
             // console.log(this.warrantorDatas,'11111');
             if(param === 'save'){
-                this.$emit("childVal",this.warrantorDatas);
+                this.$emit("saveData",this.warrantorDatas);
             }else{
                 this.$emit('update:bindText','回购人信息')
             }

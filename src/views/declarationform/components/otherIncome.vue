@@ -116,7 +116,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        qtsr: {
             type: Array
         },
         rulesField: {
@@ -127,7 +127,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        qtsr(newVal,oldVal){
+            if(newVal != undefined) {
+                this.incomeOthers = this.qtsr;
+                this.incomeOthers.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '其他收入' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

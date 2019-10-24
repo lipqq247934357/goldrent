@@ -135,7 +135,6 @@ export default {
                     console.log(item);
                     item['name'] = index+1 + '';
                     item['title'] = '金融资产' + (index+1);
-                    item.type = item.type + '';
                 });
                 this.childrenTabs = '1';
             }

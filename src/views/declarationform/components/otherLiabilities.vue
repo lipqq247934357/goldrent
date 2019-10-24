@@ -113,7 +113,6 @@ export default {
                     console.log(index);
                     item['name'] = index+1 + '';
                     item['title'] = '其他负债' + (index+1);
-                    item.type = item.type + '';
                 });
                 this.childrenTabs = '1';
             }

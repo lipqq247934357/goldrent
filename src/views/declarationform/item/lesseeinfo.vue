@@ -157,6 +157,7 @@
                         <td>联系电话</td>
                         <td>
                             <el-input type="text"
+                                maxlength="11"
                                 v-model="item.custMobile"
                                 class="inputLessinfo"
                                 @change="natural">
@@ -820,6 +821,13 @@ export default {
         },
         natural(val) {
             let nowIndex = this.tabChange - 1;
+            if(isNaN(val) == true) {
+                this.naturalData[nowIndex].custMobile = '';
+            }
+            if(!(/^1[3456789]\d{9}$/.test(val))){ 
+                this.$message.error("手机号码有误，请重填");
+                this.naturalData[nowIndex].custMobile = '';
+            }
             setTimeout(function() {
                 this.naturalData[nowIndex].custWechat = this.naturalData[nowIndex].custMobile;
                 console.log(this.naturalData[nowIndex].custMobile);

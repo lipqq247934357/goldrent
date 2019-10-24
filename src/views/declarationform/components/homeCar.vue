@@ -25,7 +25,7 @@
                         <el-input
                             type="text"
                             v-model="item.buyTime"
-                            placeholder="请输入日期格式 2019-10-24 18:42:56"    
+                            placeholder="请输入日期格式 2019-10-24 18:42:56"
                             class="inputLessinfo">
                         </el-input>
 
@@ -133,7 +133,6 @@ export default {
                     console.log(index);
                     item['name'] = index+1 + '';
                     item['title'] = '自用车' + (index+1);
-                    item.type = item.type + '';
                 });
                 this.childrenTabs = '1';
             }
