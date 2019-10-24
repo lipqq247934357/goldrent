@@ -1,7 +1,7 @@
 <template>
-    <div class="businfo" @keyup.enter="queryclick">
+    <div @keyup.enter="queryclick" class="businfo">
         <div class="topTitle">
-            <componentitle :message="message" :titletext="titletext" :parenTtext="parenTtext" :url="url"/>
+            <componentitle :message="message" :parenTtext="parenTtext" :titletext="titletext" :url="url"/>
         </div>
         <div class="topcontent">
             <div>
@@ -13,23 +13,23 @@
             <div>
                 <label>任务状态</label>
                 <template>
-                    <el-select class="choiceselect" placeholder="请选择" v-model="selectstatus" >
+                    <el-select class="choiceselect" placeholder="请选择" v-model="selectstatus">
                         <el-option
-                            v-for="item in statusOptions"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                                v-for="item in statusOptions">
                         </el-option>
                     </el-select>
                 </template>
             </div>
             <button
-                @click="queryclick"
-                class="search queryButton el-icon-search"
-                name="button"
-                @keyup.enter="queryclick"
-                :autofocus="true"
-                type="button">
+                    :autofocus="true"
+                    @click="queryclick"
+                    @keyup.enter="queryclick"
+                    class="search queryButton el-icon-search"
+                    name="button"
+                    type="button">
                 查询
             </button>
         </div>
@@ -40,33 +40,31 @@
                     <span>任务列表</span>
                 </div>
                 <el-button
-                    type="primary"
-                    size="mini"
-                    :disabled="lessinfobutton == 'N'"
-                    @click="addnewForm"
-                    class="addNew">
+                        :disabled="lessinfobutton == 'N'"
+                        @click="addnewForm"
+                        class="addNew"
+                        size="mini"
+                        type="primary">
                     新建报单
                 </el-button>
             </div>
-
-
 
             <!-- 表格 -->
             <template>
                 <el-table
                         :data="tableData"
-                        border
-                        v-loading="loading"
-                        element-loading-text="拼命加载中"
                         :header-cell-style="{
                             'color': '#212121',
                             'font-size': '14px',
                             'font-weight': 'bold'
                         }"
-                        style="width: 100%;">
+                        border
+                        element-loading-text="拼命加载中"
+                        style="width: 100%;"
+                        v-loading="loading">
                     <el-table-column
-                            min-width="210px"
                             label="业务编号"
+                            min-width="210px"
                             prop="bussNo">
                     </el-table-column>
                     <el-table-column
@@ -74,14 +72,14 @@
                             prop="leaseholder">
                     </el-table-column>
                     <el-table-column
-                            min-width="95px"
                             label="租赁期限"
+                            min-width="95px"
                             prop="startDate">
                     </el-table-column>
                     <el-table-column
-                            min-width="90px"
                             :formatter="formatAmount"
                             label="融资金额(元)"
+                            min-width="90px"
                             prop="raiseFunds">
                     </el-table-column>
                     <el-table-column
@@ -93,19 +91,19 @@
                             prop="name">
                         <template slot-scope="scope">
                             <el-button
-                                @click="handleOrder(scope.row)"
-                                size="small"
-                                type="text"
-                                :disabled="lessinfobutton == 'N'"
-                                class="elmbutton">
+                                    :disabled="lessinfobutton == 'N'"
+                                    @click="handleOrder(scope.row)"
+                                    class="elmbutton"
+                                    size="small"
+                                    type="text">
                                 处理
                             </el-button>
                             <el-button
-                                @click="lookClick(scope.row)"
-                                size="small"
-                                type="text"
-                                :disabled="lessinfobutton == 'N'"
-                                class="elmbutton">
+                                    :disabled="lessinfobutton == 'N'"
+                                    @click="lookClick(scope.row)"
+                                    class="elmbutton"
+                                    size="small"
+                                    type="text">
                                 查看
                             </el-button>
                         </template>
@@ -116,13 +114,13 @@
             <!-- 分页 -->
             <div class="block">
                 <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page.sync="currentPage2"
-                    :page-sizes="[10, 20, 30, 40]"
-                    :page-size="10"
-                    layout="sizes, prev, pager, next"
-                    :total="parseInt(allpage)">
+                        :current-page.sync="currentPage2"
+                        :page-size="10"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :total="parseInt(allpage)"
+                        @current-change="handleCurrentChange"
+                        @size-change="handleSizeChange"
+                        layout="sizes, prev, pager, next">
                 </el-pagination>
             </div>
         </div>
@@ -138,7 +136,7 @@
         components: {
             componentitle,
         },
-        mixins:[formatter],
+        mixins: [formatter],
         data() {
             return {
                 url: '/layout/businfo',
@@ -160,24 +158,7 @@
                         label: '已提交',
                     }
                 ],
-
-                tableData: [
-                    // id	该业务对应的当前审核状态的id	string
-                    // bussNo业务编号String
-                    //
-                    // custName租承租人姓名String
-                    //
-                    // taskname任务名称String
-                    //
-                    // ownerName任务员姓名String
-                    // status任务状态String
-                    //
-                    // beginTime	任务开始时间	Timestamp
-                    //
-                    // finishTime	任务结束时间	Timestamp
-                    //
-                    // createTime	任务创建时间	Timestamp
-                ],
+                tableData: [],
                 pagesothen: 10,
                 nowpage: 1,
                 currentPage2: 1,
@@ -191,6 +172,24 @@
             this.jurisdiction();
         },
         methods: {
+            //查询 点击分页 一页多少 统一调用这一函数
+            pages() {
+                this.$post('/buss/orders', {
+                    taskType: 'FLOW_SURVEY',
+                    taskStatus: '01'
+                }).then(res => {
+                    if (res.data.code == '2000000') {
+                        if (res.data.data != null) {
+                            this.tableData = res.data.data;
+                            this.allpage = res.data.data.totalCount;
+                        } else {
+                            this.tableData = [];
+                            this.allpage = 0;
+                        }
+                        this.loading = false;
+                    }
+                });
+            },
             jurisdiction(val) {
                 let sonresourceId = this.$route.query.idJurisdiction; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
                 this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
@@ -210,38 +209,19 @@
                 this.pages();
                 this.currentPage2 = 1;
             },
-            //查询 点击分页 一页多少 统一调用这一函数
-            pages() {
-                this.$post('/buss/listBussInfo',{
-                    bussNo: this.bussNo,
-                    custName: this.custName,
-                    taskName: this.task_name == '全部' ? '' : this.task_name,
-                    currentPage: this.nowpage,
-                    numPerPage: this.pagesothen
-                }).then(res => {
-                    if(res.data.code == '2000000') {
-                        this.tableData = res.data.data.list;
-                        this.allpage = res.data.data.totalCount;
-                        this.loading = false;
-                    }
-                });
-            },
+
             handleOrder(row) {
 
             },
             lookClick(row) {
                 this.$router.push({
-                    path: '/layout/businessdetail',query: {task_id:row.id,disabled:1,bussNo:row.bussNo,arrangementtype:'5',writeOffFlag:1}
+                    path: '/layout/businessdetail',
+                    query: {task_id: row.id, disabled: 1, bussNo: row.bussNo, arrangementtype: '5', writeOffFlag: 1}
                 });
             },
             // 新建报单按钮
             addnewForm() {
-                this.$router.push({
-                    path: '/layout/declarationfromSign',
-                    query: {
-
-                    }
-                })
+                this.$router.push({path: '/layout/declarationfromSign'})
             }
         },
     }
@@ -258,8 +238,10 @@
         .content {
             width: 95%;
             margin: 0 auto;
+
             .titletop {
                 position: relative;
+
                 .addNew {
                     position: absolute;
                     top: 10px;
@@ -268,7 +250,6 @@
                     border: 0;
                 }
             }
-
         }
 
         .search {
@@ -277,7 +258,7 @@
             color: #d76500;
             font-weight: bold;
             background: #fff3e9;
-            border:1px solid  #ffcb9d;
+            border: 1px solid #ffcb9d;
         }
     }
 </style>
