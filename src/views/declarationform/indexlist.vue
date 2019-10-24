@@ -98,14 +98,14 @@
                                     type="text">
                                 处理
                             </el-button>
-                            <el-button
-                                    :disabled="lessinfobutton == 'N'"
-                                    @click="lookClick(scope.row)"
-                                    class="elmbutton"
-                                    size="small"
-                                    type="text">
-                                查看
-                            </el-button>
+                            <!--                            <el-button-->
+                            <!--                                    :disabled="lessinfobutton == 'N'"-->
+                            <!--                                    @click="lookClick(scope.row)"-->
+                            <!--                                    class="elmbutton"-->
+                            <!--                                    size="small"-->
+                            <!--                                    type="text">-->
+                            <!--                                查看-->
+                            <!--                            </el-button>-->
                         </template>
                     </el-table-column>
                 </el-table>
@@ -211,7 +211,10 @@
             },
 
             handleOrder(row) {
-
+                this.$router.push({
+                    path: '/layout/declarationfromSign',
+                    query: {bussNo:row.bussNo}
+                })
             },
             lookClick(row) {
                 this.$router.push({
