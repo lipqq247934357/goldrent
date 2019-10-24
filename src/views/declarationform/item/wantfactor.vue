@@ -578,8 +578,8 @@
                     data: this.rentData
                 }).then(res => {
                     if (res.data.code == '2000000') {
-                        console.log(res);
-                        this.$message.success(`该笔业务的内部收益率为${mul(res.data.data.earningRate, 100)}%`);
+                        debugger
+                        this.$message.success(`该笔业务的内部收益率为${this.mul(res.data.data.earningRate, 100)}%`);
                     }
                 });
             },
