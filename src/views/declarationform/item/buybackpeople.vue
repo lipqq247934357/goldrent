@@ -364,9 +364,9 @@ export default {
                             if(item.debtInfo) {
                                 this.legalMan = res.data.data;
                                 item['name'] = index + 1 + '';
-                                item['title'] = "保证人" + parseInt(index + 1);
+                                item['title'] = "回购人" + parseInt(index + 1);
                             }
-                        });
+                        }.bind(this));
                     }
                 }
             });
