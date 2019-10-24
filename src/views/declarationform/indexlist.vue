@@ -74,7 +74,7 @@
                     <el-table-column
                             label="租赁期限"
                             min-width="95px"
-                            prop="startDate">
+                            prop="leaseTerm">
                     </el-table-column>
                     <el-table-column
                             :formatter="formatAmount"
@@ -84,7 +84,7 @@
                     </el-table-column>
                     <el-table-column
                             label="内部收益率"
-                            prop="leaseholder">
+                            prop="earningRate">
                     </el-table-column>
                     <el-table-column
                             label="操作"
