@@ -77,7 +77,6 @@
                         <el-input :rows="2"
                                   class="input-width-2column"
                                   placeholder=""
-                                  readonly
                                   type="textarea"
                                   v-model="houseMortgager.remark">
                         </el-input>
@@ -152,7 +151,6 @@
                 <td class="batextarrear">
                     <el-input :rows="2" class="input-width-2column"
                               placeholder=""
-                              readonly
                               type="textarea"
                               v-model="landMortgager.remark">
                     </el-input>
