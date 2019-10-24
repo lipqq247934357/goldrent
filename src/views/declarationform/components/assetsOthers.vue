@@ -14,13 +14,19 @@
                 <tr>
                     <td>购买时间</td>
                     <td>
-                        <el-date-picker
+                        <!-- <el-date-picker
                             class="inputLessinfo"
                             v-model="item.buyTime"
                             value-format="yyyy-MM-dd"
                             type="date"
                             placeholder="选择日期">
-                        </el-date-picker>
+                        </el-date-picker> -->
+                        <el-input
+                            type="text"
+                            v-model="item.buyTime"
+                            placeholder="请输入日期格式 2019-10-24 18:42:56"
+                            class="inputLessinfo">
+                        </el-input>
                     </td>
                     <td>所有权人</td>
                     <td>
@@ -66,7 +72,6 @@
                             v-model="item.remark">
                         </el-input>
                     </td>
-
                 </tr>
 
             </table>
@@ -99,7 +104,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        qtzc: {
             type: Array
         },
         rulesField: {
@@ -110,7 +115,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        qtzc(newVal,oldVal){
+            if(newVal != undefined) {
+                this.assetsOthers = this.qtzc;
+                this.assetsOthers.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '其他资产' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

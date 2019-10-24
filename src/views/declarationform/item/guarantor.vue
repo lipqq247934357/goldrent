@@ -573,26 +573,26 @@
 
                     <!-- 农机具 -->
                     <p class="tableTitle">农机具（如有）</p>
-                    <farmtools ref="farmtools" :rulesField="rulesField"/>
+                    <farmtools ref="farmtools" :njj="warrantorDatas[index].assetsFarmTools" :rulesField="rulesField"/>
 
                     <!-- 其他资产 -->
                     <p class="tableTitle">其他资产（如有）</p>
-                    <assetsOthers ref="assetsOthers" :rulesField="rulesField"/>
+                    <assetsOthers :qtzc="warrantorDatas[index].assetsOthers" ref="assetsOthers" :rulesField="rulesField"/>
                 </div>
                 <!-- 负债情况 -->
                 <componentitle :message="message='负债情况'" class="componentitle"  v-if="item.partnerType == 'NAT'" />
                 <div class="liabilitiesDiv"  v-if="item.partnerType == 'NAT'">
                     <!-- 债务情况 -->
                     <p class="tableTitle">债务情况（如有）</p>
-                    <debt ref="debt" :rulesField="rulesField" />
+                    <debt ref="debt" :zwqk="warrantorDatas[index].debtSituations" :rulesField="rulesField" />
 
                     <!-- 对外担保 -->
                     <p class="tableTitle">对外担保</p>
-                    <guarantee ref="guarantee" :rulesField="rulesField" />
+                    <guarantee ref="guarantee" :dwdb="warrantorDatas[index].debtGuarantees" :rulesField="rulesField" />
 
                     <!-- 其他负债 -->
                     <p class="tableTitle">其他负债</p>
-                    <otherLiabilities ref="otherLiabilities" :rulesField="rulesField" />
+                    <otherLiabilities ref="otherLiabilities" :qtfz="warrantorDatas[index].debtOthers" :rulesField="rulesField" />
 
                 </div>
 
@@ -601,13 +601,13 @@
                 <div class="IncomeDiv"  v-if="item.partnerType == 'NAT'">
                     <!-- 种植收入 -->
                     <p class="tableTitle">种植收入</p>
-                    <plant ref="plant" :rulesField="rulesField" />
+                    <plant ref="plant" :zzsr="warrantorDatas[index].incomePlants" :rulesField="rulesField" />
 
 
 
                     <!-- 其他收入 -->
                     <p class="tableTitle">其他收入（如有）</p>
-                    <guaranteeIncome ref="otherIncome" :rulesField="rulesField" />
+                    <guaranteeIncome ref="otherIncome" :qtsr="warrantorDatas[index].incomeOthers" :rulesField="rulesField" />
                 </div>
 
 

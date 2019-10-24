@@ -14,13 +14,20 @@
                 <tr>
                     <td>购买时间</td>
                     <td>
-                        <el-date-picker
+                        <!-- <el-date-picker
                             class="inputLessinfo"
                             v-model="item.buyTime"
-                            value-format="yyyy-MM-dd"
-                            type="date"
+                            format="yyyy-MM-dd hh:mm:ss"
+                            value-format="yyyy-MM-dd hh:mm:ss"
+                            type="datetime"
                             placeholder="选择日期">
-                        </el-date-picker>
+                        </el-date-picker> -->
+                        <el-input
+                            type="text"
+                            v-model="item.buyTime"
+                            placeholder="请输入日期格式 2019-10-24 18:42:56"
+                            class="inputLessinfo">
+                        </el-input>
                     </td>
                     <td>是否抵押</td>
                     <td>
@@ -107,7 +114,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        njj: {
             type: Array
         },
         rulesField: {
@@ -118,7 +125,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        njj(newVal,oldVal){
+            if(newVal != undefined) {
+                this.assetsFarmTools = this.njj;
+                this.assetsFarmTools.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '农机具' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

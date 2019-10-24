@@ -95,7 +95,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        qtfz: {
             type: Array
         },
         rulesField: {
@@ -106,7 +106,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        qtfz(newVal,oldVal){
+            if(newVal != undefined) {
+                this.debtOthers = this.qtfz;
+                this.debtOthers.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '其他负债' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

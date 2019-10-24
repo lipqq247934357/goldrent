@@ -322,6 +322,7 @@
                 <lessinfochild
                     ref="headerChild"
                     v-if="item.hasChildren == 'Y'"
+                    :sfyzn="naturalData[index].childrenInfo"
                     :naturalData="naturalData"/>
 
                 <!-- 资产情况 -->
@@ -345,26 +346,26 @@
 
                     <!-- 农机具 -->
                     <p class="tableTitle">农机具（如有）</p>
-                    <farmtools ref="farmtools" :rulesField="rulesField"/>
+                    <farmtools ref="farmtools" :njj="naturalData[index].assetsFarmTools" :rulesField="rulesField"/>
 
                     <!-- 其他资产 -->
                     <p class="tableTitle">其他资产（如有）</p>
-                    <assetsOthers ref="assetsOthers" :rulesField="rulesField"/>
+                    <assetsOthers ref="assetsOthers" :qtzc="naturalData[index].assetsOthers" :rulesField="rulesField"/>
                 </div>
                 <!-- 负债情况 -->
                 <componentitle :message="message='负债情况'" class="componentitle" />
                 <div class="liabilitiesDiv">
                     <!-- 债务情况 -->
                     <p class="tableTitle">债务情况（如有）</p>
-                    <debt ref="debt" :rulesField="rulesField" />
+                    <debt ref="debt" :zwqk="naturalData[index].debtSituations" :rulesField="rulesField" />
 
                     <!-- 对外担保 -->
                     <p class="tableTitle">对外担保</p>
-                    <guarantee ref="guarantee" :rulesField="rulesField" />
+                    <guarantee ref="guarantee" :dwdb="naturalData[index].debtGuarantees" :rulesField="rulesField" />
 
                     <!-- 其他负债 -->
                     <p class="tableTitle">其他负债</p>
-                    <otherLiabilities ref="otherLiabilities" :rulesField="rulesField" />
+                    <otherLiabilities :qtfz="naturalData[index].debtOthers" ref="otherLiabilities" :rulesField="rulesField" />
 
                 </div>
 
@@ -373,15 +374,15 @@
                 <div class="IncomeDiv">
                     <!-- 种植收入 -->
                     <p class="tableTitle">种植收入</p>
-                    <plant ref="plant" :rulesField="rulesField" />
+                    <plant ref="plant" :zzsr="naturalData[index].incomePlants" :rulesField="rulesField" />
 
                     <!-- 农机作业收入 -->
                     <p class="tableTitle">农机作业收入</p>
-                    <agriculture ref="agriculture" :rulesField="rulesField" />
+                    <agriculture ref="agriculture" :njzysr="naturalData[index].incomeFarmMachineryWork" :rulesField="rulesField" />
 
                     <!-- 其他收入 -->
                     <p class="tableTitle">其他收入（如有）</p>
-                    <otherIncome ref="otherIncome" :rulesField="rulesField" />
+                    <otherIncome ref="otherIncome" :qtsr="naturalData[index].incomeOthers" :rulesField="rulesField" />
 
                     <!-- 收入偿债比 -->
                     <p class="tableTitle" style="display:inline-block;">收入偿债比</p>

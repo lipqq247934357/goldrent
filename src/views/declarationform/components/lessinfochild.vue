@@ -76,7 +76,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        sfyzn: {
             type: Array
         }
     },
@@ -84,7 +84,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        sfyzn(newVal,oldVal){
+            if(newVal != undefined) {
+                this.childrenInfo = this.fc;
+                this.childrenInfo.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '承租人子女' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

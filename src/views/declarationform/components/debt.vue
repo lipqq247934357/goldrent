@@ -90,7 +90,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        zwqk: {
             type: Array
         },
         rulesField: {
@@ -99,9 +99,21 @@ export default {
     },
 	created() {},
     mounted() {
+
     },
     watch: {
-
+        zwqk(newVal,oldVal){
+            if(newVal != undefined) {
+                this.debtSituations = this.zwqk;
+                this.debtSituations.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '债务情况' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

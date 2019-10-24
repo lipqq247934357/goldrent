@@ -87,7 +87,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        dwdb: {
             type: Array
         },
         rulesField: {
@@ -98,7 +98,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        dwdb(newVal,oldVal){
+            if(newVal != undefined) {
+                this.debtGuarantees = this.dwdb;
+                this.debtGuarantees.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '对外担保' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

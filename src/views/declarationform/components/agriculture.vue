@@ -108,7 +108,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        njzysr: {
             type: Array
         },
         rulesField: {
@@ -119,7 +119,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        njzysr(newVal,oldVal){
+            if(newVal != undefined) {
+                this.incomeFarmMachineryWork = this.njzysr;
+                this.incomeFarmMachineryWork.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '农机作业收入' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {
