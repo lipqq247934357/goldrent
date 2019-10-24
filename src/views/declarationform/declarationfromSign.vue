@@ -171,21 +171,21 @@
                 return new Promise((resolve, reject) => {
                     Promise.all([
                         this.$post('/leaseinfo/addElement', {...leaseInfo, bussNo: this.bussNo}),
-                        this.$post('/contractclause/add', {orderData:{},clauseData:rentFactor, bussNo: this.bussNo})
+                        this.$post('/contractclause/add', {orderData: {}, clauseData: rentFactor, bussNo: this.bussNo})
                     ]).then((data) => {
-                        if (data[0].data.resultCode === '2000000' && data[1].data.resultCode === '2000000') {
+                        if (data[0].data.code === '2000000' && data[1].data.code === '2000000') {
+                            activeName && this.initData(activeName);
                             resolve();
                         } else {
                             this.$message.warning({message: data.data.resultMsg, duration: 2000})
-                            resolve();
+                            reject();
                         }
                     }).catch(() => {
-                        activeName && this.initData(activeName);
-                        resolve();
+                        reject();
                     })
                 });
             },
-            rentpeople(res) {
+            rentpeople(activeName) {
 
                 this.$refs.rentpeople.naturalData.forEach((item,i) => {
                     item.assetsHouses = this.$refs.rentpeople.$refs.house[i].assetsHouses;
@@ -202,48 +202,72 @@
                     item.incomePlants = this.$refs.rentpeople.$refs.plant[i].incomePlants
                 });
                 this.leaseInfoData = this.$refs.rentpeople.naturalData;
-                this.$post('/leasee/add',{
-                    bussNo: this.bussNo,
-                    data: this.leaseInfoData
-                }).then(res => {
-                    if(res.data.code == 2000000) {
-                        this.$message.success('承租人保存成功');
 
-                     }
+                return new Promise((resolve, reject) => {
+                    this.$post('/leasee/add',{
+                        bussNo: this.bussNo,
+                        data: this.leaseInfoData
+                    }).then(res => {
+                        if (res.data.code === '2000000') {
+                            this.$message.success('承租人保存成功');
+                            activeName && this.initData(activeName);
+                            resolve();
+                        } else {
+                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
+                            reject();
+                        }
+                    }).catch(() => {
+                        reject();
+                    })
                 });
             },
-            guarantor() {
-
+            guarantor(activeName) {
                 let data = this.$refs.guarantor.warrantorDatas;
                 this.$refs.guarantor.allTabData(data);
-                console.log(data,'<<<<::::::保证人');
-                this.$post('/warrantor/add',{
-                    bussNo: this.bussNo,
-                    data: data
-                }).then(res => {
-                    if(res.data.code == 2000000) {
-                        this.$message.success('保证人保存成功');
-                     }
+
+                return new Promise((resolve, reject) => {
+                    this.$post('/warrantor/add',{
+                        bussNo: this.bussNo,
+                        data: data
+                    }).then(res => {
+                        if (res.data.code === '2000000') {
+                            this.$message.success('保证人保存成功');
+                            activeName && this.initData(activeName);
+                            resolve();
+                        } else {
+                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
+                            reject();
+                        }
+                    }).catch(() => {
+                        reject();
+                    });
                 });
             },
-            repurchase() {
+            repurchase(activeName) {
                 this.repurchaseData = this.$refs.repurchase.legalMan;
-                this.repurchaseData.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
+                this.repurchaseData.forEach(function (item, index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
                     delete item.name;
                     delete item.title;
                 });
-                this.$post('repurchase/add',{
-                    bussNo: this.bussNo,
-                    legalMan: this.repurchaseData
-                }).then(res => {
-                    if(res.data.code == 2000000) {
-                        this.$message.success('回购人保存成功');
-                        this.repurchaseData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
-                            item['name'] = index + 1 + '';
-                            item['title'] = '承租人' + parseInt( index + 1);
-                        });
-                        // this.$emit('childVal',this.legalMan); // 子传父 承租人数据传递给父组件
-                     }
+
+                return new Promise((resolve, reject) => {
+                    this.$post('repurchase/add', {
+                        bussNo: this.bussNo,
+                        legalMan: this.repurchaseData
+                    }).then(res => {
+                        if (res.data.code === '2000000') {
+                            this.$message.success('回购人保存成功');
+                            this.repurchaseData.forEach(function (item, index) { //用于ajax提交完成后返回删除的tab name 和title
+                                item['name'] = index + 1 + '';
+                                item['title'] = '承租人' + parseInt(index + 1);
+                            });
+                            activeName && this.initData(activeName);
+                            resolve();
+                        } else {
+                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
+                            reject();
+                        }
+                    });
                 });
             },
             leasehold(activeName) { // 租赁物信息save方法
@@ -253,90 +277,17 @@
                     this.$post('/leaseinfo/add', {
                         bussNo: this.bussNo,
                         lists: [{...leaseInfo,calcType:'DAY'}]
-                    }).then(() => {
-                        activeName && this.initData(activeName);
-                        resolve();
+                    }).then(res => {
+                        if (res.data.code === '2000000') {
+                            activeName && this.initData(activeName);
+                            resolve();
+                        } else {
+                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
+                            reject();
+                        }
                     }).catch(() => {
                         reject();
                     })
-                });
-
-                return new Promise((resolve, reject) => {
-                    this.$post('/leasee/add',{
-                        bussNo: this.bussNo,
-                        data: this.leaseInfoData
-                    }).then(res => {
-                        if(res.data.code == 2000000) {
-                            this.$message.success('承租人保存成功');
-                            this.leaseInfoData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
-                                item['name'] = index + 1 + '';
-                                item['title'] = '承租人' + parseInt( index + 1);
-                                item.assetsHouses.forEach(function(subItem,indexs) {
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '房产' + parseInt( indexs + 1);
-                                });
-                                item.childrenInfo.forEach(function(subItem,indexs) { // 子女
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '承租人子女' + parseInt( indexs + 1);
-                                });
-
-                                item.assetsLands.forEach(function(subItem,indexs) { // 土地
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '土地' + parseInt( indexs + 1);
-                                });
-
-                                item.assetsFinances.forEach(function(subItem,indexs) { // 金融资产
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '金融资产' + parseInt( indexs + 1);
-                                });
-
-                                item.assetsVehicles.forEach(function(subItem,indexs) { // 自用车
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '自用车' + parseInt( indexs + 1);
-                                });
-
-                                item.assetsFarmTools.forEach(function(subItem,indexs) { // 农机具
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '农机具' + parseInt( indexs + 1);
-                                });
-
-                                item.assetsOthers.forEach(function(subItem,indexs) { // 其他资产
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '其他资产' + parseInt( indexs + 1);
-                                });
-
-                                item.debtSituations.forEach(function(subItem,indexs) { // 债务情况
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '债务情况' + parseInt( indexs + 1);
-                                });
-
-                                item.debtGuarantees.forEach(function(subItem,indexs) { // 对外担保
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '对外担保' + parseInt( indexs + 1);
-                                });
-
-                                item.debtOthers.forEach(function(subItem,indexs) { // 其他负债
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '其他负债' + parseInt( indexs + 1);
-                                });
-
-                                item.incomePlants.forEach(function(subItem,indexs) { // 种植收入
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '种植收入' + parseInt( indexs + 1);
-                                });
-
-                                item.incomeFarmMachineryWork.forEach(function(subItem,indexs) { // 农机作业收入
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '农机作业收入' + parseInt( indexs + 1);
-                                });
-
-                                item.incomeOthers.forEach(function(subItem,indexs) { // 其他收入
-                                    subItem['name'] = indexs + 1 + '';
-                                    subItem['title'] = '其他收入' + parseInt( indexs + 1);
-                                });
-                            });
-                         }
-                    });
                 });
             },
             externalnews(activeName) {
@@ -345,12 +296,17 @@
                     this.$post('/surveyinformation/add', {
                         bussNo: this.bussNo,
                         surveyInformation:surveyInformation
-                    }).then(() => {
-                        activeName && this.initData(activeName);
-                        resolve();
+                    }).then(res => {
+                        if (res.data.code === '2000000') {
+                            activeName && this.initData(activeName);
+                            resolve();
+                        } else {
+                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
+                            reject();
+                        }
                     }).catch(() => {
                         reject();
-                    });
+                    })
                 });
             },
             investigation(activeName) {
@@ -362,12 +318,17 @@
                         bussNo: this.bussNo,
                         houseMortgager: [houseMortgager],
                         landMortgager: [landMortgager]
-                    }).then(() => {
-                        activeName && this.initData(activeName);
-                        resolve();
+                    }).then(res => {
+                        if (res.data.code === '2000000') {
+                            activeName && this.initData(activeName);
+                            resolve();
+                        } else {
+                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
+                            reject();
+                        }
                     }).catch(() => {
                         reject();
-                    });
+                    })
                 });
             },
             evaluate(activeName) {
@@ -378,12 +339,17 @@
                         bussNo: this.bussNo,
                         ...sponsor,
                         ownerType: 'ZB'
-                    }).then(() => {
-                        activeName && this.initData(activeName);
-                        resolve();
+                    }).then(res => {
+                        if (res.data.code === '2000000') {
+                            activeName && this.initData(activeName);
+                            resolve();
+                        } else {
+                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
+                            reject();
+                        }
                     }).catch(() => {
                         reject();
-                    });
+                    })
                 });
             },
             approvalOpinion(activeName) {
@@ -394,12 +360,17 @@
                         bussNo: this.bussNo,
                         ...sponsor,
                         ownerType: 'ZB'
-                    }).then(() => {
-                        activeName && this.initData(activeName);
-                        resolve();
+                    }).then(res => {
+                        if (res.data.code === '2000000') {
+                            activeName && this.initData(activeName);
+                            resolve();
+                        } else {
+                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
+                            reject();
+                        }
                     }).catch(() => {
                         reject();
-                    });
+                    })
                 });
 
             },
