@@ -1,352 +1,418 @@
 <template>
-    <div class="businfosss">
-        <componentitle :message="message='租赁要素'" class="componentitle"/>
-        <table class="lessinfoTbale">
-            <tr>
-                <td>租赁模式</td>
-                <td>直租</td>
-            </tr>
-            <tr>
-                <td>租赁物名称及规格型号</td>
-                <td>
-                    <el-input
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.leaseName">
-                    </el-input>
-                </td>
-            </tr>
-            <tr>
-                <td>购置价格（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.purchaseAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>首付款金额（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.firstPayAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>融资金额（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.financeAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>厂商返利（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.rebateAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>厂商贴息（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.rebateFirmAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>厂商贴息时间</td>
-                <td>
-                    <el-select class="input-width" clearable placeholder="请选择"
-                               v-model="leaseInfo.firmRebateIntrestDate">
-                        <el-option
-                                :key="item.optionCode"
-                                :label="item.optionName"
-                                :value="item.optionCode"
-                                v-for="item in rebateDate">
-                        </el-option>
-                    </el-select>
-                </td>
-            </tr>
-            <tr>
-                <td>其他支出</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.otherExpense">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>其他支出时间</td>
-                <td>
-                    <el-select class="input-width" clearable placeholder="请选择" v-model="leaseInfo.otherExpenseDate">
-                        <el-option
-                                :key="item.optionCode"
-                                :label="item.optionName"
-                                :value="item.optionCode"
-                                v-for="item in rebateDate">
-                        </el-option>
-                    </el-select>
-                </td>
-            </tr>
-            <tr>
-                <td>承租人风险金（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.lesseeRiskAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>其他风险金（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.otherRiskAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>补贴金额（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.allowanceAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>预计补贴时间</td>
-                <td>
-
-                    <el-date-picker
-                            class="input-width"
-                            placeholder="选择日期"
-                            type="date"
-                            v-model="leaseInfo.allowanceDate"
-                            value-format="yyyy-MM-dd">
-                    </el-date-picker>
-                </td>
-            </tr>
-            <tr>
-                <td>计划起租日</td>
-                <td>
-                    <el-date-picker
-                            @change="calculatorPeriod"
-                            class="input-width"
-                            placeholder="选择日期"
-                            type="date"
-                            v-model="leaseInfo.startDate"
-                            value-format="yyyy-MM-dd">
-                    </el-date-picker>
-                </td>
-            </tr>
-            <tr>
-                <td>计划终止日</td>
-                <td>
-                    <el-date-picker
-                            :picker-options="endpickerOptions"
-                            @change="calculatorPeriod"
-                            class="input-width"
-                            placeholder="选择日期"
-                            type="date"
-                            v-model="leaseInfo.endDate"
-                            value-format="yyyy-MM-dd">
-                    </el-date-picker>
-                </td>
-            </tr>
-            <tr>
-                <td>租赁期限（月）</td>
-                <td>
-                    {{leaseInfo.leaseTerm}}
-                </td>
-            </tr>
-            <tr>
-                <td>租赁利率（固定利率）</td>
-                <td>
-                    <el-input
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.leaseRate">
-                    </el-input>
-                </td>
-            </tr>
-            <tr>
-                <td>租金支付方式</td>
-                <td>
-                    <el-select class="input-width" clearable placeholder="请选择" v-model="leaseInfo.payWay">
-                        <el-option
-                                :key="item.optionCode"
-                                :label="item.optionName"
-                                :value="item.optionCode"
-                                v-for="item in payWay">
-                        </el-option>
-                    </el-select>
-                </td>
-            </tr>
-
-            <tr>
-                <td>计息方式</td>
-                <td>按日计息</td>
-            </tr>
-            <tr>
-                <td>还款频次</td>
-                <td>
-                    <el-select class="input-width" clearable placeholder="请选择" v-model="leaseInfo.repayRate">
-                        <el-option
-                                :key="item.optionCode"
-                                :label="item.optionName"
-                                :value="item.optionCode"
-                                v-for="item in repayRate">
-                        </el-option>
-                    </el-select>
-                </td>
-            </tr>
-            <tr>
-                <td>留购价款（元）</td>
-                <td>
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.depositAmt">
-                    </el-input-number>
-                </td>
-            </tr>
-            <tr>
-                <td>提前结清（%）</td>
-                <td>
-
-                    <el-input-number
-                            :precision="2"
-                            :step="0.1"
-                            class="input-width"
-                            type="text"
-                            v-model="leaseInfo.settleAhead">
-                    </el-input-number>
-                </td>
-            </tr>
-        </table>
-
-        <div class="section2">
-            <componentitle :message="message='(二) 相关条款'"/>
-            <div class="tableTitle">
-                2.1 金租收款账户
-            </div>
+    <div>
+        <div class="businfosss" v-show="!showRentTable">
+            <componentitle :message="message='租赁要素'" class="componentitle"/>
             <table class="lessinfoTbale">
                 <tr>
-                    <td>还租方式</td>
+                    <td>租赁模式</td>
+                    <td>直租</td>
+                </tr>
+                <tr>
+                    <td>租赁物名称及规格型号</td>
                     <td>
-                        <el-select class="input-width-2column" clearable placeholder="请选择"
-                                   v-model="rentFactor.payType">
+                        <el-input
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.leaseName">
+                        </el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>购置价格（元）</td>
+                    <td>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.purchaseAmt">
+                        </el-input-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td>首付款金额（元）</td>
+                    <td>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.firstPayAmt">
+                        </el-input-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td>融资金额（元）</td>
+                    <td>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.financeAmt">
+                        </el-input-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td>厂商返利（元）</td>
+                    <td>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.rebateAmt">
+                        </el-input-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td>厂商贴息（元）</td>
+                    <td>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.rebateFirmAmt">
+                        </el-input-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td>厂商贴息时间</td>
+                    <td>
+                        <el-select class="input-width" clearable placeholder="请选择"
+                                   v-model="leaseInfo.firmRebateIntrestDate">
                             <el-option
                                     :key="item.optionCode"
                                     :label="item.optionName"
                                     :value="item.optionCode"
-                                    v-for="item in payType">
+                                    v-for="item in rebateDate">
                             </el-option>
                         </el-select>
                     </td>
-                    <td>账户名称</td>
+                </tr>
+                <tr>
+                    <td>其他支出</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentFactor.paymentAccountName"></el-input>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.otherExpense">
+                        </el-input-number>
                     </td>
                 </tr>
                 <tr>
-                    <td>开户银行</td>
+                    <td>其他支出时间</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentFactor.paymentAccountBank"></el-input>
-                    </td>
-                    <td>银行卡号</td>
-                    <td>
-                        <el-input class="input-width-2column" v-model="rentFactor.paymentAccount"></el-input>
-                    </td>
-                </tr>
-            </table>
-            <div class="tableTitle">
-                2.2 租户收款账户信息
-            </div>
-            <table class="lessinfoTbale">
-                <tr>
-                    <td>收款账户类型</td>
-                    <td>
-                        <el-select class="input-width-2column" clearable placeholder="请选择"
-                                   v-model="rentFactor.receiptType">
+                        <el-select class="input-width" clearable placeholder="请选择" v-model="leaseInfo.otherExpenseDate">
                             <el-option
                                     :key="item.optionCode"
                                     :label="item.optionName"
                                     :value="item.optionCode"
-                                    v-for="item in receiptType">
+                                    v-for="item in rebateDate">
                             </el-option>
                         </el-select>
                     </td>
-                    <td>账户名称</td>
+                </tr>
+                <tr>
+                    <td>承租人风险金（元）</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentFactor.receiptAccountName"></el-input>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.lesseeRiskAmt">
+                        </el-input-number>
                     </td>
                 </tr>
                 <tr>
-                    <td>身份证号（如有）</td>
+                    <td>其他风险金（元）</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentFactor.certNo"></el-input>
-                    </td>
-                    <td>开户银行</td>
-                    <td>
-                        <el-input class="input-width-2column" v-model="rentFactor.receiptAccount"></el-input>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.otherRiskAmt">
+                        </el-input-number>
                     </td>
                 </tr>
                 <tr>
-                    <td>银行卡号</td>
+                    <td>补贴金额（元）</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentFactor.receiptAccountBank"></el-input>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.allowanceAmt">
+                        </el-input-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td>预计补贴时间</td>
+                    <td>
+
+                        <el-date-picker
+                                class="input-width"
+                                placeholder="选择日期"
+                                type="date"
+                                v-model="leaseInfo.allowanceDate"
+                                value-format="yyyy-MM-dd">
+                        </el-date-picker>
+                    </td>
+                </tr>
+                <tr>
+                    <td>计划起租日</td>
+                    <td>
+                        <el-date-picker
+                                @change="calculatorPeriod"
+                                class="input-width"
+                                placeholder="选择日期"
+                                type="date"
+                                v-model="leaseInfo.startDate"
+                                value-format="yyyy-MM-dd">
+                        </el-date-picker>
+                    </td>
+                </tr>
+                <tr>
+                    <td>计划终止日</td>
+                    <td>
+                        <el-date-picker
+                                :picker-options="endpickerOptions"
+                                @change="calculatorPeriod"
+                                class="input-width"
+                                placeholder="选择日期"
+                                type="date"
+                                v-model="leaseInfo.endDate"
+                                value-format="yyyy-MM-dd">
+                        </el-date-picker>
+                    </td>
+                </tr>
+                <tr>
+                    <td>租赁期限（月）</td>
+                    <td>
+                        {{leaseInfo.leaseTerm}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>租赁利率（固定利率）</td>
+                    <td>
+                        <el-input
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.leaseRate">
+                        </el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>租金支付方式</td>
+                    <td>
+                        <el-select class="input-width" clearable placeholder="请选择" v-model="leaseInfo.payWay">
+                            <el-option
+                                    :key="item.optionCode"
+                                    :label="item.optionName"
+                                    :value="item.optionCode"
+                                    v-for="item in payWay">
+                            </el-option>
+                        </el-select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>计息方式</td>
+                    <td>按日计息</td>
+                </tr>
+                <tr>
+                    <td>还款频次</td>
+                    <td>
+                        <el-select class="input-width" clearable placeholder="请选择" v-model="leaseInfo.repayRate">
+                            <el-option
+                                    :key="item.optionCode"
+                                    :label="item.optionName"
+                                    :value="item.optionCode"
+                                    v-for="item in repayRate">
+                            </el-option>
+                        </el-select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>留购价款（元）</td>
+                    <td>
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.depositAmt">
+                        </el-input-number>
+                    </td>
+                </tr>
+                <tr>
+                    <td>提前结清（%）</td>
+                    <td>
+
+                        <el-input-number
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width"
+                                type="text"
+                                v-model="leaseInfo.settleAhead">
+                        </el-input-number>
                     </td>
                 </tr>
             </table>
-        </div>
 
-        <div class="buttonNext" style="width: 300px;">
-            <el-button @click="save('save')" class="buttonClass" type="primary">保存</el-button>
-            <el-button @click="rent" class="buttonClass" type="primary">租金计划表</el-button>
-            <el-button @click="save('next')" class="buttonClass" type="primary">下一步</el-button>
+            <div class="section2">
+                <componentitle :message="message='(二) 相关条款'"/>
+                <div class="tableTitle">
+                    2.1 金租收款账户
+                </div>
+                <table class="lessinfoTbale">
+                    <tr>
+                        <td>还租方式</td>
+                        <td>
+                            <el-select class="input-width-2column" clearable placeholder="请选择"
+                                       v-model="rentFactor.payType">
+                                <el-option
+                                        :key="item.optionCode"
+                                        :label="item.optionName"
+                                        :value="item.optionCode"
+                                        v-for="item in payType">
+                                </el-option>
+                            </el-select>
+                        </td>
+                        <td>账户名称</td>
+                        <td>
+                            <el-input class="input-width-2column" v-model="rentFactor.paymentAccountName"></el-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>开户银行</td>
+                        <td>
+                            <el-input class="input-width-2column" v-model="rentFactor.paymentAccountBank"></el-input>
+                        </td>
+                        <td>银行卡号</td>
+                        <td>
+                            <el-input class="input-width-2column" v-model="rentFactor.paymentAccount"></el-input>
+                        </td>
+                    </tr>
+                </table>
+                <div class="tableTitle">
+                    2.2 租户收款账户信息
+                </div>
+                <table class="lessinfoTbale">
+                    <tr>
+                        <td>收款账户类型</td>
+                        <td>
+                            <el-select class="input-width-2column" clearable placeholder="请选择"
+                                       v-model="rentFactor.receiptType">
+                                <el-option
+                                        :key="item.optionCode"
+                                        :label="item.optionName"
+                                        :value="item.optionCode"
+                                        v-for="item in receiptType">
+                                </el-option>
+                            </el-select>
+                        </td>
+                        <td>账户名称</td>
+                        <td>
+                            <el-input class="input-width-2column" v-model="rentFactor.receiptAccountName"></el-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>身份证号（如有）</td>
+                        <td>
+                            <el-input class="input-width-2column" v-model="rentFactor.certNo"></el-input>
+                        </td>
+                        <td>开户银行</td>
+                        <td>
+                            <el-input class="input-width-2column" v-model="rentFactor.receiptAccount"></el-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>银行卡号</td>
+                        <td>
+                            <el-input class="input-width-2column" v-model="rentFactor.receiptAccountBank"></el-input>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="buttonNext" style="width: 300px;">
+                <el-button @click="save('save')" class="buttonClass" type="primary">保存</el-button>
+                <el-button @click="rent" class="buttonClass" type="primary">租金计划表</el-button>
+                <el-button @click="save('next')" class="buttonClass" type="primary">下一步</el-button>
+            </div>
+            <!--        <rentTable :show="true"></rentTable>-->
         </div>
-<!--        <rentTable :show="true"></rentTable>-->
+        <div class="renttable businfosss" v-if="showRentTable">
+            <div class="titletop">
+                <div class="topbox">
+                    <span>租赁计划安排</span>
+                    <div style="float: right;margin-right: 20px;">
+                        <el-button @click="countZero" size="small" style="background: #ff8f2b;border:0" type="primary">
+                            一键清零
+                        </el-button>
+                        <el-button @click="testCal" size="small" style="background: #ff8f2b;border:0" type="primary">
+                            还款试算
+                        </el-button>
+                    </div>
+                </div>
+            </div>
+            <div class="tableTitle">
+                您的融资金额为：<span style="color: #ffc18d;">{{leaseInfo.financeAmt}}</span>元
+            </div>
+            <el-table
+                    :data="rentData"
+                    :header-cell-style="{
+                    'color': '#212121',
+                    'font-size': '14px',
+                    'font-weight': 'bold'
+                }"
+                    :summary-method="summaries"
+                    border
+                    element-loading-text="拼命加载中"
+                    show-summary
+                    size="small"
+                    style="width: 100%">
+                <el-table-column
+                        label="期数"
+                        prop="period">
+                </el-table-column>
+                <el-table-column
+                        label="本金(元)"
+                        prop="principal">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.principal"></el-input>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        label="租赁利率(%)"
+                        prop="moneyRate">
+                </el-table-column>
+                <el-table-column
+                        label="利息(元)"
+                        prop="interest">
+                </el-table-column>
+                <el-table-column
+                        label="租金总额(元)"
+                        prop="dueAmout">
+                </el-table-column>
+                <el-table-column
+                        label="支付日期"
+                        prop="dueDate">
+                </el-table-column>
+            </el-table>
+
+            <div class="buttonNext" style="width: 300px;">
+                <el-button @click="back()" class="buttonClass" type="primary">返回</el-button>
+                <el-button @click="saveRent('next')" class="buttonClass" type="primary">保存</el-button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -401,7 +467,9 @@
                     certNo: '', // 证件号码
                     receiptAccountBank: '', // 开户银行
                     receiptAccount: '', //银行卡号
-                }
+                },
+                showRentTable: false,
+                rentData: []
             }
         },
         created() {
@@ -426,7 +494,7 @@
                 // 2.租赁要素查询
                 this.$post('/leaseinfo/queryElement', {
                     bussNo: this.bussNo,
-                    taskType:"10"
+                    taskType: "10"
                 }).then(res => {
                     if (res.data.code === '2000000' || res.data.code === 2000000) {
                         let leaseInfo = res.data.data;
@@ -444,6 +512,15 @@
                     if (res.data.code === '2000000' || res.data.code === 2000000) {
                         this.rentFactor = res.data.data.clauseData;
                     }
+                });
+            },
+            rentTableInfo() { // 获取租金计划表数据
+                // 3.相关条款查询
+                this.$post('/leaseinfo/querySchedule', {
+                    bussNo: this.bussNo,
+                    needUpdate: false
+                }).then(res => {
+                    this.rentData = res.data.data;
                 });
             },
             // 限制计划终止日必须大于计划起租日的时间选择
@@ -470,14 +547,85 @@
                 }
             },
             save(param) { // 保存页面或者下一步
-                if(param === 'save'){
+                if (param === 'save') {
                     this.$emit("saveData");
-                }else{
-                    this.$emit('update:bindText','承租人信息')
+                } else {
+                    this.$emit('update:bindText', '承租人信息')
                 }
             },
-            rent(){ // 租金计划表
-
+            rent() { // 租金计划表
+                this.showRentTable = true;
+                this.rentTableInfo();
+            },
+            back() { // 隐藏租金计划表
+                this.showRentTable = false;
+            },
+            saveRent() { // 保存租金计划表
+                // 还款提交
+                this.$post('/leaseinfo/addSchedule', {
+                    bussNo: this.bussNo,
+                    data: this.rentData
+                }).then(res => {
+                    if(res.data.code == '2000000'){
+                        console.log(res);
+                        this.$message.success(`该笔业务的内部收益率为${res.data.data.earningRate*100}%`);
+                    }
+                });
+            },
+            countZero() { // 清0
+                this.rentData.forEach(item => {
+                    item.principal = item.interest = item.dueAmout = 0;
+                })
+            },
+            testCal() { // 还款试算
+                this.$post('/leaseinfo/queryCalculation', {
+                    bussNo: this.bussNo,
+                    data: this.rentData
+                }).then(res => {
+                    if(res.data.code == '2000000'){
+                        this.$message.success('试算成功');
+                    }
+                });
+            },
+            summaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = '总价';
+                        return;
+                    }
+                    if (index === 2) {
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return this.add(prev,curr);
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                    }
+                });
+                return sums;
+            },
+            add(arg1, arg2) {
+                let r1, r2, m;
+                try {
+                    r1 = arg1.toString().split(".")[1].length
+                } catch (e) {
+                    r1 = 0
+                }
+                try {
+                    r2 = arg2.toString().split(".")[1].length
+                } catch (e) {
+                    r2 = 0
+                }
+                m = Math.pow(10, Math.max(r1, r2))
+                return (arg1 * m + arg2 * m) / m
             }
         }
     }
