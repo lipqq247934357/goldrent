@@ -174,6 +174,7 @@
                         this.$post('/contractclause/add', {orderData: {}, clauseData: rentFactor, bussNo: this.bussNo})
                     ]).then((data) => {
                         if (data[0].data.code === '2000000' && data[1].data.code === '2000000') {
+                            this.$message.success('租赁要素保存成功');
                             activeName && this.initData(activeName);
                             resolve();
                         } else {

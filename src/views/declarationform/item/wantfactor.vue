@@ -25,6 +25,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.purchaseAmt">
                         </el-input-number>
                     </td>
@@ -37,6 +38,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.firstPayAmt">
                         </el-input-number>
                     </td>
@@ -49,6 +51,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.financeAmt">
                         </el-input-number>
                     </td>
@@ -61,6 +64,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.rebateAmt">
                         </el-input-number>
                     </td>
@@ -73,6 +77,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.rebateFirmAmt">
                         </el-input-number>
                     </td>
@@ -99,6 +104,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.otherExpense">
                         </el-input-number>
                     </td>
@@ -124,6 +130,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.lesseeRiskAmt">
                         </el-input-number>
                     </td>
@@ -136,6 +143,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.otherRiskAmt">
                         </el-input-number>
                     </td>
@@ -148,6 +156,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.allowanceAmt">
                         </el-input-number>
                     </td>
@@ -247,12 +256,13 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.depositAmt">
                         </el-input-number>
                     </td>
                 </tr>
                 <tr>
-                    <td>提前结清（%）</td>
+                    <td>提前结清手续费（%）</td>
                     <td>
 
                         <el-input-number
@@ -260,6 +270,7 @@
                                 :step="0.1"
                                 class="input-width"
                                 type="text"
+                                :min="0.00"
                                 v-model="leaseInfo.settleAhead">
                         </el-input-number>
                     </td>
@@ -516,9 +527,9 @@
             },
             rentTableInfo() { // 获取租金计划表数据
                 // 3.相关条款查询
-                this.$post('/leaseinfo/querySchedule', {
+                this.$post('/leaseinfo/queryScheduleNew', {
                     bussNo: this.bussNo,
-                    needUpdate: false
+                    taskType:10
                 }).then(res => {
                     this.rentData = res.data.data;
                 });
