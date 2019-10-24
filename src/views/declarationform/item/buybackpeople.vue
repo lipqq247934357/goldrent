@@ -423,6 +423,16 @@ export default {
             this.editableTabsValue = newTabName;
         },
         removeTab(targetName) {
+            if(this.legalMan[targetName - 1].basicInfo.id) {
+                this.$post('/data/del',{
+                    id: this.legalMan[targetName - 1].basicInfo.id,
+                    type: 'custLegal'
+                }).then(res => {
+                    if(res.data.code =='2000000') {
+                        this.$message.success('删除成功');
+                    }
+                });
+            }
 
             let tabs = this.legalMan;
             let activeName = this.editableTabsValue;
@@ -458,6 +468,7 @@ export default {
             this.editableTabsValue = this.legalMan.length + '';
             //主要防止于添加的时候错误
             this.tabIndex = this.legalMan.length;
+
         },
         imgData() {
             this.$post('/buss/materialTree',{

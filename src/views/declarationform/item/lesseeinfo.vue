@@ -751,6 +751,18 @@ export default {
         },
         removeTab(targetName) {
 
+            // console.log(this.naturalData[targetName - 1].id)
+            if(this.naturalData[targetName - 1].id) {
+                this.$post('/data/del',{
+                    id: this.naturalData[targetName - 1].id,
+                    type: 'custNature'
+                }).then(res => {
+                    if(res.data.code =='2000000') {
+                        this.$message.success('删除成功');
+                    }
+                });
+            }
+
             let tabs = this.naturalData;
             let activeName = this.editableTabsValue;
 
@@ -824,7 +836,7 @@ export default {
             if(isNaN(val) == true) {
                 this.naturalData[nowIndex].custMobile = '';
             }
-            if(!(/^1[3456789]\d{9}$/.test(val))){ 
+            if(!(/^1[3456789]\d{9}$/.test(val))){
                 this.$message.error("手机号码有误，请重填");
                 this.naturalData[nowIndex].custMobile = '';
             }
