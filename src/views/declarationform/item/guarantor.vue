@@ -560,16 +560,16 @@
                 <div class="assetsAll" v-if="item.partnerType == 'NAT'">
                     <!-- 房产 -->
                     <p class="tableTitle">房产（如有）</p>
-                    <assets ref="house" :rulesField="rulesField" />
+                    <assets ref="house" :fc="warrantorDatas[index].assetsHouses" :rulesField="rulesField" />
 
                     <!-- 土地（含代收代耕）（如有） -->
                     <p class="tableTitle">土地（含代收代耕）（如有）</p>
-                    <lands ref="lands" :rulesField="rulesField"/>
+                    <lands ref="lands" :tds="warrantorDatas[index].assetsLands" :rulesField="rulesField"/>
 
 
                     <!-- 自用车 -->
                     <p class="tableTitle">自用车（如有）</p>
-                    <homecar ref="homecar" :rulesField="rulesField"/>
+                    <homecar ref="homecar" :zyc="warrantorDatas[index].assetsVehicles" :rulesField="rulesField"/>
 
                     <!-- 农机具 -->
                     <p class="tableTitle">农机具（如有）</p>

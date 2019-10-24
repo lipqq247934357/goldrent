@@ -105,7 +105,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        tds: {
             type: Array
         },
         rulesField: {
@@ -114,9 +114,31 @@ export default {
     },
 	created() {},
     mounted() {
+        // if(this.tds) {
+        //     this.tds.forEach((item,index) => {
+        //         if(item.assetsLands.length != '0') {
+        //             this.assetsLands[index] = item.assetsLands;
+        //             this.assetsLands.forEach((item) => {
+        //                 item['name'] = index+1 + "";
+        //                 item['title'] = '土地' + index++
+        //             });
+        //         }
+        //     });
+        // }
     },
     watch: {
-
+        tds(newVal,oldVal){
+            if(newVal != undefined) {
+                this.assetsLands = this.tds;
+                this.assetsLands.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '土地' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

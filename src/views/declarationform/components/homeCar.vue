@@ -17,7 +17,8 @@
                         <el-date-picker
                             class="inputLessinfo"
                             v-model="item.buyTime"
-                            value-format="yyyy-MM-dd"
+                            format="yyyy-MM-dd hh:mm:ss"
+                            value-format="yyyy-MM-dd hh:mm:ss"
                             type="date"
                             placeholder="选择日期">
                         </el-date-picker>
@@ -107,7 +108,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        zyc: {
             type: Array
         },
         rulesField: {
@@ -118,7 +119,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        zyc(newVal,oldVal){
+            if(newVal != undefined) {
+                this.assetsVehicles = this.zyc;
+                this.assetsVehicles.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '自用车' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

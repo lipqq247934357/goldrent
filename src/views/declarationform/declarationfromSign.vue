@@ -208,73 +208,7 @@
                 }).then(res => {
                     if(res.data.code == 2000000) {
                         this.$message.success('承租人保存成功');
-                        this.leaseInfoData.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
-                            item['name'] = index + 1 + '';
-                            item['title'] = '承租人' + parseInt( index + 1);
-                            item.assetsHouses.forEach(function(subItem,indexs) {
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '房产' + parseInt( indexs + 1);
-                            });
-                            item.childrenInfo.forEach(function(subItem,indexs) { // 子女
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '承租人子女' + parseInt( indexs + 1);
-                            });
 
-                            item.assetsLands.forEach(function(subItem,indexs) { // 土地
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '土地' + parseInt( indexs + 1);
-                            });
-
-                            item.assetsFinances.forEach(function(subItem,indexs) { // 金融资产
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '金融资产' + parseInt( indexs + 1);
-                            });
-
-                            item.assetsVehicles.forEach(function(subItem,indexs) { // 自用车
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '自用车' + parseInt( indexs + 1);
-                            });
-
-                            item.assetsFarmTools.forEach(function(subItem,indexs) { // 农机具
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '农机具' + parseInt( indexs + 1);
-                            });
-
-                            item.assetsOthers.forEach(function(subItem,indexs) { // 其他资产
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '其他资产' + parseInt( indexs + 1);
-                            });
-
-                            item.debtSituations.forEach(function(subItem,indexs) { // 债务情况
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '债务情况' + parseInt( indexs + 1);
-                            });
-
-                            item.debtGuarantees.forEach(function(subItem,indexs) { // 对外担保
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '对外担保' + parseInt( indexs + 1);
-                            });
-
-                            item.debtOthers.forEach(function(subItem,indexs) { // 其他负债
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '其他负债' + parseInt( indexs + 1);
-                            });
-
-                            item.incomePlants.forEach(function(subItem,indexs) { // 种植收入
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '种植收入' + parseInt( indexs + 1);
-                            });
-
-                            item.incomeFarmMachineryWork.forEach(function(subItem,indexs) { // 农机作业收入
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '农机作业收入' + parseInt( indexs + 1);
-                            });
-
-                            item.incomeOthers.forEach(function(subItem,indexs) { // 其他收入
-                                subItem['name'] = indexs + 1 + '';
-                                subItem['title'] = '其他收入' + parseInt( indexs + 1);
-                            });
-                        });
                      }
                 });
             },

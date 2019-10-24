@@ -14,7 +14,6 @@
                 <tr>
                     <td>房产类型</td>
                     <td>
-                        </el-input>
                         <el-select v-model="item.type" class="inputLessinfo" placeholder="请选择">
                             <el-option v-for="items in rulesField.houseType"
                                 :key="items.optionCode"
@@ -105,7 +104,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        fc: {
             type: Array
         },
         rulesField: {
@@ -115,8 +114,19 @@ export default {
 	created() {},
     mounted() {
     },
-    watch: {
-
+    watch:{
+        fc(newVal,oldVal){
+            if(newVal != undefined) {
+                this.assetsHouses = this.fc;
+                this.assetsHouses.forEach((item,index) => {
+                    console.log(index);
+                    item['name'] = index+1 + '';
+                    item['title'] = '房产' + (index+1);
+                    item.type = item.type + ''; 
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {
@@ -173,19 +183,7 @@ export default {
             //主要防止于添加的时候错误
             this.childIndex = this.assetsHouses.length;
         },
-        // 子女身份证号码校验
-        idNumber(val) {
-            let idcodeCheck = this.$idCard.IDcode(val);
-            let nowIndex = this.childIndex - 1;
-            if(idcodeCheck.Status == false) {
-                this.$message.error(idcodeCheck.msg);
-                return;
-            }
-            setTimeout(function() {
-                this.assetsHouses[nowIndex].childData.custSex = idcodeCheck.Sex;
-                this.assetsHouses[nowIndex].childData.custAge = idcodeCheck.Age;
-            }.bind(this),100);
-        }
+
     },
 }
 </script>

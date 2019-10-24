@@ -117,7 +117,7 @@ export default {
 		}
 	},
     props: {
-        editableTabs: {
+        jrzc: {
             type: Array
         },
         rulesField: {
@@ -128,7 +128,18 @@ export default {
     mounted() {
     },
     watch: {
-
+        jrzc(newVal,oldVal){
+            if(newVal != undefined) {
+                this.assetsFinances = this.jrzc;
+                this.assetsFinances.forEach((item,index) => {
+                    console.log(item);
+                    item['name'] = index+1 + '';
+                    item['title'] = '金融资产' + (index+1);
+                    item.type = item.type + '';
+                });
+                this.childrenTabs = '1';
+            }
+        }
     },
 	methods: {
         addTab(targetName) {

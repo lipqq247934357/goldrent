@@ -329,19 +329,19 @@
                 <div class="assetsAll">
                     <!-- 房产 -->
                     <p class="tableTitle">房产（如有）</p>
-                    <assets ref="house" :rulesField="rulesField" />
+                    <assets ref="house" :fc="naturalData[index].assetsHouses" :rulesField="rulesField" />
 
                     <!-- 土地（含代收代耕）（如有） -->
                     <p class="tableTitle">土地（含代收代耕）（如有）</p>
-                    <lands ref="lands" :rulesField="rulesField"/>
+                    <lands ref="lands" :tds="naturalData[index].assetsLands" :rulesField="rulesField"/>
 
                     <!-- 金融资产 -->
                     <p class="tableTitle">金融资产（如有）</p>
-                    <financial ref="financial" :rulesField="rulesField"/>
+                    <financial ref="financial" :jrzc="naturalData[index].assetsFinances" :rulesField="rulesField"/>
 
                     <!-- 自用车 -->
                     <p class="tableTitle">自用车（如有）</p>
-                    <homecar ref="homecar" :rulesField="rulesField"/>
+                    <homecar ref="homecar" :zyc="naturalData[index].assetsVehicles" :rulesField="rulesField"/>
 
                     <!-- 农机具 -->
                     <p class="tableTitle">农机具（如有）</p>
@@ -550,6 +550,7 @@ import imgUpload from '../imgUpload.vue'; //图片组件
 export default {
     data() {
         return {
+            arrIndexTab: 0,
             imgsUrl: '',
             srcList: [],
             dialogImageUrl: '',
@@ -566,6 +567,7 @@ export default {
             naturalData: [{
                 title: '承租人1',
                 name: '1',
+                sortIndex: 1,
                 certNo: '', //身份证号码
                 residenceYears: '', //申请地居住年限
                 custSex: '', // 性别
@@ -600,11 +602,10 @@ export default {
                     custWechat: '', // 微信
                     custMobile: '', // 电话
                 }],
-                childrenInfo: [],
                 childrenInfo: [], //子女信息
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
-                assetsFinances: [],// 进入资产
+                assetsFinances: [],// 金融资产
                 assetsVehicles: [], //自用车
                 assetsFarmTools: [],//农机具
                 assetsOthers: [], //其他资产
@@ -655,6 +656,7 @@ export default {
                 if (res.data.code == '2000000') {
                     if(res.data.data.data.length != '0') {
                         this.naturalData = res.data.data.data;
+                        console.log(this.naturalData,'之后');
                         this.naturalData.forEach(function(item,index) {
                             item['name'] = index + 1 + '';
                             item['title'] = "承租人" + parseInt(index + 1);
@@ -678,6 +680,7 @@ export default {
                 certNo: '', //身份证号码
                 residenceYears: '', //申请地居住年限
                 custSex: '', // 性别
+                sortIndex: this.tabChange,
                 cultureYears: '', //种植年限
                 custName: '', //承租人信息姓名
                 custEducation: '', //存储选中的教育程度
@@ -741,6 +744,7 @@ export default {
                     }
                 ]
             });
+            console.log(this.naturalData);
             this.editableTabsValue = newTabName;
         },
         removeTab(targetName) {
@@ -772,10 +776,12 @@ export default {
 
             // 当删除成功后后一项承租人继承前一项承租人index
             this.naturalData.forEach(function(item, index, arr) {
+                item.sortIndex--
                 item.title = '承租人' + parseInt(index + 1);
                 item.name = parseInt(index + 1) + '';
                 item.content = '承租人' + parseInt(index + 1);
             })
+            console.log(this.naturalData);
             this.editableTabsValue = this.naturalData.length + '';
             //主要防止于添加的时候错误
             this.tabIndex = this.naturalData.length;
