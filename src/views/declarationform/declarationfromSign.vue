@@ -280,6 +280,7 @@
                         lists: [{...leaseInfo,calcType:'DAY'}]
                     }).then(res => {
                         if (res.data.code === '2000000') {
+                            this.$message.success('租赁物信息保存成功');
                             activeName && this.initData(activeName);
                             resolve();
                         } else {
@@ -299,6 +300,7 @@
                         surveyInformation:surveyInformation
                     }).then(res => {
                         if (res.data.code === '2000000') {
+                            this.$message.success('外部信息保存成功');
                             activeName && this.initData(activeName);
                             resolve();
                         } else {
@@ -321,6 +323,7 @@
                         landMortgager: [landMortgager]
                     }).then(res => {
                         if (res.data.code === '2000000') {
+                            this.$message.success('增信措施及综述保存成功');
                             activeName && this.initData(activeName);
                             resolve();
                         } else {
@@ -342,6 +345,7 @@
                         ownerType: 'ZB'
                     }).then(res => {
                         if (res.data.code === '2000000') {
+                            this.$message.success('调查结论及风险评价保存成功');
                             activeName && this.initData(activeName);
                             resolve();
                         } else {
@@ -363,6 +367,7 @@
                         ownerType: 'ZB'
                     }).then(res => {
                         if (res.data.code === '2000000') {
+                            this.$message.success('审批意见保存成功');
                             activeName && this.initData(activeName);
                             resolve();
                         } else {
