@@ -846,6 +846,7 @@ export default {
             };
             if(val == 'LEG') {
                 this.$set(this.warrantorDatas,this.tabChange - 1,b);
+
             } else {
                 this.$set(this.warrantorDatas,this.tabChange - 1,a)
             }
@@ -1113,142 +1114,26 @@ export default {
             }
         },
         save(param) { // 保存页面或者下一步
-            // console.log(this.warrantorDatas,111);
+            this.save();
+            // console.log(this.warrantorDatas,'11111');
             if(param === 'save'){
-                this.$emit('childVal',this.warrantorDatas); // 子传父
-                this.$emit("saveData",this.warrantorDatas);
-                // this.imgData();
+                this.$emit("childVal",this.warrantorDatas);
             }else{
-                this.$emit('childVal',this.warrantorDatas); // 子传父
                 this.$emit('update:bindText','回购人信息')
             }
         },
         // 保存
         saveData() {
             this.allTabData(this.warrantorDatas);
-            this.warrantorDatas.forEach(function(item,index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
-                delete item.name;
-                delete item.title;
-                if(item.partnerType == 'LEG') {
-                    return;
-                }
-                item.assetsHouses.forEach(function(subItem) { // 房产
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-                item.assetsLands.forEach(function(subItem) { // 土地
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-
-                item.assetsVehicles.forEach(function(subItem) { // 自用车
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-                item.assetsFarmTools.forEach(function(subItem) { // 农机具
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-                item.assetsOthers.forEach(function(subItem) { // 其他资产
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-                item.debtSituations.forEach(function(subItem) { // 债务情况
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-                item.debtGuarantees.forEach(function(subItem) { // 对外担保
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-                item.debtOthers.forEach(function(subItem) { // 其他负债
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-                item.incomePlants.forEach(function(subItem) { // 种植收入
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-
-
-                item.incomeOthers.forEach(function(subItem) { // 其他收入
-                    delete subItem.name;
-                    delete subItem.title;
-                });
-            });
             console.log(this.warrantorDatas);
+
             this.$post('/warrantor/add',{
                 bussNo: this.bussNo,
                 data: this.warrantorDatas
             }).then(res => {
                 if(res.data.code == 2000000) {
                     this.$message.success('保证人保存成功');
-                    this.warrantorDatas.forEach(function(item,index) { //用于ajax提交完成后返回删除的tab name 和title
-                        item['name'] = index + 1 + '';
-                        item['title'] = '保证人' + parseInt( index + 1);
-                        item.assetsHouses.forEach(function(subItem,indexs) {
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '房产' + parseInt( indexs + 1);
-                        });
 
-
-                        item.assetsLands.forEach(function(subItem,indexs) { // 土地
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '土地' + parseInt( indexs + 1);
-                        });
-
-
-
-                        item.assetsVehicles.forEach(function(subItem,indexs) { // 自用车
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '自用车' + parseInt( indexs + 1);
-                        });
-
-                        item.assetsFarmTools.forEach(function(subItem,indexs) { // 农机具
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '农机具' + parseInt( indexs + 1);
-                        });
-
-                        item.assetsOthers.forEach(function(subItem,indexs) { // 其他资产
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '其他资产' + parseInt( indexs + 1);
-                        });
-
-                        item.debtSituations.forEach(function(subItem,indexs) { // 债务情况
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '债务情况' + parseInt( indexs + 1);
-                        });
-
-                        item.debtGuarantees.forEach(function(subItem,indexs) { // 对外担保
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '对外担保' + parseInt( indexs + 1);
-                        });
-
-                        item.debtOthers.forEach(function(subItem,indexs) { // 其他负债
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '其他负债' + parseInt( indexs + 1);
-                        });
-
-                        item.incomePlants.forEach(function(subItem,indexs) { // 种植收入
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '种植收入' + parseInt( indexs + 1);
-                        });
-
-
-                        item.incomeOthers.forEach(function(subItem,indexs) { // 其他收入
-                            subItem['name'] = indexs + 1 + '';
-                            subItem['title'] = '其他收入' + parseInt( indexs + 1);
-                        });
-                    });
-                    this.$emit('childVal',this.warrantorDatas); // 子传父 承租人数据传递给父组件
                  }
             });
         },
@@ -1277,39 +1162,43 @@ export default {
             // console.log(this.$refs.agriculture,'农机作业收入') //农机作业收入
             // console.log(this.$refs.otherIncome,'其他收入') //其他收入
             // console.log(this.$refs.headerChild);
+            this.warrantorDatas.forEach((item,index) => {
+                if(item.partnerType == "NAT") {
+                    for(let i = 0; i < this.$refs.house.length; i++) {
+                        item.assetsHouses = this.$refs.house[i].assetsHouses;
+                    }
+                    for(let i = 0; i < this.$refs.lands.length; i++) {
+                        item.assetsLands = this.$refs.lands[i].assetsLands
+                    }
 
-            for(let i = 0; i < this.$refs.house.length; i++) {
-                this.warrantorDatas[i].assetsHouses = this.$refs.house[i].assetsHouses;
-            }
-            for(let i = 0; i < this.$refs.lands.length; i++) {
-                this.warrantorDatas[i].assetsLands = this.$refs.lands[i].assetsLands
-            }
+                    for(let i = 0; i < this.$refs.homecar.length; i++) {
+                        item.assetsVehicles = this.$refs.homecar[i].assetsVehicles
+                    }
+                    for(let i = 0; i < this.$refs.farmtools.length; i++) {
+                        item.assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
+                    }
+                    for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
+                        item.assetsOthers = this.$refs.assetsOthers[i].assetsOthers
+                    }
+                    for(let i = 0; i < this.$refs.debt.length; i++) {
+                        item.debtSituations = this.$refs.debt[i].debtSituations
+                    }
+                    for(let i = 0; i < this.$refs.guarantee.length; i++) {
+                        item.debtGuarantees = this.$refs.guarantee[i].debtGuarantees
+                    }
+                    for(let i = 0; i < this.$refs.otherLiabilities.length; i++) {
+                        item.debtOthers = this.$refs.otherLiabilities[i].debtOthers
+                    }
+                    for(let i = 0; i < this.$refs.plant.length; i++) {
+                        item.incomePlants = this.$refs.plant[i].incomePlants
+                    }
 
-            for(let i = 0; i < this.$refs.homecar.length; i++) {
-                this.warrantorDatas[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
-            }
-            for(let i = 0; i < this.$refs.farmtools.length; i++) {
-                this.warrantorDatas[i].assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
-            }
-            for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
-                this.warrantorDatas[i].assetsOthers = this.$refs.assetsOthers[i].assetsOthers
-            }
-            for(let i = 0; i < this.$refs.debt.length; i++) {
-                this.warrantorDatas[i].debtSituations = this.$refs.debt[i].debtSituations
-            }
-            for(let i = 0; i < this.$refs.guarantee.length; i++) {
-                this.warrantorDatas[i].debtGuarantees = this.$refs.guarantee[i].debtGuarantees
-            }
-            for(let i = 0; i < this.$refs.otherLiabilities.length; i++) {
-                this.warrantorDatas[i].debtOthers = this.$refs.otherLiabilities[i].debtOthers
-            }
-            for(let i = 0; i < this.$refs.plant.length; i++) {
-                this.warrantorDatas[i].incomePlants = this.$refs.plant[i].incomePlants
-            }
+                    for(let i = 0; i < this.$refs.otherIncome.length; i++) {
+                        item.incomeOthers = this.$refs.otherIncome[i].incomeOthers
+                    }
+                }
+            });
 
-            for(let i = 0; i < this.$refs.otherIncome.length; i++) {
-                this.warrantorDatas[i].incomeOthers = this.$refs.otherIncome[i].incomeOthers
-            }
         },
 },
     components: {

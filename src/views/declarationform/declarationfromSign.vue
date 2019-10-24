@@ -6,7 +6,9 @@
                     返回
                 </div>
             </h3>
-            <el-tabs v-if="bussNo" type="border-card"
+            <el-tabs v-if="bussNo"
+                     type="border-card"
+                     tab-click="tabClick"
                      v-model="bindText"
                      :before-leave = "beforeLeave"
             >
@@ -18,7 +20,7 @@
                     <lesseeinfo ref="rentpeople" :bussNo="bussNo" :rulesField="rulesField" @saveData="rentpeople" :bindText.sync="bindText"/>
                 </el-tab-pane>
                 <el-tab-pane :label="list.guarantor" :name="list.guarantor">
-                    <guarantor ref="guarantor" :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText" @childVal="childVal"/>
+                    <guarantor ref="guarantor" :bussNo="bussNo" :rulesField="rulesField" @saveData="guarantor" :bindText.sync="bindText" />
                 </el-tab-pane>
                 <el-tab-pane :bussNo="bussNo" :label="list.repurchase" :name="list.repurchase">
                     <buybackpeople ref="repurchase" :bussNo="bussNo" :rulesField="rulesField" @saveData="repurchase" :bindText.sync="bindText"/>
@@ -139,11 +141,7 @@
             });
         },
         methods: {
-            childVal(data) {
-                this.guarantorData = data;
-                console.log(data,'<<<<<::::::保证人')
-                console.log(this.guarantorData,'<<<<<::::::保证人')
-           },
+
             getBussNo(){ // 生成订单号
                 this.$post('/buss/genBussNo',{
                     leaseMode:'ZZ02'
@@ -280,38 +278,14 @@
                      }
                 });
             },
-            guarantor(msg,data) {
-                console.log(msg,data)
-                // this.guarantorData = this.$refs.guarantor.warrantorDatas
-                // this.guarantorData.forEach((item,index) => {
-                //     if(this.$refs.guarantor.warrantorDatas[index].partnerType == 'NAT') {
-                //         console.log(item,'自然人');
-                //         item.assetsOthers = this.$refs.guarantor.$refs.assetsOthers[index].assetsOthers;
-                //         item.debtSituations = this.$refs.guarantor.$refs.debt[index].debtSituations;
-                //         item.assetsFarmTools = this.$refs.guarantor.$refs.farmtools[index].assetsFarmTools;
-                //         item.debtGuarantees = this.$refs.guarantor.$refs.guarantee[index].debtGuarantees;
-                //         item.assetsVehicles = this.$refs.guarantor.$refs.homecar[index].assetsVehicles;
-                //         item.assetsHouses = this.$refs.guarantor.$refs.house[index].assetsHouses;
-                //         item.assetsLands = this.$refs.guarantor.$refs.lands[index].assetsLands;
-                //         item.incomeOthers = this.$refs.guarantor.$refs.otherIncome[index].incomeOthers;
-                //         item.debtOthers = this.$refs.guarantor.$refs.otherLiabilities[index].debtOthers;
-                //         item.incomePlants = this.$refs.guarantor.$refs.plant[index].incomePlants;
-                //     }
-                // });
-                // assetsOthers.assetsOthers
-                // debt.debtSituations
-                // farmtools.assetsFarmTools
-                // guarantee.debtGuarantees
-                // homecar.assetsVehicles
-                // house.assetsHouses
-                // lands.assetsLands
-                // otherIncome.incomeOthers
-                // otherLiabilities.debtOthers
-                // plant.incomePlants
+            guarantor() {
 
+                let data = this.$refs.guarantor.warrantorDatas;
+                this.$refs.guarantor.allTabData(data);
+                console.log(data,'<<<<::::::保证人');
                 this.$post('/warrantor/add',{
                     bussNo: this.bussNo,
-                    data: this.guarantorData
+                    data: data
                 }).then(res => {
                     if(res.data.code == 2000000) {
                         this.$message.success('保证人保存成功');
