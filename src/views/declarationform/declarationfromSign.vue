@@ -175,7 +175,7 @@
                 }
 
                 if (rentFactor.receiptType === 'private' && rentFactor.certNo == '') { // 收款账户类型对私的时候银行卡号必填
-                    this.$message.warning({message: '收款账户类型对私的时候银行卡号必填', duration: 1000});
+                    this.$message.warning({message: '收款账户类型对私的时候身份证号必填', duration: 1000});
                     return false;
                 }
 

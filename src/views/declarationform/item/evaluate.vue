@@ -6,8 +6,9 @@
             <el-input
                     :rows="4"
                     class="inputtext"
-                    placeholder="字数限制0-500字"
+                    placeholder="字数限制0-1000字"
                     type="textarea"
+                    maxlength="1000"
                     v-model="sponsor.conclusion">
             </el-input>
         </div>
