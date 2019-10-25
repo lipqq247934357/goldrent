@@ -76,7 +76,7 @@
                             <el-input
                                 type="text"
                                 @change="liveYears"
-                                v-model="item.residenceYear"
+                                v-model="item.residenceYears"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -852,14 +852,14 @@ export default {
         liveYears(val) {
             if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.naturalData[this.tabChange - 1].residenceYear = '';
+                this.naturalData[this.tabChange - 1].residenceYears = '';
             }
         },
         // 判断承租人配偶申请地居住年限
         spouseLiveYears(val) {
             if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.naturalData[this.tabChange - 1].residenceYear = '';
+                this.naturalData[this.tabChange - 1].residenceYears = '';
             }
         },
         // 承租人判断种植年限
@@ -867,7 +867,10 @@ export default {
             if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].custAge)) {
                 this.$message.error('种植年限不能大于年龄');
                 this.naturalData[this.tabChange - 1].cultureYears = '';
+            } else {
+                console.log(this.naturalData);
             }
+
         },
         // 承租人配偶判断种植年限
         spousePlantYears(val) {
@@ -880,7 +883,7 @@ export default {
         custMarriageChange(val) {
             let infowifi = [{
                 certNo: '', //身份证号码
-                residenceYears: '', //申请地居住年限
+                residenceYear: '', //申请地居住年限
                 custSex: '', // 性别
                 cultureYears: '', //种植年限
                 custName: '', //承租人信息姓名
