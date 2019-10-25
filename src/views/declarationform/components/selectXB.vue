@@ -120,7 +120,7 @@
                 }
 
                 let val = this.assistUserInfo.split('$');
-                if(val.length !== 2) {
+                if (val.length !== 2) {
                     this.$message.error('请选择协办人');
                     return;
                 }
@@ -131,7 +131,14 @@
                     assistUserId: val[0],
                     assistUserName: val[1]
                 }).then(res => {
-                    console.log(res);
+                    if (res.data.code == '2000000') {
+                        this.$alert('提交成功', '提示', {
+                            confirmButtonText: '确定',
+                            callback: () => {
+                                this.$router.push({path: '/layout/declarationfrom'})
+                            }
+                        });
+                    }
                 });
             },
         }

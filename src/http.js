@@ -34,7 +34,7 @@ axios.interceptors.response.use(
         if (response.data.code !== '2000000' && response.data.code !== '2000009' && response.data.code !== '2000006' && response.data.code !== '2000009' && response.data.code !== '500100' ) {
 
             //业务异常，在报单申请的时候查询商业条款不提示
-            if(!response.data.msg === '查询商业条款信息失败'){
+            if(response.data.msg != '查询商业条款信息失败'){
                 Message.error({message: response.data.msg, duration: 5 * 1000});
             }
         }
