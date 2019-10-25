@@ -725,7 +725,7 @@
 
                                     </li>
                                     <li>
-                                        ` <span>偿债比(年支出/年结余)</span>
+                                        <span>偿债比(年支出/年结余)</span>
                                         <span>{{incomeDebtRatios.incomeDebtRatio}}</span>
                                     </li>
                                 </ul>
@@ -1226,6 +1226,7 @@
                             //     }
                             // }
                             if (res.data.code == '2000000') {
+                                debugger
                                 this.lesseeinfolist = res.data.data.naturalData;
                                 this.setPlantExpDesc(this.lesseeinfolist);
                                 for (let i = 0; i < this.lesseeinfolist.length; i++) {
