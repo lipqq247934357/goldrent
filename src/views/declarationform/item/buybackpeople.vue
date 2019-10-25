@@ -79,6 +79,7 @@
                                 v-model="item.basicInfo.comIncome"
                                 :precision="2"
                                 :step="0.1"
+                                :min="0.00"
                                 >
                             </el-input-number>
                             <span style="position:absolute;right: 10px;">
@@ -109,7 +110,11 @@
                         </td>
                         <td>回购放负责人电话</td>
                         <td>
-                            <el-input type="text" v-model="item.basicInfo.comMobile" class="inputLessinfo">
+                            <el-input
+                                type="text"
+                                v-model="item.basicInfo.comMobile"
+                                @change="phoneChange"
+                                class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
@@ -149,6 +154,7 @@
                                 v-model="item.debtInfo[0].debtBalance"
                                 :precision="2"
                                 :step="0.1"
+                                :min="0.00"
                                 >
                             </el-input-number>
                             <span style="position:absolute;right: 10px;">
@@ -164,6 +170,7 @@
                                 v-model="item.debtInfo[0].guaranteeBalance"
                                 :precision="2"
                                 :step="0.1"
+                                :min="0.00"
                                 >
                             </el-input-number>
                             <span style="position:absolute;right: 10px;">
@@ -214,6 +221,7 @@
                                 v-model="item.debtInfo[1].debtBalance"
                                 :precision="2"
                                 :step="0.1"
+                                :min="0.00"
                                 >
                             </el-input-number>
                             <span style="position:absolute;right: 10px;">
@@ -227,6 +235,7 @@
                                 v-model="item.debtInfo[1].guaranteeBalance"
                                 :precision="2"
                                 :step="0.1"
+                                :min="0.00"
                                 >
                             </el-input-number>
                             <span style="position:absolute;right: 10px;">
@@ -356,6 +365,17 @@ export default {
         this.imgData();
     },
     methods: {
+        // 电话校验
+        phoneChange(val) {
+            let nowIndex = this.tabChange - 1;
+            if(isNaN(val) == true) {
+                this.legalMan[nowIndex].basicInfo.comMobile = '';
+            }
+            if(!(/^1[3456789]\d{9}$/.test(val))){
+                this.$message.error("手机号码有误，请重填");
+                this.legalMan[nowIndex].basicInfo.comMobile = '';
+            }
+        },
         getData() {
             this.$post('/repurchase/info',{
                 bussNo: this.bussNo,

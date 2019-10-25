@@ -41,7 +41,11 @@
                     </td>
                     <td>有无担保</td>
                     <td>
-                        <el-select v-model="item.isGuarantee" class="inputLessinfo" placeholder="请选择">
+                        <el-select
+                            v-model="item.isGuarantee"
+                            clearable
+                            class="inputLessinfo"
+                            placeholder="请选择">
                             <el-option v-for="items in rulesField.isGuarantee"
                                 :key="items.optionCode"
                                 :label="items.optionName"
