@@ -103,7 +103,7 @@
                             <el-input
                                 type="text"
                                 @change="liveYears"
-                                v-model="item.residenceYear"
+                                v-model="item.residenceYears"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -151,7 +151,7 @@
                         </td>
                         <td>征信报告</td>
                         <td>
-                            <el-select v-model="item.creditRating" class="inputLessinfo" placeholder="请选择">
+                            <el-select v-model="item.hasCreditReport" class="inputLessinfo" placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.hasCreditReport"
                                     :key="items.optionCode"
@@ -469,7 +469,13 @@
                         </td>
                         <td>联系电话</td>
                         <td>
-                            <el-input type="text" v-model="mateinfoTbale.custMobile" class="inputLessinfo" @change="phoneChange"></el-input>
+                            <el-input
+                                type="text"
+                                v-model="mateinfoTbale.custMobile"
+                                class="inputLessinfo"
+                                maxlength="11"
+                                @change="phoneChange">
+                            </el-input>
                         </td>
 
                     </tr>
@@ -691,7 +697,7 @@ export default {
                 custName: '', //承租人信息姓名
                 custEducation: '', //存储选中的教育程度
                 custType: '', //存储选中的客户类别
-                creditRating: '', //存储选中的征信报告
+                hasCreditReport: '', //存储选中的征信报告
                 custMarriage: '', //存储选中的婚姻状况
                 marriageSettlement: '', //存储选中的离婚协议
                 custRelation: '', //与承租人关系
@@ -773,7 +779,7 @@ export default {
                 custName: '', //承租人信息姓名
                 custEducation: '', //存储选中的教育程度
                 custType: '', //存储选中的客户类别
-                creditRating: '', //存储选中的征信报告
+                hasCreditReport: '', //存储选中的征信报告
                 custMarriage: '', //存储选中的婚姻状况
                 marriageSettlement: '', //存储选中的离婚协议
                 custRelation: '', //与承租人关系
@@ -874,7 +880,7 @@ export default {
                 custName: '', //承租人信息姓名
                 custEducation: '', //存储选中的教育程度
                 custType: '', //存储选中的客户类别
-                creditRating: '', //存储选中的征信报告
+                hasCreditReport: '', //存储选中的征信报告
                 custMarriage: '', //存储选中的婚姻状况
                 marriageSettlement: '', //存储选中的离婚协议
                 custRelation: '', //与承租人关系
@@ -961,29 +967,44 @@ export default {
         phoneChange(val) {
 
             let nowIndex = this.tabChange - 1;
+            if(isNaN(val) == true) {
+                this.warrantorDatas[nowIndex].mateInfo.custMobile = '';
+            }
+            if(!(/^1[3456789]\d{9}$/.test(val))){
+                this.$message.error("手机号码有误，请重填");
+                this.warrantorDatas[nowIndex].mateInfo.custMobile = '';
+            }
             setTimeout(function() {
                 this.warrantorDatas[nowIndex].mateInfo.custWechat = this.warrantorDatas[nowIndex].mateInfo.custMobile;
             }.bind(this),100);
         },
+        // 联系电话关联微信号
         natural(val) {
             let nowIndex = this.tabChange - 1;
+            if(isNaN(val) == true) {
+                this.warrantorDatas[nowIndex].custMobile = '';
+            }
+            if(!(/^1[3456789]\d{9}$/.test(val))){
+                this.$message.error("手机号码有误，请重填");
+                this.warrantorDatas[nowIndex].custMobile = '';
+            }
             setTimeout(function() {
                 this.warrantorDatas[nowIndex].custWechat = this.warrantorDatas[nowIndex].custMobile;
                 console.log(this.warrantorDatas[nowIndex].custMobile);
             }.bind(this),100);
         },
-        // 判断承租人申请地居住年限
+        // 判断保证人人申请地居住年限
         liveYears(val) {
             if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.warrantorDatas[this.tabChange - 1].residenceYear = '';
+                this.warrantorDatas[this.tabChange - 1].residenceYears = '';
             }
         },
-        // 判断承租人配偶申请地居住年限
+        // 判断保证人配偶申请地居住年限
         spouseLiveYears(val) {
             if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.warrantorDatas[this.tabChange - 1].residenceYear = '';
+                this.warrantorDatas[this.tabChange - 1].residenceYears = '';
             }
         },
         // 承租人判断种植年限
@@ -1040,6 +1061,7 @@ export default {
                        message: '已取消删除',
 
                     });
+                    this.maritalStatus = 'married';
                     this.warrantorDatas[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
                 });
             }

@@ -86,7 +86,7 @@ export default {
     watch: {
         sfyzn(newVal,oldVal){
             if(newVal != undefined) {
-                this.childrenInfo = this.fc;
+                this.childrenInfo = this.sfyzn;
                 this.childrenInfo.forEach((item,index) => {
                     console.log(index);
                     item['name'] = index+1 + '';
@@ -116,49 +116,49 @@ export default {
         },
         removeTab(targetName) {
 
-            // this.$post('/data/del',{
-            //     id: this.incomeFarmMachineryWork[targetName - 1].id,
-            //     type: 'incomePlant'
-            // }).then(res => {
-            //     if(res.data.code =='2000000') {
-            //         this.$message.success('承租人子女删除成功');
-            //     }
-            // });
-
-            let tabs = this.childrenInfo;
-            let activeName = this.childrenTabs;
-
             // 至少要保留一个
             if (this.childrenInfo.length == 1) {
                 return;
             }
 
+            this.$post('/data/del',{
+                id: this.childrenInfo[targetName - 1].id,
+                type: 'custNature'
+            }).then(res => {
+                if(res.data.code =='2000000') {
+                    this.$message.success('承租人子女删除成功');
+                    let tabs = this.childrenInfo;
+                    let activeName = this.childrenTabs;
 
-            if (activeName === targetName) {
-                tabs.forEach((tab, index) => {
+                    if (activeName === targetName) {
+                        tabs.forEach((tab, index) => {
 
-                    if (tab.name === targetName) {
-                        let nextTab = tabs[index + 1] || tabs[index - 1];
-                        if (nextTab) {
+                            if (tab.name === targetName) {
+                                let nextTab = tabs[index + 1] || tabs[index - 1];
+                                if (nextTab) {
 
-                            activeName = nextTab.name;
-                        }
+                                    activeName = nextTab.name;
+                                }
+                            }
+                        });
                     }
-                });
-            }
 
-            this.childrenTabs = activeName;
-            this.childrenInfo = tabs.filter(tab => tab.name !== targetName);
+                    this.childrenTabs = activeName;
+                    this.childrenInfo = tabs.filter(tab => tab.name !== targetName);
 
-            // 当删除成功后后一项承租人继承前一项承租人index
-            this.childrenInfo.forEach(function(item, index, arr) {
-                item.title = '承租人子女' + parseInt(index + 1);
-                item.name = parseInt(index + 1) + '';
-                item.content = '承租人' + parseInt(index + 1);
-            })
-            this.childrenTabs = this.childrenInfo.length + '';
-            //主要防止于添加的时候错误
-            this.childIndex = this.childrenInfo.length;
+                    // 当删除成功后后一项承租人继承前一项承租人index
+                    this.childrenInfo.forEach(function(item, index, arr) {
+                        item.title = '承租人子女' + parseInt(index + 1);
+                        item.name = parseInt(index + 1) + '';
+                        item.content = '承租人' + parseInt(index + 1);
+                    })
+                    this.childrenTabs = this.childrenInfo.length + '';
+                    //主要防止于添加的时候错误
+                    this.childIndex = this.childrenInfo.length;
+                }
+            });
+
+
         },
         // 子女身份证号码校验
         idNumber(val) {

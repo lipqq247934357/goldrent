@@ -15,6 +15,7 @@
                     :file-list="fileList"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
+                    accept=".png,.jpg,.jpeg,.gif,.webp,.bmp"
                     action="/web/fileUploadSingle"
                     :headers="{token:this.token}"
                     :on-exceed="onExceed"

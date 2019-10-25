@@ -315,7 +315,13 @@
                     <tr>
                         <td>联系电话</td>
                         <td>
-                            <el-input type="text" v-model="mateinfoTbale.custMobile" class="inputLessinfo" @change="phoneChange"></el-input>
+                            <el-input
+                                type="text"
+                                v-model="mateinfoTbale.custMobile"
+                                class="inputLessinfo"
+                                maxlength="11"
+                                @change="phoneChange">
+                            </el-input>
                         </td>
                         <td>微信</td>
                         <td>
@@ -328,7 +334,7 @@
                 <!-- 承租人子女 -->
                 <lessinfochild
                     ref="headerChild"
-                    v-if="item.hasChildren == 'Y'"
+                    v-show="item.hasChildren == 'Y'"
                     :sfyzn="naturalData[index].childrenInfo"
                     :naturalData="naturalData"/>
 
@@ -610,7 +616,20 @@ export default {
                     custWechat: '', // 微信
                     custMobile: '', // 电话
                 }],
-                childrenInfo: [], //子女信息
+                childrenInfo: [
+                    {
+                        title: '承租人子女1',
+                        name: '1',
+                        id: '', // ID
+                        certNo: '', // 身份证号
+                        custName: '', // 姓名
+                        custSex: '', //性别
+                        custHomeplace: '', //户籍地址
+                        custAge: '', //年龄
+                        custAddress: '', //现住址
+                        status: '' //状态
+                    }
+                ], //子女信息
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
                 assetsFinances: [],// 金融资产
@@ -654,6 +673,8 @@ export default {
         this.imgData();
     },
     methods: {
+
+
         custNameBlur(val) {
             // 汇款账户名沿用承租人姓名
             this.naturalData[this.tabChange - 1].accountInfos[0].accountName = val;
@@ -723,7 +744,20 @@ export default {
                     custWechat: '', // 微信
                     custMobile: '', // 电话
                 }],
-                childrenInfo: [], //子女信息
+                childrenInfo: [
+                    {
+                        title: '承租人子女1',
+                        name: '1',
+                        id: '', // ID
+                        certNo: '', // 身份证号
+                        custName: '', // 姓名
+                        custSex: '', //性别
+                        custHomeplace: this.$store.state.lessinfoAddress, //户籍地址
+                        custAge: '', //年龄
+                        custAddress: this.$store.state.lessinfoNowAddress, //现住址
+                        status: '' //状态
+                    }
+                ], //子女信息
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
                 assetsFinances: [],// 进入资产
@@ -836,6 +870,13 @@ export default {
         // 联系电话关联微信号
         phoneChange(val) {
             let nowIndex = this.tabChange - 1;
+            if(isNaN(val) == true) {
+                this.naturalData[nowIndex].mateInfo[nowIndex].custMobile = '';
+            }
+            if(!(/^1[3456789]\d{9}$/.test(val))){
+                this.$message.error("手机号码有误，请重填");
+                this.naturalData[nowIndex].mateInfo[nowIndex].custMobile = '';
+            }
             setTimeout(function() {
                 this.naturalData[nowIndex].mateInfo[nowIndex].custWechat = this.naturalData[nowIndex].mateInfo[nowIndex].custMobile;
             }.bind(this),100);
@@ -885,9 +926,33 @@ export default {
                 this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].cultureYears = '';
             }
         },
+
+        // 是否有子女
+        childChange(val) {
+            let childVal = null;
+            let nowIndex = this.tabChange - 1;
+            if(val == 'Y') {
+                this.$store.state.lessinfoAddress = this.naturalData[nowIndex].custHomeplace; // 承租人户籍地址
+                this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址
+            } else {
+                this.naturalData.forEach((item,index) => {
+                    for(let i = 0 ; i < item.childrenInfo.length; i++) {
+                        if(item.childrenInfo[i].id) {
+                            item.hasChildren = 'Y';
+                            this.$message.error('请删除子女');
+                            break;
+                        }
+                    }
+                });
+            }
+
+            childVal = val;
+        },
+
         // 婚姻状况切换
         custMarriageChange(val) {
             let infowifi = [{
+                id: "",
                 certNo: '', //身份证号码
                 residenceYear: '', //申请地居住年限
                 custSex: '', // 性别
@@ -913,7 +978,7 @@ export default {
                 }).then(() => {
                   this.$message({
                     type: 'success',
-                    message: '配偶删除成功1!'
+                    message: '配偶删除成功1'
                   });
                   let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
 
@@ -923,7 +988,8 @@ export default {
                           type: 'custNature'
                       }).then(res => {
                           if(res.data.code == "2000000") {
-                              this.$message.success('配偶删除成功2');
+                              this.naturalData[this.tabChange - 1].mateInfo = infowifi;
+                              this.$message.success('配偶删除成功');
                           }
                       });
                   }
@@ -935,6 +1001,7 @@ export default {
                        // this.naturalData.mateInfo[this.tabIndex].custMarriage = 'married';
 
                     });
+                    this.maritalStatus = 'married';
                     this.naturalData[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
                 });
             }
@@ -1022,14 +1089,6 @@ export default {
                 this.naturalData[nowIndex].mateInfo[nowIndex].custSex = idcontent.Sex;
                 this.naturalData[nowIndex].mateInfo[nowIndex].custAge = idcontent.Age;
             }.bind(this),100);
-        },
-        // 是否有子女
-        childChange(val) {
-            let nowIndex = this.tabChange - 1;
-            if(val == 'Y') {
-                this.$store.state.lessinfoAddress = this.naturalData[nowIndex].custHomeplace; // 承租人户籍地址
-                this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址
-            }
         },
 
         save(param) { // 保存页面或者下一步

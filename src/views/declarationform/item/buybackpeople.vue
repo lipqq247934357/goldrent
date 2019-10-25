@@ -114,6 +114,7 @@
                                 type="text"
                                 v-model="item.basicInfo.comMobile"
                                 @change="phoneChange"
+                                maxlength="11"
                                 class="inputLessinfo">
                             </el-input>
                         </td>

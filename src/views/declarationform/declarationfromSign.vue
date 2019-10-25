@@ -210,6 +210,8 @@
             rentpeople(activeName) {
                 let b = true;
                 this.$refs.rentpeople.naturalData.forEach((item,i) => {
+                    // console.log(this.$refs.rentpeople.$refs,111111);
+                    item.childrenInfo = this.$refs.rentpeople.$refs.headerChild[i].childrenInfo;
                     item.assetsHouses = this.$refs.rentpeople.$refs.house[i].assetsHouses;
                     item.incomeFarmMachineryWork = this.$refs.rentpeople.$refs.agriculture[i].incomeFarmMachineryWork;
                     item.assetsOthers = this.$refs.rentpeople.$refs.assetsOthers[i].assetsOthers;
@@ -225,16 +227,16 @@
                 });
                 this.leaseInfoData = this.$refs.rentpeople.naturalData;
 
-                this.leaseInfoData.forEach((item,index) => {
-                    // if(item.accountInfos[index].account == '' || item.accountInfos[index].accountBank == '' || item.accountInfos[index].accountName == '') {
-                    //     this.$message.error('请完善预计回款账户');
-                    //     console.log(item);
-                    //     b = false;
-                    // } else {
-                    //
-                    // } 暂时不校验
-                });
-                if(!b) return false;
+                // this.leaseInfoData.forEach((item,index) => {
+                //     // if(item.accountInfos[index].account == '' || item.accountInfos[index].accountBank == '' || item.accountInfos[index].accountName == '') {
+                //     //     this.$message.error('请完善预计回款账户');
+                //     //     console.log(item);
+                //     //     b = false;
+                //     // } else {
+                //     //
+                //     // } 暂时不校验
+                // });
+                // if(!b) return false;
                 return new Promise((resolve, reject) => {
                     this.$post('/leasee/add',{
                         bussNo: this.bussNo,

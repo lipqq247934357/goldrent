@@ -19,6 +19,7 @@
                             v-model="item.acreage"
                             :precision="2"
                             :step="0.1"
+                            :min="0.00"
                             >
                         </el-input-number>
                         <span style="position:absolute;right: 10px;">
@@ -48,6 +49,7 @@
                             v-model="item.value"
                             :precision="2"
                             :step="0.1"
+                            :min="0.00"
                             >
                         </el-input-number>
                         <span style="position:absolute;right: 10px;">
