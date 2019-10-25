@@ -50,7 +50,11 @@
                     </td>
                     <td>是否抵押</td>
                     <td>
-                        <el-select v-model="item.mortgage" class="inputLessinfo" placeholder="请选择">
+                        <el-select
+                            v-model="item.mortgage"
+                            clearable
+                            class="inputLessinfo"
+                            placeholder="请选择">
                             <el-option v-for="items in rulesField.mortgage"
                                 :key="items.optionCode"
                                 :label="items.optionName"
