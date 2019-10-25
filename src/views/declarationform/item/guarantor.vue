@@ -924,6 +924,41 @@ export default {
         },
         removeTab(targetName) {
 
+            this.warrantorDatas.forEach((item,index) => {
+                console.log(item,'<<<<<<<');
+            });
+            for(let i = 0; i < this.warrantorDatas.length; i++) {
+                if(this.warrantorDatas[i].partnerType == "NAT") {
+                    this.$post('/data/del',{
+                        id: this.warrantorDatas[i].id,
+                        type: 'custNature'
+                    }).then(res => {
+                        if(res.data.code =='2000000') {
+                            this.$message.success('删除成功');
+                        }
+                    });
+                } else {
+                    this.$post('/data/del',{
+                        id: this.warrantorDatas[i].id,
+                        type: 'custLegal'
+                    }).then(res => {
+                        if(res.data.code =='2000000') {
+                            this.$message.success('删除成功');
+                        }
+                    });
+                }
+            }
+            // if(this.naturalData[targetName - 1].id) {
+            //     this.$post('/data/del',{
+            //         id: this.naturalData[targetName - 1].id,
+            //         type: 'custNature'
+            //     }).then(res => {
+            //         if(res.data.code =='2000000') {
+            //             this.$message.success('删除成功');
+            //         }
+            //     });
+            // }
+
             let tabs = this.warrantorDatas;
             let activeName = this.editableTabsValue;
 

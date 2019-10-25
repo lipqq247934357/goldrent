@@ -123,7 +123,11 @@
                                 clearable
                                 placeholder="请选择"
                                 @change="childChange">
-                                <el-option v-for="items in rulesField.hasChildren" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
+                                <el-option
+                                    v-for="items in rulesField.hasChildren"
+                                    :key="items.optionCode"
+                                    :label="items.optionName"
+                                    :value="items.optionCode">
                                 </el-option>
                             </el-select>
                         </td>
@@ -215,8 +219,10 @@
                     承租人配偶
                 </div>
                 <!-- 承租人配偶信息表格 -->
-
-                <table class="lessinfoTbale" v-show="item.custMarriage == 'married'" v-for="(mateinfoTbale,mateinfoIndex) in item.mateInfo">
+                <table
+                    class="lessinfoTbale"
+                    v-show="item.custMarriage == 'married'"
+                    v-for="(mateinfoTbale,mateinfoIndex) in item.mateInfo">
                     <tr>
                         <td>姓名</td>
                         <td>
@@ -279,7 +285,8 @@
                         <td>婚姻状况</td>
                         <td>
                             <el-select
-                                v-model="mateinfoTbale.custMarriage"
+                                v-model="mateinfoTbale.custMarriage = item.custMarriage"
+                                disabled
                                 clearable
                                 class="inputLessinfo"
                                 placeholder="请选择">
@@ -300,19 +307,6 @@
                                 </el-option>
                             </el-select>
                         </td>
-                        <td>是否有离婚协议</td>
-                        <td>
-                            <el-select
-                                v-model="mateinfoTbale.marriageSettlement"
-                                clearable
-                                class="inputLessinfo"
-                                :disabled="item.mateInfo.custMarriage != 'divorced'" placeholder="请选择">
-                                <el-option v-for="items in rulesField.marriageSettlement" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
-                                </el-option>
-                            </el-select>
-                        </td>
-                    </tr>
-                    <tr>
                         <td>联系电话</td>
                         <td>
                             <el-input
@@ -323,6 +317,20 @@
                                 @change="phoneChange">
                             </el-input>
                         </td>
+                        <!-- <td>是否有离婚协议</td>
+                        <td>
+                            <el-select
+                                v-model="mateinfoTbale.marriageSettlement"
+                                clearable
+                                class="inputLessinfo"
+                                :disabled="item.mateInfo.custMarriage != 'divorced'" placeholder="请选择">
+                                <el-option v-for="items in rulesField.marriageSettlement" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
+                                </el-option>
+                            </el-select>
+                        </td> -->
+                    </tr>
+                    <tr>
+
                         <td>微信</td>
                         <td>
                             <el-input type="text" v-model="mateinfoTbale.custWechat" class="inputLessinfo"></el-input>
@@ -334,7 +342,7 @@
                 <!-- 承租人子女 -->
                 <lessinfochild
                     ref="headerChild"
-                    v-show="item.hasChildren == 'Y'"
+                    v-if="item.hasChildren == 'Y'"
                     :sfyzn="naturalData[index].childrenInfo"
                     :naturalData="naturalData"/>
 
@@ -686,12 +694,32 @@ export default {
                 taskType:"10"
             }).then(res => {
                 if (res.data.code == '2000000') {
-                    if(res.data.data.data.length != '0') {
-                        this.naturalData = res.data.data.data;
+                    if(res.data.data.naturalData.length != '0') {
+                        this.naturalData = res.data.data.naturalData;
                         console.log(this.naturalData,'之后');
                         this.naturalData.forEach(function(item,index) {
                             item['name'] = index + 1 + '';
                             item['title'] = "承租人" + parseInt(index + 1);
+                            if(item.mateInfo.length == '0') {
+                                item.mateInfo = [{
+                                    certNo: '', //身份证号码
+                                    residenceYears: '', //申请地居住年限
+                                    custSex: '', // 性别
+                                    cultureYears: '', //种植年限
+                                    custName: '', //承租人信息姓名
+                                    custEducation: '', //存储选中的教育程度
+                                    custType: '', //存储选中的客户类别
+                                    hasChildren: '', //存储选中的是否有子女
+                                    hasCreditReport: '', //存储选中的征信报告
+                                    custMarriage: '', //存储选中的婚姻状况
+                                    marriageSettlement: '', //存储选中的离婚协议
+                                    custHomeplace: '', // 户籍地址
+                                    custAddress: '', //现住址
+                                    custAge: '', //年龄
+                                    custWechat: '', // 微信
+                                    custMobile: '', // 电话
+                                }]
+                            }
                         });
                     }
                 }
@@ -934,78 +962,80 @@ export default {
             if(val == 'Y') {
                 this.$store.state.lessinfoAddress = this.naturalData[nowIndex].custHomeplace; // 承租人户籍地址
                 this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址
-            } else {
-                this.naturalData.forEach((item,index) => {
-                    for(let i = 0 ; i < item.childrenInfo.length; i++) {
-                        if(item.childrenInfo[i].id) {
-                            item.hasChildren = 'Y';
-                            this.$message.error('请删除子女');
-                            break;
-                        }
-                    }
-                });
             }
+            // else {
+            //     this.naturalData.forEach((item,index) => {
+            //         for(let i = 0 ; i < item.childrenInfo.length; i++) {
+            //             if(item.childrenInfo == null) {
+            //                 console.log(item.childrenInfo);
+            //                 item.hasChildren = 'Y';
+            //                 this.$message.error('请删除子女');
+            //                 break;
+            //             }
+            //         }
+            //     });
+            // }
 
             childVal = val;
         },
 
         // 婚姻状况切换
         custMarriageChange(val) {
-            let infowifi = [{
-                id: "",
-                certNo: '', //身份证号码
-                residenceYear: '', //申请地居住年限
-                custSex: '', // 性别
-                cultureYears: '', //种植年限
-                custName: '', //承租人信息姓名
-                custEducation: '', //存储选中的教育程度
-                custType: '', //存储选中的客户类别
-                hasChildren: '', //存储选中的是否有子女
-                hasCreditReport: '', //存储选中的征信报告
-                custMarriage: '', //存储选中的婚姻状况
-                marriageSettlement: '', //存储选中的离婚协议
-                custHomeplace: '', // 户籍地址
-                custAddress: '', //现住址
-                custAge: '', //年龄
-                custWechat: '', // 微信
-                custMobile: '', // 电话
-            }];
-            if(this.maritalStatus == 'married') {
-                this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
-                  confirmButtonText: '确定',
-                  cancelButtonText: '取消',
-                  type: 'warning'
-                }).then(() => {
-                  this.$message({
-                    type: 'success',
-                    message: '配偶删除成功1'
-                  });
-                  let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
+            if(this.tabIndex == this.tabChange) {
+                let infowifi = [{
+                    id: "",
+                    certNo: '', //身份证号码
+                    residenceYear: '', //申请地居住年限
+                    custSex: '', // 性别
+                    cultureYears: '', //种植年限
+                    custName: '', //承租人信息姓名
+                    custEducation: '', //存储选中的教育程度
+                    custType: '', //存储选中的客户类别
+                    hasChildren: '', //存储选中的是否有子女
+                    hasCreditReport: '', //存储选中的征信报告
+                    custMarriage: '', //存储选中的婚姻状况
+                    marriageSettlement: '', //存储选中的离婚协议
+                    custHomeplace: '', // 户籍地址
+                    custAddress: '', //现住址
+                    custAge: '', //年龄
+                    custWechat: '', // 微信
+                    custMobile: '', // 电话
+                }];
+                if(this.maritalStatus == 'married') {
+                    this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
+                      confirmButtonText: '确定',
+                      cancelButtonText: '取消',
+                      type: 'warning'
+                    }).then(() => {
+                      let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
 
-                  if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
-                      this.$post('/data/del',{
-                          id: mateInfoNowId,
-                          type: 'custNature'
-                      }).then(res => {
-                          if(res.data.code == "2000000") {
-                              this.naturalData[this.tabChange - 1].mateInfo = infowifi;
-                              this.$message.success('配偶删除成功');
-                          }
-                      });
-                  }
+                      if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
+                          this.$post('/data/del',{
+                              id: mateInfoNowId,
+                              type: 'custNature'
+                          }).then(res => {
+                              if(res.data.code == "2000000") {
+                                  this.naturalData[this.tabChange - 1].mateInfo = infowifi;
+                                  this.$message.success('配偶删除成功');
+                              }
+                          });
+                      } else {
+                          this.$message.success('配偶删除成功');
+                          this.naturalData[this.tabChange - 1].mateInfo = infowifi;
+                      }
 
-                }).catch(() => {
-                   this.$message({
-                       type: 'info',
-                       message: '已取消删除',
-                       // this.naturalData.mateInfo[this.tabIndex].custMarriage = 'married';
-
+                    }).catch(() => {
+                       this.$message({
+                           type: 'info',
+                           message: '已取消删除',
+                        });
+                        this.maritalStatus = 'married';
+                        this.naturalData[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
                     });
-                    this.maritalStatus = 'married';
-                    this.naturalData[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
-                });
+                }
+
+                this.maritalStatus = val;
             }
-            this.maritalStatus = val;
 
         },
         // 债偿比计算
