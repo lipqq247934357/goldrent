@@ -5,7 +5,7 @@
             <table class="lessinfoTbale">
                 <tr>
                     <td>租赁模式</td>
-                    <td>直租</td>
+                    <td>回租</td>
                 </tr>
                 <tr>
                     <td>租赁物名称及规格型号</td>
@@ -552,6 +552,20 @@
                     bussNo: this.bussNo,
                     taskType: 10
                 }).then(res => {
+
+                    let obj = {
+                        rent: "租金",
+                        retain: "留购价",
+                        rebate: "厂商返利",
+                        discount: "厂商贴息",
+                        otherexpense: "其他费用"
+                    };
+
+                    res.data.data.forEach(item => {
+                        if (item.costType !== 'rent') {
+                            item.period = obj[item.costType];
+                        }
+                    });
                     this.rentData = res.data.data;
                 });
             },
