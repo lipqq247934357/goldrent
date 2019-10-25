@@ -41,7 +41,11 @@
                     <tr>
                         <td>姓名</td>
                         <td>
-                            <el-input type="text" v-model="item.custName" class="inputLessinfo">
+                            <el-input
+                                type="text"
+                                v-model="item.custName"
+                                @change="custNameBlur"
+                                class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>教育程度</td>
@@ -278,7 +282,6 @@
                                 v-model="mateinfoTbale.custMarriage"
                                 clearable
                                 class="inputLessinfo"
-                                @change="custMarriageChange"
                                 placeholder="请选择">
                                 <el-option v-for="items in rulesField.custMarriage" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
@@ -651,7 +654,10 @@ export default {
         this.imgData();
     },
     methods: {
-
+        custNameBlur(val) {
+            // 汇款账户名沿用承租人姓名
+            this.naturalData[this.tabChange - 1].accountInfos[0].accountName = val;
+        },
         getData() {
             // 承租人详情
             this.$post('/leasee/info', {
@@ -907,11 +913,20 @@ export default {
                 }).then(() => {
                   this.$message({
                     type: 'success',
-                    message: '删除成功!'
+                    message: '配偶删除成功1!'
                   });
+                  let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
 
-                  this.naturalData[this.tabChange - 1].mateInfo = infowifi;
-
+                  if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
+                      this.$post('/data/del',{
+                          id: mateInfoNowId,
+                          type: 'custNature'
+                      }).then(res => {
+                          if(res.data.code == "2000000") {
+                              this.$message.success('配偶删除成功2');
+                          }
+                      });
+                  }
 
                 }).catch(() => {
                    this.$message({
@@ -949,8 +964,21 @@ export default {
             for (let i = a.length-1; i>=0; i--) {
                 summation += a[i];
             }
+            console.log(summation);
+
+            // incomeDebtRatio
+
+            //偿债比=年支出合计/结余合计
+            //年支出合计
+            this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalAnnualExpense = this.naturalData[nowIndex].incomeDebtRatios[nowIndex].annualRentalExpense + this.naturalData[nowIndex].incomeDebtRatios[nowIndex].otherDebtExpense;
+
             this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus = summation;
-            this.naturalData[nowIndex].incomeDebtRatios[nowIndex].incomeDebtRatio = this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalAnnualExpense/this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus;
+            console.log(summation);
+            this.$nextTick( () => {
+                this.naturalData[nowIndex].incomeDebtRatios[nowIndex].incomeDebtRatio = this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalAnnualExpense / this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus;
+            });
+            console.log(this.naturalData[nowIndex].incomeDebtRatios);
+
         },
         // 页签切换
         changeTables(val) {
