@@ -210,39 +210,12 @@
                 });
             },
             rentpeople(activeName) {
-                let b = true;
-                this.$refs.rentpeople.naturalData.forEach((item,i) => {
-                    // console.log(this.$refs.rentpeople.$refs,111111);
-                    item.childrenInfo = this.$refs.rentpeople.$refs.headerChild[i].childrenInfo;
-                    item.assetsHouses = this.$refs.rentpeople.$refs.house[i].assetsHouses;
-                    item.incomeFarmMachineryWork = this.$refs.rentpeople.$refs.agriculture[i].incomeFarmMachineryWork;
-                    item.assetsOthers = this.$refs.rentpeople.$refs.assetsOthers[i].assetsOthers;
-                    item.debtSituations = this.$refs.rentpeople.$refs.debt[i].debtSituations;
-                    item.assetsFarmTools = this.$refs.rentpeople.$refs.farmtools[i].assetsFarmTools;
-                    item.assetsFinances = this.$refs.rentpeople.$refs.financial[i].assetsFinances;
-                    item.debtGuarantees = this.$refs.rentpeople.$refs.guarantee[i].debtGuarantees;
-                    item.assetsVehicles = this.$refs.rentpeople.$refs.homecar[i].assetsVehicles;
-                    item.assetsLands = this.$refs.rentpeople.$refs.lands[i].assetsLands;
-                    item.incomeOthers = this.$refs.rentpeople.$refs.otherIncome[i].incomeOthers;
-                    item.debtOthers = this.$refs.rentpeople.$refs.otherLiabilities[i].debtOthers;
-                    item.incomePlants = this.$refs.rentpeople.$refs.plant[i].incomePlants
-                });
-                this.leaseInfoData = this.$refs.rentpeople.naturalData;
-
-                // this.leaseInfoData.forEach((item,index) => {
-                //     // if(item.accountInfos[index].account == '' || item.accountInfos[index].accountBank == '' || item.accountInfos[index].accountName == '') {
-                //     //     this.$message.error('请完善预计回款账户');
-                //     //     console.log(item);
-                //     //     b = false;
-                //     // } else {
-                //     //
-                //     // } 暂时不校验
-                // });
-                // if(!b) return false;
+                let data = this.$refs.rentpeople.naturalData;
+                this.$refs.rentpeople.allTabData(data);
                 return new Promise((resolve, reject) => {
                     this.$post('/leasee/add',{
                         bussNo: this.bussNo,
-                        data: this.leaseInfoData
+                        data: data
                     }).then(res => {
                         if (res.data.code === '2000000') {
                             this.$message.success('承租人保存成功');

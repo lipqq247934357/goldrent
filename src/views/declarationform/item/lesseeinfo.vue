@@ -342,7 +342,7 @@
                 <!-- 承租人子女 -->
                 <lessinfochild
                     ref="headerChild"
-                    v-if="item.hasChildren == 'Y'"
+                    v-show="item.hasChildren == 'Y'"
                     :sfyzn="naturalData[index].childrenInfo"
                     :naturalData="naturalData"/>
 
@@ -696,7 +696,6 @@ export default {
                 if (res.data.code == '2000000') {
                     if(res.data.data.naturalData.length != '0') {
                         this.naturalData = res.data.data.naturalData;
-                        console.log(this.naturalData,'之后');
                         this.naturalData.forEach(function(item,index) {
                             item['name'] = index + 1 + '';
                             item['title'] = "承租人" + parseInt(index + 1);
@@ -817,7 +816,6 @@ export default {
                     }
                 ]
             });
-            console.log(this.naturalData);
             this.editableTabsValue = newTabName;
         },
         removeTab(targetName) {
@@ -1032,6 +1030,10 @@ export default {
                         this.maritalStatus = 'married';
                         this.naturalData[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
                     });
+                }
+
+                if(val != 'divorced') {
+                    this.naturalData[this.tabChange - 1].marriageSettlement = '';
                 }
 
                 this.maritalStatus = val;
@@ -1280,7 +1282,6 @@ export default {
             });
         },
         allTabData() {
-
             // console.log(assetschild);
             // console.log(this.$refs.headerChild,'承租人子女') //承租人子女
             // console.log(this.$refs.house,'房产')  //房产
@@ -1298,46 +1299,44 @@ export default {
             // this.tabsFor(this.naturalData)
             // if(this.leaseInfoData.hasChildren == "Y") {
             for(let i = 0; i < this.$refs.headerChild.length; i++) {
-                this.leaseInfoData[i].childrenInfo = this.$refs.headerChild[i].childrenInfo;
-                console.log(this.$refs.headerChild[i].childrenInfo,'<<<<<<<:::::::');
+                this.naturalData[i].childrenInfo = this.$refs.headerChild[i].childrenInfo;
             }
-            // }
 
             for(let i = 0; i < this.$refs.house.length; i++) {
-                this.leaseInfoData[i].assetsHouses = this.$refs.house[i].assetsHouses;
+                this.naturalData[i].assetsHouses = this.$refs.house[i].assetsHouses;
             }
             for(let i = 0; i < this.$refs.lands.length; i++) {
-                this.leaseInfoData[i].assetsLands = this.$refs.lands[i].assetsLands
+                this.naturalData[i].assetsLands = this.$refs.lands[i].assetsLands
             }
             for(let i = 0; i < this.$refs.financial.length; i++) {
-                this.leaseInfoData[i].assetsFinances = this.$refs.financial[i].assetsFinances
+                this.naturalData[i].assetsFinances = this.$refs.financial[i].assetsFinances
             }
             for(let i = 0; i < this.$refs.homecar.length; i++) {
-                this.leaseInfoData[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
+                this.naturalData[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
             }
             for(let i = 0; i < this.$refs.farmtools.length; i++) {
-                this.leaseInfoData[i].assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
+                this.naturalData[i].assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
             }
             for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
-                this.leaseInfoData[i].assetsOthers = this.$refs.assetsOthers[i].assetsOthers
+                this.naturalData[i].assetsOthers = this.$refs.assetsOthers[i].assetsOthers
             }
             for(let i = 0; i < this.$refs.debt.length; i++) {
-                this.leaseInfoData[i].debtSituations = this.$refs.debt[i].debtSituations
+                this.naturalData[i].debtSituations = this.$refs.debt[i].debtSituations
             }
             for(let i = 0; i < this.$refs.guarantee.length; i++) {
-                this.leaseInfoData[i].debtGuarantees = this.$refs.guarantee[i].debtGuarantees
+                this.naturalData[i].debtGuarantees = this.$refs.guarantee[i].debtGuarantees
             }
             for(let i = 0; i < this.$refs.otherLiabilities.length; i++) {
-                this.leaseInfoData[i].debtOthers = this.$refs.otherLiabilities[i].debtOthers
+                this.naturalData[i].debtOthers = this.$refs.otherLiabilities[i].debtOthers
             }
             for(let i = 0; i < this.$refs.plant.length; i++) {
-                this.leaseInfoData[i].incomePlants = this.$refs.plant[i].incomePlants
+                this.naturalData[i].incomePlants = this.$refs.plant[i].incomePlants
             }
             for(let i = 0; i < this.$refs.agriculture.length; i++) {
-                this.leaseInfoData[i].incomeFarmMachineryWork = this.$refs.agriculture[i].incomeFarmMachineryWork
+                this.naturalData[i].incomeFarmMachineryWork = this.$refs.agriculture[i].incomeFarmMachineryWork
             }
             for(let i = 0; i < this.$refs.otherIncome.length; i++) {
-                this.leaseInfoData[i].incomeOthers = this.$refs.otherIncome[i].incomeOthers
+                this.naturalData[i].incomeOthers = this.$refs.otherIncome[i].incomeOthers
             }
         },
         tabsFor(arrList) {

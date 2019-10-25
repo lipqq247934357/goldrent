@@ -165,7 +165,11 @@
                     <tr>
                         <td>婚姻状况</td>
                         <td>
-                            <el-select v-model="item.custMarriage" class="inputLessinfo" @change="custMarriageChange" placeholder="请选择">
+                            <el-select
+                                v-model="item.custMarriage"
+                                class="inputLessinfo"
+                                @change="custMarriageChange"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.custMarriage"
                                     :key="items.optionCode"
@@ -225,11 +229,12 @@
                         <td>证件生效时间</td>
                         <td>
                             <el-date-picker
-                                    class="input-width inputLessinfo"
-                                    placeholder="选择日期"
-                                    type="date"
-                                    v-model="item.certStartDate"
-                                    value-format="yyyy-MM-dd">
+                                class="input-width inputLessinfo"
+                                placeholder="选择日期"
+                                type="date"
+                                v-model="item.certStartDate"
+                                @blur="dataChange"
+                                value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
                     </tr>
@@ -237,7 +242,13 @@
 
                         <td>证件长期有效</td>
                         <td>
-                            <el-select v-model="item.certEndDateOption" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.certEndDateOption"
+                                class="inputLessinfo"
+                                :disabled="item.dataDisabled=='0'"
+                                :picker-options="pickerOptions"
+                                @change="certEndDateOptionChange"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.certEndDateOption"
                                     :key="items.optionCode"
@@ -250,11 +261,13 @@
                         <td>证件失效时间</td>
                         <td>
                             <el-date-picker
-                                    class="input-width inputLessinfo"
-                                    placeholder="选择日期"
-                                    type="date"
-                                    v-model="item.legalCertDeadline"
-                                    value-format="yyyy-MM-dd">
+                                class="input-width inputLessinfo"
+                                placeholder="选择日期"
+                                type="date"
+                                :disabled="item.zjsxDate == '0'"
+                                :picker-options="endpickerOptions"
+                                v-model="item.legalCertDeadline"
+                                value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
                     </tr>
@@ -376,7 +389,10 @@
                         </td>
                         <td>法人证件类型</td>
                         <td>
-                            <el-select v-model="item.legalCertType" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.legalCertType"
+                                class="inputLessinfo"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.certType"
                                     :key="items.optionCode"
@@ -551,7 +567,11 @@
                     <tr>
                         <td>婚姻状况</td>
                         <td>
-                            <el-select v-model="mateinfoTbale.custMarriage" class="inputLessinfo" @change="custMarriageChange" placeholder="请选择">
+                            <el-select
+                                v-model="mateinfoTbale.custMarriage = item.custMarriage"
+                                class="inputLessinfo"
+                                disabled
+                                placeholder="请选择">
                                 <el-option v-for="items in rulesField.custMarriage" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -648,6 +668,13 @@ import guaranteeIncome from '../components/guaranteeIncome.vue'; // 其他收入
 export default {
     data() {
         return {
+            pickerOptions: {
+               disabledDate: this.disabledDate
+            },
+            endpickerOptions: {
+               disabledDate: this.disabledDateEnd
+            },
+
             tabChange: 1, //存储切换的tab name
             message: '', //title
             maritalStatus: '',
@@ -748,6 +775,33 @@ export default {
     mounted() {
     },
     methods: {
+        // 证件长期有效
+        certEndDateOptionChange(val) {
+            if(val == "Y") {
+                this.warrantorDatas[this.tabChange -1].zjsxDate = '0';
+                this.warrantorDatas[this.tabChange -1].legalCertDeadline = '';
+            } else {
+                this.warrantorDatas[this.tabChange -1].zjsxDate = '1';
+            }
+        },
+        // 日期开始时间
+        dataChange(val) {
+            if(val) {
+                this.warrantorDatas[this.tabChange -1].dataDisabled = '1';
+            } else {
+                this.warrantorDatas[this.tabChange -1].dataDisabled = '0';
+            }
+        },
+        // 限制选择时间
+        disabledDate(time) {
+           return time.getTime() < Date.now() - 8.64e7;
+        },
+        disabledDateEnd(time) {
+
+            return time.getTime() < new Date(this.warrantorDatas[this.tabChange -1].certStartDate);
+        },
+
+
         getData() {
             this.$post('/warrantor/info',{
                 bussNo: this.bussNo,
@@ -820,6 +874,8 @@ export default {
                 incomeOthers: [], //其他收入
             }
             let b = {
+                zjsxDate: '0', //证件失效时候是否能输入
+                dataDisabled: '0', // 控制是否能输入 0不能 1能
                 id: '',
                 partnerType: 'LEG', //商业伙伴类型
                 title: '保证人' + this.tabChange,
@@ -1058,50 +1114,51 @@ export default {
         },
         // 婚姻状况切换
         custMarriageChange(val) {
-            let infowifi = [{
-                certNo: '', //身份证号码
-                residenceYears: '', //申请地居住年限
-                custSex: '', // 性别
-                cultureYears: '', //种植年限
-                custName: '', //承租人信息姓名
-                custEducation: '', //存储选中的教育程度
-                custType: '', //存储选中的客户类别
-                hasChildren: '', //存储选中的是否有子女
-                hasCreditReport: '', //存储选中的征信报告
-                custMarriage: '', //存储选中的婚姻状况
-                marriageSettlement: '', //存储选中的离婚协议
-                custHomeplace: '', // 户籍地址
-                custAddress: '', //现住址
-                custAge: '', //年龄
-                custWechat: '', // 微信
-                custMobile: '', // 电话
-            }];
-            if(this.maritalStatus == 'married') {
-                this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
-                  confirmButtonText: '确定',
-                  cancelButtonText: '取消',
-                  type: 'warning'
-                }).then(() => {
-                  this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                  });
+            if(this.tabIndex == this.tabChange) {
+                let infowifi = [{
+                    certNo: '', //身份证号码
+                    residenceYears: '', //申请地居住年限
+                    custSex: '', // 性别
+                    cultureYears: '', //种植年限
+                    custName: '', //承租人信息姓名
+                    custEducation: '', //存储选中的教育程度
+                    custType: '', //存储选中的客户类别
+                    hasChildren: '', //存储选中的是否有子女
+                    hasCreditReport: '', //存储选中的征信报告
+                    custMarriage: '', //存储选中的婚姻状况
+                    marriageSettlement: '', //存储选中的离婚协议
+                    custHomeplace: '', // 户籍地址
+                    custAddress: '', //现住址
+                    custAge: '', //年龄
+                    custWechat: '', // 微信
+                    custMobile: '', // 电话
+                }];
+                if(this.maritalStatus == 'married') {
+                    this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
+                      confirmButtonText: '确定',
+                      cancelButtonText: '取消',
+                      type: 'warning'
+                    }).then(() => {
+                      this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                      });
 
-                  this.warrantorDatas[this.tabChange - 1].mateInfo = infowifi;
+                      this.warrantorDatas[this.tabChange - 1].mateInfo = infowifi;
 
 
-                }).catch(() => {
-                   this.$message({
-                       type: 'info',
-                       message: '已取消删除',
+                    }).catch(() => {
+                       this.$message({
+                           type: 'info',
+                           message: '已取消删除',
 
+                        });
+                        this.maritalStatus = 'married';
+                        this.warrantorDatas[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
                     });
-                    this.maritalStatus = 'married';
-                    this.warrantorDatas[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
-                });
+                }
+                this.maritalStatus = val;
             }
-            this.maritalStatus = val;
-
         },
         // 债偿比计算
         incomeComputed() {

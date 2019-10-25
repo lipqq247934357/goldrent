@@ -123,10 +123,12 @@ export default {
             if(newVal != undefined) {
                 this.assetsHouses = this.fc;
                 this.assetsHouses.forEach((item,index) => {
-                    console.log(index);
-                    item['name'] = index+1 + '';
-                    item['title'] = '房产' + (index+1);
+                    item['name'] = index + 1 + '';
+                    item['title'] = '房产' + (index + 1);
                     item.type = item.type + '';
+                    if(item.type == 0) {
+                        item.type = '';
+                    }
                 });
                 this.childrenTabs = '1';
             }
