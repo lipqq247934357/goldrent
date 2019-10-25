@@ -1226,7 +1226,6 @@
                             //     }
                             // }
                             if (res.data.code == '2000000') {
-                                debugger
                                 this.lesseeinfolist = res.data.data.naturalData;
                                 this.setPlantExpDesc(this.lesseeinfolist);
                                 for (let i = 0; i < this.lesseeinfolist.length; i++) {
