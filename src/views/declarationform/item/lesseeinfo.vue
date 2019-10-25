@@ -346,7 +346,7 @@
                     <assets ref="house" :fc="naturalData[index].assetsHouses" :rulesField="rulesField" />
 
                     <!-- 土地（含代收代耕）（如有） -->
-                    <p class="tableTitle">土地（含代收代耕）（如有）</p>
+                    <p class="tableTitle">土地（含代收代耕）</p>
                     <lands ref="lands" :tds="naturalData[index].assetsLands" :rulesField="rulesField"/>
 
                     <!-- 金融资产 -->
