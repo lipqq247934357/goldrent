@@ -208,7 +208,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>租赁利率（固定利率）</td>
+                    <td>租赁利率（固定利率）(%)</td>
                     <td>
                         <el-input
                                 class="input-width"
@@ -505,7 +505,6 @@
         },
         watch: {
             'rentFactor.payType'(newVal) {
-
                 if (!newVal) {
                     this.rentFactor.paymentAccountName = '';
                     this.rentFactor.paymentAccountBank = '';

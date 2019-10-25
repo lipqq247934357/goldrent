@@ -179,6 +179,14 @@
                     return false;
                 }
 
+                if (rentFactor.certNo !== '') { // 身份证校验
+                    let idcontent = this.$idCard.IDcode(rentFactor.certNo);
+                    if (idcontent.Status == false) {
+                        this.$message.error(idcontent.msg);
+                        return;
+                    }
+                }
+
                 return new Promise((resolve, reject) => {
                     Promise.all([
                         this.$post('/leaseinfo/addElement', {...leaseInfo, bussNo: this.bussNo}),
