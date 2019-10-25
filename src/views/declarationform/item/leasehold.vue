@@ -41,7 +41,8 @@
                     </td>
                     <td>抵押管理机关</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentInfo.condition.mortgageAgency"></el-input>
+                        <el-input :disabled="mortgageAgencyStatus" class="input-width-2column"
+                                  v-model="rentInfo.condition.mortgageAgency"></el-input>
                     </td>
                 </tr>
                 <tr>
@@ -152,7 +153,8 @@
                         firstBeneficiary: '', // 第一受益人
                         remark: '', // 备注
                     }
-                }
+                },
+                mortgageAgencyStatus: true
             }
         },
         created() {
@@ -169,7 +171,18 @@
         components: {
             componentitle,
 
-        }, methods: {
+        },
+        watch: {
+            'rentInfo.condition.mortgage'(newVal) {
+                if (!newVal || newVal === 'N') {
+                    this.rentInfo.condition.mortgageAgency = '';
+                    this.mortgageAgencyStatus = true;
+                } else {
+                    this.mortgageAgencyStatus = false;
+                }
+            }
+        },
+        methods: {
             getData() {
                 this.$post('/leaseinfo/query', {
                     bussNo: this.bussNo

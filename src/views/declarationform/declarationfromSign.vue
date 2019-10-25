@@ -175,8 +175,16 @@
                 }
 
                 if (rentFactor.receiptType === 'private' && rentFactor.certNo == '') { // 收款账户类型对私的时候银行卡号必填
-                    this.$message.warning({message: '收款账户类型对私的时候银行卡号必填', duration: 1000});
+                    this.$message.warning({message: '收款账户类型对私的时候身份证号必填', duration: 1000});
                     return false;
+                }
+
+                if (rentFactor.certNo !== '') { // 身份证校验
+                    let idcontent = this.$idCard.IDcode(rentFactor.certNo);
+                    if (idcontent.Status == false) {
+                        this.$message.error(idcontent.msg);
+                        return false;
+                    }
                 }
 
                 return new Promise((resolve, reject) => {
