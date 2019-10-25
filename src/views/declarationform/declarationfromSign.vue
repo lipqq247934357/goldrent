@@ -165,7 +165,7 @@
                 // 保存数据
                 return this[ref](activeName);
             },
-            lease(activeName) { // 租赁要素save方法
+            lease(activeName,rent) { // 租赁要素save方法
                 let leaseInfo = this.$refs.lease.leaseInfo;
                 let rentFactor = this.$refs.lease.rentFactor;
 
@@ -187,6 +187,7 @@
                     }
                 }
 
+                let leaseObj = this.$refs.lease;
                 return new Promise((resolve, reject) => {
                     Promise.all([
                         this.$post('/leaseinfo/addElement', {...leaseInfo, bussNo: this.bussNo}),
@@ -195,6 +196,7 @@
                         if (data[0].data.code === '2000000' && data[1].data.code === '2000000') {
                             this.$message.success('租赁要素保存成功');
                             activeName && this.initData(activeName);
+                            rent && leaseObj.rentTableInfo();
                             resolve();
                         } else {
                             this.$message.warning({message: data.data.resultMsg, duration: 2000})

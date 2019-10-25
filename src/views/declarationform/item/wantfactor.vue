@@ -394,6 +394,7 @@
                     size="small"
                     style="width: 100%">
                 <el-table-column
+                        :formatter="formatterPeriod"
                         label="期数"
                         prop="period">
                 </el-table-column>
@@ -552,20 +553,6 @@
                     bussNo: this.bussNo,
                     taskType: 10
                 }).then(res => {
-
-                    let obj = {
-                        rent: "租金",
-                        retain: "留购价",
-                        rebate: "厂商返利",
-                        discount: "厂商贴息",
-                        otherexpense: "其他费用"
-                    };
-
-                    res.data.data.forEach(item => {
-                        if (item.costType !== 'rent') {
-                            item.period = obj[item.costType];
-                        }
-                    });
                     this.rentData = res.data.data;
                 });
             },
@@ -601,7 +588,22 @@
             },
             rent() { // 租金计划表
                 this.showRentTable = true;
-                this.rentTableInfo();
+                this.$emit("saveData", '', 'rent'); // 生成租金计划表
+            },
+            formatterPeriod(row, column) {
+                let obj = {
+                    rent: "租金",
+                    retain: "留购价",
+                    rebate: "厂商返利",
+                    discount: "厂商贴息",
+                    otherexpense: "其他费用"
+                };
+
+                if (row.costType !== 'rent') {
+                    return obj[row.costType];
+                } else {
+                    return row.period;
+                }
             },
             back() { // 隐藏租金计划表
                 this.showRentTable = false;
@@ -613,7 +615,6 @@
                     data: this.rentData
                 }).then(res => {
                     if (res.data.code == '2000000') {
-                        debugger
                         this.$message.success(`该笔业务的内部收益率为${this.mul(res.data.data.earningRate, 100)}%`);
                     }
                 });
