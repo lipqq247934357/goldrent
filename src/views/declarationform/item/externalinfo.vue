@@ -8,6 +8,7 @@
                     class="inputtext"
                     placeholder="字数限制0-500字"
                     type="textarea"
+                    maxlength="500"
                     v-model="surveyInformation.lesseeCredit">
             </el-input>
         </div>
@@ -18,6 +19,7 @@
                     class="inputtext"
                     placeholder="字数限制0-500字"
                     type="textarea"
+                    maxlength="500"
                     v-model="surveyInformation.guarantorCredit">
             </el-input>
         </div>
@@ -28,6 +30,7 @@
                     class="inputtext"
                     placeholder="字数限制0-500字"
                     type="textarea"
+                    maxlength="500"
                     v-model="surveyInformation.repurchaseCredit">
             </el-input>
         </div>
@@ -41,6 +44,7 @@
                     class="inputtext"
                     placeholder="字数限制0-500字"
                     type="textarea"
+                    maxlength="500"
                     v-model="surveyInformation.lesseeCreditZhongdeng">
             </el-input>
         </div>
@@ -54,6 +58,7 @@
                     class="inputtext"
                     placeholder="字数限制0-500字"
                     type="textarea"
+                    maxlength="500"
                     v-model="surveyInformation.lesseeCreditExternal">
             </el-input>
         </div>
@@ -64,6 +69,7 @@
                     class="inputtext"
                     placeholder="字数限制0-500字"
                     type="textarea"
+                    maxlength="500"
                     v-model="surveyInformation.guarantorCreditExternal">
             </el-input>
         </div>
@@ -74,6 +80,7 @@
                     class="inputtext"
                     placeholder="字数限制0-500字"
                     type="textarea"
+                    maxlength="500"
                     v-model="surveyInformation.repurchaseCreditExternal">
             </el-input>
         </div>
