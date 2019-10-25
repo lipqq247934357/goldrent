@@ -18,7 +18,7 @@
                     <div class="pop-content">
                         <div>
                             <p>请选择部门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                            <el-select clearable placeholder="请选择"
+                            <el-select placeholder="请选择"
                                        v-model="depart">
                                 <el-option
                                         :key="item.depart_code"
@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <p>请选择协办人员</p>
-                            <el-select clearable placeholder="请选择"
+                            <el-select placeholder="请选择"
                                        v-model="assistUserInfo">
                                 <el-option
                                         :key="item.user_id"

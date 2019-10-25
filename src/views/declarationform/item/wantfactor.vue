@@ -548,6 +548,32 @@
                 });
             },
             rentTableInfo() { // 获取租金计划表数据
+
+                //融资金额
+                if (this.leaseInfo.financeAmt === 0) {
+                    this.$message.warning({message: '融资金额不能为0', duration: 1000});
+                    return;
+                }
+
+                //起租日
+                if (this.leaseInfo.startDate == '' || this.leaseInfo.startDate == null) {
+                    this.$message.warning({message: '计划起租日不能为空', duration: 1000});
+                    return;
+                }
+
+                //终止日
+                if (this.leaseInfo.endDate == '' || this.leaseInfo.endDate == null) {
+                    this.$message.warning({message: '计划终止日不能为空', duration: 1000});
+                    return;
+                }
+
+                //租赁利率
+                if (this.leaseInfo.leaseRate == '') {
+                    this.$message.warning({message: '租赁利率不能为空', duration: 1000});
+                    return;
+                }
+
+                this.showRentTable = true;
                 // 3.相关条款查询
                 this.$post('/leaseinfo/queryScheduleNew', {
                     bussNo: this.bussNo,
@@ -587,7 +613,6 @@
                 }
             },
             rent() { // 租金计划表
-                this.showRentTable = true;
                 this.$emit("saveData", '', 'rent'); // 生成租金计划表
             },
             formatterPeriod(row, column) {
