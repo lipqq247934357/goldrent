@@ -82,13 +82,18 @@ export default {
     },
 	created() {},
     mounted() {
+        // this.childrenInfo = this.sfyzn;
+        // this.childrenInfo.forEach((item,index) => {
+        //     item['name'] = index+1 + '';
+        //     item['title'] = '承租人子女' + (index+1);
+        // });
+        // this.childrenTabs = '1';
     },
     watch: {
         sfyzn(newVal,oldVal){
             if(newVal != undefined) {
                 this.childrenInfo = this.sfyzn;
                 this.childrenInfo.forEach((item,index) => {
-                    console.log(index);
                     item['name'] = index+1 + '';
                     item['title'] = '承租人子女' + (index+1);
                 });
