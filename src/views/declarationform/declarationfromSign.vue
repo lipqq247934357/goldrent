@@ -183,7 +183,7 @@
                     let idcontent = this.$idCard.IDcode(rentFactor.certNo);
                     if (idcontent.Status == false) {
                         this.$message.error(idcontent.msg);
-                        return;
+                        return false;
                     }
                 }
 
