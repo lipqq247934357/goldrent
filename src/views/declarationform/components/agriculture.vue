@@ -1,10 +1,18 @@
 <template>
-<div class="lesseeinfoChild">
+<div class="lesseeinfoChild" style="position: relative;">
     <div class="addbutton">
         <el-button size="small" @click="addTab(childrenTabs)" class="el-icon-plus">
             添加农机作业收入
         </el-button>
     </div>
+
+    <el-button
+        style="position: absolute;background:#ff8f2b;border: 0;color: #fff;right: 10px;top: 10px;"
+        @click="calculation"
+        size="medium">
+        计算
+    </el-button>
+
     <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
             v-for="(item, index) of incomeFarmMachineryWork"
@@ -69,7 +77,6 @@
                             v-model="item.surplus"
                             :precision="2"
                             :step="0.1"
-                            :min="0.00"
                             >
                         </el-input-number>
                         <span style="position:absolute;right: 10px;">
@@ -133,6 +140,16 @@ export default {
     },
 	methods: {
 
+        // 计算
+        calculation() {
+            let a = this.childrenTabs - 1;
+            this.incomeFarmMachineryWork.forEach((item,index) => {
+                if(index == a) {
+                    item.surplus = (item.oneIncome - item.oneCost) * item.plantArea;
+                    console.log(item);
+                }
+            });
+        },
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
             this.incomeFarmMachineryWork.push({

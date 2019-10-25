@@ -8,8 +8,11 @@
         </div>
         <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
             <el-tab-pane v-for="(item, index) of naturalData" :key="item.name" :label="item.title" :name="item.name">
-                <div class="matchingDiv">
-                    <div class="matchingText">
+                <!-- <div class="matchingDiv"> -->
+
+                    <!-- 暂时不做等下一期 -->
+
+                    <!-- <div class="matchingText">
                         商业伙伴类型
                     </div>
                     <div class="matchingText">
@@ -24,8 +27,8 @@
                     </div>
                     <el-button type="primary" size="medium" @click="handleMatching" class="matchingButton">
                         匹配信息
-                    </el-button>
-                </div>
+                    </el-button> -->
+                <!-- </div> -->
                 <!-- 基本信息 -->
 
                 <componentitle :message="message='基本信息'" class="componentitle" />

@@ -12,7 +12,7 @@
                     <div class="matchingText">
                         商业伙伴类型
                     </div>
-                    <div class="matchingText">
+                    <div class="matchingText" style="border-right: 1px solid #e5e5e5;">
                         <el-select
                             style="width: 90%;"
                             v-model="item.partnerType"
@@ -27,16 +27,16 @@
                             </el-option>
                         </el-select>
                     </div>
-                    <div class="matchingText">
+                    <!-- <div class="matchingText">
                         身份证号码
                     </div>
                     <div class="matchingText matchId">
                         <el-input v-model="item.matchingId" maxlength="18" class="matchingId" placeholder="请输入身份证号">
                         </el-input>
-                    </div>
-                    <el-button type="primary" size="medium" @click="handleMatching" class="matchingButton">
+                    </div> -->
+                    <!-- <el-button type="primary" size="medium" @click="handleMatching" class="matchingButton">
                         匹配信息
-                    </el-button>
+                    </el-button> -->
                 </div>
                 <!-- 基本信息 -->
 
@@ -1228,7 +1228,7 @@ export default {
             text-align: center;
             border: 1px solid #e5e5e5;
             height: 50px;
-            border-right: 0;
+            // border-right: 0;
             line-height: 50px;
             .matchingId {
                 width: 90%;
