@@ -116,6 +116,15 @@ export default {
         },
         removeTab(targetName) {
 
+            // this.$post('/data/del',{
+            //     id: this.incomeFarmMachineryWork[targetName - 1].id,
+            //     type: 'incomePlant'
+            // }).then(res => {
+            //     if(res.data.code =='2000000') {
+            //         this.$message.success('承租人子女删除成功');
+            //     }
+            // });
+
             let tabs = this.childrenInfo;
             let activeName = this.childrenTabs;
 

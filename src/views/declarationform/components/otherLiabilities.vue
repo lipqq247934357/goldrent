@@ -135,41 +135,46 @@ export default {
             this.childrenTabs = newTabName;
         },
         removeTab(targetName) {
-
-            let tabs = this.debtOthers;
-            let activeName = this.childrenTabs;
-
             // 至少要保留一个
             if (this.debtOthers.length == 1) {
                 return;
             }
+            this.$post('/data/del',{
+                id: this.debtOthers[targetName - 1].id,
+                type: 'debtOther'
+            }).then(res => {
+                if(res.data.code =='2000000') {
+                    this.$message.success('其他负债删除成功');
+                    let tabs = this.debtOthers;
+                    let activeName = this.childrenTabs;
 
+                    if (activeName === targetName) {
+                        tabs.forEach((tab, index) => {
 
-            if (activeName === targetName) {
-                tabs.forEach((tab, index) => {
+                            if (tab.name === targetName) {
+                                let nextTab = tabs[index + 1] || tabs[index - 1];
+                                if (nextTab) {
 
-                    if (tab.name === targetName) {
-                        let nextTab = tabs[index + 1] || tabs[index - 1];
-                        if (nextTab) {
-
-                            activeName = nextTab.name;
-                        }
+                                    activeName = nextTab.name;
+                                }
+                            }
+                        });
                     }
-                });
-            }
 
-            this.childrenTabs = activeName;
-            this.debtOthers = tabs.filter(tab => tab.name !== targetName);
+                    this.childrenTabs = activeName;
+                    this.debtOthers = tabs.filter(tab => tab.name !== targetName);
 
-            // 当删除成功后后一项承租人继承前一项承租人index
-            this.debtOthers.forEach(function(item, index, arr) {
-                item.title = '其他负债' + parseInt(index + 1);
-                item.name = parseInt(index + 1) + '';
-                item.content = '其他负债' + parseInt(index + 1);
-            })
-            this.childrenTabs = this.debtOthers.length + '';
-            //主要防止于添加的时候错误
-            this.childIndex = this.debtOthers.length;
+                    // 当删除成功后后一项承租人继承前一项承租人index
+                    this.debtOthers.forEach(function(item, index, arr) {
+                        item.title = '其他负债' + parseInt(index + 1);
+                        item.name = parseInt(index + 1) + '';
+                        item.content = '其他负债' + parseInt(index + 1);
+                    })
+                    this.childrenTabs = this.debtOthers.length + '';
+                    //主要防止于添加的时候错误
+                    this.childIndex = this.debtOthers.length;
+                }
+            });
         },
 
     },

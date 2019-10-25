@@ -429,7 +429,7 @@ export default {
                     type: 'custLegal'
                 }).then(res => {
                     if(res.data.code =='2000000') {
-                        this.$message.success('删除成功');
+                        this.$message.success('回购人删除成功');
                     }
                 });
             }

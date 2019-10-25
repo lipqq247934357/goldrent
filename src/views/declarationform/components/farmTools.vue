@@ -156,41 +156,49 @@ export default {
             this.childrenTabs = newTabName;
         },
         removeTab(targetName) {
-
-            let tabs = this.assetsFarmTools;
-            let activeName = this.childrenTabs;
-
             // 至少要保留一个
             if (this.assetsFarmTools.length == 1) {
                 return;
             }
 
+            this.$post('/data/del',{
+                id: this.assetsFarmTools[targetName - 1].id,
+                type: 'assetsFarmTools'
+            }).then(res => {
+                if(res.data.code =='2000000') {
+                    this.$message.success('农机具删除成功');
+                    let tabs = this.assetsFarmTools;
+                    let activeName = this.childrenTabs;
 
-            if (activeName === targetName) {
-                tabs.forEach((tab, index) => {
+                    if (activeName === targetName) {
+                        tabs.forEach((tab, index) => {
 
-                    if (tab.name === targetName) {
-                        let nextTab = tabs[index + 1] || tabs[index - 1];
-                        if (nextTab) {
+                            if (tab.name === targetName) {
+                                let nextTab = tabs[index + 1] || tabs[index - 1];
+                                if (nextTab) {
 
-                            activeName = nextTab.name;
-                        }
+                                    activeName = nextTab.name;
+                                }
+                            }
+                        });
                     }
-                });
-            }
 
-            this.childrenTabs = activeName;
-            this.assetsFarmTools = tabs.filter(tab => tab.name !== targetName);
+                    this.childrenTabs = activeName;
+                    this.assetsFarmTools = tabs.filter(tab => tab.name !== targetName);
 
-            // 当删除成功后后一项承租人继承前一项承租人index
-            this.assetsFarmTools.forEach(function(item, index, arr) {
-                item.title = '农机具' + parseInt(index + 1);
-                item.name = parseInt(index + 1) + '';
-                item.content = '农机具' + parseInt(index + 1);
-            })
-            this.childrenTabs = this.assetsFarmTools.length + '';
-            //主要防止于添加的时候错误
-            this.childIndex = this.assetsFarmTools.length;
+                    // 当删除成功后后一项承租人继承前一项承租人index
+                    this.assetsFarmTools.forEach(function(item, index, arr) {
+                        item.title = '农机具' + parseInt(index + 1);
+                        item.name = parseInt(index + 1) + '';
+                        item.content = '农机具' + parseInt(index + 1);
+                    })
+                    this.childrenTabs = this.assetsFarmTools.length + '';
+                    //主要防止于添加的时候错误
+                    this.childIndex = this.assetsFarmTools.length;
+                }
+            });
+
+
         },
 
     },
