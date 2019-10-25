@@ -1,9 +1,9 @@
 <template>
     <div @keyup.enter="queryclick" class="businfo">
-        <div class="topTitle">
+        <div class="topTitle" style="display: none">
             <componentitle :message="message" :parenTtext="parenTtext" :titletext="titletext" :url="url"/>
         </div>
-        <div class="topcontent">
+        <div class="topcontent" style="display: none">
             <div>
                 <label>业务编号</label>
                 <el-input class="contentinout" placeholder="请输入内容" v-model="bussNo"></el-input>

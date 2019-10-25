@@ -534,6 +534,15 @@
                         if (leaseInfo.payWay == '' || leaseInfo.payWay === null) { // 如果租金支付方式没有值的话设置为约定本金
                             leaseInfo.payWay = 'YDBJ';
                         }
+
+                        if (leaseInfo.firstPayAmt === '') { //
+                            leaseInfo.firstPayAmt = undefined;
+                        }
+
+                        if (leaseInfo.financeAmt === '') { //
+                            leaseInfo.financeAmt = undefined;
+                        }
+
                         this.leaseInfo = leaseInfo;
                     }
                 });
