@@ -298,17 +298,20 @@
                         </td>
                         <td>账户名称</td>
                         <td>
-                            <el-input class="input-width-2column" v-model="rentFactor.paymentAccountName"></el-input>
+                            <el-input :disabled="true" class="input-width-2column"
+                                      v-model="rentFactor.paymentAccountName"></el-input>
                         </td>
                     </tr>
                     <tr>
                         <td>开户银行</td>
                         <td>
-                            <el-input class="input-width-2column" v-model="rentFactor.paymentAccountBank"></el-input>
+                            <el-input :disabled="true" class="input-width-2column"
+                                      v-model="rentFactor.paymentAccountBank"></el-input>
                         </td>
                         <td>银行卡号</td>
                         <td>
-                            <el-input class="input-width-2column" v-model="rentFactor.paymentAccount"></el-input>
+                            <el-input :disabled="true" class="input-width-2column"
+                                      v-model="rentFactor.paymentAccount"></el-input>
                         </td>
                     </tr>
                 </table>
@@ -499,6 +502,25 @@
         components: {
             componentitle,
             rentTable
+        },
+        watch: {
+            'rentFactor.payType'(newVal) {
+
+                if (!newVal) {
+                    this.rentFactor.paymentAccountName = '';
+                    this.rentFactor.paymentAccountBank = '';
+                    this.rentFactor.paymentAccount = '';
+                    return;
+                }
+
+                this.$post('/contractclause/accountinfo', {
+                    payType: newVal
+                }).then(res => {
+                    this.rentFactor.paymentAccountName = res.data.data.paymentAccountName;
+                    this.rentFactor.paymentAccountBank = res.data.data.paymentAccountBank;
+                    this.rentFactor.paymentAccount = res.data.data.paymentAccount;
+                });
+            }
         },
         methods: {
             getData() {

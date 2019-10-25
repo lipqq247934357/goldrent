@@ -168,6 +168,17 @@
             lease(activeName) { // 租赁要素save方法
                 let leaseInfo = this.$refs.lease.leaseInfo;
                 let rentFactor = this.$refs.lease.rentFactor;
+
+                if (leaseInfo.depositAmt === 0) { // 留购价款不能为0
+                    this.$message.warning({message: '留购价不能为0', duration: 1000});
+                    return false;
+                }
+
+                if (rentFactor.receiptType === 'private' && rentFactor.certNo == '') { // 收款账户类型对私的时候银行卡号必填
+                    this.$message.warning({message: '收款账户类型对私的时候银行卡号必填', duration: 1000});
+                    return false;
+                }
+
                 return new Promise((resolve, reject) => {
                     Promise.all([
                         this.$post('/leaseinfo/addElement', {...leaseInfo, bussNo: this.bussNo}),
