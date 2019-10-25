@@ -72,12 +72,13 @@
             </tr>
             <tr>
                 <td>备注</td>
-                <td>
-                    <div class="batextarrear">
+                <td colspan="3">
+                    <div>
                         <el-input :rows="2"
-                                  class="input-width-2column"
-                                  placeholder=""
+                                  class="input-textarea"
+                                  placeholder="字数限制0-500字"
                                   type="textarea"
+                                  maxlength="500"
                                   v-model="houseMortgager.remark">
                         </el-input>
                     </div>
@@ -148,10 +149,11 @@
             </tr>
             <tr class="subliWidth">
                 <td class="bz">备注</td>
-                <td class="batextarrear">
-                    <el-input :rows="2" class="input-width-2column"
-                              placeholder=""
+                <td class="batextarrear" colspan="3">
+                    <el-input :rows="2" class="input-textarea"
+                              placeholder="字数限制0-500字"
                               type="textarea"
+                              maxlength="500"
                               v-model="landMortgager.remark">
                     </el-input>
                 </td>
@@ -247,6 +249,11 @@
 
                 .input-width-2column {
                     width: 80%;
+                }
+
+                .input-textarea {
+                    width: 90%;
+                    margin: 5px 0;
                 }
             }
         }

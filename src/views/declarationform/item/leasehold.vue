@@ -105,9 +105,13 @@
             </tr>
             <tr>
                 <td>备注</td>
-                <td>
-                    <el-input class="input-width-2column" placeholder="字数限制0-200字"
-                              v-model="rentInfo.insurance.remark"></el-input>
+                <td  colspan="3">
+                    <el-input
+                            class="input-textarea"
+                            placeholder="字数限制0-200字"
+                            type="textarea"
+                            maxlength="200"
+                            v-model="rentInfo.insurance.remark"></el-input>
                 </td>
             </tr>
         </table>
@@ -223,6 +227,10 @@
 
                 .input-width-2column {
                     width: 80%;
+                }
+                .input-textarea {
+                    width: 90%;
+                    margin: 5px 0;
                 }
             }
         }

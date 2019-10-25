@@ -72,7 +72,7 @@
                     repurchase: '回购人信息',
                     leasehold: '租赁物信息',
                     externalnews: '外部信息',
-                    investigation: '增信措施及综素',
+                    investigation: '增信措施及综述',
                     evaluate: '调查结论及风险评价',
                     approvalOpinion: '审批意见'
                 },
@@ -344,6 +344,24 @@
             investigation(activeName) {
                 let houseMortgager = this.$refs.investigation.houseMortgager;
                 let landMortgager = this.$refs.investigation.landMortgager;
+
+
+                if (houseMortgager.mortgagerCertNo !== '') { // 身份证校验
+                    let idcontent = this.$idCard.IDcode(houseMortgager.mortgagerCertNo);
+                    if (idcontent.Status == false) {
+                        this.$message.error(idcontent.msg);
+                        return false;
+                    }
+                }
+
+                if (landMortgager.mortgagerCertNo !== '') { // 身份证校验
+                    let idcontent = this.$idCard.IDcode(landMortgager.mortgagerCertNo);
+                    if (idcontent.Status == false) {
+                        this.$message.error(idcontent.msg);
+                        return false;
+                    }
+                }
+
                 return new Promise((resolve, reject) => {
                     // 房产抵押信息，土地使用权抵押信息
                     this.$post('/additioncredit/add', {

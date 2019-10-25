@@ -136,7 +136,7 @@
                 if (param === 'save') {
                     this.$emit("saveData");
                 } else {
-                    this.$emit('update:bindText', '增信措施及综素')
+                    this.$emit('update:bindText', '增信措施及综述')
                 }
             }
         }
