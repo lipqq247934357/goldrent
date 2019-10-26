@@ -190,10 +190,20 @@
                 }
 
                 let leaseObj = this.$refs.lease;
+                let clauseData = {
+                        ...rentFactor,
+                        leaseTerm: leaseInfo.leaseTerm,
+                        startDate: leaseInfo.startDate,
+                        endDate: leaseInfo.endDate
+                };
                 return new Promise((resolve, reject) => {
                     Promise.all([
                         this.$post('/leaseinfo/addElement', {...leaseInfo, bussNo: this.bussNo}),
-                        this.$post('/contractclause/add', {orderData: {}, clauseData: rentFactor, bussNo: this.bussNo})
+                        this.$post('/contractclause/add', {
+                            clauseData: clauseData,
+                            orderData:{},
+                            bussNo: this.bussNo
+                        })
                     ]).then((data) => {
                         if (data[0].data.code === '2000000' && data[1].data.code === '2000000') {
                             this.$message.success('租赁要素保存成功');
@@ -330,8 +340,6 @@
                 let houseMortgager = this.$refs.investigation.houseMortgager;
                 let landMortgager = this.$refs.investigation.landMortgager;
 
-
-                debugger
                 if (houseMortgager.mortgagerCertNo !== '' && houseMortgager.mortgagerCertNo !== undefined) { // 身份证校验
                     let idcontent = this.$idCard.IDcode(houseMortgager.mortgagerCertNo);
                     if (idcontent.Status == false) {

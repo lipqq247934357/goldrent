@@ -664,6 +664,7 @@
                     data: this.rentData
                 }).then(res => {
                     if (res.data.code == '2000000') {
+                        this.rentData = res.data.data;
                         this.$message.success('试算成功');
                     }
                 });
