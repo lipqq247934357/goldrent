@@ -36,7 +36,7 @@ axios.interceptors.response.use(
             if (response.config.url === '/web/submitChoiceAssistUser') { // 报单申请提交
 
                 setTimeout(() => {
-                    MessageBox.alert(response.data.msg, '提示', {
+                    MessageBox.alert(`<div style="max-height: calc(100vh - 160px);overflow: scroll;s">${response.data.msg}</div>`, '提示', {
                         confirmButtonText: '确定',
                         dangerouslyUseHTMLString: true,
                         callback: action => {
