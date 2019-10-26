@@ -197,11 +197,12 @@
                     ]).then((data) => {
                         if (data[0].data.code === '2000000' && data[1].data.code === '2000000') {
                             this.$message.success('租赁要素保存成功');
-                            activeName && this.initData(activeName);
-                            rent && leaseObj.rentTableInfo();
+                            setTimeout(()=>{
+                                activeName && this.initData(activeName);
+                                rent && leaseObj.rentTableInfo();
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
                             reject();
                         }
                     }).catch(() => {
@@ -218,11 +219,12 @@
                         data: data
                     }).then(res => {
                         if (res.data.code === '2000000') {
-                            this.$message.success('承租人保存成功');
-                            activeName && this.initData(activeName);
+                            setTimeout(()=>{
+                                this.$message.success('承租人保存成功');
+                                activeName && this.initData(activeName);
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
                             reject();
                         }
                     }).catch(() => {
@@ -240,11 +242,12 @@
                         data: data
                     }).then(res => {
                         if (res.data.code === '2000000') {
-                            this.$message.success('保证人保存成功');
-                            activeName && this.initData(activeName);
+                            setTimeout(()=>{
+                                this.$message.success('保证人保存成功');
+                                activeName && this.initData(activeName);
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
                             reject();
                         }
                     }).catch(() => {
@@ -270,10 +273,11 @@
                                 item['name'] = index + 1 + '';
                                 item['title'] = '承租人' + parseInt(index + 1);
                             });
-                            activeName && this.initData(activeName);
+                            setTimeout(()=>{
+                                activeName && this.initData(activeName);
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
                             reject();
                         }
                     });
@@ -288,11 +292,12 @@
                         lists: [{...leaseInfo,calcType:'DAY'}]
                     }).then(res => {
                         if (res.data.code === '2000000') {
-                            this.$message.success('租赁物信息保存成功');
-                            activeName && this.initData(activeName);
+                            setTimeout(()=>{
+                                this.$message.success('租赁物信息保存成功');
+                                activeName && this.initData(activeName);
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
                             reject();
                         }
                     }).catch(() => {
@@ -308,11 +313,12 @@
                         surveyInformation:surveyInformation
                     }).then(res => {
                         if (res.data.code === '2000000') {
-                            this.$message.success('外部信息保存成功');
-                            activeName && this.initData(activeName);
+                            setTimeout(()=>{
+                                this.$message.success('外部信息保存成功');
+                                activeName && this.initData(activeName);
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
                             reject();
                         }
                     }).catch(() => {
@@ -325,7 +331,8 @@
                 let landMortgager = this.$refs.investigation.landMortgager;
 
 
-                if (houseMortgager.mortgagerCertNo !== '') { // 身份证校验
+                debugger
+                if (houseMortgager.mortgagerCertNo !== '' && houseMortgager.mortgagerCertNo !== undefined) { // 身份证校验
                     let idcontent = this.$idCard.IDcode(houseMortgager.mortgagerCertNo);
                     if (idcontent.Status == false) {
                         this.$message.error(idcontent.msg);
@@ -333,7 +340,7 @@
                     }
                 }
 
-                if (landMortgager.mortgagerCertNo !== '') { // 身份证校验
+                if (landMortgager.mortgagerCertNo !== '' && landMortgager.mortgagerCertNo !== undefined) { // 身份证校验
                     let idcontent = this.$idCard.IDcode(landMortgager.mortgagerCertNo);
                     if (idcontent.Status == false) {
                         this.$message.error(idcontent.msg);
@@ -349,11 +356,12 @@
                         landMortgager: [landMortgager]
                     }).then(res => {
                         if (res.data.code === '2000000') {
-                            this.$message.success('增信措施及综述保存成功');
-                            activeName && this.initData(activeName);
+                            setTimeout(()=>{
+                                this.$message.success('增信措施及综述保存成功');
+                                activeName && this.initData(activeName);
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
                             reject();
                         }
                     }).catch(() => {
@@ -371,12 +379,13 @@
                         ownerType: 'ZB'
                     }).then(res => {
                         if (res.data.code === '2000000') {
-                            this.$message.success('调查结论及风险评价保存成功');
-                            activeName && this.initData(activeName);
+                            setTimeout(()=>{
+                                this.$message.success('调查结论及风险评价保存成功');
+                                activeName && this.initData(activeName);
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
-                            reject();
+                            resolve();
                         }
                     }).catch(() => {
                         reject();
@@ -393,12 +402,13 @@
                         ownerType: 'ZB'
                     }).then(res => {
                         if (res.data.code === '2000000') {
-                            this.$message.success('审批意见保存成功');
-                            activeName && this.initData(activeName);
+                            setTimeout(()=>{
+                                this.$message.success('审批意见保存成功');
+                                activeName && this.initData(activeName);
+                            });
                             resolve();
                         } else {
-                            this.$message.warning({message: data.data.resultMsg, duration: 2000})
-                            reject();
+                            resolve();
                         }
                     }).catch(() => {
                         reject();
