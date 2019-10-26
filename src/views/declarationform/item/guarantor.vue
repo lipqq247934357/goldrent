@@ -671,26 +671,31 @@
                     <guaranteeIncome ref="otherIncome" :qtsr="warrantorDatas[index].incomeOthers" :rulesField="rulesField" />
                 </div>
 
+                <div class="imgbox"
+                    v-for="(imgTrees ,imgIndex) in treeData"
+                    v-show="index == imgIndex">
+                    <div v-if="imgFile">
+                        <template v-for="(value,indexs) in imgFile">
+                                <h3>{{value.nodeName}}</h3>
+                                <ul>
+                                    <imgUpload
+                                        v-for="(val,key) in value.nodes"
+                                        :disabled="type === 'detail'"
+                                        :name="val"
+                                        :bussNo="bussNo"
+                                        :relationId="relationId"
+                                        :type="val.key"
+                                        @handlePictureCardPreview="handlePictureCardPreview"/>
+                                </ul>
+                        </template>
+                    </div>
+                </div>
+
             </el-tab-pane>
         </el-tabs>
 
-        <div class="imgbox">
-            <div v-if="imgFile">
-                <template v-for="value in imgFile">
-                        <h3>{{value.nodeName}}</h3>
-                        <ul>
-                            <imgUpload
-                                v-for="(val,key) in value.nodes"
-                                :disabled="type === 'detail'"
-                                :name="val"
-                                :bussNo="bussNo"
-                                :relationId="relationId"
-                                :type="val.key"
-                                @handlePictureCardPreview="handlePictureCardPreview"/>
-                        </ul>
-                </template>
-            </div>
-        </div>
+
+
 
         <!-- 底部按钮 -->
         <div class="bottomButtonDiv matchingDiv">
@@ -702,6 +707,15 @@
             </el-button>
         </div>
     </div>
+    <el-dialog
+        width="70%"
+        :visible.sync="dialogVisible">
+        <el-image
+            style="width: 100%; height: 100%"
+            :src="dialogImageUrl"
+            :preview-src-list="srcList">
+        </el-image>
+    </el-dialog>
 </div>
 </template>
 
@@ -717,6 +731,7 @@ import guarantee from '../components/guarantee.vue'; // 对外担保
 import otherLiabilities from '../components/otherLiabilities.vue'; // 其他负债
 import plant from '../components/plant.vue'; // 种植收入
 import guaranteeIncome from '../components/guaranteeIncome.vue'; // 其他收入
+import imgUpload from '../imgUpload.vue'; //图片组件
 export default {
     data() {
         return {
@@ -726,7 +741,10 @@ export default {
             endpickerOptions: {
                disabledDate: this.disabledDateEnd
             },
-
+            treeData: [],
+            dialogImageUrl: '',
+            srcList: [],
+            dialogVisible: false,
             tabChange: 1, //存储切换的tab name
             message: '', //title
             maritalStatus: '',
@@ -829,6 +847,7 @@ export default {
     },
     props: ['rulesField','bussNo'],
     mounted() {
+        this.imgData();
     },
     methods: {
         // 证件长期有效
@@ -865,11 +884,11 @@ export default {
             }).then(res => {
                 if(res.data.code == '2000000') {
                     if(res.data.data.warrantorData.length != '0') {
-                        this.warrantorDatas = res.data.data.warrantorData;
                         this.warrantorDatas.forEach(function(item,index) {
                             item.sortIndex = index + 1;
                             item['name'] = item.sortIndex + '';
                             item['title'] = "保证人" + item.sortIndex;
+                            console.log(item);
                         });
                     }
                 }
@@ -1276,9 +1295,8 @@ export default {
             }
         },
         save(param) { // 保存页面或者下一步
-            // console.log(this.warrantorDatas,'11111');
             if(param === 'save'){
-                this.$emit("saveData",this.warrantorDatas);
+                this.$emit("saveData");
             }else{
                 this.$emit('update:bindText','回购人信息')
             }
@@ -1388,11 +1406,12 @@ export default {
                 bussNo: this.bussNo
             }).then(res => {
                 if(res.data.code == '2000000') {
-                    if(res.data.data.leaseholder.length == '0') {
+                    if(res.data.data.guarantor.length == '0') {
                         return;
                     }
-                    let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
-                    this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
+                    this.treeData = res.data.data.guarantor;
+                    let treeInfo = res.data.data.guarantor[this.tabChange - 1].itemTree;
+                    this.relationId = res.data.data.guarantor[this.tabChange - 1].custId;
                     console.log(this.relationId);
                     let tempArr = [];
                     Object.keys(treeInfo).forEach((key) => {
@@ -1401,6 +1420,11 @@ export default {
                     this.imgFile = tempArr;
                 }
             });
+        },
+        handlePictureCardPreview(file,imgUrls) { // 图片浏览功能
+            this.dialogImageUrl = file.url;
+            this.srcList.push(file.url);
+            this.dialogVisible = true;
         },
 },
     components: {
@@ -1414,7 +1438,8 @@ export default {
         guarantee,
         otherLiabilities,
         plant,
-        guaranteeIncome
+        guaranteeIncome,
+        imgUpload
     }
 }
 </script>

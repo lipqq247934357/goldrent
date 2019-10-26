@@ -1121,10 +1121,10 @@ export default {
                 idcontent.Sex = "F";
             }
             let nowIndex = this.tabChange - 1;
-
+            console.log(this.naturalData[nowIndex].mateInfo);
             setTimeout(function() {
-                this.naturalData[nowIndex].mateInfo[nowIndex].custSex = idcontent.Sex;
-                this.naturalData[nowIndex].mateInfo[nowIndex].custAge = idcontent.Age;
+                this.naturalData[nowIndex].mateInfo.custSex = idcontent.Sex;
+                this.naturalData[nowIndex].mateInfo.custAge = idcontent.Age;
             }.bind(this),100);
         },
 

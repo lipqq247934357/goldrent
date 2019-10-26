@@ -111,6 +111,7 @@ export default {
             this.tabChange = val.name;
         },
         addTab(targetName) {
+
             let newTabName = ++this.childIndex + '';
             this.tabChange++;
             this.nowIndextab++;
@@ -128,6 +129,7 @@ export default {
                 sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
+            console.log(this.childrenInfo,'子女');
         },
         removeTab(targetName) {
 
@@ -135,7 +137,7 @@ export default {
             // if (this.childrenInfo.length == 1) {
             //     return;
             // }
-
+            this.tabChange--;
             if(this.childrenInfo[targetName - 1].id) {
                 this.$post('/data/del',{
                     id: this.childrenInfo[targetName - 1].id,
@@ -214,6 +216,7 @@ export default {
         },
         // 子女身份证号码校验
         idNumber(val) {
+            console.log(val);
             let idcodeCheck = this.$idCard.IDcode(val);
             let nowIndex = this.tabChange - 1;
             if(idcodeCheck.Status == false) {
@@ -221,6 +224,7 @@ export default {
                 return;
             }
             for(let i = 0; i < this.childrenInfo.length; i++) {
+                console.log(nowIndex,i);
                 if(nowIndex == i) {
                     this.childrenInfo[i].custSex = idcodeCheck.Sex;
                     this.childrenInfo[i].custAge = idcodeCheck.Age;

@@ -229,12 +229,10 @@
                         data: data
                     }).then(res => {
                         if (res.data.code === '2000000') {
-                            setTimeout(()=>{
-                                this.$message.success('承租人保存成功');
-                                activeName && this.initData(activeName);
-                                this.$refs.rentpeople.imgData(); // 调用
-                                this.$refs.rentpeople.getData(); // 调用详情接口
-                            });
+                            this.$message.success('承租人保存成功');
+                            activeName && this.initData(activeName);
+                            this.$refs.rentpeople.imgData(); // 调用
+                            this.$refs.rentpeople.getData(); // 调用详情接口
                             resolve();
                         } else {
                             reject();
@@ -252,13 +250,13 @@
                         bussNo: this.bussNo,
                         data: data
                     }).then(res => {
+                        console.log(res,'保证人');
                         if (res.data.code === '2000000') {
-                            setTimeout(()=>{
-                                this.$message.success('保证人保存成功');
-                                activeName && this.initData(activeName);
-                                this.$refs.guarantor.getData(); // 调用详情接口
-                                this.$refs.guarantor.imgData(); // 调用
-                            });
+
+                            this.$refs.guarantor.getData(); // 调用详情接口
+                            this.$refs.guarantor.imgData(); // 调用
+                            this.$message.success('保证人保存成功');
+                            activeName && this.initData(activeName);
                             resolve();
                         } else {
                             reject();
