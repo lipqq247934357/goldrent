@@ -49,7 +49,6 @@ axios.interceptors.response.use(
             //业务异常，在报单申请的时候查询商业条款不提示
             if (response.data.msg != '查询商业条款信息失败') {
                 Message.error({message: response.data.msg, duration: 5 * 1000});
-                return response;
             }
         }
 
