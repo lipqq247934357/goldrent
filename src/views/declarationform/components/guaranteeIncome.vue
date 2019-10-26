@@ -73,7 +73,7 @@ export default {
                     surplus: '',// 结余
                     status: '', //状态
                     remark: '',//备注
-                    sortIndex: ''
+                    sortIndex: '1'
                 }
             ],
             childIndex: 1

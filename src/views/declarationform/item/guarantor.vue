@@ -1315,7 +1315,6 @@ export default {
                         this.$refs.homecar[i].assetsVehicles.forEach((item,index) => {
                             if(item.buyTime) {
                                 item.buyTime = item.buyTime + '-01-01 00:00:00';
-
                             }
                         });
 
@@ -1351,7 +1350,6 @@ export default {
                     for(let i = 0; i < this.$refs.plant.length; i++) {
                         item.incomePlants = this.$refs.plant[i].incomePlants
                     }
-
                     for(let i = 0; i < this.$refs.otherIncome.length; i++) {
                         item.incomeOthers = this.$refs.otherIncome[i].incomeOthers
                     }
