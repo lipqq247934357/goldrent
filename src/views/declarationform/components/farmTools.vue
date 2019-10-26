@@ -44,6 +44,7 @@
                     <td>
                         <el-select
                             v-model="item.invoice"
+                            @change='changeInvoiceAmt'
                             clearable
                             class="inputLessinfo"
                             placeholder="请选择">
@@ -54,12 +55,24 @@
                             </el-option>
                         </el-select>
                     </td>
+                    <td>发票金额</td>
+                    <td>
+                        <el-input-number
+                                :min="0.00"
+                                :disabled="amountStatus"
+                                :precision="2"
+                                :step="0.1"
+                                class="inputLessinfo"
+                                type="text"
+                                v-model="item.invoice_amount">
+                        </el-input-number>
+                    </td>
+                </tr>
+                <tr>
                     <td>车辆号牌</td>
                     <td>
                         <el-input type="text" v-model="item.serialNo" class="inputLessinfo"></el-input>
                     </td>
-                </tr>
-                <tr>
                     <td>当前估价</td>
                     <td>
                         <el-input-number
@@ -74,12 +87,12 @@
                             元
                         </span>
                     </td>
+                </tr>
+                <tr>
                     <td>品牌及型号</td>
                     <td>
                         <el-input type="text" v-model="item.brandModels" class="inputLessinfo"></el-input>
                     </td>
-                </tr>
-                <tr>
                     <td>所有权人</td>
                     <td>
                         <el-input type="text" v-model="item.owner" class="inputLessinfo"></el-input>
@@ -114,7 +127,8 @@ export default {
                     sortIndex: '1'
                 }
             ],
-            childIndex: 1
+            childIndex: 1,
+            amountStatus:true
 		}
 	},
     props: {
@@ -202,10 +216,14 @@ export default {
                     this.childIndex = this.assetsFarmTools.length;
                 }
             });
-
-
         },
-
+        changeInvoiceAmt(val){
+            if (val === 'N') {
+                this.amountStatus = true;
+            } else {
+                this.amountStatus = false;
+            }
+        }
     },
 }
 </script>
