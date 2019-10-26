@@ -461,7 +461,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>债偿比（年支出、年结余）</td>
+                            <td>债偿比（年支出/年结余）</td>
                             <td>
                                 <el-input-number
                                     class="inputLessinfo"
