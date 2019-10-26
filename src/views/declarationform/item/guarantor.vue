@@ -17,6 +17,7 @@
                             style="width: 90%;"
                             v-model="item.partnerType"
                             class="inputLessinfo"
+                            clearable
                             @change="friendType"
                             placeholder="请选择">
                             <el-option
@@ -83,7 +84,11 @@
                         </td>
                         <td>教育程度</td>
                         <td>
-                            <el-select v-model="item.custEducation" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.custEducation"
+                                clearable
+                                class="inputLessinfo"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.custEducation"
                                     :key="items.optionCode"
@@ -122,9 +127,14 @@
                     <tr>
                         <td>与承租人关系</td>
                         <td>
-                            <el-select v-model="item.custRelation" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.custRelation"
+                                clearable
+                                class="inputLessinfo"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.custRelation"
+                                    :disabled="items.optionCode == 'SELF'"
                                     :key="items.optionCode"
                                     :label="items.optionName"
                                     :value="items.optionCode">
@@ -140,7 +150,11 @@
                     <tr>
                         <td>身份类型</td>
                         <td>
-                            <el-select v-model="item.identityType" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.identityType"
+                                clearable
+                                class="inputLessinfo"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.identityType"
                                     :key="items.optionCode"
@@ -151,7 +165,11 @@
                         </td>
                         <td>征信报告</td>
                         <td>
-                            <el-select v-model="item.hasCreditReport" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="item.hasCreditReport"
+                                clearable
+                                class="inputLessinfo"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.hasCreditReport"
                                     :key="items.optionCode"
@@ -168,6 +186,7 @@
                             <el-select
                                 v-model="item.custMarriage"
                                 class="inputLessinfo"
+                                clearable
                                 @change="custMarriageChange"
                                 placeholder="请选择">
                                 <el-option
@@ -183,6 +202,7 @@
                             <el-select
                                 v-model="item.marriageSettlement"
                                 class="inputLessinfo"
+                                clearable
                                 :disabled="item.custMarriage != 'divorced'"
                                 placeholder="请选择">
                                 <el-option
@@ -232,6 +252,7 @@
                                 class="input-width inputLessinfo"
                                 placeholder="选择日期"
                                 type="date"
+                                clearable
                                 v-model="item.certStartDate"
                                 @blur="dataChange"
                                 value-format="yyyy-MM-dd">
@@ -245,6 +266,7 @@
                             <el-select
                                 v-model="item.certEndDateOption"
                                 class="inputLessinfo"
+                                clearable
                                 :disabled="item.dataDisabled=='0'"
                                 :picker-options="pickerOptions"
                                 @change="certEndDateOptionChange"
@@ -264,6 +286,7 @@
                                 class="input-width inputLessinfo"
                                 placeholder="选择日期"
                                 type="date"
+                                clearable
                                 :disabled="item.zjsxDate == '0'"
                                 :picker-options="endpickerOptions"
                                 v-model="item.legalCertDeadline"
@@ -309,6 +332,7 @@
                                     class="input-width inputLessinfo"
                                     placeholder="选择日期"
                                     type="date"
+                                    clearable
                                     v-model="item.comEstablishDate"
                                     value-format="yyyy-MM-dd">
                             </el-date-picker>
@@ -391,6 +415,7 @@
                         <td>
                             <el-select
                                 v-model="item.legalCertType"
+                                clearable
                                 class="inputLessinfo"
                                 placeholder="请选择">
                                 <el-option
@@ -415,11 +440,12 @@
                         <td>法人证件失效时间</td>
                         <td>
                             <el-date-picker
-                                    class="input-width inputLessinfo"
-                                    placeholder="选择日期"
-                                    type="date"
-                                    v-model="item.legalCertDeadline"
-                                    value-format="yyyy-MM-dd">
+                                class="input-width inputLessinfo"
+                                placeholder="选择日期"
+                                clearable
+                                type="date"
+                                v-model="item.legalCertDeadline"
+                                value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
                     </tr>
@@ -514,7 +540,11 @@
                         </td>
                         <td>教育程度</td>
                         <td>
-                            <el-select v-model="mateinfoTbale.custEducation" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="mateinfoTbale.custEducation"
+                                clearable
+                                class="inputLessinfo"
+                                placeholder="请选择">
                                 <el-option v-for="items in rulesField.custEducation" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
                             </el-select>
@@ -550,7 +580,11 @@
                     <tr>
                         <td>身份类型</td>
                         <td>
-                            <el-select v-model="mateinfoTbale.identityType" class="inputLessinfo" placeholder="请选择">
+                            <el-select
+                                v-model="mateinfoTbale.identityType"
+                                clearable
+                                class="inputLessinfo"
+                                placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.identityType"
                                     :key="items.optionCode"
@@ -571,6 +605,7 @@
                                 v-model="mateinfoTbale.custMarriage = item.custMarriage"
                                 class="inputLessinfo"
                                 disabled
+                                clearable
                                 placeholder="请选择">
                                 <el-option v-for="items in rulesField.custMarriage" :key="items.optionCode" :label="items.optionName" :value="items.optionCode">
                                 </el-option>
@@ -1331,6 +1366,25 @@ export default {
                 }
             });
 
+        },
+        imgData() {
+            this.$post('/buss/materialTree',{
+                bussNo: this.bussNo
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    if(res.data.data.leaseholder.length == '0') {
+                        return;
+                    }
+                    let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
+                    this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
+                    console.log(this.relationId);
+                    let tempArr = [];
+                    Object.keys(treeInfo).forEach((key) => {
+                        tempArr.push(treeInfo[key]);
+                    });
+                    this.imgFile = tempArr;
+                }
+            });
         },
 },
     components: {

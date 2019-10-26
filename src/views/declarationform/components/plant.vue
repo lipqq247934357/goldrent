@@ -84,12 +84,12 @@
                     </td>
 
                 </tr>
-                <tr>
+                <tr v-show="index == '0'">
                     <td colspan="4" style="text-align: left;border-bottom: 0;padding-left: 20px;">
                         种植经验描述
                     </td>
                 </tr>
-                <tr>
+                <tr v-show="index == '0'">
                     <td colspan="4" style="border-top: 0;">
                         <el-input
                             type="textarea"
