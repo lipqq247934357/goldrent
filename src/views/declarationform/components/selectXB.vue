@@ -124,7 +124,7 @@
                     this.$message.error('请选择协办人');
                     return;
                 }
-
+                this.centerDialogVisible = false;
                 // 1.提交协办
                 this.$post('/submitChoiceAssistUser', {
                     bussNo: this.bussNo,
