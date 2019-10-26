@@ -6,9 +6,9 @@
             <el-input
                     :rows="4"
                     class="inputtext"
+                    maxlength="1000"
                     placeholder="字数限制0-1000字"
                     type="textarea"
-                    maxlength="1000"
                     v-model="opinion.conclusion">
             </el-input>
         </div>
@@ -17,7 +17,7 @@
             <el-button @click="save('save')" class="buttonClass" type="primary">保存</el-button>
             <el-button @click="save('submit')" class="buttonClass" type="primary">提交</el-button>
         </div>
-        <xbPop :show.sync="showXB" :bussNo="bussNo"></xbPop>
+        <xbPop :bussNo="bussNo" :show.sync="showXB"></xbPop>
     </div>
 </template>
 
@@ -35,7 +35,7 @@
             return {
                 message: '',
                 opinion: {}, //主办人
-                showXB:false
+                showXB: false
             }
         },
         created() {
@@ -49,6 +49,8 @@
                 }).then(res => {
                     if (res.data.code == '2000000' && res.data.data.length !== 0) {
                         this.opinion = res.data.data;
+                        if (!this.opinion.conclusion)
+                            this.opinion.conclusion = '同意并提交';
                     }
                 });
             },
@@ -56,6 +58,7 @@
                 if (param == 'save') { // 保存数据
                     this.$emit("saveData");
                 } else { // 提交数据
+                    this.$emit("saveData");
                     this.showXB = true;
                 }
             }
