@@ -5,7 +5,7 @@
             增加承租人子女
         </el-button>
     </div>
-    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
+    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab" @tab-click="childChange">
         <el-tab-pane
             v-for="(item, index) of childrenInfo"
             :key="item.name"
@@ -72,7 +72,8 @@ export default {
                     status: '' //状态
                 }
             ],
-            childIndex: 1
+            childIndex: 1,
+            nowIndextab: 1,
 		}
 	},
     props: {
@@ -102,8 +103,13 @@ export default {
         }
     },
 	methods: {
+        // 页签切换
+        childChange(val) {
+            this.tabChange = val.name;
+        },
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
+            this.nowIndextab++;
             this.childrenInfo.push({
                 title: '承租人子女' + newTabName,
                 name: newTabName,
@@ -117,7 +123,6 @@ export default {
                 status: '' //状态
             });
             this.childrenTabs = newTabName;
-            console.log(this.childrenInfo);
         },
         removeTab(targetName) {
 
@@ -126,57 +131,89 @@ export default {
                 return;
             }
 
-            this.$post('/data/del',{
-                id: this.childrenInfo[targetName - 1].id,
-                type: 'custNature'
-            }).then(res => {
-                if(res.data.code =='2000000') {
-                    this.$message.success('承租人子女删除成功');
-                    let tabs = this.childrenInfo;
-                    let activeName = this.childrenTabs;
+            if(this.childrenInfo[targetName - 1].id) {
+                this.$post('/data/del',{
+                    id: this.childrenInfo[targetName - 1].id,
+                    type: 'custNature'
+                }).then(res => {
+                    if(res.data.code =='2000000') {
+                        this.$message.success('承租人子女删除成功');
+                        let tabs = this.childrenInfo;
+                        let activeName = this.childrenTabs;
 
-                    if (activeName === targetName) {
-                        tabs.forEach((tab, index) => {
+                        if (activeName === targetName) {
+                            tabs.forEach((tab, index) => {
 
-                            if (tab.name === targetName) {
-                                let nextTab = tabs[index + 1] || tabs[index - 1];
-                                if (nextTab) {
+                                if (tab.name === targetName) {
+                                    let nextTab = tabs[index + 1] || tabs[index - 1];
+                                    if (nextTab) {
 
-                                    activeName = nextTab.name;
+                                        activeName = nextTab.name;
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
+
+                        this.childrenTabs = activeName;
+                        this.childrenInfo = tabs.filter(tab => tab.name !== targetName);
+
+                        // 当删除成功后后一项承租人继承前一项承租人index
+                        this.childrenInfo.forEach(function(item, index, arr) {
+                            item.title = '承租人子女' + parseInt(index + 1);
+                            item.name = parseInt(index + 1) + '';
+                            item.content = '承租人' + parseInt(index + 1);
+                        })
+                        this.childrenTabs = this.childrenInfo.length + '';
+                        //主要防止于添加的时候错误
+                        this.childIndex = this.childrenInfo.length;
                     }
+                });
+            }
+            else {
+                let tabs = this.childrenInfo;
+                let activeName = this.childrenTabs;
 
-                    this.childrenTabs = activeName;
-                    this.childrenInfo = tabs.filter(tab => tab.name !== targetName);
+                if (activeName === targetName) {
+                    tabs.forEach((tab, index) => {
 
-                    // 当删除成功后后一项承租人继承前一项承租人index
-                    this.childrenInfo.forEach(function(item, index, arr) {
-                        item.title = '承租人子女' + parseInt(index + 1);
-                        item.name = parseInt(index + 1) + '';
-                        item.content = '承租人' + parseInt(index + 1);
-                    })
-                    this.childrenTabs = this.childrenInfo.length + '';
-                    //主要防止于添加的时候错误
-                    this.childIndex = this.childrenInfo.length;
+                        if (tab.name === targetName) {
+                            let nextTab = tabs[index + 1] || tabs[index - 1];
+                            if (nextTab) {
+
+                                activeName = nextTab.name;
+                            }
+                        }
+                    });
                 }
-            });
+
+                this.childrenTabs = activeName;
+                this.childrenInfo = tabs.filter(tab => tab.name !== targetName);
+
+                // 当删除成功后后一项承租人继承前一项承租人index
+                this.childrenInfo.forEach(function(item, index, arr) {
+                    item.title = '承租人子女' + parseInt(index + 1);
+                    item.name = parseInt(index + 1) + '';
+                    item.content = '承租人' + parseInt(index + 1);
+                })
+                this.childrenTabs = this.childrenInfo.length + '';
+                //主要防止于添加的时候错误
+                this.childIndex = this.childrenInfo.length;
+            }
+
+
 
 
         },
         // 子女身份证号码校验
         idNumber(val) {
             let idcodeCheck = this.$idCard.IDcode(val);
-            let nowIndex = this.childIndex - 1;
+            let nowIndex = this.tabChange - 1;
             if(idcodeCheck.Status == false) {
                 this.$message.error(idcodeCheck.msg);
                 return;
             }
-            setTimeout(function() {
-                this.childrenInfo[nowIndex].custSex = idcodeCheck.Sex;
-                this.childrenInfo[nowIndex].custAge = idcodeCheck.Age;
-            }.bind(this),100);
+            this.childrenInfo[nowIndex].custSex = idcodeCheck.Sex;
+            this.childrenInfo[nowIndex].custAge = idcodeCheck.Age;
         }
     },
 }

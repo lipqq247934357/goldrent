@@ -606,6 +606,7 @@ export default {
                 custAge: '', //年龄
                 custWechat: '', // 微信
                 custMobile: '', // 电话
+                otherwifeType: '',
                 mateInfo: [{
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
@@ -671,7 +672,6 @@ export default {
             }],
 
             tabIndex: 1,
-
         }
     },
     created() {
@@ -682,6 +682,14 @@ export default {
     },
     methods: {
 
+        // 页签切换
+        changeTables(val) {
+            this.tabChange = val.name;
+
+            this.$nextTick( () => {
+                this.imgData();
+            });
+        },
 
         custNameBlur(val) {
             // 汇款账户名沿用承租人姓名
@@ -699,6 +707,7 @@ export default {
                         this.naturalData.forEach(function(item,index) {
                             item['name'] = index + 1 + '';
                             item['title'] = "承租人" + parseInt(index + 1);
+                            item.otherwifeType = item.custMarriage;
                             if(item.mateInfo.length == '0') {
                                 item.mateInfo = [{
                                     certNo: '', //身份证号码
@@ -753,6 +762,7 @@ export default {
                 custAge: '', //年龄
                 custWechat: '', // 微信
                 custMobile: '', // 电话
+                otherwifeType: '',
                 mateInfo: [{
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
@@ -817,6 +827,7 @@ export default {
                 ]
             });
             this.editableTabsValue = newTabName;
+            console.log(this.naturalData);
         },
         removeTab(targetName) {
 
@@ -979,64 +990,64 @@ export default {
 
         // 婚姻状况切换
         custMarriageChange(val) {
-            if(this.tabIndex == this.tabChange) {
-                let infowifi = [{
-                    id: "",
-                    certNo: '', //身份证号码
-                    residenceYear: '', //申请地居住年限
-                    custSex: '', // 性别
-                    cultureYears: '', //种植年限
-                    custName: '', //承租人信息姓名
-                    custEducation: '', //存储选中的教育程度
-                    custType: '', //存储选中的客户类别
-                    hasChildren: '', //存储选中的是否有子女
-                    hasCreditReport: '', //存储选中的征信报告
-                    custMarriage: '', //存储选中的婚姻状况
-                    marriageSettlement: '', //存储选中的离婚协议
-                    custHomeplace: '', // 户籍地址
-                    custAddress: '', //现住址
-                    custAge: '', //年龄
-                    custWechat: '', // 微信
-                    custMobile: '', // 电话
-                }];
-                if(this.maritalStatus == 'married') {
-                    this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
-                      confirmButtonText: '确定',
-                      cancelButtonText: '取消',
-                      type: 'warning'
-                    }).then(() => {
-                      let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
+            let infowifi = [{
+                id: "",
+                certNo: '', //身份证号码
+                residenceYear: '', //申请地居住年限
+                custSex: '', // 性别
+                cultureYears: '', //种植年限
+                custName: '', //承租人信息姓名
+                custEducation: '', //存储选中的教育程度
+                custType: '', //存储选中的客户类别
+                hasChildren: '', //存储选中的是否有子女
+                hasCreditReport: '', //存储选中的征信报告
+                custMarriage: '', //存储选中的婚姻状况
+                marriageSettlement: '', //存储选中的离婚协议
+                custHomeplace: '', // 户籍地址
+                custAddress: '', //现住址
+                custAge: '', //年龄
+                custWechat: '', // 微信
+                custMobile: '', // 电话
+            }];
+            if(this.naturalData[this.tabChange - 1].otherwifeType == 'married') {
+                this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                  let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
+                  if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
+                      this.$post('/data/del',{
+                          id: mateInfoNowId,
+                          type: 'custNature'
+                      }).then(res => {
+                          if(res.data.code == "2000000") {
+                              this.naturalData[this.tabChange - 1].mateInfo = infowifi;
+                              this.$message.success('配偶删除成功');
+                          }
+                      });
+                  }
+                  if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id == '') {
+                      this.$message.success('配偶删除成功222');
+                      this.naturalData[this.tabChange - 1].mateInfo = infowifi;
+                      this.naturalData[this.tabChange - 1].otherwifeType = val;
+                      console.log(this.naturalData[this.tabChange - 1]);
+                  }
 
-                      if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
-                          this.$post('/data/del',{
-                              id: mateInfoNowId,
-                              type: 'custNature'
-                          }).then(res => {
-                              if(res.data.code == "2000000") {
-                                  this.naturalData[this.tabChange - 1].mateInfo = infowifi;
-                                  this.$message.success('配偶删除成功');
-                              }
-                          });
-                      } else {
-                          this.$message.success('配偶删除成功');
-                          this.naturalData[this.tabChange - 1].mateInfo = infowifi;
-                      }
-
-                    }).catch(() => {
-                       this.$message({
-                           type: 'info',
-                           message: '已取消删除',
-                        });
-                        this.maritalStatus = 'married';
-                        this.naturalData[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
+                }).catch(() => {
+                   this.$message({
+                       type: 'info',
+                       message: '已取消删除',
                     });
-                }
+                    this.naturalData[this.tabChange - 1].otherwifeType = 'married';
+                    this.naturalData[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
+                });
+            }
 
-                if(val != 'divorced') {
-                    this.naturalData[this.tabChange - 1].marriageSettlement = '';
-                }
+            this.naturalData[this.tabChange - 1].otherwifeType = val;
 
-                this.maritalStatus = val;
+            if(val != 'divorced') {
+                this.naturalData[this.tabChange - 1].marriageSettlement = '';
             }
 
         },
@@ -1078,14 +1089,6 @@ export default {
             });
             console.log(this.naturalData[nowIndex].incomeDebtRatios);
 
-        },
-        // 页签切换
-        changeTables(val) {
-            this.tabChange = val.name;
-
-            this.$nextTick( () => {
-                this.imgData();
-            });
         },
         // 获取录入的身份号
         idNumber(val) {
@@ -1313,19 +1316,26 @@ export default {
             }
             for(let i = 0; i < this.$refs.homecar.length; i++) {
                 this.$refs.homecar[i].assetsVehicles.forEach((item,index) => {
-                    item.buyTime = item.buyTime + '-01-01 00:00:00';
+                    if(item.buyTime) {
+                        item.buyTime = item.buyTime + '-01-01 00:00:00';
+
+                    }
                 });
                 this.naturalData[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
             }
             for(let i = 0; i < this.$refs.farmtools.length; i++) {
                 this.$refs.farmtools[i].assetsFarmTools.forEach((item,index) => {
-                    item.buyTime = item.buyTime + '-01-01 00:00:00';
+                    if(item.buyTime) {
+                        item.buyTime = item.buyTime + '-01-01 00:00:00';
+                    }
                 });
                 this.naturalData[i].assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
             }
             for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
                 this.$refs.assetsOthers[i].assetsOthers.forEach((item,index) => {
-                    item.buyTime = item.buyTime + ' 00:00:00';
+                    if(item.buyTime) {
+                        item.buyTime = item.buyTime + ' 00:00:00';
+                    }
                 });
                 this.naturalData[i].assetsOthers = this.$refs.assetsOthers[i].assetsOthers
             }
