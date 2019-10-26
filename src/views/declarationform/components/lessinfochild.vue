@@ -76,6 +76,7 @@ export default {
             ],
             childIndex: 1,
             nowIndextab: 1,
+            tabChange: 1,
 		}
 	},
     props: {
@@ -111,6 +112,7 @@ export default {
         },
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
+            this.tabChange++;
             this.nowIndextab++;
             this.childrenInfo.push({
                 title: '承租人子女' + newTabName,
@@ -218,8 +220,14 @@ export default {
                 this.$message.error(idcodeCheck.msg);
                 return;
             }
-            this.childrenInfo[nowIndex].custSex = idcodeCheck.Sex;
-            this.childrenInfo[nowIndex].custAge = idcodeCheck.Age;
+            for(let i = 0; i < this.childrenInfo.length; i++) {
+                if(nowIndex == i) {
+                    this.childrenInfo[i].custSex = idcodeCheck.Sex;
+                    this.childrenInfo[i].custAge = idcodeCheck.Age;
+                    console.log(this.childrenInfo[i])
+                    break
+                }
+            }
         }
     },
 }

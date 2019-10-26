@@ -674,6 +674,24 @@
             </el-tab-pane>
         </el-tabs>
 
+        <div class="imgbox">
+            <div v-if="imgFile">
+                <template v-for="value in imgFile">
+                        <h3>{{value.nodeName}}</h3>
+                        <ul>
+                            <imgUpload
+                                v-for="(val,key) in value.nodes"
+                                :disabled="type === 'detail'"
+                                :name="val"
+                                :bussNo="bussNo"
+                                :relationId="relationId"
+                                :type="val.key"
+                                @handlePictureCardPreview="handlePictureCardPreview"/>
+                        </ul>
+                </template>
+            </div>
+        </div>
+
         <!-- 底部按钮 -->
         <div class="bottomButtonDiv matchingDiv">
             <el-button type="primary" size="medium" class="matchingButton" @click="save('save')">
@@ -713,6 +731,9 @@ export default {
             message: '', //title
             maritalStatus: '',
             editableTabsValue: '1',
+            relationId: '', //图片影像资料需要用到的
+            imgFile: [],
+            type: '', // 图片影像资料需要用到的
             matchingId: '', // 匹配按钮的身份证号
             otherData: [],//用来储存warrantorDatas 承租人数组数据，因为删除页签之后会出现问题
             warrantorDatass:[{ // 保证人为法人时
@@ -846,8 +867,9 @@ export default {
                     if(res.data.data.warrantorData.length != '0') {
                         this.warrantorDatas = res.data.data.warrantorData;
                         this.warrantorDatas.forEach(function(item,index) {
-                            item['name'] = index + 1 + '';
-                            item['title'] = "保证人" + parseInt(index + 1);
+                            item.sortIndex = index + 1;
+                            item['name'] = item.sortIndex + '';
+                            item['title'] = "保证人" + item.sortIndex;
                         });
                     }
                 }
