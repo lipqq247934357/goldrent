@@ -111,6 +111,7 @@ export default {
                     shares: '', //股票
                     products: '', //理财产品
                     status: '', //状态
+                    sortIndex: '1'
                 }
             ],
             childIndex: 1
@@ -133,8 +134,8 @@ export default {
                 this.assetsFinances = this.jrzc;
                 this.assetsFinances.forEach((item,index) => {
                     console.log(item);
-                    item['name'] = index+1 + '';
-                    item['title'] = '金融资产' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '金融资产' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -153,6 +154,7 @@ export default {
                 shares: '', //股票
                 products: '', //理财产品
                 status: '', //状态
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -188,6 +190,7 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.assetsFinances.forEach(function(item, index, arr) {
+                        item.sortIndex = index + 1;
                         item.title = '金融资产' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '金融资产' + parseInt(index + 1);

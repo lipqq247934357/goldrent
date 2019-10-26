@@ -105,6 +105,7 @@ export default {
                     address: '',//	抵押物地址/坐落
                     checkMode: '',//	核实方式
                     status: '',//	状态
+                    sortIndex: '1'
                 }
             ],
             childIndex: 1
@@ -137,9 +138,8 @@ export default {
             if(newVal != undefined) {
                 this.assetsLands = this.tds;
                 this.assetsLands.forEach((item,index) => {
-                    console.log(index);
-                    item['name'] = index+1 + '';
-                    item['title'] = '土地' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '土地' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -159,6 +159,7 @@ export default {
                 address: '',//	抵押物地址/坐落
                 checkMode: '',//	核实方式
                 status: '',//	状态
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -196,6 +197,7 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.assetsLands.forEach(function(item, index, arr) {
+                        item.sortIndex = index + 1;
                         item.title = '土地' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '土地' + parseInt(index + 1);

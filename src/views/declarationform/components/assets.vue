@@ -101,7 +101,8 @@ export default {
                     haveCertificate: '', //是否有房产证明
                     currEvaluation: '', //当前估值
                     address: '', //抵押物地址
-                    acreage: '' //面积
+                    acreage: '', //面积
+                    sortIndex: '1'
                 }
             ],
             childIndex: 1
@@ -123,8 +124,8 @@ export default {
             if(newVal != undefined) {
                 this.assetsHouses = this.fc;
                 this.assetsHouses.forEach((item,index) => {
-                    item['name'] = index + 1 + '';
-                    item['title'] = '房产' + (index + 1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '房产' + item.sortIndex;
                     item.type = item.type + '';
                     if(item.type == 0) {
                         item.type = '';
@@ -148,7 +149,8 @@ export default {
                 haveCertificate: '', //是否有房产证明
                 currEvaluation: '', //当前估值
                 address: '', //抵押物地址
-                acreage: '' //面积
+                acreage: '', //面积
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -184,6 +186,7 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.assetsHouses.forEach(function(item, index, arr) {
+                        item.newTabName = index + 1;
                         item.title = '房产' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '承租人' + parseInt(index + 1);

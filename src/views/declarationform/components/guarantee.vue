@@ -81,6 +81,7 @@ export default {
                     withWarranteeRelation: '', // 与被担保人关系
                     status: '', //状态
                     remark: '',//备注
+                    sortIndex: '1'
                 }
             ],
             childIndex: 1
@@ -103,8 +104,8 @@ export default {
                 this.debtGuarantees = this.dwdb;
                 this.debtGuarantees.forEach((item,index) => {
                     console.log(index);
-                    item['name'] = index+1 + '';
-                    item['title'] = '对外担保' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '对外担保' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -124,6 +125,7 @@ export default {
                 withWarranteeRelation: '', // 与被担保人关系
                 status: '', //状态
                 remark: '',//备注
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -160,6 +162,7 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.debtGuarantees.forEach(function(item, index, arr) {
+                        item.sortIndex = index + 1;
                         item.title = '对外担保' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '对外担保' + parseInt(index + 1);

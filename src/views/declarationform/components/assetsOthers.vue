@@ -103,6 +103,7 @@ export default {
                     mortgage: '', //是否抵押
                     status: '', //状态
                     remark: '',//备注
+                    sortIndex: '1'
                 }
             ],
             childIndex: 1
@@ -125,8 +126,8 @@ export default {
                 this.assetsOthers = this.qtzc;
                 this.assetsOthers.forEach((item,index) => {
                     console.log(index);
-                    item['name'] = index+1 + '';
-                    item['title'] = '其他资产' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '其他资产' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -146,6 +147,7 @@ export default {
                 mortgage: '', //是否抵押
                 status: '', //状态
                 remark: '',//备注
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -183,6 +185,7 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.assetsOthers.forEach(function(item, index, arr) {
+                        item.sortIndex = index + 1;
                         item.title = '其他资产' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '其他资产' + parseInt(index + 1);

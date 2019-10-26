@@ -590,7 +590,7 @@ export default {
             naturalData: [{
                 title: '承租人1',
                 name: '1',
-                sortIndex: 1,
+                sortIndex: '1',
                 certNo: '', //身份证号码
                 residenceYears: '', //申请地居住年限
                 custSex: '', // 性别
@@ -609,6 +609,7 @@ export default {
                 custMobile: '', // 电话
                 otherwifeType: '',
                 mateInfo: [{
+                    id: '',
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
                     custSex: '', // 性别
@@ -706,11 +707,12 @@ export default {
                     if(res.data.data.naturalData.length != '0') {
                         this.naturalData = res.data.data.naturalData;
                         this.naturalData.forEach(function(item,index) {
-                            item['name'] = index + 1 + '';
-                            item['title'] = "承租人" + parseInt(index + 1);
+                            item['name'] = item.sortIndex + '';
+                            item['title'] = "承租人" + item.sortIndex;
                             item.otherwifeType = item.custMarriage;
                             if(item.mateInfo.length == '0') {
                                 item.mateInfo = [{
+                                    id: '',
                                     certNo: '', //身份证号码
                                     residenceYears: '', //申请地居住年限
                                     custSex: '', // 性别
@@ -749,7 +751,7 @@ export default {
                 certNo: '', //身份证号码
                 residenceYears: '', //申请地居住年限
                 custSex: '', // 性别
-                sortIndex: this.tabChange,
+                sortIndex: newTabName,
                 cultureYears: '', //种植年限
                 custName: '', //承租人信息姓名
                 custEducation: '', //存储选中的教育程度
@@ -765,6 +767,7 @@ export default {
                 custMobile: '', // 电话
                 otherwifeType: '',
                 mateInfo: [{
+                    id: '',
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
                     custSex: '', // 性别
@@ -828,10 +831,9 @@ export default {
                 ]
             });
             this.editableTabsValue = newTabName;
-            console.log(this.naturalData);
+            console.log(this.naturalData)
         },
         removeTab(targetName) {
-
             // console.log(this.naturalData[targetName - 1].id)
             if(this.naturalData[targetName - 1].id) {
                 this.$post('/data/del',{
@@ -871,12 +873,11 @@ export default {
 
             // 当删除成功后后一项承租人继承前一项承租人index
             this.naturalData.forEach(function(item, index, arr) {
-                item.sortIndex--
+                item.sortIndex = index + 1;
                 item.title = '承租人' + parseInt(index + 1);
                 item.name = parseInt(index + 1) + '';
                 item.content = '承租人' + parseInt(index + 1);
             })
-            console.log(this.naturalData);
             this.editableTabsValue = this.naturalData.length + '';
             //主要防止于添加的时候错误
             this.tabIndex = this.naturalData.length;
@@ -889,14 +890,17 @@ export default {
                     if(res.data.data.leaseholder.length == '0') {
                         return;
                     }
-                    let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
-                    this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
-                    console.log(this.relationId);
-                    let tempArr = [];
-                    Object.keys(treeInfo).forEach((key) => {
-                        tempArr.push(treeInfo[key]);
-                    });
-                    this.imgFile = tempArr;
+                    if(res.data.data.leaseholder[this.tabChange - 1].itemTree) {
+                        let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
+                        this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
+                        console.log(this.relationId);
+                        let tempArr = [];
+                        Object.keys(treeInfo).forEach((key) => {
+                            tempArr.push(treeInfo[key]);
+                        });
+                        this.imgFile = tempArr;
+                    }
+
                 }
             });
         },
@@ -973,18 +977,20 @@ export default {
                 this.$store.state.lessinfoAddress = this.naturalData[nowIndex].custHomeplace; // 承租人户籍地址
                 this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址
             }
-            // else {
-            //     this.naturalData.forEach((item,index) => {
-            //         for(let i = 0 ; i < item.childrenInfo.length; i++) {
-            //             if(item.childrenInfo == null) {
-            //                 console.log(item.childrenInfo);
-            //                 item.hasChildren = 'Y';
-            //                 this.$message.error('请删除子女');
-            //                 break;
-            //             }
-            //         }
-            //     });
-            // }
+            else {
+                for(let i = 0;i < this.naturalData.length; i++) {
+                    if(this.naturalData[i].childrenInfo) {
+                        this.$message.error('请先依次删除子女');
+                        this.$nextTick( () => {
+                            this.naturalData[i].hasChildren = "Y";
+                            console.log(this.naturalData[i]);
+                        });
+                        break;
+                    }
+
+                }
+
+            }
 
             childVal = val;
         },
@@ -1010,14 +1016,12 @@ export default {
                 custWechat: '', // 微信
                 custMobile: '', // 电话
             }];
-            console.log(this.naturalData[this.tabChange - 1].otherwifeType);
             if(this.naturalData[this.tabChange - 1].otherwifeType == 'married') {
                 this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
                   confirmButtonText: '确定',
                   cancelButtonText: '取消',
                   type: 'warning'
                 }).then(() => {
-                    console.log(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id);
                   if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
                       let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
                       this.$post('/data/del',{
@@ -1033,7 +1037,6 @@ export default {
                       this.$message.success('不通过后台删除配偶成功');
                       this.naturalData[this.tabChange - 1].mateInfo = infowifi;
                       this.naturalData[this.tabChange - 1].otherwifeType = val;
-                      console.log(this.naturalData[this.tabChange - 1]);
                   }
 
                 }).catch(() => {
@@ -1046,11 +1049,11 @@ export default {
                 });
             }
 
-            this.naturalData[this.tabChange - 1].otherwifeType = val;
 
             if(val != 'divorced') {
                 this.naturalData[this.tabChange - 1].marriageSettlement = '';
             }
+            this.naturalData[this.tabChange - 1].otherwifeType = val;
 
         },
         // 债偿比计算

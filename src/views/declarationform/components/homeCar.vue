@@ -124,6 +124,7 @@ export default {
                     serialNo: '', //号牌/车架号
                     status: '', //状态
                     invoice: '',//是否获取发票
+                    sortIndex: '1',
                     brandModels: '', //品牌及型号
                 }
             ],
@@ -147,8 +148,8 @@ export default {
                 this.assetsVehicles = this.zyc;
                 this.assetsVehicles.forEach((item,index) => {
                     console.log(index);
-                    item['name'] = index+1 + '';
-                    item['title'] = '自用车' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '自用车' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -169,6 +170,7 @@ export default {
                 status: '', //状态
                 invoice: '',//是否获取发票
                 brandModels: '', //品牌及型号
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -205,6 +207,7 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.assetsVehicles.forEach(function(item, index, arr) {
+                        item.sortIndex = index + 1;
                         item.title = '自用车' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '自用车' + parseInt(index + 1);

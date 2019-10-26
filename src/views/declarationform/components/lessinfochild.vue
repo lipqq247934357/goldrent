@@ -69,7 +69,8 @@ export default {
                     custHomeplace: this.$store.state.lessinfoAddress, //户籍地址
                     custAge: '', //年龄
                     custAddress: this.$store.state.lessinfoNowAddress, //现住址
-                    status: '' //状态
+                    status: '', //状态
+                    sortIndex: '1'
                 }
             ],
             childIndex: 1,
@@ -95,8 +96,8 @@ export default {
             if(newVal != undefined) {
                 this.childrenInfo = this.sfyzn;
                 this.childrenInfo.forEach((item,index) => {
-                    item['name'] = index+1 + '';
-                    item['title'] = '承租人子女' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '承租人子女' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -120,16 +121,17 @@ export default {
                 custHomeplace: '', //户籍地址
                 custAge: '', //年龄
                 custAddress: '', //现住址
-                status: '' //状态
+                status: '', //状态
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
         removeTab(targetName) {
 
             // 至少要保留一个
-            if (this.childrenInfo.length == 1) {
-                return;
-            }
+            // if (this.childrenInfo.length == 1) {
+            //     return;
+            // }
 
             if(this.childrenInfo[targetName - 1].id) {
                 this.$post('/data/del',{
@@ -159,6 +161,7 @@ export default {
 
                         // 当删除成功后后一项承租人继承前一项承租人index
                         this.childrenInfo.forEach(function(item, index, arr) {
+                            item.sortIndex = index + 1;
                             item.title = '承租人子女' + parseInt(index + 1);
                             item.name = parseInt(index + 1) + '';
                             item.content = '承租人' + parseInt(index + 1);

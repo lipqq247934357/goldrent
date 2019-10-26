@@ -128,6 +128,7 @@ export default {
                     surplus: '',// 结余
                     status: '', //状态
                     remark: '',//备注
+                    sortIndex: '1'
                 }
             ],
             tabChange: 1,
@@ -151,8 +152,8 @@ export default {
                 this.incomePlants = this.zzsr;
                 this.incomePlants.forEach((item,index) => {
                     console.log(index);
-                    item['name'] = index+1 + '';
-                    item['title'] = '种植类别' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '种植类别' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -185,6 +186,7 @@ export default {
                 surplus: '',// 结余
                 status: '', //状态
                 remark: '',//备注
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -221,6 +223,7 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.incomePlants.forEach(function(item, index, arr) {
+                        item.sortIndex = index + 1;
                         item.title = '种植类别' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '种植类别' + parseInt(index + 1);

@@ -93,6 +93,7 @@ export default {
                     debtMaturity: '', //至今账龄
                     status: '', //状态
                     remark: '',//备注
+                    sortIndex: '1'
                 }
             ],
             childIndex: 1
@@ -115,8 +116,8 @@ export default {
                 this.debtOthers = this.qtfz;
                 this.debtOthers.forEach((item,index) => {
                     console.log(index);
-                    item['name'] = index+1 + '';
-                    item['title'] = '其他负债' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '其他负债' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -135,6 +136,7 @@ export default {
                 debtMaturity: '', //至今账龄
                 status: '', //状态
                 remark: '',//备注
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -170,6 +172,7 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.debtOthers.forEach(function(item, index, arr) {
+                        item.sortIndex = index + 1;
                         item.title = '其他负债' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '其他负债' + parseInt(index + 1);

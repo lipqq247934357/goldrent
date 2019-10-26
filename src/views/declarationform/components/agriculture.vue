@@ -109,6 +109,7 @@ export default {
                     surplus: '',// 结余
                     status: '', //状态
                     remark: '',//备注
+                    sortIndex: '1',
                 }
             ],
             tabChange: 1,
@@ -132,8 +133,8 @@ export default {
                 this.incomeFarmMachineryWork = this.njzysr;
                 this.incomeFarmMachineryWork.forEach((item,index) => {
                     console.log(index);
-                    item['name'] = index+1 + '';
-                    item['title'] = '农机作业收入' + (index+1);
+                    item['name'] = item.sortIndex + '';
+                    item['title'] = '农机作业收入' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
             }
@@ -167,6 +168,7 @@ export default {
                 surplus: '',// 结余
                 status: '', //状态
                 remark: '',//备注
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
@@ -203,6 +205,7 @@ export default {
 
                         // 当删除成功后后一项承租人继承前一项承租人index
                         this.incomeFarmMachineryWork.forEach(function(item, index, arr) {
+                            item.sortIndex = index + 1;
                             item.title = '农机作业收入' + parseInt(index + 1);
                             item.name = parseInt(index + 1) + '';
                             item.content = '农机作业收入' + parseInt(index + 1);
