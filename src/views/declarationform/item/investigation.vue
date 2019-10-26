@@ -37,7 +37,14 @@
             <tr>
                 <td>建筑面积（㎡）</td>
                 <td>
-                    <el-input class="input-width-2column" v-model="houseMortgager.area"></el-input>
+                    <el-input-number
+                            :min="0.00"
+                            :precision="2"
+                            :step="0.1"
+                            class="input-width-2column"
+                            type="text"
+                            v-model="houseMortgager.area">
+                    </el-input-number>
                 </td>
                 <td>建筑结构</td>
                 <td>
@@ -47,7 +54,14 @@
             <tr>
                 <td>评估价值（万元）</td>
                 <td>
-                    <el-input class="input-width-2column" v-model="houseMortgager.evaluateValue"></el-input>
+                    <el-input-number
+                            :min="0.00"
+                            :precision="2"
+                            :step="0.1"
+                            class="input-width-2column"
+                            type="text"
+                            v-model="houseMortgager.evaluateValue">
+                    </el-input-number>
                 </td>
                 <td>抵押类别</td>
                 <td>
@@ -130,7 +144,14 @@
             <tr>
                 <td>面积（㎡）</td>
                 <td>
-                    <el-input class="input-width-2column" v-model="landMortgager.area"></el-input>
+                    <el-input-number
+                            :min="0.00"
+                            :precision="2"
+                            :step="0.1"
+                            class="input-width-2column"
+                            type="text"
+                            v-model="landMortgager.area">
+                    </el-input-number>
                 </td>
                 <td>坐落</td>
                 <td>

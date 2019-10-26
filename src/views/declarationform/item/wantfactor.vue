@@ -402,7 +402,7 @@
                         label="本金(元)"
                         prop="principal">
                     <template slot-scope="scope">
-                        <el-input v-model="scope.row.principal"></el-input>
+                        <el-input @change="changeVal" v-model="scope.row.principal"></el-input>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -484,7 +484,8 @@
                     receiptAccount: '', //银行卡号
                 },
                 showRentTable: false,
-                rentData: []
+                rentData: [],
+                testStatus: false
             }
         },
         created() {
@@ -643,6 +644,12 @@
                 this.showRentTable = false;
             },
             saveRent() { // 保存租金计划表
+
+                if (!this.testStatus) {
+                    this.$message.error('请先试算');
+                    return;
+                }
+
                 // 还款提交
                 this.$post('/leaseinfo/addSchedule', {
                     bussNo: this.bussNo,
@@ -654,11 +661,14 @@
                 });
             },
             countZero() { // 清0
+                this.changeVal();
                 this.rentData.forEach(item => {
                     item.principal = item.interest = item.dueAmout = 0;
                 })
             },
             testCal() { // 还款试算
+
+                this.testStatus = true;
                 this.$post('/leaseinfo/queryCalculation', {
                     bussNo: this.bussNo,
                     data: this.rentData
@@ -668,6 +678,9 @@
                         this.$message.success('试算成功');
                     }
                 });
+            },
+            changeVal() {
+                this.testStatus = false;
             },
             summaries(param) {
                 const {columns, data} = param;

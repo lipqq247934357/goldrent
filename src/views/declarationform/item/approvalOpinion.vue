@@ -34,7 +34,7 @@
         data() {
             return {
                 message: '',
-                opinion: {}, //主办人
+                opinion: {conclusion: ''}, //主办人
                 showXB: false
             }
         },
@@ -48,9 +48,10 @@
                     bussNo: this.bussNo
                 }).then(res => {
                     if (res.data.code == '2000000' && res.data.data.length !== 0) {
-                        this.opinion = res.data.data;
-                        if (!this.opinion.conclusion)
-                            this.opinion.conclusion = '同意并提交';
+                        let opinion = res.data.data;
+                        if (!opinion.conclusion)
+                            opinion.conclusion = '同意并提交';
+                        this.opinion = opinion;
                     }
                 });
             },

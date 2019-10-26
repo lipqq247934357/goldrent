@@ -19,7 +19,14 @@
                 <tr>
                     <td>购置价格(元)</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentInfo.condition.purchasePrice"></el-input>
+                        <el-input-number
+                                :min="0.00"
+                                :precision="2"
+                                :step="0.1"
+                                class="input-width-2column"
+                                type="text"
+                                v-model="rentInfo.condition.purchasePrice">
+                        </el-input-number>
                     </td>
                     <td>是否抵押登记</td>
                     <td>
@@ -62,7 +69,7 @@
             </table>
         </div>
         <div class="tableTitle">
-            租赁物保险
+            租赁物保险（如有）
         </div>
         <table class="lessinfoTbale">
             <tr>
@@ -78,7 +85,14 @@
             <tr>
                 <td>保额（元）</td>
                 <td>
-                    <el-input class="input-width-2column" v-model="rentInfo.insurance.coverage"></el-input>
+                    <el-input-number
+                            :min="0.00"
+                            :precision="2"
+                            :step="0.1"
+                            class="input-width-2column"
+                            type="text"
+                            v-model="rentInfo.insurance.coverage">
+                    </el-input-number>
                 </td>
                 <td>保险期限（月）</td>
                 <td>
