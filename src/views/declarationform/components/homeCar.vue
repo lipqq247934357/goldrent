@@ -22,12 +22,20 @@
                             type="datetime"
                             placeholder="选择日期">
                         </el-date-picker> -->
-                        <el-input
+                        <!-- <el-input
                             type="text"
                             v-model="item.buyTime"
                             placeholder="请输入日期格式 2019-10-24 18:42:56"
                             class="inputLessinfo">
-                        </el-input>
+                        </el-input> -->
+                        <el-date-picker
+                            class="inputLessinfo"
+                            v-model="item.buyTime"
+                            type="year"
+                            format="yyyy"
+                            value-format="yyyy"
+                            placeholder="选择年份">
+                        </el-date-picker>
 
                     </td>
                     <td>是否抵押</td>

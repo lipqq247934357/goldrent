@@ -14,19 +14,20 @@
                 <tr>
                     <td>购买时间</td>
                     <td>
-                        <!-- <el-date-picker
+                        <el-date-picker
                             class="inputLessinfo"
                             v-model="item.buyTime"
+                            format="yyyy-MM-dd"
                             value-format="yyyy-MM-dd"
                             type="date"
                             placeholder="选择日期">
-                        </el-date-picker> -->
-                        <el-input
+                        </el-date-picker>
+                        <!-- <el-input
                             type="text"
                             v-model="item.buyTime"
                             placeholder="请输入日期格式 2019-10-24 18:42:56"
                             class="inputLessinfo">
-                        </el-input>
+                        </el-input> -->
                     </td>
                     <td>所有权人</td>
                     <td>

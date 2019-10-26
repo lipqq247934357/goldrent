@@ -1312,12 +1312,21 @@ export default {
                 this.naturalData[i].assetsFinances = this.$refs.financial[i].assetsFinances
             }
             for(let i = 0; i < this.$refs.homecar.length; i++) {
+                this.$refs.homecar[i].assetsVehicles.forEach((item,index) => {
+                    item.buyTime = item.buyTime + '-01-01 00:00:00';
+                });
                 this.naturalData[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
             }
             for(let i = 0; i < this.$refs.farmtools.length; i++) {
+                this.$refs.farmtools[i].assetsFarmTools.forEach((item,index) => {
+                    item.buyTime = item.buyTime + '-01-01 00:00:00';
+                });
                 this.naturalData[i].assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
             }
             for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
+                this.$refs.assetsOthers[i].assetsOthers.forEach((item,index) => {
+                    item.buyTime = item.buyTime + ' 00:00:00';
+                });
                 this.naturalData[i].assetsOthers = this.$refs.assetsOthers[i].assetsOthers
             }
             for(let i = 0; i < this.$refs.debt.length; i++) {
