@@ -342,6 +342,7 @@
                 <!-- 承租人子女 -->
                 <lessinfochild
                     ref="headerChild"
+                    @changeChildStatus="changeChildStatus(item)"
                     v-show="item.hasChildren == 'Y'"
                     :sfyzn="naturalData[index].childrenInfo"
                     :naturalData="naturalData"/>
@@ -983,7 +984,6 @@ export default {
                         this.$message.error('请先依次删除子女');
                         this.$nextTick( () => {
                             this.naturalData[i].hasChildren = "Y";
-                            console.log(this.naturalData[i]);
                         });
                         break;
                     }
@@ -1378,6 +1378,9 @@ export default {
             this.srcList.push(file.url);
             this.dialogVisible = true;
         },
+        changeChildStatus(item){
+            item.hasChildren = 'N';
+        }
 
 },
     components: {

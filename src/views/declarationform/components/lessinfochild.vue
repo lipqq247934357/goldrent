@@ -205,9 +205,10 @@ export default {
                 this.childIndex = this.childrenInfo.length;
             }
 
-
-
-
+            // 如果child.length === 0
+            if(this.childrenInfo.length === 0){
+                this.$emit('changeChildStatus');
+            }
         },
         // 子女身份证号码校验
         idNumber(val) {
