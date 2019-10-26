@@ -172,7 +172,7 @@ export default {
             // remark: '',//备注
 
 
-            let a = this.tabChange - 1;
+            let a = this.tabChange-1;
             this.incomeOthers.forEach((item,index) => {
                 if(index == a) {
                     item.surplus = ((item.prevYearIncome - item.prevYearPay) + (item.currYearIncome - item.currYearPay))  / 2;
@@ -195,6 +195,7 @@ export default {
                 sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
+            this.tabChange = this.childIndex;
         },
         removeTab(targetName) {
             // 至少要保留一个
@@ -224,6 +225,7 @@ export default {
                     }
 
                     this.childrenTabs = activeName;
+                    this.tabChange = this.childrenTabs;
                     this.incomeOthers = tabs.filter(tab => tab.name !== targetName);
 
                     // 当删除成功后后一项承租人继承前一项承租人index
