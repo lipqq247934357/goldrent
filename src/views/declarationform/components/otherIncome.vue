@@ -15,8 +15,9 @@
     <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
         <el-tab-pane
             v-for="(item, index) of incomeOthers"
-            :key="item.name"
-            :label="item.title" :name="item.name">
+            :key="item.sortIndex + ''"
+            :label="item.title"
+            :name="item.sortIndex + ''">
             <table class="lessinfoTbale">
                 <tr>
                     <td>上年收入</td>

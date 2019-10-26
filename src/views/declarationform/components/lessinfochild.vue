@@ -8,8 +8,9 @@
     <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab" @tab-click="childChange">
         <el-tab-pane
             v-for="(item, index) of childrenInfo"
-            :key="item.name"
-            :label="item.title" :name="item.name">
+            :key="item.sortIndex + ''"
+            :label="item.title"
+            :name="item.sortIndex + ''">
             <table class="lessinfoTbale">
                 <tr>
                     <td>姓名</td>
@@ -194,6 +195,7 @@ export default {
 
                 // 当删除成功后后一项承租人继承前一项承租人index
                 this.childrenInfo.forEach(function(item, index, arr) {
+                    item.sortIndex = index + 1;
                     item.title = '承租人子女' + parseInt(index + 1);
                     item.name = parseInt(index + 1) + '';
                     item.content = '承租人' + parseInt(index + 1);

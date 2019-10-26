@@ -186,7 +186,8 @@ export default {
 
                     // 当删除成功后后一项承租人继承前一项承租人index
                     this.assetsHouses.forEach(function(item, index, arr) {
-                        item.newTabName = index + 1;
+                        console.log(item,index + 1);
+                        item.sortIndex = index + 1;
                         item.title = '房产' + parseInt(index + 1);
                         item.name = parseInt(index + 1) + '';
                         item.content = '承租人' + parseInt(index + 1);

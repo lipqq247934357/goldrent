@@ -747,6 +747,7 @@ export default {
                 bankAccount: '',//贷款卡号
             }],
             warrantorDatas: [{
+                sortIndex: '1',
                 id: '',
                 partnerType: 'NAT', //商业伙伴类型
                 title: '保证人1',
@@ -857,6 +858,7 @@ export default {
             // 商业伙伴类型切换
             let a = {
                 id: '',
+                sortIndex: this.tabChange,
                 partnerType: 'NAT', //商业伙伴类型
                 title: '保证人' + this.tabChange,
                 name: this.tabChange + '',
@@ -908,6 +910,7 @@ export default {
                 incomeOthers: [], //其他收入
             }
             let b = {
+                sortIndex: this.tabChange,
                 zjsxDate: '0', //证件失效时候是否能输入
                 dataDisabled: '0', // 控制是否能输入 0不能 1能
                 id: '',
@@ -981,6 +984,7 @@ export default {
                 custMobile: '', // 电话
                 company: '',//工作单位
                 identityType: '',// 身份类型
+                sortIndex: newTabName,
                 mateInfo: [{
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
@@ -1014,9 +1018,6 @@ export default {
         },
         removeTab(targetName) {
 
-            this.warrantorDatas.forEach((item,index) => {
-                console.log(item,'<<<<<<<');
-            });
             for(let i = 0; i < this.warrantorDatas.length; i++) {
                 if(this.warrantorDatas[i].partnerType == "NAT") {
                     this.$post('/data/del',{
@@ -1038,16 +1039,6 @@ export default {
                     });
                 }
             }
-            // if(this.naturalData[targetName - 1].id) {
-            //     this.$post('/data/del',{
-            //         id: this.naturalData[targetName - 1].id,
-            //         type: 'custNature'
-            //     }).then(res => {
-            //         if(res.data.code =='2000000') {
-            //             this.$message.success('删除成功');
-            //         }
-            //     });
-            // }
 
             let tabs = this.warrantorDatas;
             let activeName = this.editableTabsValue;
@@ -1076,6 +1067,7 @@ export default {
 
             // 当删除成功后后一项承租人继承前一项保证人人index
             this.warrantorDatas.forEach(function(item, index, arr) {
+                item.sortIndex = index + 1;
                 item.title = '保证人' + parseInt(index + 1);
                 item.name = parseInt(index + 1) + '';
                 item.content = '保证人' + parseInt(index + 1);

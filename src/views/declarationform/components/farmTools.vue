@@ -8,8 +8,9 @@
     <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
             v-for="(item, index) of assetsFarmTools"
-            :key="item.name"
-            :label="item.title" :name="item.name">
+            :key="item.sortIndex + ''"
+            :label="item.title"
+            :name="item.sortIndex + ''">
             <table class="lessinfoTbale">
                 <tr>
                     <td>购买时间</td>
@@ -154,7 +155,7 @@ export default {
                 status: '', //状态
                 invoice: '',//是否获取发票
                 brandModels: '', //品牌及型号
-                sortIndex: ''
+                sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
         },
