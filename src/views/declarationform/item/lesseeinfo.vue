@@ -1022,22 +1022,22 @@ export default {
                   cancelButtonText: '取消',
                   type: 'warning'
                 }).then(() => {
-                  if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
-                      let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
-                      this.$post('/data/del',{
-                          id: mateInfoNowId,
-                          type: 'custNature'
-                      }).then(res => {
-                          if(res.data.code == "2000000") {
-                              this.naturalData[this.tabChange - 1].mateInfo = infowifi;
-                              this.$message.success('配偶删除成功');
-                          }
-                      });
-                  } else  {
-                      this.$message.success('不通过后台删除配偶成功');
-                      this.naturalData[this.tabChange - 1].mateInfo = infowifi;
-                      this.naturalData[this.tabChange - 1].otherwifeType = val;
-                  }
+                    if(this.naturalData[this.tabChange - 1].mateInfo[0].id) {
+                        let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[0].id;
+                        this.$post('/data/del',{
+                            id: mateInfoNowId,
+                            type: 'custNature'
+                        }).then(res => {
+                            if(res.data.code == "2000000") {
+                                this.naturalData[this.tabChange - 1].mateInfo = infowifi;
+                                this.$message.success('配偶删除成功');
+                            }
+                        });
+                    } else  {
+                        this.$message.success('不通过后台删除配偶成功');
+                        this.naturalData[this.tabChange - 1].mateInfo = infowifi;
+                        this.naturalData[this.tabChange - 1].otherwifeType = val;
+                    }
 
                 }).catch(() => {
                    this.$message({
