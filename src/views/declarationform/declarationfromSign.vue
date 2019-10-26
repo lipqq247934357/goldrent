@@ -247,7 +247,6 @@
             guarantor(activeName) {
                 let data = this.$refs.guarantor.warrantorDatas;
                 this.$refs.guarantor.allTabData(data);
-
                 return new Promise((resolve, reject) => {
                     this.$post('/warrantor/add',{
                         bussNo: this.bussNo,
