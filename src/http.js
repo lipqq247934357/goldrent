@@ -35,21 +35,21 @@ axios.interceptors.response.use(
 
             if (response.config.url === '/web/submitChoiceAssistUser') { // 报单申请提交
 
-                setTimeout(()=>{
-                    MessageBox(response.data.msg, '提示', {
+                setTimeout(() => {
+                    MessageBox.alert(response.data.msg, '提示', {
                         confirmButtonText: '确定',
+                        dangerouslyUseHTMLString: true,
                         callback: action => {
                         }
                     });
-                },100);
-
-                return;
+                }, 100);
+                return response;
             }
 
             //业务异常，在报单申请的时候查询商业条款不提示
             if (response.data.msg != '查询商业条款信息失败') {
                 Message.error({message: response.data.msg, duration: 5 * 1000});
-                return;
+                return response;
             }
         }
 
