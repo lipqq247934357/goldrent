@@ -85,28 +85,28 @@
                     </td>
 
                 </tr>
-                <tr v-show="index == '0'">
-                    <td colspan="4" style="text-align: left;border-bottom: 0;padding-left: 20px;">
-                        种植经验描述
-                    </td>
-                </tr>
-                <tr v-show="index == '0'">
-                    <td colspan="4" style="border-top: 0;">
-                        <el-input
+            </table>
+        </el-tab-pane>
+        <table class="lessinfoTbale">
+            <tr>
+                <td colspan="4" style="text-align: left;border-bottom: 0;padding-left: 20px;">
+                    种植经验描述
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="border-top: 0;">
+                    <el-input
                             type="textarea"
                             style="width: 98%;height40px;margin-bottom: 10px;"
                             :rows="3"
                             placeholder="请输入内容"
                             maxlength="500"
                             show-word-limit
-                            v-model="item.remark">
-                        </el-input>
-                    </td>
-                </tr>
-            </table>
-
-
-        </el-tab-pane>
+                            v-model="plantRemark">
+                    </el-input>
+                </td>
+            </tr>
+        </table>
     </el-tabs>
 </div>
 </template>
@@ -132,6 +132,7 @@ export default {
                     sortIndex: '1'
                 }
             ],
+            plantRemark:'',
             tabChange: 1,
             childIndex: 1
 		}
@@ -157,6 +158,8 @@ export default {
                     item['title'] = '种植类别' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                if(this.incomePlants.length > 0)
+                    this.plantRemark = this.incomePlants[this.incomePlants.length - 1].remark;
             }
         }
     },
