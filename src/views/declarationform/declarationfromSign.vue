@@ -144,7 +144,7 @@
 
             getBussNo(){ // 生成订单号
                 this.$post('/buss/genBussNo',{
-                    leaseMode:'ZZ02'
+                    leaseMode:'HZ01'
                 }).then(res => {
                     this.bussNo = res.data.data.bussNo;
                 });
