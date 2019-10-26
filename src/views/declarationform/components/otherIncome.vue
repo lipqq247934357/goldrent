@@ -1,11 +1,18 @@
 <template>
-<div class="lesseeinfoChild">
+<div class="lesseeinfoChild" style="position: relative">
     <div class="addbutton">
         <el-button size="small" @click="addTab(childrenTabs)" class="el-icon-plus">
             添加其他收入
         </el-button>
     </div>
-    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
+
+    <el-button
+        style="position: absolute;background:#ff8f2b;border: 0;color: #fff;right: 10px;top: 10px;"
+        @click="calculation"
+        size="medium">
+        计算
+    </el-button>
+    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
         <el-tab-pane
             v-for="(item, index) of incomeOthers"
             :key="item.name"
@@ -98,6 +105,7 @@ export default {
 	data() {
 		return {
             childrenTabs: '1',
+            tabChange: 1,
             incomeOthers: [
                 {
                     title: '其他收入1',
@@ -141,6 +149,34 @@ export default {
         }
     },
 	methods: {
+        // 页签切换
+        changeTables(val) {
+            this.tabChange = val.name;
+
+        },
+        calculation() {
+
+            // // 结余={（上年收入-上年支出）  + （本年收入-本年支出）}/2
+            //
+            // title: '其他收入1',
+            // name: '1',
+            // id: '',
+            // prevYearIncome: '', // 上年收入
+            // prevYearPay: '', //上年支出
+            // currYearIncome: '',//	本年收入
+            // currYearPay: '', //本年支出
+            // surplus: '',// 结余
+            // status: '', //状态
+            // remark: '',//备注
+
+
+            let a = this.tabChange - 1;
+            this.incomeOthers.forEach((item,index) => {
+                if(index == a) {
+                    item.surplus = ((item.prevYearIncome - item.prevYearPay) + (item.currYearIncome - item.currYearPay))  / 2;
+                }
+            });
+        },
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
             this.incomeOthers.push({

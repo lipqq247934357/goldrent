@@ -636,10 +636,9 @@
                     <guaranteeIncome ref="otherIncome" :qtsr="warrantorDatas[index].incomeOthers" :rulesField="rulesField" />
                 </div>
 
-
-
             </el-tab-pane>
         </el-tabs>
+
         <!-- 底部按钮 -->
         <div class="bottomButtonDiv matchingDiv">
             <el-button type="primary" size="medium" class="matchingButton" @click="save('save')">
@@ -1285,12 +1284,32 @@ export default {
                     }
 
                     for(let i = 0; i < this.$refs.homecar.length; i++) {
-                        item.assetsVehicles = this.$refs.homecar[i].assetsVehicles
+
+                        this.$refs.homecar[i].assetsVehicles.forEach((item,index) => {
+                            if(item.buyTime) {
+                                item.buyTime = item.buyTime + '-01-01 00:00:00';
+
+                            }
+                        });
+
+                        item.assetsVehicles = this.$refs.homecar[i].assetsVehicles;
+
+
                     }
                     for(let i = 0; i < this.$refs.farmtools.length; i++) {
+                        this.$refs.farmtools[i].assetsFarmTools.forEach((item,index) => {
+                            if(item.buyTime) {
+                                item.buyTime = item.buyTime + '-01-01 00:00:00';
+                            }
+                        });
                         item.assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
                     }
                     for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
+                        this.$refs.assetsOthers[i].assetsOthers.forEach((item,index) => {
+                            if(item.buyTime) {
+                                item.buyTime = item.buyTime + ' 00:00:00';
+                            }
+                        });
                         item.assetsOthers = this.$refs.assetsOthers[i].assetsOthers
                     }
                     for(let i = 0; i < this.$refs.debt.length; i++) {
