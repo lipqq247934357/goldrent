@@ -13,7 +13,7 @@
         计算
     </el-button>
 
-    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
+    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
         <el-tab-pane
             v-for="(item, index) of incomeFarmMachineryWork"
             :key="item.name"
@@ -40,7 +40,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>单亩成本（元）</td>
+                    <td>单亩成本</td>
                     <td>
                         <el-input-number
                             class="inputLessinfo"
@@ -111,6 +111,7 @@ export default {
                     remark: '',//备注
                 }
             ],
+            tabChange: 1,
             childIndex: 1
 		}
 	},
@@ -139,10 +140,13 @@ export default {
         }
     },
 	methods: {
+        changeTables(val) {
+            this.tabChange = val.name;
 
+        },
         // 计算
         calculation() {
-            let a = this.childrenTabs - 1;
+            let a = this.tabChange - 1;
             this.incomeFarmMachineryWork.forEach((item,index) => {
                 if(index == a) {
                     item.surplus = (item.oneIncome - item.oneCost) * item.plantArea;

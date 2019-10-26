@@ -577,8 +577,9 @@ export default {
             srcList: [],
             dialogImageUrl: '',
             dialogVisible: false,
-            tabChange: 1, //存储切换的tab name
             imgFile: [],
+            tabChange: 1, //存储切换的tab name
+
             relationId: '', //图片影像资料需要用到的
             type: '', // 图片影像资料需要用到的
             message: '', //title
@@ -1015,8 +1016,8 @@ export default {
                   cancelButtonText: '取消',
                   type: 'warning'
                 }).then(() => {
-                  let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
                   if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
+                      let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
                       this.$post('/data/del',{
                           id: mateInfoNowId,
                           type: 'custNature'
@@ -1026,9 +1027,8 @@ export default {
                               this.$message.success('配偶删除成功');
                           }
                       });
-                  }
-                  if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id == '') {
-                      this.$message.success('配偶删除成功222');
+                  } else  {
+                      this.$message.success('不通过后台删除配偶成功');
                       this.naturalData[this.tabChange - 1].mateInfo = infowifi;
                       this.naturalData[this.tabChange - 1].otherwifeType = val;
                       console.log(this.naturalData[this.tabChange - 1]);
