@@ -1010,12 +1010,14 @@ export default {
                 custWechat: '', // 微信
                 custMobile: '', // 电话
             }];
+            console.log(this.naturalData[this.tabChange - 1].otherwifeType);
             if(this.naturalData[this.tabChange - 1].otherwifeType == 'married') {
                 this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
                   confirmButtonText: '确定',
                   cancelButtonText: '取消',
                   type: 'warning'
                 }).then(() => {
+                    console.log(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id);
                   if(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id) {
                       let mateInfoNowId = this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].id;
                       this.$post('/data/del',{
