@@ -1,7 +1,7 @@
 <template>
     <li class="listimg">
         <div>
-            <p class="imgtitlename">{{name.value}}</p>
+            <p class="imgtitlename">{{name.value}} <span style="color: #f00;">{{name.require == '1' ? '必传' : ''}}</span> </p>
         </div>
         <div class="edit-pic">
             <!-- <el-image
@@ -147,6 +147,7 @@
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
+                    width: 80%;
                 }
             }
 

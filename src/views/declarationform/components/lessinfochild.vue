@@ -133,11 +133,6 @@ export default {
         },
         removeTab(targetName) {
 
-            // 至少要保留一个
-            // if (this.childrenInfo.length == 1) {
-            //     return;
-            // }
-            this.tabChange--;
             if(this.childrenInfo[targetName - 1].id) {
                 this.$post('/data/del',{
                     id: this.childrenInfo[targetName - 1].id,
@@ -203,6 +198,7 @@ export default {
                     item.title = '承租人子女' + parseInt(index + 1);
                     item.name = parseInt(index + 1) + '';
                     item.content = '承租人' + parseInt(index + 1);
+                    console.log(item.sortIndex);
                 })
                 this.childrenTabs = this.childrenInfo.length + '';
                 //主要防止于添加的时候错误
@@ -224,11 +220,11 @@ export default {
                 return;
             }
             for(let i = 0; i < this.childrenInfo.length; i++) {
-                console.log(nowIndex,i);
-                if(nowIndex == i) {
+                // console.log(this.childrenInfo[i].sortIndex,i);
+                if(this.childrenInfo[i].sortIndex == this.tabChange) {
                     this.childrenInfo[i].custSex = idcodeCheck.Sex;
                     this.childrenInfo[i].custAge = idcodeCheck.Age;
-                    console.log(this.childrenInfo[i])
+                    // console.log(this.childrenInfo[i])
                     break
                 }
             }

@@ -1113,10 +1113,10 @@ export default {
                 idcontent.Sex = "F";
             }
             let nowIndex = this.tabChange - 1;
-            console.log(this.naturalData[nowIndex].mateInfo);
+            console.log(this.naturalData[nowIndex].mateInfo,nowIndex);
             setTimeout(function() {
-                this.naturalData[nowIndex].mateInfo.custSex = idcontent.Sex;
-                this.naturalData[nowIndex].mateInfo.custAge = idcontent.Age;
+                this.naturalData[nowIndex].mateInfo[0].custSex = idcontent.Sex;
+                this.naturalData[nowIndex].mateInfo[0].custAge = idcontent.Age;
             }.bind(this),100);
         },
 
@@ -1279,6 +1279,7 @@ export default {
             });
         },
         allTabData() {
+
             // console.log(assetschild);
             // console.log(this.$refs.headerChild,'承租人子女') //承租人子女
             // console.log(this.$refs.house,'房产')  //房产
@@ -1309,10 +1310,10 @@ export default {
                 this.naturalData[i].assetsFinances = this.$refs.financial[i].assetsFinances
             }
             for(let i = 0; i < this.$refs.homecar.length; i++) {
+                console.log(this.$refs.homecar[i].assetsVehicles,'自用车');
                 this.$refs.homecar[i].assetsVehicles.forEach((item,index) => {
                     if(item.buyTime) {
                         item.buyTime = item.buyTime + '-01-01 00:00:00';
-
                     }
                 });
                 this.naturalData[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
