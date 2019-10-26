@@ -976,19 +976,11 @@ export default {
                 this.$store.state.lessinfoNowAddress = this.naturalData[nowIndex].custAddress; //承租人现住址
             }
             else {
-                for(let i = 0;i < this.naturalData.length; i++) {
-                    if(this.naturalData[i].childrenInfo) {
-                        this.$message.error('请先依次删除子女');
-                        this.$nextTick( () => {
-                            this.naturalData[i].hasChildren = "Y";
-                        });
-                        break;
-                    }
-
+                if(this.naturalData[nowIndex].childrenInfo.length !== 0) {
+                    this.$message.error('请先依次删除子女');
+                    this.naturalData[nowIndex].hasChildren = "Y";
                 }
-
             }
-
             childVal = val;
         },
 
@@ -1376,6 +1368,7 @@ export default {
             this.dialogVisible = true;
         },
         changeChildStatus(item){
+            item.childrenInfo = [];
             item.hasChildren = 'N';
         }
 
