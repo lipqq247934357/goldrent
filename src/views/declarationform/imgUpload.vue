@@ -24,24 +24,24 @@
                 </el-upload>
             </div>
             <!-- </el-image> -->
-            <div style="
-                border-top: 1px solid #EBEEF5;
+            <div style="width: 100%;border-top: 1px solid #EBEEF5;">
+                <div style="
                 float: left;
                 margin: 10px;
                 padding-top: 10px;
                 ">
-                <el-upload
-                        :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
-                        :file-list="fileList4File"
-                        :headers="{token:this.token}"
-                        :limit="Number(6)"
-                        :on-exceed="onExceed"
-                        :on-remove="handleRemove"
-                        action="/web/fileUploadSingle">
-                    <el-button class="primary" size="small" type="primary">点击上传</el-button>
-                </el-upload>
+                    <el-upload
+                            :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
+                            :file-list="fileList4File"
+                            :headers="{token:this.token}"
+                            :limit="Number(6)"
+                            :on-exceed="onExceed"
+                            :on-remove="handleRemove"
+                            action="/web/fileUploadSingle">
+                        <el-button class="primary" size="small" type="primary">点击上传</el-button>
+                    </el-upload>
+                </div>
             </div>
-
         </div>
     </li>
 

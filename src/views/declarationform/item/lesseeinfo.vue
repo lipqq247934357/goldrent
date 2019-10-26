@@ -1354,6 +1354,10 @@ export default {
                 this.naturalData[i].debtOthers = this.$refs.otherLiabilities[i].debtOthers
             }
             for(let i = 0; i < this.$refs.plant.length; i++) {
+                let len = this.$refs.plant[i].incomePlants.length;
+                if(len > 0){
+                    this.$refs.plant[i].incomePlants[len - 1].remark = this.$refs.plant[i].plantRemark;
+                }
                 this.naturalData[i].incomePlants = this.$refs.plant[i].incomePlants
             }
             for(let i = 0; i < this.$refs.agriculture.length; i++) {
