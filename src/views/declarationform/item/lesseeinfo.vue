@@ -830,7 +830,6 @@ export default {
                 ]
             });
             this.editableTabsValue = newTabName;
-            console.log(this.naturalData)
         },
         removeTab(targetName) {
             // console.log(this.naturalData[targetName - 1].id)
@@ -841,6 +840,7 @@ export default {
                 }).then(res => {
                     if(res.data.code =='2000000') {
                         this.$message.success('删除成功');
+
                     }
                 });
             }
@@ -878,8 +878,10 @@ export default {
                 item.content = '承租人' + parseInt(index + 1);
             })
             this.editableTabsValue = this.naturalData.length + '';
+            this.tabChange = this.naturalData.length;
             //主要防止于添加的时候错误
             this.tabIndex = this.naturalData.length;
+
             this.tabChange--;
         },
         imgData() {
@@ -1081,21 +1083,28 @@ export default {
             for (let i = a.length-1; i>=0; i--) {
                 summation += a[i];
             }
-            console.log(summation);
 
+            console.log(summation,a,nowIndex);
             // incomeDebtRatio
 
+            // id: '', //主键ID
+            // totalSurplus: '', //结余合计
+            // annualRentalExpense: '', //年租金支出
+            // otherDebtExpense: '', //其他负债支出
+            // totalAnnualExpense: '', //年支出合计
+            // incomeDebtRatio: '', //收入债偿比
+            // status: '' //状态
+
+
             //偿债比=年支出合计/结余合计
+
             //年支出合计
-            this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalAnnualExpense = this.naturalData[nowIndex].incomeDebtRatios[nowIndex].annualRentalExpense + this.naturalData[nowIndex].incomeDebtRatios[nowIndex].otherDebtExpense;
-
-            this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus = summation;
-            console.log(summation);
-            this.$nextTick( () => {
-                this.naturalData[nowIndex].incomeDebtRatios[nowIndex].incomeDebtRatio = this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalAnnualExpense / this.naturalData[nowIndex].incomeDebtRatios[nowIndex].totalSurplus;
-            });
+            this.naturalData[nowIndex].incomeDebtRatios[0].totalAnnualExpense = this.naturalData[nowIndex].incomeDebtRatios[0].annualRentalExpense + this.naturalData[nowIndex].incomeDebtRatios[0].otherDebtExpense;
+            // 结余合计
+            this.naturalData[nowIndex].incomeDebtRatios[0].totalSurplus = summation;
+            //债偿比
+            this.naturalData[nowIndex].incomeDebtRatios[0].incomeDebtRatio = this.naturalData[nowIndex].incomeDebtRatios[0].totalAnnualExpense / this.naturalData[nowIndex].incomeDebtRatios[0].totalSurplus;
             console.log(this.naturalData[nowIndex].incomeDebtRatios);
-
         },
         // 获取录入的身份号
         idNumber(val) {
