@@ -236,10 +236,10 @@ export default {
 
         },
         changeInvoiceAmt(val){
-            if (val === 'N') {
-                this.amountStatus = true;
-            } else {
+            if (val === 'Y') {
                 this.amountStatus = false;
+            } else {
+                this.amountStatus = true;
             }
         }
 
