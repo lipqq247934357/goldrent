@@ -116,6 +116,7 @@ export default {
             this.tabChange = val.name;
         },
         calculation() {
+            alert(1);
             for(let i = 0; i < this.incomeOthers.length; i++) {
                 if(this.incomeOthers[i].sortIndex == this.tabChange) {
                     this.incomeOthers[i].surplus = this.incomeOthers[i].currYearIncome - this.incomeOthers[i].currYearPay;
@@ -145,42 +146,83 @@ export default {
         },
         removeTab(targetName) {
 
-            let tabs = this.incomeOthers;
-            let activeName = this.childrenTabs;
+
 
             // 至少要保留一个
             if (this.incomeOthers.length == 1) {
                 return;
             }
+            if(this.incomeOthers[targetName - 1].id) {
+                this.$post('/data/del',{
+                    id: this.incomeOthers[targetName - 1].id,
+                    type: 'incomeOther'
+                }).then(res => {
+                    if(res == '2000000') {
+                        let tabs = this.incomeOthers;
+                        let activeName = this.childrenTabs;
+                        if (activeName === targetName) {
+                            tabs.forEach((tab, index) => {
 
+                                if (tab.name === targetName) {
+                                    let nextTab = tabs[index + 1] || tabs[index - 1];
+                                    if (nextTab) {
 
-            if (activeName === targetName) {
-                tabs.forEach((tab, index) => {
-
-                    if (tab.name === targetName) {
-                        let nextTab = tabs[index + 1] || tabs[index - 1];
-                        if (nextTab) {
-
-                            activeName = nextTab.name;
+                                        activeName = nextTab.name;
+                                    }
+                                }
+                            });
                         }
+
+                        this.childrenTabs = activeName;
+                        this.tabChange = this.incomeOthers.length + 1;
+                        this.incomeOthers = tabs.filter(tab => tab.name !== targetName);
+
+                        // 当删除成功后后一项承租人继承前一项承租人index
+                        this.incomeOthers.forEach(function(item, index, arr) {
+                            item.sortIndex = index + 1;
+                            item.title = '其他收入' + parseInt(index + 1);
+                            item.name = parseInt(index + 1) + '';
+                            item.content = '其他收入' + parseInt(index + 1);
+                        })
+                        this.childrenTabs = this.incomeOthers.length + '';
+                        this.tabChange--;
+                        //主要防止于添加的时候错误
+                        this.childIndex = this.incomeOthers.length;
                     }
                 });
+            } else {
+                let tabs = this.incomeOthers;
+                let activeName = this.childrenTabs;
+                if (activeName === targetName) {
+                    tabs.forEach((tab, index) => {
+
+                        if (tab.name === targetName) {
+                            let nextTab = tabs[index + 1] || tabs[index - 1];
+                            if (nextTab) {
+
+                                activeName = nextTab.name;
+                            }
+                        }
+                    });
+                }
+
+                this.childrenTabs = activeName;
+                this.tabChange = this.incomeOthers.length + 1;
+                this.incomeOthers = tabs.filter(tab => tab.name !== targetName);
+
+                // 当删除成功后后一项承租人继承前一项承租人index
+                this.incomeOthers.forEach(function(item, index, arr) {
+                    item.sortIndex = index + 1;
+                    item.title = '其他收入' + parseInt(index + 1);
+                    item.name = parseInt(index + 1) + '';
+                    item.content = '其他收入' + parseInt(index + 1);
+                })
+                this.childrenTabs = this.incomeOthers.length + '';
+                this.tabChange--;
+                //主要防止于添加的时候错误
+                this.childIndex = this.incomeOthers.length;
             }
 
-            this.childrenTabs = activeName;
-            this.tabChange = this.incomeOthers.length + 1;
-            this.incomeOthers = tabs.filter(tab => tab.name !== targetName);
-
-            // 当删除成功后后一项承租人继承前一项承租人index
-            this.incomeOthers.forEach(function(item, index, arr) {
-                item.sortIndex = index + 1;
-                item.title = '其他收入' + parseInt(index + 1);
-                item.name = parseInt(index + 1) + '';
-                item.content = '其他收入' + parseInt(index + 1);
-            })
-            this.childrenTabs = this.incomeOthers.length + '';
-            //主要防止于添加的时候错误
-            this.childIndex = this.incomeOthers.length;
         },
 
     },

@@ -148,16 +148,19 @@ export default {
         },
         // 计算
         calculation() {
+
             let a = this.tabChange - 1;
-            this.incomeFarmMachineryWork.forEach((item,index) => {
-                if(index == a) {
-                    item.surplus = (item.oneIncome - item.oneCost) * item.plantArea;
-                    console.log(item);
+            console.log(a);
+            for(let i = 0; i < this.incomeFarmMachineryWork.length; i++) {
+                if(i == a) {
+                    this.incomeFarmMachineryWork[i].surplus = (this.incomeFarmMachineryWork[i].oneIncome - this.incomeFarmMachineryWork[i].oneCost) * this.incomeFarmMachineryWork[i].plantArea;
+                    break;
                 }
-            });
+            }
         },
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
+            this.tabChange++;
             this.incomeFarmMachineryWork.push({
                 title: '农机作业收入' + newTabName,
                 name: newTabName,
@@ -174,7 +177,6 @@ export default {
             this.childrenTabs = newTabName;
         },
         removeTab(targetName) {
-            // 至少要保留一个
             if (this.incomeFarmMachineryWork.length == 1) {
                 return;
             }
@@ -211,11 +213,43 @@ export default {
                             item.name = parseInt(index + 1) + '';
                             item.content = '农机作业收入' + parseInt(index + 1);
                         })
+                        this.tabChange--;
                         this.childrenTabs = this.incomeFarmMachineryWork.length + '';
                         //主要防止于添加的时候错误
                         this.childIndex = this.incomeFarmMachineryWork.length;
                     }
                 });
+            } else {
+                let tabs = this.incomeFarmMachineryWork;
+                let activeName = this.childrenTabs;
+
+                if (activeName === targetName) {
+                    tabs.forEach((tab, index) => {
+
+                        if (tab.name === targetName) {
+                            let nextTab = tabs[index + 1] || tabs[index - 1];
+                            if (nextTab) {
+
+                                activeName = nextTab.name;
+                            }
+                        }
+                    });
+                }
+
+                this.childrenTabs = activeName;
+                this.incomeFarmMachineryWork = tabs.filter(tab => tab.name !== targetName);
+
+                // 当删除成功后后一项承租人继承前一项承租人index
+                this.incomeFarmMachineryWork.forEach(function(item, index, arr) {
+                    item.sortIndex = index + 1;
+                    item.title = '农机作业收入' + parseInt(index + 1);
+                    item.name = parseInt(index + 1) + '';
+                    item.content = '农机作业收入' + parseInt(index + 1);
+                });
+                this.tabChange--;
+                this.childrenTabs = this.incomeFarmMachineryWork.length + '';
+                //主要防止于添加的时候错误
+                this.childIndex = this.incomeFarmMachineryWork.length;
             }
 
 
