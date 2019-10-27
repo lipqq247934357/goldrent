@@ -670,7 +670,8 @@
                     <p class="tableTitle">其他收入（如有）</p>
                     <guaranteeIncome ref="otherIncome" :qtsr="warrantorDatas[index].incomeOthers" :rulesField="rulesField" />
                 </div>
-
+                <componentitle :message="message='回购人相关影像资料'" class="componentitle" />
+                <p class="tableTitle"> 点击保存后才能上传影像资料</p>
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
                     v-show="index == imgIndex">
@@ -847,7 +848,6 @@ export default {
     },
     props: ['rulesField','bussNo'],
     mounted() {
-        this.imgData();
     },
     methods: {
         // 证件长期有效
@@ -1126,14 +1126,14 @@ export default {
 
             let nowIndex = this.tabChange - 1;
             if(isNaN(val) == true) {
-                this.warrantorDatas[nowIndex].mateInfo.custMobile = '';
+                this.warrantorDatas[nowIndex].mateInfo[0].custMobile = '';
             }
             if(!(/^1[3456789]\d{9}$/.test(val))){
                 this.$message.error("手机号码有误，请重填");
-                this.warrantorDatas[nowIndex].mateInfo.custMobile = '';
+                this.warrantorDatas[nowIndex].mateInfo[0].custMobile = '';
             }
             setTimeout(function() {
-                this.warrantorDatas[nowIndex].mateInfo.custWechat = this.warrantorDatas[nowIndex].mateInfo.custMobile;
+                this.warrantorDatas[nowIndex].mateInfo[0].custWechat = this.warrantorDatas[nowIndex].mateInfo[0].custMobile;
             }.bind(this),100);
         },
         // 联系电话关联微信号
@@ -1174,9 +1174,9 @@ export default {
         },
         // 承租人配偶判断种植年限
         spousePlantYears(val) {
-            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].mateInfo[this.tabChange - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].mateInfo[0].custAge)) {
                 this.$message.error('种植年限不能大于年龄');
-                this.warrantorDatas[this.tabChange - 1].mateInfo[this.tabChange - 1].cultureYears = '';
+                this.warrantorDatas[this.tabChange - 1].mateInfo[0].cultureYears = '';
             }
         },
         // 婚姻状况切换

@@ -267,7 +267,8 @@
                         </td>
                     </tr>
                 </table>
-
+                <componentitle :message="message='回购人相关影像资料'" class="componentitle" />
+                <p class="tableTitle"> 点击保存后才能上传影像资料</p>
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
                     v-show="index == imgIndex">
@@ -385,7 +386,6 @@ export default {
     },
     props: ['rulesField','bussNo'],
     mounted() {
-        this.imgData();
     },
     methods: {
         // 电话校验

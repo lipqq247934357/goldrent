@@ -128,7 +128,7 @@ export default {
                 sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
-
+            console.log(this.childrenInfo,this.tabChange);
         },
         removeTab(targetName) {
 
@@ -207,8 +207,11 @@ export default {
 
             // 如果child.length === 0
             if(this.childrenInfo.length === 0){
+                this.tabChange = 0;
+                console.log(this.childrenInfo,this.tabChange);
                 this.$emit('changeChildStatus');
             }
+
         },
         // 子女身份证号码校验
         idNumber(val) {
@@ -221,6 +224,7 @@ export default {
             }
             for(let i = 0; i < this.childrenInfo.length; i++) {
                 // console.log(this.childrenInfo[i].sortIndex,i);
+                console.log(this.childrenInfo[i].sortIndex,this.tabChange);
                 if(this.childrenInfo[i].sortIndex == this.tabChange) {
                     this.childrenInfo[i].custSex = idcodeCheck.Sex;
                     this.childrenInfo[i].custAge = idcodeCheck.Age;

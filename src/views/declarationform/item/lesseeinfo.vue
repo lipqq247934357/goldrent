@@ -510,9 +510,11 @@
                     </tr>
                 </table>
                 <componentitle :message="message='承租人相关影像资料'" class="componentitle" />
+                <p class="tableTitle"> 点击保存后才能上传影像资料</p>
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
                     v-show="index == imgIndex">
+                    {{index}} {{imgIndex}}
                     <div v-if="imgFile">
                         <template v-for="(value,indexs) in imgFile">
                                 <h3>{{value.nodeName}}</h3>
@@ -682,7 +684,6 @@ export default {
     },
     props: ['rulesField','bussNo'],
     mounted() {
-        this.imgData();
     },
     methods: {
 
@@ -912,14 +913,14 @@ export default {
         phoneChange(val) {
             let nowIndex = this.tabChange - 1;
             if(isNaN(val) == true) {
-                this.naturalData[nowIndex].mateInfo[nowIndex].custMobile = '';
+                this.naturalData[nowIndex].mateInfo[0].custMobile = '';
             }
             if(!(/^1[3456789]\d{9}$/.test(val))){
                 this.$message.error("手机号码有误，请重填");
-                this.naturalData[nowIndex].mateInfo[nowIndex].custMobile = '';
+                this.naturalData[nowIndex].mateInfo[0].custMobile = '';
             }
             setTimeout(function() {
-                this.naturalData[nowIndex].mateInfo[nowIndex].custWechat = this.naturalData[nowIndex].mateInfo[nowIndex].custMobile;
+                this.naturalData[nowIndex].mateInfo[0].custWechat = this.naturalData[nowIndex].mateInfo[0].custMobile;
             }.bind(this),100);
         },
         natural(val) {
@@ -946,9 +947,9 @@ export default {
         },
         // 判断承租人配偶申请地居住年限
         spouseLiveYears(val) {
-            if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].mateInfo[[this.tabChange - 1]].custAge)) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].mateInfo[0].custAge)) {
                 this.$message.error('申请地居住年限不能大于年龄');
-                this.naturalData[this.tabChange - 1].mateInfo[[this.tabChange - 1]].residenceYears = '';
+                this.naturalData[this.tabChange - 1].mateInfo[0].residenceYears = '';
             }
         },
         // 承租人判断种植年限
@@ -963,9 +964,9 @@ export default {
         },
         // 承租人配偶判断种植年限
         spousePlantYears(val) {
-            if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].custAge)) {
+            if(parseInt(val) > parseInt(this.naturalData[this.tabChange - 1].mateInfo[0].custAge)) {
                 this.$message.error('种植年限不能大于年龄');
-                this.naturalData[this.tabChange - 1].mateInfo[this.tabChange - 1].cultureYears = '';
+                this.naturalData[this.tabChange - 1].mateInfo[0].cultureYears = '';
             }
         },
 
@@ -1115,7 +1116,6 @@ export default {
                 idcontent.Sex = "F";
             }
             let nowIndex = this.tabChange - 1;
-            console.log(this.naturalData[nowIndex].mateInfo,nowIndex);
             setTimeout(function() {
                 this.naturalData[nowIndex].mateInfo[0].custSex = idcontent.Sex;
                 this.naturalData[nowIndex].mateInfo[0].custAge = idcontent.Age;
