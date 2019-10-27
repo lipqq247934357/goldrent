@@ -27,7 +27,7 @@
                 <tr>
                     <td>身份证号码</td>
                     <td>
-                        <el-input @change="idNumber" type="text" maxlength="18" class="inputLessinfo" v-model="item.certNo">
+                        <el-input @change="idNumberType(item)" type="text" maxlength="18" class="inputLessinfo" v-model="item.certNo">
                         </el-input>
                     </td>
                     <td>年龄</td>
@@ -228,6 +228,15 @@ export default {
                     break
                 }
             }
+        },
+        idNumberType(val) {
+            let idcontent = this.$idCard.IDcode(val.certNo);
+            if(idcontent.Status == false) {
+                this.$message.error(idcontent.msg);
+            }
+
+            val.custSex = idcontent.Sex;
+            val.custAge = idcontent.Age;
         }
     },
 }
