@@ -1323,8 +1323,20 @@ export default {
             // console.log(this.$refs.otherIncome,'其他收入') //其他收入
             // this.tabsFor(this.naturalData)
             // if(this.leaseInfoData.hasChildren == "Y") {
+
+            this.naturalData.forEach((item,index) => {
+                if(item.custMarriage != 'married') {
+                    item.mateInfo = [];
+                }
+
+            })
+
             for(let i = 0; i < this.$refs.headerChild.length; i++) {
-                this.naturalData[i].childrenInfo = this.$refs.headerChild[i].childrenInfo;
+                if(this.naturalData[i].hasChildren == 'N' || this.naturalData[i].hasChildren == "") {
+                    this.naturalData[i].childrenInfo = [];
+                } else {
+                    this.naturalData[i].childrenInfo = this.$refs.headerChild[i].childrenInfo;
+                }
             }
 
             for(let i = 0; i < this.$refs.house.length; i++) {
@@ -1337,7 +1349,6 @@ export default {
                 this.naturalData[i].assetsFinances = this.$refs.financial[i].assetsFinances
             }
             for(let i = 0; i < this.$refs.homecar.length; i++) {
-                console.log(this.$refs.homecar[i].assetsVehicles,'自用车');
                 this.$refs.homecar[i].assetsVehicles.forEach((item,index) => {
                     if(item.buyTime) {
                         item.buyTime = item.buyTime + '-01-01 00:00:00';

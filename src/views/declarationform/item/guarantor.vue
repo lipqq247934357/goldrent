@@ -831,7 +831,6 @@ export default {
                     company: '',//工作单位
                     identityType: ''// 身份类型
                 }],
-                childrenInfo: [],
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
                 assetsFinances: [],// 进入资产
@@ -944,7 +943,6 @@ export default {
                     company: '',//工作单位
                     identityType: ''// 身份类型
                 }],
-                childrenInfo: [],
                 assetsHouses: [], //房产
                 assetsLands: [],//土地
                 assetsVehicles: [], //自用车
@@ -1416,6 +1414,12 @@ export default {
             // console.log(this.$refs.headerChild);
             this.warrantorDatas.forEach((item,index) => {
                 if(item.partnerType == "NAT") {
+
+                    if(item.custMarriage != 'married') {
+                        item.mateInfo = [];
+                    }
+
+
                     for(let i = 0; i < this.$refs.house.length; i++) {
                         item.assetsHouses = this.$refs.house[i].assetsHouses;
                     }
