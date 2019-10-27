@@ -695,9 +695,6 @@
             </el-tab-pane>
         </el-tabs>
 
-
-
-
         <!-- 底部按钮 -->
         <div class="bottomButtonDiv matchingDiv">
             <el-button type="primary" size="medium" class="matchingButton" @click="save('save')">
@@ -891,6 +888,7 @@ export default {
                             item['name'] = item.sortIndex + '';
                             item['title'] = "保证人" + item.sortIndex;
                         });
+                        this.imgData();
                     }
                 }
             });

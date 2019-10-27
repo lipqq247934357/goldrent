@@ -437,6 +437,7 @@ export default {
                                 item['name'] = index + 1 + '';
                                 item['title'] = "回购人" + parseInt(index + 1);
                             }
+                            this.imgData();
                         }.bind(this));
                     }
                 }

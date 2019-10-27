@@ -730,6 +730,7 @@ export default {
                                 }]
                             }
                         });
+                        this.imgData();
                         this.tabIndex = res.data.data.naturalData.length;
                     }
                 }
