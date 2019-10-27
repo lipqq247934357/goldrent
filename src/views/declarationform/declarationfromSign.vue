@@ -287,8 +287,20 @@
                                 activeName && this.initData(activeName);
 
                             });
-                            this.$refs.repurchase.getData();
-                            this.$refs.repurchase.imgData(); // 调用
+
+                            this.$post('/leaseinfo/flushIncomeDebtRatio',{
+                                bussNo: this.bussNo,
+                            }).then( res => {
+                                if(res.data.code == '2000000') {
+                                    this.$refs.repurchase.getData(); //调用详情
+                                    this.$refs.repurchase.imgData(); // 调用图片结构
+                                } else {
+                                    this.$refs.repurchase.getData(); //调用详情
+                                    this.$refs.repurchase.imgData(); // 调用图片结构
+                                }
+                            });
+
+
                             resolve();
                         } else {
                             reject();

@@ -882,7 +882,6 @@ export default {
                 if(res.data.code == '2000000') {
                     if(res.data.data.warrantorData.length != '0') {
                         this.warrantorDatas = res.data.data.warrantorData;
-                        console.log(res.data.data.warrantorData,'<<<<:::::::');
                         this.warrantorDatas.forEach(function(item,index) {
                             item.sortIndex = index + 1;
                             item['name'] = item.sortIndex + '';
@@ -1153,15 +1152,15 @@ export default {
         // 判断保证人人申请地居住年限
         liveYears(val) {
             if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].custAge)) {
-                this.$message.error('申请地居住年限不能大于年龄');
+                this.$message.error('申请地居住年限不能大于年龄1');
                 this.warrantorDatas[this.tabChange - 1].residenceYears = '';
             }
         },
         // 判断保证人配偶申请地居住年限
         spouseLiveYears(val) {
-            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].custAge)) {
-                this.$message.error('申请地居住年限不能大于年龄');
-                this.warrantorDatas[this.tabChange - 1].residenceYears = '';
+            if(parseInt(val) > parseInt(this.warrantorDatas[this.tabChange - 1].mateInfo[0].custAge)) {
+                this.$message.error('申请地居住年限不能大于年龄2');
+                this.warrantorDatas[this.tabChange - 1].mateInfo[0].residenceYears = '';
             }
         },
         // 承租人判断种植年限
