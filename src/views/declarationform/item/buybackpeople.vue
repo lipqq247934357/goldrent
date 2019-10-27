@@ -271,9 +271,11 @@
                 <p class="tableTitle"> 点击保存后才能上传影像资料</p>
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
-                    v-show="index == imgIndex">
-                    <div v-if="imgFile">
-                        <template v-for="(value,indexs) in imgFile">
+                    v-show="item.basicInfo.id == imgTrees.custId">
+
+                    <div v-if="imgTrees.itemTree">
+
+                        <template v-for="(value,indexs) in imgTrees.itemTree">
                                 <h3>{{value.nodeName}}</h3>
                                 <ul>
                                     <imgUpload
@@ -281,7 +283,7 @@
                                         :disabled="type === 'detail'"
                                         :name="val"
                                         :bussNo="bussNo"
-                                        :relationId="relationId"
+                                        :relationId="item.id"
                                         :type="val.key"
                                         @handlePictureCardPreview="handlePictureCardPreview"/>
                                 </ul>
@@ -525,14 +527,16 @@ export default {
                         return;
                     }
                     this.treeData = res.data.data.repurchase;
-                    let treeInfo = res.data.data.repurchase[this.tabChange - 1].itemTree;
-                    this.relationId = res.data.data.repurchase[this.tabChange - 1].custId;
-                    console.log(this.relationId);
-                    let tempArr = [];
-                    Object.keys(treeInfo).forEach((key) => {
-                        tempArr.push(treeInfo[key]);
-                    });
-                    this.imgFile = tempArr;
+                    console.log(this.treeData);
+                    // this.treeData = res.data.data.repurchase;
+                    // let treeInfo = res.data.data.repurchase[this.tabChange - 1].itemTree;
+                    // this.relationId = res.data.data.repurchase[this.tabChange - 1].custId;
+                    // console.log(this.relationId);
+                    // let tempArr = [];
+                    // Object.keys(treeInfo).forEach((key) => {
+                    //     tempArr.push(treeInfo[key]);
+                    // });
+                    // this.imgFile = tempArr;
                 }
             });
         },
@@ -549,7 +553,6 @@ export default {
         save(param) { // 保存页面或者下一步
             if(param === 'save'){
                 this.$emit("saveData");
-                // this.imgData();
             }else{
                 this.$emit('update:bindText','租赁物信息')
             }
