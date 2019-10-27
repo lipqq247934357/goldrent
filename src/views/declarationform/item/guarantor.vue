@@ -287,9 +287,9 @@
                                 placeholder="选择日期"
                                 type="date"
                                 clearable
-                                :disabled="item.zjsxDate == '0'"
+                                :disabled="item.certEndDateOption == 'Y'"
                                 :picker-options="endpickerOptions"
-                                v-model="item.legalCertDeadline"
+                                v-model="item.certEndDateOption == 'Y' ? '' : item.legalCertDeadline"
                                 value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
@@ -1057,64 +1057,126 @@ export default {
             this.editableTabsValue = newTabName;
         },
         removeTab(targetName) {
-            console.log(targetName);
-            for(let i = 0; i < this.warrantorDatas.length; i++) {
-                if(this.warrantorDatas[i].partnerType == "NAT") {
-                    this.$post('/data/del',{
-                        id: this.warrantorDatas[i].id,
-                        type: 'custNature'
-                    }).then(res => {
-                        if(res.data.code =='2000000') {
-                            this.$message.success('删除成功');
-                        }
-                    });
-                } else {
-                    this.$post('/data/del',{
-                        id: this.warrantorDatas[i].id,
-                        type: 'custLegal'
-                    }).then(res => {
-                        if(res.data.code =='2000000') {
-                            this.$message.success('删除成功');
-                        }
-                    });
-                }
-            }
-
-            let tabs = this.warrantorDatas;
-            let activeName = this.editableTabsValue;
-            this.tabChange = this.warrantorDatas.length + 1;
             // 至少要保留一个
             if (this.warrantorDatas.length == 1) {
                 return;
             }
 
+            if(this.warrantorDatas[targetName - 1].id) {
+                if(this.warrantorDatas[targetName - 1].partnerType == "NAT") {
+                    this.$post('/data/del',{
+                        id: this.warrantorDatas[targetName - 1].id,
+                        type: 'custNature'
+                    }).then(res => {
+                        if(res.data.code =='2000000') {
+                            this.$message.success('删除成功');
+                            let tabs = this.warrantorDatas;
+                            let activeName = this.editableTabsValue;
+                            this.tabChange = this.warrantorDatas.length + 1;
 
-            if (activeName === targetName) {
-                tabs.forEach((tab, index) => {
 
-                    if (tab.name === targetName) {
-                        let nextTab = tabs[index + 1] || tabs[index - 1];
-                        if (nextTab) {
+                            if (activeName === targetName) {
+                                tabs.forEach((tab, index) => {
 
-                            activeName = nextTab.name;
+                                    if (tab.name === targetName) {
+                                        let nextTab = tabs[index + 1] || tabs[index - 1];
+                                        if (nextTab) {
+
+                                            activeName = nextTab.name;
+                                        }
+                                    }
+                                });
+                            }
+
+                            this.editableTabsValue = activeName;
+                            this.warrantorDatas = tabs.filter(tab => tab.name !== targetName);
+
+                            // 当删除成功后后一项承租人继承前一项保证人人index
+                            this.warrantorDatas.forEach(function(item, index, arr) {
+                                item.sortIndex = index + 1;
+                                item.title = '保证人' + parseInt(index + 1);
+                                item.name = parseInt(index + 1) + '';
+                                item.content = '保证人' + parseInt(index + 1);
+                            })
+                            this.editableTabsValue = this.warrantorDatas.length + '';
+                            //主要防止于添加的时候错误
+                            this.tabIndex = this.warrantorDatas.length;
                         }
-                    }
-                });
+                    });
+                } else {
+                    this.$post('/data/del',{
+                        id: this.warrantorDatas[targetName - 1].id,
+                        type: 'custLegal'
+                    }).then(res => {
+                        if(res.data.code =='2000000') {
+                            this.$message.success('删除成功');
+                            let tabs = this.warrantorDatas;
+                            let activeName = this.editableTabsValue;
+                            this.tabChange = this.warrantorDatas.length + 1;
+
+
+                            if (activeName === targetName) {
+                                tabs.forEach((tab, index) => {
+
+                                    if (tab.name === targetName) {
+                                        let nextTab = tabs[index + 1] || tabs[index - 1];
+                                        if (nextTab) {
+
+                                            activeName = nextTab.name;
+                                        }
+                                    }
+                                });
+                            }
+
+                            this.editableTabsValue = activeName;
+                            this.warrantorDatas = tabs.filter(tab => tab.name !== targetName);
+
+                            // 当删除成功后后一项承租人继承前一项保证人人index
+                            this.warrantorDatas.forEach(function(item, index, arr) {
+                                item.sortIndex = index + 1;
+                                item.title = '保证人' + parseInt(index + 1);
+                                item.name = parseInt(index + 1) + '';
+                                item.content = '保证人' + parseInt(index + 1);
+                            })
+                            this.editableTabsValue = this.warrantorDatas.length + '';
+                            //主要防止于添加的时候错误
+                            this.tabIndex = this.warrantorDatas.length;
+                        }
+                    });
+                }
+            } else {
+                let tabs = this.warrantorDatas;
+                let activeName = this.editableTabsValue;
+                this.tabChange = this.warrantorDatas.length + 1;
+
+
+                if (activeName === targetName) {
+                    tabs.forEach((tab, index) => {
+
+                        if (tab.name === targetName) {
+                            let nextTab = tabs[index + 1] || tabs[index - 1];
+                            if (nextTab) {
+
+                                activeName = nextTab.name;
+                            }
+                        }
+                    });
+                }
+
+                this.editableTabsValue = activeName;
+                this.warrantorDatas = tabs.filter(tab => tab.name !== targetName);
+
+                // 当删除成功后后一项承租人继承前一项保证人人index
+                this.warrantorDatas.forEach(function(item, index, arr) {
+                    item.sortIndex = index + 1;
+                    item.title = '保证人' + parseInt(index + 1);
+                    item.name = parseInt(index + 1) + '';
+                    item.content = '保证人' + parseInt(index + 1);
+                })
+                this.editableTabsValue = this.warrantorDatas.length + '';
+                //主要防止于添加的时候错误
+                this.tabIndex = this.warrantorDatas.length;
             }
-
-            this.editableTabsValue = activeName;
-            this.warrantorDatas = tabs.filter(tab => tab.name !== targetName);
-
-            // 当删除成功后后一项承租人继承前一项保证人人index
-            this.warrantorDatas.forEach(function(item, index, arr) {
-                item.sortIndex = index + 1;
-                item.title = '保证人' + parseInt(index + 1);
-                item.name = parseInt(index + 1) + '';
-                item.content = '保证人' + parseInt(index + 1);
-            })
-            this.editableTabsValue = this.warrantorDatas.length + '';
-            //主要防止于添加的时候错误
-            this.tabIndex = this.warrantorDatas.length;
         },
         // 匹配信息按钮
         handleMatching() {
