@@ -880,6 +880,7 @@ export default {
             this.editableTabsValue = this.naturalData.length + '';
             //主要防止于添加的时候错误
             this.tabIndex = this.naturalData.length;
+            this.tabChange--;
         },
         imgData() {
             this.$post('/buss/materialTree',{
