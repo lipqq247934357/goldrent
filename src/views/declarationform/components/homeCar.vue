@@ -167,6 +167,7 @@ export default {
                     item['title'] = '自用车' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.assetsVehicles.length;
             }
         }
     },

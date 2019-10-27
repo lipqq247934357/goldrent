@@ -132,6 +132,7 @@ export default {
                     }
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.assetsHouses.length;
             }
         }
     },

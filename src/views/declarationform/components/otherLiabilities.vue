@@ -121,6 +121,7 @@ export default {
                     item['title'] = '其他负债' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.debtOthers.length;
             }
         }
     },

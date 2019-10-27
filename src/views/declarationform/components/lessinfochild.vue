@@ -75,10 +75,9 @@ export default {
                 }
             ],
             childIndex: 1,
-            nowIndextab: 1,
-            tabChange: 1,
-		}
-	},
+            tabChange: 1
+        }
+    },
     props: {
         sfyzn: {
             type: Array
@@ -102,6 +101,7 @@ export default {
                     item['title'] = '承租人子女' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.sfyzn.length;
             }
         }
     },
@@ -113,7 +113,6 @@ export default {
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
             this.tabChange++;
-            this.nowIndextab++;
             this.childrenInfo.push({
                 title: '承租人子女' + newTabName,
                 name: newTabName,
@@ -128,7 +127,6 @@ export default {
                 sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
-            console.log(this.childrenInfo,this.tabChange);
         },
         removeTab(targetName) {
 
@@ -167,7 +165,7 @@ export default {
                         })
                         this.childrenTabs = this.childrenInfo.length + '';
                         //主要防止于添加的时候错误
-                        this.childIndex = this.childrenInfo.length;
+                        this.tabChange = this.childIndex = this.childrenInfo.length;
                     }
                 });
             }
