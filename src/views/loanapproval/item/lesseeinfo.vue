@@ -725,7 +725,7 @@
 
                                     </li>
                                     <li>
-                                        ` <span>偿债比(年支出/年结余)</span>
+                                        <span>偿债比(年支出/年结余)</span>
                                         <span>{{incomeDebtRatios.incomeDebtRatio}}</span>
                                     </li>
                                 </ul>
@@ -801,7 +801,7 @@
             }
         },
         created() {
-            this.roletaskType = this.$route.query.roleOperation; 
+            this.roletaskType = this.$route.query.roleOperation;
         },
         mounted() {
             let data = urlParse();

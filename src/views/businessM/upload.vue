@@ -18,6 +18,7 @@
                 <i class="el-icon-plus"></i>
             </el-upload>
         </div>
+
     </li>
 </template>
 
@@ -64,7 +65,9 @@
             },
             async handleRemove(file) { // 删除回调
                 let id = '';
+                console.log(file);
                 if (file.id) {
+
                     id = file.id;
                 } else {
                     id = file.response.data.id;

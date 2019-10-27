@@ -148,7 +148,8 @@
         <ul class="infolist">
             <li>
                 <span>还租方式</span>
-                <span v-for="item in payTypeArr" v-show="item.optionCode == rentFactor.payType">{{item.optionName}}</span>
+`                <span v-for="item in payTypeArr"
+                      v-show="item.optionCode == rentFactor.payType">{{item.optionName}}</span>
             </li>
             <li>
                 <span>账户名称</span>
@@ -174,10 +175,11 @@
                         <td class="tabletable">租赁利息（元）</td>
                         <td class="tabletable">租金总额（元）</td>
                         <td class="tabletable">支付日期</td>
-                        <td  v-if="$route.query.writeOffFlag" class="tabletable">是否核销</td>
+                        <td class="tabletable" v-if="$route.query.writeOffFlag">是否核销</td>
                     </tr>
-                    <tr v-for="item in tableData" v-if="item.costType == 'rent'">
-                        <td>{{item.period}}</td>
+                    <tr v-for="item in tableData">
+                        <td v-if="item.costType == 'rent'">{{item.period}}</td>
+                        <td v-else>{{costType[item.costType]}}</td>
                         <td>{{item.principal && formatNumber(item.principal)}}</td>
                         <td>{{item.moneyRate}}</td>
                         <td>{{item.interest && formatNumber(item.interest) }}</td>
@@ -212,7 +214,14 @@
                 },
                 taskType: '',
                 rentFactor: [], //  租户收款和金租收款
-                payTypeArr: []
+                payTypeArr: [],
+                costType: {
+                    rent: "租金",
+                    retain: "留购价",
+                    rebate: "厂商返利",
+                    discount: "厂商贴息",
+                    otherexpense: "其他费用"
+                }
             }
         },
         created() {
@@ -223,7 +232,7 @@
                 this.taskType = '30'
             }
 
-            this.$post('contractclause/info',{
+            this.$post('contractclause/info', {
                 bussNo: this.$route.query.bussNo
             }).then(res => {
                 if (res.data.code == '2000000') {
@@ -234,7 +243,7 @@
 
             //字典编码
             this.$post('/getConstantConfig', {
-                dictionaryCode: ['payWay', 'leaseMode','payType','receiptType']
+                dictionaryCode: ['payWay', 'leaseMode', 'payType', 'receiptType']
             }).then(res => {
                 this.statuslist.payWay = res.data.data.payWay;
                 this.statuslist.leaseMode = res.data.data.leaseMode;

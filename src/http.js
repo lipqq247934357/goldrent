@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import {Message} from 'element-ui';
+import {Message, MessageBox} from 'element-ui';
 import router from './router';
 
 
@@ -31,14 +31,30 @@ axios.interceptors.response.use(
         if (!response || !response.data || !response.data.code) {
             return response;
         }
-        if (response.data.code !== '2000000' && response.data.code !== '2000009' && response.data.code !== '2000006' && response.data.code !== '2000009' && response.data.code !== '500100' ) {
-            //业务异常
-            Message.error({message: response.data.msg, duration: 5 * 1000});
+        if (response.data.code !== '2000000' && response.data.code !== '2000009' && response.data.code !== '2000006' && response.data.code !== '2000009' && response.data.code !== '500100') {
+
+            if (response.config.url === '/web/submitChoiceAssistUser') { // 报单申请提交
+
+                setTimeout(() => {
+                    MessageBox.alert(`<div style="max-height: calc(100vh - 160px);overflow: scroll;s">${response.data.msg}</div>`, '提示', {
+                        confirmButtonText: '确定',
+                        dangerouslyUseHTMLString: true,
+                        callback: action => {
+                        }
+                    });
+                }, 100);
+                return response;
+            }
+
+            //业务异常，在报单申请的时候查询商业条款不提示
+            if (response.data.msg != '查询商业条款信息失败') {
+                Message.error({message: response.data.msg, duration: 5 * 1000});
+            }
         }
 
         if (response.data.code == '5000050') {
             Cookies.remove('token');
-            localStorage.setItem('errorMsg',response.data.msg);
+            localStorage.setItem('errorMsg', response.data.msg);
             window.location.href = '/';
         }
         return response;
