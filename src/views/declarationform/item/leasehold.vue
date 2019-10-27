@@ -61,7 +61,7 @@
                                     :key="item.optionCode"
                                     :label="item.optionName"
                                     :value="item.optionCode"
-                                    v-for="item in serialNoType">
+                                    v-for="item in serialNumberType">
                             </el-option>
                         </el-select>
                     </td>
@@ -148,7 +148,7 @@
             return {
                 message: '',
                 mortgage: [], // 抵押登记字典
-                serialNoType: [], // 识别号类型字典
+                serialNumberType: [], // 识别号类型字典
                 InsurancePurchaseTime: [], // 保险购买时间字典
                 condition: {},
                 insurance: {},
@@ -178,10 +178,10 @@
         created() {
             //  1.获取3个字典
             this.$post('/getConstantConfig', {
-                dictionaryCode: ['mortgage', 'serialNoType', 'InsurancePurchaseTime']
+                dictionaryCode: ['mortgage', 'serialNumberType', 'InsurancePurchaseTime']
             }).then(res => {
                 this.mortgage = res.data.data.mortgage;
-                this.serialNoType = res.data.data.serialNoType;
+                this.serialNumberType = res.data.data.serialNumberType;
                 this.InsurancePurchaseTime = res.data.data.InsurancePurchaseTime;
             });
             this.getData();
