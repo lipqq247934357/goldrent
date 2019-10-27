@@ -1326,14 +1326,14 @@ export default {
 
             this.naturalData.forEach((item,index) => {
                 if(item.custMarriage != 'married') {
-                    item.mateInfo = [];
+                    item.mateInfo = null;
                 }
 
             })
 
             for(let i = 0; i < this.$refs.headerChild.length; i++) {
                 if(this.naturalData[i].hasChildren == 'N' || this.naturalData[i].hasChildren == "") {
-                    this.naturalData[i].childrenInfo = [];
+                    this.naturalData[i].childrenInfo = null;
                 } else {
                     this.naturalData[i].childrenInfo = this.$refs.headerChild[i].childrenInfo;
                 }

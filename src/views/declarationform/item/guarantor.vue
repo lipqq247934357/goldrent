@@ -289,7 +289,7 @@
                                 clearable
                                 :disabled="item.certEndDateOption == 'Y'"
                                 :picker-options="endpickerOptions"
-                                v-model="item.certEndDateOption == 'Y' ? '' : item.legalCertDeadline"
+                                v-model="item.certEndDateOption == 'Y' ? item.certEndDate = '' : item.certEndDate"
                                 value-format="yyyy-MM-dd">
                             </el-date-picker>
                         </td>
@@ -966,7 +966,9 @@ export default {
                 socialSerial: '', //统一社会信用代码
                 partnerSerial: '', //商业伙伴编码
                 certStartDate: '', //证件生效时间
+                certEndDate: '',// 证件失效时间
                 certEndDateOption: '', //证件长期有效
+
                 legalCertDeadline: '', //证件失效时间
                 comNature: '', //企业性质
                 comIndustry: '', //所属行业
@@ -1416,7 +1418,7 @@ export default {
                 if(item.partnerType == "NAT") {
 
                     if(item.custMarriage != 'married') {
-                        item.mateInfo = [];
+                        item.mateInfo = null;
                     }
 
 
