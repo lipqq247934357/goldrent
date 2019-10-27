@@ -204,12 +204,12 @@
                     <tr>
                         <td>回购方实际控制人</td>
                         <td>
-                            <el-input type="text" v-model="item.debtInfo[index].personName" class="inputLessinfo">
+                            <el-input type="text" v-model="item.debtInfo[1].personName" class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>债务种类</td>
                         <td>
-                            <el-input type="text" v-model="item.debtInfo[index].debtType" class="inputLessinfo">
+                            <el-input type="text" v-model="item.debtInfo[1].debtType" class="inputLessinfo">
                             </el-input>
 
                         </td>
@@ -219,7 +219,7 @@
                         <td>
                             <el-input-number
                                 class="inputLessinfo"
-                                v-model="item.debtInfo[index].debtBalance"
+                                v-model="item.debtInfo[1].debtBalance"
                                 :precision="2"
                                 :step="0.1"
                                 :min="0.00"
