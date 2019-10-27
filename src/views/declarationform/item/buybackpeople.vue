@@ -267,6 +267,28 @@
                         </td>
                     </tr>
                 </table>
+                <componentitle :message="message='回购人相关影像资料'" class="componentitle" />
+                <p class="tableTitle"> 点击保存后才能上传影像资料</p>
+                <div class="imgbox"
+                    v-for="(imgTrees ,imgIndex) in treeData"
+                    v-show="index == imgIndex">
+                    <div v-if="imgFile">
+                        <template v-for="(value,indexs) in imgFile">
+                                <h3>{{value.nodeName}}</h3>
+                                <ul>
+                                    <imgUpload
+                                        v-for="(val,key) in value.nodes"
+                                        :disabled="type === 'detail'"
+                                        :name="val"
+                                        :bussNo="bussNo"
+                                        :relationId="relationId"
+                                        :type="val.key"
+                                        @handlePictureCardPreview="handlePictureCardPreview"/>
+                                </ul>
+                        </template>
+                    </div>
+                </div>
+
             </el-tab-pane>
         </el-tabs>
         <!-- 底部按钮 -->
@@ -284,13 +306,13 @@
         width="90%"
         :visible.sync="dialogVisible">
         <img width="100%" :src="dialogImageUrl" alt="">
-        <!-- <div class="demo-image__preview">
+        <div class="demo-image__preview">
             <el-image
                 style="width: 100px; height: 100px"
                 :src="dialogImageUrl"
                 :preview-src-list="srcList">
             </el-image>
-        </div> -->
+        </div>
     </el-dialog>
 </div>
 </template>
@@ -301,9 +323,10 @@ import imgUpload from '../imgUpload.vue'; //图片组件
 export default {
     data() {
         return {
+            treeData: [],
             srcList: [],
-            dialogImageUrl: '',
             dialogVisible: false,
+            dialogImageUrl: '',
             tabChange: 1, //存储切换的tab name
             imgFile: [],
             relationId: '', //图片影像资料需要用到的
@@ -363,7 +386,6 @@ export default {
     },
     props: ['rulesField','bussNo'],
     mounted() {
-        this.imgData();
     },
     methods: {
         // 电话校验
@@ -496,17 +518,21 @@ export default {
         },
         imgData() {
             this.$post('/buss/materialTree',{
-                materialType: 'NATURE_MATERIAL',
+                bussNo: this.bussNo
             }).then(res => {
                 if(res.data.code == '2000000') {
-                    let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
+                    if(res.data.data.repurchase.length == '0') {
+                        return;
+                    }
+                    this.treeData = res.data.data.repurchase;
+                    let treeInfo = res.data.data.repurchase[this.tabChange - 1].itemTree;
+                    this.relationId = res.data.data.repurchase[this.tabChange - 1].custId;
+                    console.log(this.relationId);
                     let tempArr = [];
                     Object.keys(treeInfo).forEach((key) => {
                         tempArr.push(treeInfo[key]);
                     });
                     this.imgFile = tempArr;
-                    console.log(this.imgFile);
-                    this.relationId = tempArr[this.tabChange - 1].custId;
                 }
             });
         },
@@ -560,8 +586,10 @@ export default {
                 delete item.name;
             });
         },
-        handlePictureCardPreview(file) { // 图片浏览功能
+
+        handlePictureCardPreview(file,imgUrls) { // 图片浏览功能
             this.dialogImageUrl = file.url;
+            this.srcList.push(file.url);
             this.dialogVisible = true;
         },
 

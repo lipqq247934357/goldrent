@@ -1,11 +1,17 @@
 <template>
-<div class="lesseeinfoChild">
+<div class="lesseeinfoChild" style="position: relative;">
     <div class="addbutton">
         <el-button size="small" @click="addTab(childrenTabs)" class="el-icon-plus">
             添加其他收入
         </el-button>
     </div>
-    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
+    <el-button
+        style="position: absolute;background:#ff8f2b;border: 0;color: #fff;right: 10px;top: 10px;"
+        @click="calculation"
+        size="medium">
+        计算
+    </el-button>
+    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab" @tab-click="childChange">
         <el-tab-pane
             v-for="(item, index) of incomeOthers"
             :key="item.sortIndex + ''"
@@ -17,7 +23,7 @@
                     <td>
                         <el-input-number
                             class="inputLessinfo"
-                            v-model="item.prevYearIncome"
+                            v-model="item.currYearIncome"
                             :precision="2"
                             :step="0.1"
                             :min="0.00"
@@ -28,7 +34,7 @@
                     <td>
                         <el-input-number
                             class="inputLessinfo"
-                            v-model="item.prevYearPay"
+                            v-model="item.currYearPay"
                             :precision="2"
                             :step="0.1"
                             :min="0.00"
@@ -76,7 +82,8 @@ export default {
                     sortIndex: '1'
                 }
             ],
-            childIndex: 1
+            childIndex: 1,
+            tabChange: 1
 		}
 	},
     props: {
@@ -95,7 +102,6 @@ export default {
             if(newVal != undefined) {
                 this.incomeOthers = this.qtsr;
                 this.incomeOthers.forEach((item,index) => {
-                    console.log(index);
                     item['name'] = index+1 + '';
                     item['title'] = '其他收入' + (index+1);
                 });
@@ -103,9 +109,24 @@ export default {
             }
         }
     },
+
 	methods: {
+        // 页签切换
+        childChange(val) {
+            this.tabChange = val.name;
+        },
+        calculation() {
+            for(let i = 0; i < this.incomeOthers.length; i++) {
+                if(this.incomeOthers[i].sortIndex == this.tabChange) {
+                    this.incomeOthers[i].surplus = this.incomeOthers[i].currYearIncome - this.incomeOthers[i].currYearPay;
+                    console.log(this.incomeOthers[i]);
+                    break;
+                }
+            }
+        },
         addTab(targetName) {
             let newTabName = ++this.childIndex + '';
+            this.tabChange++;
             this.incomeOthers.push({
                 title: '其他收入' + newTabName,
                 name: newTabName,
@@ -120,6 +141,7 @@ export default {
                 sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
+            console.log(this.incomeOthers);
         },
         removeTab(targetName) {
 
@@ -146,6 +168,7 @@ export default {
             }
 
             this.childrenTabs = activeName;
+            this.tabChange = this.incomeOthers.length + 1;
             this.incomeOthers = tabs.filter(tab => tab.name !== targetName);
 
             // 当删除成功后后一项承租人继承前一项承租人index
