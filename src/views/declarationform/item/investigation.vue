@@ -161,7 +161,14 @@
             <tr>
                 <td>评估价值（万元）</td>
                 <td>
-                    <el-input class="input-width-2column" v-model="landMortgager.evaluateValue"></el-input>
+                    <el-input-number
+                            :min="0.00"
+                            :precision="2"
+                            :step="0.1"
+                            class="input-width-2column"
+                            type="text"
+                            v-model="landMortgager.evaluateValue">
+                    </el-input-number>
                 </td>
                 <td>评估机构</td>
                 <td>
