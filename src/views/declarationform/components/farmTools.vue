@@ -64,7 +64,7 @@
                                 :step="0.1"
                                 class="inputLessinfo"
                                 type="text"
-                                v-model="item.invoice_amount">
+                                v-model="item.invoiceAmount">
                         </el-input-number>
                     </td>
                 </tr>
@@ -124,6 +124,7 @@ export default {
                     status: '', //状态
                     invoice: '',//是否获取发票
                     brandModels: '', //品牌及型号
+                    invoiceAmount: '',//发票金额
                     sortIndex: '1'
                 }
             ],
@@ -170,6 +171,7 @@ export default {
                 status: '', //状态
                 invoice: '',//是否获取发票
                 brandModels: '', //品牌及型号
+                invoiceAmount: '',//发票金额
                 sortIndex: newTabName
             });
             this.childrenTabs = newTabName;

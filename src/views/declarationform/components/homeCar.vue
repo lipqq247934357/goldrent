@@ -79,7 +79,7 @@
                                 :step="0.1"
                                 class="inputLessinfo"
                                 type="text"
-                                v-model="item.invoice_amount">
+                                v-model="item.invoiceAmount">
                         </el-input-number>
                     </td>
                 </tr>
@@ -138,6 +138,7 @@ export default {
                     serialNo: '', //号牌/车架号
                     status: '', //状态
                     invoice: '',//是否获取发票
+                    invoiceAmount: '',//发票金额
                     sortIndex: '1',
                     brandModels: '', //品牌及型号
                 }
@@ -185,6 +186,7 @@ export default {
                 serialNo: '', //号牌/车架号
                 status: '', //状态
                 invoice: '',//是否获取发票
+                invoiceAmount: '',//发票金额
                 brandModels: '', //品牌及型号
                 sortIndex: newTabName
             });
