@@ -1288,8 +1288,8 @@ export default {
             }
             let nowIndex = this.tabChange - 1;
 
-            this.warrantorDatas[nowIndex].mateInfo[nowIndex].custSex = idcontent.Sex;
-            this.warrantorDatas[nowIndex].mateInfo[nowIndex].custAge = idcontent.Age;
+            this.warrantorDatas[nowIndex].mateInfo[0].custSex = idcontent.Sex;
+            this.warrantorDatas[nowIndex].mateInfo[0].custAge = idcontent.Age;
         },
         // 是否有子女
         childChange(val) {

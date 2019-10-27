@@ -268,11 +268,6 @@
             },
             repurchase(activeName) {
                 this.repurchaseData = this.$refs.repurchase.legalMan;
-                this.repurchaseData.forEach(function (item, index) { // 删除子tab 的name 和title 因为后台用不了传过去报错
-                    delete item.name;
-                    delete item.title;
-                });
-
                 return new Promise((resolve, reject) => {
                     this.$post('repurchase/add', {
                         bussNo: this.bussNo,
@@ -280,13 +275,8 @@
                     }).then(res => {
                         if (res.data.code === '2000000') {
                             this.$message.success('回购人保存成功');
-
-                            // this.repurchaseData.forEach(function (item, index) { //用于ajax提交完成后返回删除的tab name 和title
-                            //     item['name'] = index + 1 + '';
-                            //     item['title'] = '承租人' + parseInt(index + 1);
-                            // });
                             this.$refs.repurchase.getData();
-                            this.$refs.guarantor.imgData(); // 调用
+                            this.$refs.repurchase.imgData(); // 调用
                             setTimeout(()=>{
                                 activeName && this.initData(activeName);
 

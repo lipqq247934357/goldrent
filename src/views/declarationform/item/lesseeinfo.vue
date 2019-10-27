@@ -510,9 +510,11 @@
                     </tr>
                 </table>
                 <componentitle :message="message='承租人相关影像资料'" class="componentitle" />
-                <div class="imgbox">
+                <div class="imgbox"
+                    v-for="(imgTrees ,imgIndex) in treeData"
+                    v-show="index == imgIndex">
                     <div v-if="imgFile">
-                        <template v-for="value in imgFile">
+                        <template v-for="(value,indexs) in imgFile">
                                 <h3>{{value.nodeName}}</h3>
                                 <ul>
                                     <imgUpload
@@ -525,21 +527,19 @@
                                         @handlePictureCardPreview="handlePictureCardPreview"/>
                                 </ul>
                         </template>
-
-                        <!-- 底部按钮 -->
-                        <div class="bottomButtonDiv matchingDiv">
-                            <el-button type="primary" size="medium" class="matchingButton" @click="save('save')">
-                                保存
-                            </el-button>
-                            <el-button type="primary" size="medium" class="matchingButton" @click="save('next')">
-                                下一步
-                            </el-button>
-                        </div>
                     </div>
                 </div>
             </el-tab-pane>
         </el-tabs>
-
+        <!-- 底部按钮 -->
+        <div class="bottomButtonDiv matchingDiv">
+            <el-button type="primary" size="medium" class="matchingButton" @click="save('save')">
+                保存
+            </el-button>
+            <el-button type="primary" size="medium" class="matchingButton" @click="save('next')">
+                下一步
+            </el-button>
+        </div>
     </div>
 
     <el-dialog
@@ -573,6 +573,7 @@ import imgUpload from '../imgUpload.vue'; //图片组件
 export default {
     data() {
         return {
+            treeData: [],
             arrIndexTab: 0,
             imgsUrl: '',
             srcList: [],
@@ -888,6 +889,7 @@ export default {
                         return;
                     }
                     if(res.data.data.leaseholder[this.tabChange - 1].itemTree) {
+                        this.treeData = res.data.data.leaseholder;
                         let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
                         this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
                         console.log(this.relationId);
