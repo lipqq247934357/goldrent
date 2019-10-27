@@ -731,6 +731,7 @@ export default {
                                 }]
                             }
                         });
+                        this.tabIndex = res.data.data.naturalData.length;
                     }
                 }
             });
