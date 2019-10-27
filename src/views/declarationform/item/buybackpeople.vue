@@ -65,7 +65,7 @@
                                 </el-option>
                             </el-select>
                         </td>
-                        <td>注册资本金</td>
+                        <td>注册资本金（万元）</td>
                         <td>
                             <el-input type="text" v-model="item.basicInfo.comRegisteredCapital" class="inputLessinfo">
                             </el-input>
@@ -120,7 +120,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>回购条件</td>
+                        <td>回购条件（逾期天数）</td>
                         <td>
                             <el-select
                                 v-model="item.basicInfo.overdueDays"
