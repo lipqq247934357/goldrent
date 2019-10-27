@@ -267,7 +267,15 @@
             },
             repurchase(activeName) {
                 this.repurchaseData = this.$refs.repurchase.legalMan;
+
                 return new Promise((resolve, reject) => {
+                    for(let i = 0; i < this.$refs.repurchase.legalMan.length; i++) {
+                        console.log(this.$refs.repurchase.legalMan[i])
+                        if(this.$refs.repurchase.legalMan[i].basicInfo.comFullname && this.$refs.repurchase.legalMan[i].basicInfo.socialSerial == '') {
+                            this.$message.error( i + 1 + '号回购人' + '统一社会信用代码请完善');
+                            return;
+                        }
+                    }
                     this.$post('repurchase/add', {
                         bussNo: this.bussNo,
                         legalMan: this.repurchaseData

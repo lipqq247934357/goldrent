@@ -670,7 +670,7 @@
                     <p class="tableTitle">其他收入（如有）</p>
                     <guaranteeIncome ref="otherIncome" :qtsr="warrantorDatas[index].incomeOthers" :rulesField="rulesField" />
                 </div>
-                <componentitle :message="message='回购人相关影像资料'" class="componentitle" />
+                <componentitle :message="message='保证人相关影像资料'" class="componentitle" />
                 <p class="tableTitle"> 点击保存后才能上传影像资料</p>
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
