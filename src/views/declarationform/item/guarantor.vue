@@ -1058,7 +1058,7 @@ export default {
             this.editableTabsValue = newTabName;
         },
         removeTab(targetName) {
-
+            console.log(targetName);
             for(let i = 0; i < this.warrantorDatas.length; i++) {
                 if(this.warrantorDatas[i].partnerType == "NAT") {
                     this.$post('/data/del',{
@@ -1083,7 +1083,7 @@ export default {
 
             let tabs = this.warrantorDatas;
             let activeName = this.editableTabsValue;
-
+            this.tabChange = this.warrantorDatas.length + 1;
             // 至少要保留一个
             if (this.warrantorDatas.length == 1) {
                 return;
@@ -1260,14 +1260,20 @@ export default {
                 this.$message.error(idcontent.msg);
                 return;
             }
-            let nowIndex = this.tabChange - 1;
             if(idcontent.Sex == "男") {
                 idcontent.Sex = "M"
             } else {
                 idcontent.Sex = "F";
             }
-            this.warrantorDatas[nowIndex].custSex = idcontent.Sex;
-            this.warrantorDatas[nowIndex].custAge = idcontent.Age;
+            this.warrantorDatas.forEach((item,index) => {
+                console.log(this.tabChange);
+                if(item.sortIndex == this.tabChange) {
+                    item.custSex = idcontent.Sex;
+                    item.custAge = idcontent.Age;
+                }
+            });
+            // this.warrantorDatas[nowIndex].custSex = idcontent.Sex;
+            // this.warrantorDatas[nowIndex].custAge = idcontent.Age;
         },
         idNumberType(val) {
             let idcontent = this.$idCard.IDcode(val);

@@ -111,7 +111,6 @@ export default {
             this.tabChange = val.name;
         },
         addTab(targetName) {
-
             let newTabName = ++this.childIndex + '';
             this.tabChange++;
             this.nowIndextab++;
@@ -129,7 +128,7 @@ export default {
                 sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
-            console.log(this.childrenInfo,'子女');
+
         },
         removeTab(targetName) {
 
@@ -149,7 +148,6 @@ export default {
                                 if (tab.name === targetName) {
                                     let nextTab = tabs[index + 1] || tabs[index - 1];
                                     if (nextTab) {
-
                                         activeName = nextTab.name;
                                     }
                                 }
@@ -157,6 +155,7 @@ export default {
                         }
 
                         this.childrenTabs = activeName;
+                        this.tabChange = this.childrenInfo.length + 1;
                         this.childrenInfo = tabs.filter(tab => tab.name !== targetName);
 
                         // 当删除成功后后一项承租人继承前一项承租人index
@@ -190,6 +189,7 @@ export default {
                 }
 
                 this.childrenTabs = activeName;
+
                 this.childrenInfo = tabs.filter(tab => tab.name !== targetName);
 
                 // 当删除成功后后一项承租人继承前一项承租人index
@@ -198,9 +198,9 @@ export default {
                     item.title = '承租人子女' + parseInt(index + 1);
                     item.name = parseInt(index + 1) + '';
                     item.content = '承租人' + parseInt(index + 1);
-                    console.log(item.sortIndex);
                 })
                 this.childrenTabs = this.childrenInfo.length + '';
+                this.tabChange = this.childrenTabs;
                 //主要防止于添加的时候错误
                 this.childIndex = this.childrenInfo.length;
             }
