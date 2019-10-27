@@ -50,7 +50,6 @@
                             v-model="item.surplus"
                             :precision="2"
                             :step="0.1"
-                            :min="0.00"
                             >
                         </el-input-number>
                     </td>
@@ -116,11 +115,11 @@ export default {
             this.tabChange = val.name;
         },
         calculation() {
-            alert(1);
             for(let i = 0; i < this.incomeOthers.length; i++) {
+                console.log(this.incomeOthers[i].sortIndex,this.tabChange);
                 if(this.incomeOthers[i].sortIndex == this.tabChange) {
                     this.incomeOthers[i].surplus = this.incomeOthers[i].currYearIncome - this.incomeOthers[i].currYearPay;
-                    console.log(this.incomeOthers[i]);
+
                     break;
                 }
             }
@@ -142,7 +141,7 @@ export default {
                 sortIndex: newTabName
             });
             this.childrenTabs = newTabName;
-            console.log(this.incomeOthers);
+            console.log(this.tabChange);
         },
         removeTab(targetName) {
 
@@ -185,7 +184,7 @@ export default {
                             item.content = '其他收入' + parseInt(index + 1);
                         })
                         this.childrenTabs = this.incomeOthers.length + '';
-                        this.tabChange--;
+                        this.tabChange = this.incomeOthers.length;
                         //主要防止于添加的时候错误
                         this.childIndex = this.incomeOthers.length;
                     }
@@ -218,7 +217,8 @@ export default {
                     item.content = '其他收入' + parseInt(index + 1);
                 })
                 this.childrenTabs = this.incomeOthers.length + '';
-                this.tabChange--;
+                this.tabChange = this.incomeOthers.length;
+                console.log(this.tabChange);
                 //主要防止于添加的时候错误
                 this.childIndex = this.incomeOthers.length;
             }
