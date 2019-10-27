@@ -146,6 +146,7 @@ export default {
                     item.type = item.type + '';
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.incomeOthers.length;
             }
         }
     },

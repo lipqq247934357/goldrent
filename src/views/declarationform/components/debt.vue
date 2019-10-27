@@ -113,6 +113,7 @@ export default {
                     item['title'] = '债务情况' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.debtSituations.length;
             }
         }
     },

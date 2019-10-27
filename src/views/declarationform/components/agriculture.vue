@@ -138,6 +138,8 @@ export default {
                     item['title'] = '农机作业收入' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.incomeFarmMachineryWork.length;
+
             }
         }
     },

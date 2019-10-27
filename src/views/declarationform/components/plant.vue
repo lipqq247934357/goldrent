@@ -158,6 +158,7 @@ export default {
                     item['title'] = '种植类别' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.incomePlants.length;
                 if(this.incomePlants.length > 0)
                     this.plantRemark = this.incomePlants[this.incomePlants.length - 1].remark;
             }

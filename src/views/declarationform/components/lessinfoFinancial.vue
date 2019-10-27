@@ -139,6 +139,8 @@ export default {
                     item['title'] = '金融资产' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.assetsFinances.length;
+
             }
         }
     },
