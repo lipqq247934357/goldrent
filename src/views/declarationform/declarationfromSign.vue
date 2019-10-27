@@ -208,6 +208,7 @@
                         if (data[0].data.code === '2000000' && data[1].data.code === '2000000') {
                             this.$message.success('租赁要素保存成功');
                             setTimeout(()=>{
+                                this.$refs.lease.getData();
                                 activeName && this.initData(activeName);
                                 rent && leaseObj.rentTableInfo();
                             });
