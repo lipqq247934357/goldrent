@@ -668,7 +668,7 @@
                 <componentitle :message="message='收入情况'" class="componentitle"  v-if="item.partnerType == 'NAT'" />
                 <div class="IncomeDiv"  v-if="item.partnerType == 'NAT'">
                     <!-- 种植收入 -->
-                    <p class="tableTitle">种植收入</p>
+                    <p class="tableTitle">种植收入（如有）</p>
                     <plant ref="plant" :zzsr="warrantorDatas[index].incomePlants" :rulesField="rulesField" />
 
 
