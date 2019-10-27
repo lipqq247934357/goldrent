@@ -513,10 +513,10 @@
                 <p class="tableTitle"> 点击保存后才能上传影像资料</p>
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
-                    v-show="index == imgIndex">
-                    {{index}} {{imgIndex}}
-                    <div v-if="imgFile">
-                        <template v-for="(value,indexs) in imgFile">
+                    v-show="item.id == imgTrees.custId">
+                    {{item.id}} {{imgTrees.custId}}
+                    <div v-if="imgTrees.itemTree">
+                        <template v-for="(value,indexs) in imgTrees.itemTree">
                                 <h3>{{value.nodeName}}</h3>
                                 <ul>
                                     <imgUpload
@@ -524,7 +524,7 @@
                                         :disabled="type === 'detail'"
                                         :name="val"
                                         :bussNo="bussNo"
-                                        :relationId="relationId"
+                                        :relationId="item.id"
                                         :type="val.key"
                                         @handlePictureCardPreview="handlePictureCardPreview"/>
                                 </ul>
@@ -886,21 +886,30 @@ export default {
             this.$post('/buss/materialTree',{
                 bussNo: this.bussNo
             }).then(res => {
+
                 if(res.data.code == '2000000') {
                     if(res.data.data.leaseholder.length == '0') {
                         return;
                     }
-                    if(res.data.data.leaseholder[this.tabChange - 1].itemTree) {
-                        this.treeData = res.data.data.leaseholder;
-                        let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
-                        this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
-                        console.log(this.relationId);
-                        let tempArr = [];
-                        Object.keys(treeInfo).forEach((key) => {
-                            tempArr.push(treeInfo[key]);
-                        });
-                        this.imgFile = tempArr;
-                    }
+
+                    this.treeData = res.data.data.leaseholder;
+                    // res.data.data.leaseholder.forEach(function(item, index) {
+                    //     if(item.custId == this.relationId) {
+                    //         this.imgFile = item.itemTree;
+                    //     }
+                    // })
+
+                    // if(res.data.data.leaseholder[this.tabChange - 1].itemTree) {
+                    //     this.treeData = res.data.data.leaseholder;
+                    //     let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
+                    //     this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
+                    //     console.log(this.relationId);
+                    //     let tempArr = [];
+                    //     Object.keys(treeInfo).forEach((key) => {
+                    //         tempArr.push(treeInfo[key]);
+                    //     });
+                    //     this.imgFile = tempArr;
+                    // }
 
                 }
             });
