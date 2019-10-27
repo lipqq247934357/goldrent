@@ -680,6 +680,7 @@ export default {
         }
     },
     created() {
+        this.getData();
     },
     props: ['rulesField','bussNo'],
     mounted() {
