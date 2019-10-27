@@ -251,13 +251,11 @@
                         bussNo: this.bussNo,
                         data: data
                     }).then(res => {
-                        console.log(res,'保证人');
                         if (res.data.code === '2000000') {
-
-                            this.$refs.guarantor.getData(); // 调用详情接口
-                            this.$refs.guarantor.imgData(); // 调用
                             this.$message.success('保证人保存成功');
                             activeName && this.initData(activeName);
+                            this.$refs.guarantor.getData(); // 调用详情接口
+                            this.$refs.guarantor.imgData(); // 调用
                             resolve();
                         } else {
                             reject();
@@ -276,12 +274,13 @@
                     }).then(res => {
                         if (res.data.code === '2000000') {
                             this.$message.success('回购人保存成功');
-                            this.$refs.repurchase.getData();
-                            this.$refs.repurchase.imgData(); // 调用
+
                             setTimeout(()=>{
                                 activeName && this.initData(activeName);
 
                             });
+                            this.$refs.repurchase.getData();
+                            this.$refs.repurchase.imgData(); // 调用
                             resolve();
                         } else {
                             reject();

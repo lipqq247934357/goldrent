@@ -166,6 +166,12 @@ export default {
                         this.childrenTabs = this.childrenInfo.length + '';
                         //主要防止于添加的时候错误
                         this.tabChange = this.childIndex = this.childrenInfo.length;
+                        // 如果child.length === 0
+                        if(this.childrenInfo.length === 0){
+                            this.tabChange = 0;
+                            console.log(this.childrenInfo,this.tabChange);
+                            this.$emit('changeChildStatus');
+                        }
                     }
                 });
             }

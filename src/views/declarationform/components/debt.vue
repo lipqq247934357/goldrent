@@ -108,7 +108,6 @@ export default {
             if(newVal != undefined) {
                 this.debtSituations = this.zwqk;
                 this.debtSituations.forEach((item,index) => {
-                    console.log(index);
                     item['name'] = item.sortIndex + '';
                     item['title'] = '债务情况' + item.sortIndex;
                 });

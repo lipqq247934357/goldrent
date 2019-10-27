@@ -163,7 +163,6 @@ export default {
             if(newVal != undefined) {
                 this.assetsVehicles = this.zyc;
                 this.assetsVehicles.forEach((item,index) => {
-                    console.log(index);
                     item['name'] = item.sortIndex + '';
                     item['title'] = '自用车' + item.sortIndex;
                 });

@@ -78,6 +78,7 @@
         },
         methods: {
             async query() {
+                console.log(this.relationId);
                 if(this.relationId == undefined || this.relationId == '') {
                     return;
                 }

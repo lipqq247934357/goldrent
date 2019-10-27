@@ -13,7 +13,12 @@
         计算
     </el-button>
 
-    <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
+    <el-tabs
+        v-model="childrenTabs"
+        type="card"
+        closable
+        @tab-remove="removeTab"
+        @tab-click="changeTables">
         <el-tab-pane
             v-for="(item, index) of incomeFarmMachineryWork"
             :key="item.sortIndex + ''"
@@ -133,7 +138,6 @@ export default {
             if(newVal != undefined) {
                 this.incomeFarmMachineryWork = this.njzysr;
                 this.incomeFarmMachineryWork.forEach((item,index) => {
-                    console.log(index);
                     item['name'] = item.sortIndex + '';
                     item['title'] = '农机作业收入' + item.sortIndex;
                 });

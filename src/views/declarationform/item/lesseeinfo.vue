@@ -382,11 +382,11 @@
                     <debt ref="debt" :zwqk="naturalData[index].debtSituations" :rulesField="rulesField" />
 
                     <!-- 对外担保 -->
-                    <p class="tableTitle">对外担保</p>
+                    <p class="tableTitle">对外担保（如有）</p>
                     <guarantee ref="guarantee" :dwdb="naturalData[index].debtGuarantees" :rulesField="rulesField" />
 
                     <!-- 其他负债 -->
-                    <p class="tableTitle">其他负债</p>
+                    <p class="tableTitle">其他负债（如有）</p>
                     <otherLiabilities :qtfz="naturalData[index].debtOthers" ref="otherLiabilities" :rulesField="rulesField" />
 
                 </div>

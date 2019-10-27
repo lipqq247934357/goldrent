@@ -153,7 +153,6 @@ export default {
             if(newVal != undefined) {
                 this.incomePlants = this.zzsr;
                 this.incomePlants.forEach((item,index) => {
-                    console.log(index);
                     item['name'] = item.sortIndex + '';
                     item['title'] = '种植类别' + item.sortIndex;
                 });

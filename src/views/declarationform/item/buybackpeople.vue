@@ -145,14 +145,14 @@
                     <tr>
                         <td>债务种类</td>
                         <td>
-                            <el-input type="text" v-model="item.debtInfo[0].debtType" class="inputLessinfo">
+                            <el-input type="text" v-model="item.debtInfo[index].debtType" class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>债务余额</td>
                         <td>
                             <el-input-number
                                 class="inputLessinfo"
-                                v-model="item.debtInfo[0].debtBalance"
+                                v-model="item.debtInfo[index].debtBalance"
                                 :precision="2"
                                 :step="0.1"
                                 :min="0.00"
@@ -168,7 +168,7 @@
                         <td>
                             <el-input-number
                                 class="inputLessinfo"
-                                v-model="item.debtInfo[0].guaranteeBalance"
+                                v-model="item.debtInfo[index].guaranteeBalance"
                                 :precision="2"
                                 :step="0.1"
                                 :min="0.00"
@@ -180,7 +180,7 @@
                         </td>
                         <td>被担保人</td>
                         <td>
-                            <el-input type="text" v-model="item.debtInfo[0].warrantee" class="inputLessinfo">
+                            <el-input type="text" v-model="item.debtInfo[index].warrantee" class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
@@ -194,7 +194,7 @@
                                 placeholder="请输入内容"
                                 maxlength="500"
                                 show-word-limit
-                                v-model="item.debtInfo[0].remark">
+                                v-model="item.debtInfo[index].remark">
                             </el-input>
                         </td>
                     </tr>
@@ -204,12 +204,12 @@
                     <tr>
                         <td>回购方实际控制人</td>
                         <td>
-                            <el-input type="text" v-model="item.debtInfo[1].personName" class="inputLessinfo">
+                            <el-input type="text" v-model="item.debtInfo[index].personName" class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>债务种类</td>
                         <td>
-                            <el-input type="text" v-model="item.debtInfo[1].debtType" class="inputLessinfo">
+                            <el-input type="text" v-model="item.debtInfo[index].debtType" class="inputLessinfo">
                             </el-input>
 
                         </td>
@@ -219,7 +219,7 @@
                         <td>
                             <el-input-number
                                 class="inputLessinfo"
-                                v-model="item.debtInfo[1].debtBalance"
+                                v-model="item.debtInfo[index].debtBalance"
                                 :precision="2"
                                 :step="0.1"
                                 :min="0.00"
@@ -272,9 +272,7 @@
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
                     v-show="item.basicInfo.id == imgTrees.custId">
-
                     <div v-if="imgTrees.itemTree">
-
                         <template v-for="(value,indexs) in imgTrees.itemTree">
                                 <h3>{{value.nodeName}}</h3>
                                 <ul>
@@ -283,7 +281,7 @@
                                         :disabled="type === 'detail'"
                                         :name="val"
                                         :bussNo="bussNo"
-                                        :relationId="item.id"
+                                        :relationId="item.basicInfo.id"
                                         :type="val.key"
                                         @handlePictureCardPreview="handlePictureCardPreview"/>
                                 </ul>
@@ -388,6 +386,7 @@ export default {
     },
     props: ['rulesField','bussNo'],
     mounted() {
+
     },
     methods: {
         // 电话校验
@@ -408,8 +407,32 @@ export default {
             }).then(res => {
                 if(res.data.code == '2000000') {
                     if(res.data.data.length != '0') {
-                        res.data.data.forEach(function(item,index) {
-                            if(item.debtInfo) {
+                        this.legalMan = res.data.data;
+                        this.legalMan.forEach(function(item,index) {
+                            if(!item.debtInfo) {
+                                item.debtInfo = [
+                                    {
+                                        id: '',//	数据ID(修改时不为空)	String
+                                        repurchaseType: '',//	回购人类型1:回购人 2:回购方实际控制人String
+                                        personName: '',//	姓名	String
+                                        debtType: '',//	债务种类	String
+                                        debtBalance: '',//	债务余额	double
+                                        warrantee: '',//	被担保人	String
+                                        guaranteeBalance: '',//	担保余额	double
+                                        remark: '',//	备注	String
+                                    },
+                                    {
+                                        id: '',//	数据ID(修改时不为空)	String
+                                        repurchaseType: '',//	回购人类型1:回购人 2:回购方实际控制人String
+                                        personName: '',//	姓名	String
+                                        debtType: '',//	债务种类	String
+                                        debtBalance: '',//	债务余额	double
+                                        warrantee: '',//	被担保人	String
+                                        guaranteeBalance: '',//	担保余额	double
+                                        remark: '',//	备注	String
+                                    }];
+                            }
+                            if(item.debtInfo || item.basicInfo) {
                                 this.legalMan = res.data.data;
                                 item['name'] = index + 1 + '';
                                 item['title'] = "回购人" + parseInt(index + 1);
@@ -527,7 +550,6 @@ export default {
                         return;
                     }
                     this.treeData = res.data.data.repurchase;
-                    console.log(this.treeData);
                     // this.treeData = res.data.data.repurchase;
                     // let treeInfo = res.data.data.repurchase[this.tabChange - 1].itemTree;
                     // this.relationId = res.data.data.repurchase[this.tabChange - 1].custId;

@@ -648,11 +648,11 @@
                     <debt ref="debt" :zwqk="warrantorDatas[index].debtSituations" :rulesField="rulesField" />
 
                     <!-- 对外担保 -->
-                    <p class="tableTitle">对外担保</p>
+                    <p class="tableTitle">对外担保（如有）</p>
                     <guarantee ref="guarantee" :dwdb="warrantorDatas[index].debtGuarantees" :rulesField="rulesField" />
 
                     <!-- 其他负债 -->
-                    <p class="tableTitle">其他负债</p>
+                    <p class="tableTitle">其他负债（如有）</p>
                     <otherLiabilities ref="otherLiabilities" :qtfz="warrantorDatas[index].debtOthers" :rulesField="rulesField" />
 
                 </div>
@@ -884,11 +884,12 @@ export default {
             }).then(res => {
                 if(res.data.code == '2000000') {
                     if(res.data.data.warrantorData.length != '0') {
+                        this.warrantorDatas = res.data.data.warrantorData;
+                        console.log(res.data.data.warrantorData,'<<<<:::::::');
                         this.warrantorDatas.forEach(function(item,index) {
                             item.sortIndex = index + 1;
                             item['name'] = item.sortIndex + '';
                             item['title'] = "保证人" + item.sortIndex;
-                            console.log(item);
                         });
                     }
                 }
