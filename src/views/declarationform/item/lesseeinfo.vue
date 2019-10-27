@@ -514,7 +514,6 @@
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
                     v-show="item.id == imgTrees.custId">
-                    {{item.id}} {{imgTrees.custId}}
                     <div v-if="imgTrees.itemTree">
                         <template v-for="(value,indexs) in imgTrees.itemTree">
                                 <h3>{{value.nodeName}}</h3>

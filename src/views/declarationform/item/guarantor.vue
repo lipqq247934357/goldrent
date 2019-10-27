@@ -68,7 +68,7 @@
                     <tr>
                         <td>身份证号码</td>
                         <td>
-                            <el-input @change="idNumber" type="text" maxlength="18" class="inputLessinfo" v-model="item.certNo">
+                            <el-input @change="idNumberType(item)" type="text" maxlength="18" class="inputLessinfo" v-model="item.certNo">
                             </el-input>
                         </td>
                         <td>微信</td>
@@ -524,7 +524,7 @@
                     <tr>
                         <td>身份证号码</td>
                         <td>
-                            <el-input @change="idNumberType" type="text" maxlength="18" class="inputLessinfo" v-model="mateinfoTbale.certNo">
+                            <el-input @change="idNumberType(mateinfoTbale)" type="text" maxlength="18" class="inputLessinfo" v-model="mateinfoTbale.certNo">
                             </el-input>
                         </td>
                         <td>微信</td>
@@ -674,9 +674,9 @@
                 <p class="tableTitle"> 点击保存后才能上传影像资料</p>
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
-                    v-show="index == imgIndex">
-                    <div v-if="imgFile">
-                        <template v-for="(value,indexs) in imgFile">
+                    v-show="item.id == imgTrees.custId">
+                    <div v-if="imgTrees.itemTree">
+                        <template v-for="(value,indexs) in imgTrees.itemTree">
                                 <h3>{{value.nodeName}}</h3>
                                 <ul>
                                     <imgUpload
@@ -684,7 +684,7 @@
                                         :disabled="type === 'detail'"
                                         :name="val"
                                         :bussNo="bussNo"
-                                        :relationId="relationId"
+                                        :relationId="item.id"
                                         :type="val.key"
                                         @handlePictureCardPreview="handlePictureCardPreview"/>
                                 </ul>
@@ -1276,7 +1276,7 @@ export default {
             // this.warrantorDatas[nowIndex].custAge = idcontent.Age;
         },
         idNumberType(val) {
-            let idcontent = this.$idCard.IDcode(val);
+            let idcontent = this.$idCard.IDcode(val.certNo);
             if(idcontent.Status == false) {
                 this.$message.error(idcontent.msg);
             }
@@ -1286,10 +1286,9 @@ export default {
             } else {
                 idcontent.Sex = "F";
             }
-            let nowIndex = this.tabChange - 1;
 
-            this.warrantorDatas[nowIndex].mateInfo[0].custSex = idcontent.Sex;
-            this.warrantorDatas[nowIndex].mateInfo[0].custAge = idcontent.Age;
+            val.custSex = idcontent.Sex;
+            val.custAge = idcontent.Age;
         },
         // 是否有子女
         childChange(val) {
@@ -1416,14 +1415,14 @@ export default {
                         return;
                     }
                     this.treeData = res.data.data.guarantor;
-                    let treeInfo = res.data.data.guarantor[this.tabChange - 1].itemTree;
-                    this.relationId = res.data.data.guarantor[this.tabChange - 1].custId;
-                    console.log(this.relationId);
-                    let tempArr = [];
-                    Object.keys(treeInfo).forEach((key) => {
-                        tempArr.push(treeInfo[key]);
-                    });
-                    this.imgFile = tempArr;
+                    // let treeInfo = res.data.data.guarantor[this.tabChange - 1].itemTree;
+                    // this.relationId = res.data.data.guarantor[this.tabChange - 1].custId;
+                    // console.log(this.relationId);
+                    // let tempArr = [];
+                    // Object.keys(treeInfo).forEach((key) => {
+                    //     tempArr.push(treeInfo[key]);
+                    // });
+                    // this.imgFile = tempArr;
                 }
             });
         },
