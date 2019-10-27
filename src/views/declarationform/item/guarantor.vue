@@ -297,11 +297,18 @@
                     <tr>
                         <td>企业性质</td>
                         <td>
-                            <el-input
-                                type="text"
-                                v-model="item.comNature"
-                                class="inputLessinfo">
-                            </el-input>
+                            <el-select
+                                    v-model="item.comNature"
+                                    clearable
+                                    class="inputLessinfo"
+                                    placeholder="请选择">
+                                <el-option
+                                        v-for="items in rulesField.comNature"
+                                        :key="items.optionCode"
+                                        :label="items.optionName"
+                                        :value="items.optionCode">
+                                </el-option>
+                            </el-select>
                         </td>
 
                         <td>所属行业</td>
@@ -661,7 +668,7 @@
                 <componentitle :message="message='收入情况'" class="componentitle"  v-if="item.partnerType == 'NAT'" />
                 <div class="IncomeDiv"  v-if="item.partnerType == 'NAT'">
                     <!-- 种植收入 -->
-                    <p class="tableTitle">种植收入</p>
+                    <p class="tableTitle">种植收入（如有）</p>
                     <plant ref="plant" :zzsr="warrantorDatas[index].incomePlants" :rulesField="rulesField" />
 
 
