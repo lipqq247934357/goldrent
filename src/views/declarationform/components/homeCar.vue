@@ -74,7 +74,7 @@
                     <td>
                         <el-input-number
                                 :min="0.00"
-                                :disabled="amountStatus"
+                                :disabled="item.invoice == 'N' || item.invoice == ''"
                                 :precision="2"
                                 :step="0.1"
                                 class="inputLessinfo"
