@@ -143,6 +143,7 @@ export default {
                     item['title'] = '土地' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.assetsLands.length;
             }
         }
     },

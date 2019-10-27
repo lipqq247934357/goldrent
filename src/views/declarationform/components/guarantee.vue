@@ -109,6 +109,7 @@ export default {
                     item['title'] = '对外担保' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.debtGuarantees.length;
             }
         }
     },

@@ -131,6 +131,7 @@ export default {
                     item['title'] = '其他资产' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.assetsOthers.length;
             }
         }
     },

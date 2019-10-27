@@ -151,6 +151,7 @@ export default {
                     item['title'] = '农机具' + item.sortIndex;
                 });
                 this.childrenTabs = '1';
+                this.childIndex = this.assetsFarmTools.length;
             }
         }
     },

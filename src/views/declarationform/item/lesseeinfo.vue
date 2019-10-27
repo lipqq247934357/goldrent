@@ -68,7 +68,7 @@
                         <td>身份证号码</td>
                         <td>
                             <el-input
-                                @change="idNumber"
+                                @change="idNumberType(item)"
                                 type="text"
                                 maxlength="18"
                                 class="inputLessinfo"
@@ -244,7 +244,7 @@
                     <tr>
                         <td>身份证号码</td>
                         <td>
-                            <el-input @change="idNumberType" type="text" maxlength="18" class="inputLessinfo" v-model="mateinfoTbale.certNo">
+                            <el-input @change="idNumberType(mateinfoTbale)" type="text" maxlength="18" class="inputLessinfo" v-model="mateinfoTbale.certNo">
                             </el-input>
                         </td>
                         <td>申请地居住年限（年）</td>
@@ -513,10 +513,10 @@
                 <p class="tableTitle"> 点击保存后才能上传影像资料</p>
                 <div class="imgbox"
                     v-for="(imgTrees ,imgIndex) in treeData"
-                    v-show="index == imgIndex">
-                    {{index}} {{imgIndex}} {{imgTrees}}
-                    <div v-if="imgFile">
-                        <template v-for="(value,indexs) in imgFile">
+                    v-show="item.id == imgTrees.custId">
+                    {{item.id}} {{imgTrees.custId}}
+                    <div v-if="imgTrees.itemTree">
+                        <template v-for="(value,indexs) in imgTrees.itemTree">
                                 <h3>{{value.nodeName}}</h3>
                                 <ul>
                                     <imgUpload
@@ -524,7 +524,7 @@
                                         :disabled="type === 'detail'"
                                         :name="val"
                                         :bussNo="bussNo"
-                                        :relationId="relationId"
+                                        :relationId="item.id"
                                         :type="val.key"
                                         @handlePictureCardPreview="handlePictureCardPreview"/>
                                 </ul>
@@ -731,6 +731,7 @@ export default {
                                 }]
                             }
                         });
+                        this.tabIndex = res.data.data.naturalData.length;
                     }
                 }
             });
@@ -882,27 +883,36 @@ export default {
             //主要防止于添加的时候错误
             this.tabIndex = this.naturalData.length;
 
-            this.imgData();
+            this.tabChange--;
         },
         imgData() {
             this.$post('/buss/materialTree',{
                 bussNo: this.bussNo
             }).then(res => {
+
                 if(res.data.code == '2000000') {
                     if(res.data.data.leaseholder.length == '0') {
                         return;
                     }
-                    if(res.data.data.leaseholder[this.tabChange - 1].itemTree) {
-                        this.treeData = res.data.data.leaseholder;
-                        let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
-                        this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
-                        console.log(this.relationId);
-                        let tempArr = [];
-                        Object.keys(treeInfo).forEach((key) => {
-                            tempArr.push(treeInfo[key]);
-                        });
-                        this.imgFile = tempArr;
-                    }
+
+                    this.treeData = res.data.data.leaseholder;
+                    // res.data.data.leaseholder.forEach(function(item, index) {
+                    //     if(item.custId == this.relationId) {
+                    //         this.imgFile = item.itemTree;
+                    //     }
+                    // })
+
+                    // if(res.data.data.leaseholder[this.tabChange - 1].itemTree) {
+                    //     this.treeData = res.data.data.leaseholder;
+                    //     let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
+                    //     this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
+                    //     console.log(this.relationId);
+                    //     let tempArr = [];
+                    //     Object.keys(treeInfo).forEach((key) => {
+                    //         tempArr.push(treeInfo[key]);
+                    //     });
+                    //     this.imgFile = tempArr;
+                    // }
 
                 }
             });
@@ -1115,7 +1125,7 @@ export default {
             this.naturalData[nowIndex].custAge = idcontent.Age; // 赋值年龄
         },
         idNumberType(val) {
-            let idcontent = this.$idCard.IDcode(val);
+            let idcontent = this.$idCard.IDcode(val.certNo);
             if(idcontent.Status == false) {
                 this.$message.error(idcontent.msg);
             }
@@ -1125,11 +1135,15 @@ export default {
             } else {
                 idcontent.Sex = "F";
             }
-            let nowIndex = this.tabChange - 1;
-            setTimeout(function() {
-                this.naturalData[nowIndex].mateInfo[0].custSex = idcontent.Sex;
-                this.naturalData[nowIndex].mateInfo[0].custAge = idcontent.Age;
-            }.bind(this),100);
+
+            val.custSex = idcontent.Sex;
+            val.custAge = idcontent.Age;
+            // let nowIndex = this.tabChange - 1;
+            // console.log(this.naturalData[nowIndex].mateInfo,nowIndex);
+            // setTimeout(function() {
+            //     this.naturalData[nowIndex].mateInfo[0].custSex = idcontent.Sex;
+            //     this.naturalData[nowIndex].mateInfo[0].custAge = idcontent.Age;
+            // }.bind(this),100);
         },
 
         save(param) { // 保存页面或者下一步
