@@ -98,14 +98,23 @@
                                     type="text">
                                 处理
                             </el-button>
-                            <!--                            <el-button-->
-                            <!--                                    :disabled="lessinfobutton == 'N'"-->
-                            <!--                                    @click="lookClick(scope.row)"-->
-                            <!--                                    class="elmbutton"-->
-                            <!--                                    size="small"-->
-                            <!--                                    type="text">-->
-                            <!--                                查看-->
-                            <!--                            </el-button>-->
+                            <el-button
+                                    v-show="scope.row.actions.BTN_ABANDON"
+                                    :disabled="lessinfobutton == 'N'"
+                                    @click="stoPbusiness(scope.row)"
+                                    class="elmbutton"
+                                    size="small"
+                                    type="text">
+                                业务终止
+                            </el-button>
+                            <el-button
+                                :disabled="lessinfobutton == 'N'"
+                                @click="lookClick(scope.row)"
+                                class="elmbutton"
+                                size="small"
+                                type="text">
+                                详情
+                            </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -194,7 +203,8 @@
                 let sonresourceId = this.$route.query.idJurisdiction; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
                 this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
                     // 权限ajax
-                    this.lessinfobutton = res.data.data.info
+                    this.lessinfobutton = res.data.data.info;
+                    console.log(this.lessinfobutton);
                 });
             },
             handleSizeChange(val) {
@@ -218,13 +228,24 @@
             },
             lookClick(row) {
                 this.$router.push({
-                    path: '/layout/businessdetail',
+                    path: '/layout/declarationDetail',
                     query: {task_id: row.id, disabled: 1, bussNo: row.bussNo, arrangementtype: '5', writeOffFlag: 1}
                 });
             },
             // 新建报单按钮
             addnewForm() {
                 this.$router.push({path: '/layout/declarationfromSign'})
+            },
+            // 业务终止
+            stoPbusiness(row) {
+                this.$post('/buss/abandon',{
+                    bussNo: row.bussNo
+                }).then(res => {
+                    if(res.data.code == '2000000') {
+                        this.$message.success('业务终止成功');
+                        this.pages();
+                    }
+                });
             }
         },
     }

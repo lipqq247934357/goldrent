@@ -191,7 +191,12 @@ export default new Router({
                     path: 'declarationfromSign', // 报单各页签页
                     name: 'declarationfromSign',
                     component: () => import(  './views/declarationform/declarationfromSign.vue')
-                }
+                },
+                {
+                    path: 'declarationDetail', // 报单详情
+                    name: 'declarationDetail',
+                    component: () => import(  './views/declarationform/declarationDetail.vue')
+                },
             ]
         },
         {

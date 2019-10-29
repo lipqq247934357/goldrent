@@ -168,7 +168,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="assetsinfo" v-if="item.partnerType != 'LEG'">
+                    <div class="assetsinfo" v-if="item.partnerType == 'NAT'">
                         <div class="div0">
                             <ul class="infolist">
                                 <li>
@@ -1226,6 +1226,7 @@
                 });
             },
             setPlantExpDesc(data) {
+                console.log(data,'data');
                 if (!(data && data[0] && data[0].incomePlants)) {
                     return;
                 }
@@ -1240,7 +1241,7 @@
                     set.add('');
                 }
                 this.plantExpDesc = Array.from(set);
-                console.log(this.plantExpDesc);
+                // console.log(this.plantExpDesc,1111);
             },
             formatNumber
 

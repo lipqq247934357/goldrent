@@ -328,10 +328,9 @@ export default {
         },
         // 查询按钮
         search() {
+            this.currentPage2 = 1;
             this.loading = true;
             this.query();
-            this.currentPage2 = 1;
-
         }
     },
 }
