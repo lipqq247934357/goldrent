@@ -99,6 +99,14 @@
                                 处理
                             </el-button>
                             <el-button
+                                    :disabled="lessinfobutton == 'N'"
+                                    @click="copy(scope.row)"
+                                    class="elmbutton"
+                                    size="small"
+                                    type="text">
+                                复制订单
+                            </el-button>
+                            <el-button
                                     v-show="scope.row.actions.BTN_ABANDON"
                                     :disabled="lessinfobutton == 'N'"
                                     @click="stoPbusiness(scope.row)"
@@ -121,7 +129,7 @@
             </template>
 
             <!-- 分页 -->
-            <div class="block">
+            <!-- <div class="block">
                 <el-pagination
                         :current-page.sync="currentPage2"
                         :page-size="10"
@@ -131,7 +139,7 @@
                         @size-change="handleSizeChange"
                         layout="sizes, prev, pager, next">
                 </el-pagination>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -204,7 +212,6 @@
                 this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
                     // 权限ajax
                     this.lessinfobutton = res.data.data.info;
-                    console.log(this.lessinfobutton);
                 });
             },
             handleSizeChange(val) {
@@ -245,6 +252,18 @@
                         this.$message.success('业务终止成功');
                         this.pages();
                     }
+                });
+            },
+            copy(row) {
+                this.$post('/buss/cloneOrder',{
+                    bussNo: row.bussNo
+                }).then(res => {
+                    this.$router.push({
+                        path: '/layout/declarationfromSign',
+                        query: {
+                            bussNo: row.bussNo
+                        }
+                    });
                 });
             }
         },
