@@ -116,7 +116,6 @@ export default {
         },
         calculation() {
             for(let i = 0; i < this.incomeOthers.length; i++) {
-                console.log(this.incomeOthers[i].sortIndex,this.tabChange);
                 if(this.incomeOthers[i].sortIndex == this.tabChange) {
                     this.incomeOthers[i].surplus = this.incomeOthers[i].currYearIncome - this.incomeOthers[i].currYearPay;
 

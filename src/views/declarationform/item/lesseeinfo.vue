@@ -1431,7 +1431,7 @@ export default {
     }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .newfrom {
     .addbutton {
         margin: 10px 0;

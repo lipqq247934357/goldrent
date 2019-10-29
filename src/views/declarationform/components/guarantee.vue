@@ -104,7 +104,6 @@ export default {
             if(newVal != undefined) {
                 this.debtGuarantees = this.dwdb;
                 this.debtGuarantees.forEach((item,index) => {
-                    console.log(index);
                     item['name'] = item.sortIndex + '';
                     item['title'] = '对外担保' + item.sortIndex;
                 });

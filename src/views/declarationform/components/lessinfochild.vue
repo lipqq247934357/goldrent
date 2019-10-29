@@ -99,6 +99,12 @@ export default {
                 this.childrenInfo.forEach((item,index) => {
                     item['name'] = item.sortIndex + '';
                     item['title'] = '承租人子女' + item.sortIndex;
+                    if(item.custSex == 'F') {
+                        item.custSex = '女'
+                    }
+                    if(item.custSex == "M") {
+                        item.custSex = '男'
+                    }
                 });
                 this.childrenTabs = '1';
                 this.childIndex = this.sfyzn.length;
@@ -169,7 +175,6 @@ export default {
                         // 如果child.length === 0
                         if(this.childrenInfo.length === 0){
                             this.tabChange = 0;
-                            console.log(this.childrenInfo,this.tabChange);
                             this.$emit('changeChildStatus');
                         }
                     }
@@ -212,14 +217,12 @@ export default {
             // 如果child.length === 0
             if(this.childrenInfo.length === 0){
                 this.tabChange = 0;
-                console.log(this.childrenInfo,this.tabChange);
                 this.$emit('changeChildStatus');
             }
 
         },
         // 子女身份证号码校验
         idNumber(val) {
-            console.log(val);
             let idcodeCheck = this.$idCard.IDcode(val);
             let nowIndex = this.tabChange - 1;
             if(idcodeCheck.Status == false) {
@@ -227,12 +230,9 @@ export default {
                 return;
             }
             for(let i = 0; i < this.childrenInfo.length; i++) {
-                // console.log(this.childrenInfo[i].sortIndex,i);
-                console.log(this.childrenInfo[i].sortIndex,this.tabChange);
                 if(this.childrenInfo[i].sortIndex == this.tabChange) {
                     this.childrenInfo[i].custSex = idcodeCheck.Sex;
                     this.childrenInfo[i].custAge = idcodeCheck.Age;
-                    // console.log(this.childrenInfo[i])
                     break
                 }
             }
