@@ -297,6 +297,7 @@
                 this.pages();
             },
             queryclick() {
+                this.nowpage = 1;
                 this.pages();
                 this.currentPage2 = 1;
             },

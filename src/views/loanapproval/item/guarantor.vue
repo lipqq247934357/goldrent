@@ -168,7 +168,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="assetsinfo" v-if="item.partnerType != 'LEG'">
+                    <div class="assetsinfo" v-if="item.partnerType == 'NAT'">
                         <div class="div0">
                             <ul class="infolist">
                                 <li>
@@ -1240,6 +1240,7 @@
                     set.add('');
                 }
                 this.plantExpDesc = Array.from(set);
+                console.log(this.plantExpDesc);
             },
             formatNumber
 
