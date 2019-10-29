@@ -258,6 +258,7 @@
                 this.$post('/buss/cloneOrder',{
                     bussNo: row.bussNo
                 }).then(res => {
+                    this.$message.success('复制成功');
                     this.$router.push({
                         path: '/layout/declarationfromSign',
                         query: {
