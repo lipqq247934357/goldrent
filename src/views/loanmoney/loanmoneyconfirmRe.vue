@@ -314,7 +314,6 @@
                 });
             },
             batchloanconfirm() {
-                // console.log(this.bussNoarr);
                 if (this.bussNoarr == 0) {
                     this.$message.error('至少应该选择一条信息');
                     return;
@@ -370,7 +369,6 @@
 
                 }).then(res => {
                     this.submitStatus = false;
-                    // console.log(res);
                     if (res.data.code == '2000000') {
                         this.$message.success('批量放款成功');
                         setTimeout(function() {

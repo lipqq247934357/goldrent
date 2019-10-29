@@ -65,7 +65,6 @@
             },
             async handleRemove(file) { // 删除回调
                 let id = '';
-                console.log(file);
                 if (file.id) {
 
                     id = file.id;

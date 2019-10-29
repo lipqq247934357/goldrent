@@ -258,7 +258,6 @@ export default {
         },
         handleSuccess(file,e,filelist) {
             // 请求成功勾子
-            console.log(file);
             this.fileIndex = file.data.fileIndex;
         },
         edit(val) {

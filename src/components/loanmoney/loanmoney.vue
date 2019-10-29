@@ -156,7 +156,6 @@ export default {
 
         this.$get(`/LoanGrantOpinion/queryLoanGrantDetail?bussNo=${this.$route.query.bussNo}`).then(res => {
             if (res.data.code == '2000000') {
-                // console.log(res);
                 this.describewhy = res.data.data.reasonDescription;
                 if (this.describewhy) {// save之后进入页面，原因展示以前写的内容
                     this.saveStatus = true;
@@ -165,7 +164,6 @@ export default {
                 this.radio1 = res.data.data.approvalComments;
                 this.postFillDescription = res.data.data.supplementDesc;
                 this.textAreaChange = res.data.data.supplementDesc;
-                console.log(this.postFillDescription);
             }
         });
 

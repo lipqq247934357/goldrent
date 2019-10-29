@@ -173,7 +173,6 @@ export default {
             this.incomePlants.forEach((item,index) => {
                 if(index == a) {
                     item.surplus = (item.oneIncome - item.oneCost) * item.plantArea;
-                    console.log(item);
                 }
             });
         },

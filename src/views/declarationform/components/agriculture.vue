@@ -156,7 +156,6 @@ export default {
         calculation() {
 
             let a = this.tabChange - 1;
-            console.log(a);
             for(let i = 0; i < this.incomeFarmMachineryWork.length; i++) {
                 if(i == a) {
                     this.incomeFarmMachineryWork[i].surplus = (this.incomeFarmMachineryWork[i].oneIncome - this.incomeFarmMachineryWork[i].oneCost) * this.incomeFarmMachineryWork[i].plantArea;

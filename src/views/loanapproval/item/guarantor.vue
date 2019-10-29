@@ -1240,7 +1240,6 @@
                     set.add('');
                 }
                 this.plantExpDesc = Array.from(set);
-                console.log(this.plantExpDesc);
             },
             formatNumber
 
