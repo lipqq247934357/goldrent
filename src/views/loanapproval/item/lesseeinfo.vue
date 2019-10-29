@@ -1239,7 +1239,6 @@
                                         this.statuslist.custType = res.data.data.custType;
                                         this.statuslist.houseType = res.data.data.houseType;
                                         this.statuslist.custducation = res.data.data.custEducation
-                                        // console.log(this.statuslist.custducation);
                                     })
                                     return this.lesseeinfolist[i].partnerType;
                                 }

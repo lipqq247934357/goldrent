@@ -199,13 +199,11 @@ export default {
                   //   remark	备注	String
                   if(res.data.code == '2000000') {
                       this.backpeople = res.data.data;
-                      // console.log(this.backpeople[0].basicInfo);
                       for(let i = 0 ; i < this.backpeople.length ; i ++ ) {
                           if(this.backpeople[i].basicInfo.partnerType == null) {
                               // this.$message.error('回购人当前没有影像资料');
                               continue;
                           }
-                          // console.log(this.backpeople[i].basicInfo.partnerType,'<<<<<<');
                           return this.backpeople[i].basicInfo.partnerType;
                       }
                   }

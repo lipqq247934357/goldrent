@@ -88,7 +88,6 @@
             }
         },
         created() {
-            console.log(this.$route.query.loanmoneyOperation);
             this.tabType = this.$route.query.taskType;
             if(this.tabType == '40' || !this.tabType) {
                 this.list.loan = '贷款审批操作';

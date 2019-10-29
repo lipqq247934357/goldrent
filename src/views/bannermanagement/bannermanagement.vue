@@ -229,7 +229,6 @@ export default {
         },
         handleRemove(file, fileList) {
             // 文件列表移除文件时的钩子
-            // console.log(file, fileList);
         },
         handlePreview(file) {
             // console.log(file);

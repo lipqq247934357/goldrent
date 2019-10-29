@@ -1226,7 +1226,6 @@
                 });
             },
             setPlantExpDesc(data) {
-                console.log(data,'data');
                 if (!(data && data[0] && data[0].incomePlants)) {
                     return;
                 }
@@ -1241,7 +1240,7 @@
                     set.add('');
                 }
                 this.plantExpDesc = Array.from(set);
-                // console.log(this.plantExpDesc,1111);
+                console.log(this.plantExpDesc);
             },
             formatNumber
 

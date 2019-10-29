@@ -283,7 +283,6 @@
                 //     }
                 // }
                 if (res.data.code == '2000000') {
-                    console.log(res.data.data);
                     this.wantfactor = res.data.data;
                 }
             });

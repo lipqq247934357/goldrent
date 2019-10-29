@@ -279,7 +279,6 @@ export default {
                     'relationId': this.checkboxlist[i].relationId
                 }
                 this.checkList.push(a);
-                // console.log(this.checkList);
             }
         });
         this.textareinput(); //资深 上会 主任审批需要展示的内容

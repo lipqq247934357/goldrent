@@ -78,7 +78,6 @@
         },
         methods: {
             async query() {
-                console.log(this.relationId);
                 if(this.relationId == undefined || this.relationId == '') {
                     return;
                 }
@@ -94,7 +93,6 @@
                     let fileArr = []; // 文件对象
                     let imgIndex = ["png", "jpg", "jpeg", "gif", "webp", "bmp"];
                     data.data.data.forEach((val) => {
-                        // console.log(data);
                         let index = val.fileType.substring(1); // 文件名字
                         if (imgIndex.includes(index)) { // 是图片
                             imgArr.push({url: '/web/fileView?fileId=' + val.id,id:val.id});
