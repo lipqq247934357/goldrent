@@ -39,7 +39,7 @@
                     <td>性别</td>
                     <td>
                         <!-- <el-input type="text" v-model="item.naturalData.custSex" class="inputLessinfo"></el-input> -->
-                        {{item.custSex}}
+                        {{item.custSex == "M" ? "男" : item.custSex == "F" ? "女" : ''}}
                     </td>
                     <td>现住址</td>
                     <td>
@@ -99,12 +99,6 @@ export default {
                 this.childrenInfo.forEach((item,index) => {
                     item['name'] = item.sortIndex + '';
                     item['title'] = '承租人子女' + item.sortIndex;
-                    if(item.custSex == 'F') {
-                        item.custSex = '女'
-                    }
-                    if(item.custSex == "M") {
-                        item.custSex = '男'
-                    }
                 });
                 this.childrenTabs = '1';
                 this.childIndex = this.sfyzn.length;
