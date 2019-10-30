@@ -905,25 +905,44 @@ export default {
                 partnerSerial: this.matchingId
             }).then(res => {
                 if (res.data.code == '2000000') {
-                    console.log(res.data.data.natureMan,'res.data.data.natureMan');
-                    let obj = {...this.naturalData[index],...res.data.data.natureMan,id:''};
-                    obj.sortIndex = index+1;
-                    console.log(obj,'obj');
-                    this.naturalData.splice(index,1,obj);
-                    setTimeout(()=>{
-                        this.$emit("saveData");
-                    },150);
-                    setTimeout(()=>{
-                        // 获取url上是否有单号
-                        let bussNo = this.$route.query.bussNo;
-                        // 如果没有就拼上，否则就是直接刷新
-                        if(!bussNo){
-                            window.location.href = window.location.href + '?bussNo=' + this.bussNo;
+                    if(res.data.data.natureMan === undefined){ // 如果data是空的，直接提示内容为空
+                        this.$message.alert('无对应信息');
+                    } else {
+                        if(this.naturalData[index].id) {
+                            debugger;
+                            this.$post('/data/del',{
+                                id: this.naturalData[index].id,
+                                type: 'custNature'
+                            }).then(res2 => {
+                                if(res2.data.code =='2000000') {
+                                    this.addMatch(res,index);
+                                }
+                            });
+                        }else{
+                            this.addMatch(res,index);
                         }
-                        window.location.reload();
-                    },3000);
+                    }
                 }
             });
+        },
+        addMatch(res,index){
+            console.log(res.data.data.natureMan,'res.data.data.natureMan');
+            let obj = {...this.naturalData[index],...res.data.data.natureMan,id:''};
+            obj.sortIndex = index+1;
+            console.log(obj,'obj');
+            this.naturalData.splice(index,1,obj);
+            setTimeout(()=>{
+                this.$emit("saveData");
+            },150);
+            setTimeout(()=>{
+                // 获取url上是否有单号
+                let bussNo = this.$route.query.bussNo;
+                // 如果没有就拼上，否则就是直接刷新
+                if(!bussNo){
+                    window.location.href = window.location.href + '?bussNo=' + this.bussNo;
+                }
+                window.location.reload();
+            },3000);
         },
         // 联系电话关联微信号
         phoneChange(val) {
