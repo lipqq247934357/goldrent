@@ -938,7 +938,7 @@ export default {
             });
             setTimeout(()=>{
                 this.$emit("saveData");
-            },150);
+            },500);
             setTimeout(()=>{
                 // 获取url上是否有单号
                 let bussNo = this.$route.query.bussNo;
