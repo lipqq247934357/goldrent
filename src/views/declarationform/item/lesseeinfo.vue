@@ -350,7 +350,6 @@
                 <div class="assetsAll">
                     <!-- 房产 -->
                     <p class="tableTitle">房产（如有）</p>
-                    {{naturalData[index].assetsHouses}}
                     <assets ref="house" :fc="naturalData[index].assetsHouses" :rulesField="rulesField" />
 
                     <!-- 土地（含代收代耕）（如有） -->
@@ -587,7 +586,7 @@ export default {
             message: '', //title
             maritalStatus: '',
             editableTabsValue: '1',
-            matchingId: '110101199003071006', // 匹配按钮的身份证号
+            matchingId: '', // 匹配按钮的身份证号
             otherData: [],//用来储存naturalData 承租人数组数据，因为删除页签之后会出现问题
             naturalData: [{
                 title: '承租人1',
@@ -911,7 +910,18 @@ export default {
                     obj.sortIndex = index+1;
                     console.log(obj,'obj');
                     this.naturalData.splice(index,1,obj);
-                    this.$emit("saveData");
+                    setTimeout(()=>{
+                        this.$emit("saveData");
+                    },150);
+                    setTimeout(()=>{
+                        // 获取url上是否有单号
+                        let bussNo = this.$route.query.bussNo;
+                        // 如果没有就拼上，否则就是直接刷新
+                        if(!bussNo){
+                            window.location.href = window.location.href + '?bussNo=' + this.bussNo;
+                        }
+                        window.location.reload();
+                    },3000);
                 }
             });
         },

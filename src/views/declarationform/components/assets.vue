@@ -5,7 +5,6 @@
             添加房产
         </el-button>
     </div>
-    {{assetsHouses}}
     <el-tabs v-model="childrenTabs" type="card" closable @tab-remove="removeTab">
         <el-tab-pane
             v-for="(item, index) of assetsHouses"
