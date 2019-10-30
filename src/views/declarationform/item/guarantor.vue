@@ -1242,7 +1242,7 @@ export default {
                     window.location.href = window.location.href + '?bussNo=' + this.bussNo;
                 }
                 window.location.reload();
-            },3000);
+            },5000);
         },
         // 联系电话关联微信号
         phoneChange(val) {

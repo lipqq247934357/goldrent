@@ -614,7 +614,7 @@ export default {
                     window.location.href = window.location.href + '?bussNo=' + this.bussNo;
                 }
                 window.location.reload();
-            },3000);
+            },5000);
         },
 
         // 页签切换
