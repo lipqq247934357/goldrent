@@ -8,11 +8,9 @@
         </div>
         <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
             <el-tab-pane v-for="(item, index) of naturalData" :key="item.name" :label="item.title" :name="item.name">
-                <!-- <div class="matchingDiv"> -->
-
-                    <!-- 暂时不做等下一期 -->
-
-                    <!-- <div class="matchingText">
+                <div class="matchingDiv">
+                    <!--  匹配订单  -->
+                    <div class="matchingText">
                         商业伙伴类型
                     </div>
                     <div class="matchingText">
@@ -22,14 +20,14 @@
                         身份证号码
                     </div>
                     <div class="matchingText matchId">
-                        <el-input v-model="item.matchingId" maxlength="18" class="matchingId" placeholder="请输入身份证号">
+                        <el-input v-model="matchingId" maxlength="18" class="matchingId" placeholder="请输入身份证号">
                         </el-input>
                     </div>
-                    <el-button type="primary" size="medium" @click="handleMatching" class="matchingButton">
+                    <el-button type="primary" size="medium" @click="handleMatching(index)" class="matchingButton">
                         匹配信息
-                    </el-button> -->
-                <!-- </div> -->
-                <!-- 基本信息 -->
+                    </el-button>
+                </div>
+                基本信息
 
                 <componentitle :message="message='基本信息'" class="componentitle" />
                 <div class="tableTitle">
@@ -352,6 +350,7 @@
                 <div class="assetsAll">
                     <!-- 房产 -->
                     <p class="tableTitle">房产（如有）</p>
+                    {{naturalData[index].assetsHouses}}
                     <assets ref="house" :fc="naturalData[index].assetsHouses" :rulesField="rulesField" />
 
                     <!-- 土地（含代收代耕）（如有） -->
@@ -588,7 +587,7 @@ export default {
             message: '', //title
             maritalStatus: '',
             editableTabsValue: '1',
-            matchingId: '', // 匹配按钮的身份证号
+            matchingId: '110101199003071006', // 匹配按钮的身份证号
             otherData: [],//用来储存naturalData 承租人数组数据，因为删除页签之后会出现问题
             naturalData: [{
                 title: '承租人1',
@@ -739,7 +738,6 @@ export default {
         },
         handlePictureCardPreview(file) { // 图片浏览功能
             this.dialogImageUrl = file.url;
-
             this.dialogVisible = true;
         },
         addTab(targetName) {
@@ -890,38 +888,32 @@ export default {
             this.$post('/buss/materialTree',{
                 bussNo: this.bussNo
             }).then(res => {
-
                 if(res.data.code == '2000000') {
                     if(res.data.data.leaseholder.length == '0') {
                         return;
                     }
-
                     this.treeData = res.data.data.leaseholder;
-                    // res.data.data.leaseholder.forEach(function(item, index) {
-                    //     if(item.custId == this.relationId) {
-                    //         this.imgFile = item.itemTree;
-                    //     }
-                    // })
-
-                    // if(res.data.data.leaseholder[this.tabChange - 1].itemTree) {
-                    //     this.treeData = res.data.data.leaseholder;
-                    //     let treeInfo = res.data.data.leaseholder[this.tabChange - 1].itemTree;
-                    //     this.relationId = res.data.data.leaseholder[this.tabChange - 1].custId;
-                    //     console.log(this.relationId);
-                    //     let tempArr = [];
-                    //     Object.keys(treeInfo).forEach((key) => {
-                    //         tempArr.push(treeInfo[key]);
-                    //     });
-                    //     this.imgFile = tempArr;
-                    // }
-
                 }
             });
         },
 
         // 匹配信息按钮
-        handleMatching() {
-
+        handleMatching(index) {
+            // 主办人
+            this.$post('/bussPartner/info', {
+                bussType:'CZ',
+                partnerType: 'NAT',
+                partnerSerial: this.matchingId
+            }).then(res => {
+                if (res.data.code == '2000000') {
+                    console.log(res.data.data.natureMan,'res.data.data.natureMan');
+                    let obj = {...this.naturalData[index],...res.data.data.natureMan,id:''};
+                    obj.sortIndex = index+1;
+                    console.log(obj,'obj');
+                    this.naturalData.splice(index,1,obj);
+                    this.$emit("saveData");
+                }
+            });
         },
         // 联系电话关联微信号
         phoneChange(val) {
