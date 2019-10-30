@@ -8,27 +8,26 @@
         </div>
         <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="changeTables">
             <el-tab-pane v-for="(item, index) of legalMan" :key="item.name" :label="item.title" :name="item.name">
-                <!-- <div class="matchingDiv"> -->
 
-                    <!-- 暂时不做等下一期 -->
+                 <div class="matchingDiv">
 
-                    <!-- <div class="matchingText">
+                    <div class="matchingText">
                         商业伙伴类型
                     </div>
                     <div class="matchingText">
                         法人机构
                     </div>
-                    <div class="matchingText" style="width: 20%;">
+                    <div class="matchingText" style="width: 25%;">
                         统一社会信用代码或回购人名称
                     </div>
                     <div class="matchingText matchId">
-                        <el-input v-model="item.matchingId" maxlength="18" class="matchingId" placeholder="请输入身份证号">
+                        <el-input v-model="item.matchingId" maxlength="18" class="matchingId" placeholder="请输入统一社会信用代码或回购人名称">
                         </el-input>
                     </div>
-                    <el-button type="primary" size="medium" @click="handleMatching" class="matchingButton">
+                    <el-button type="primary" size="medium" @click="handleMatching(item,index)" class="matchingButton">
                         匹配信息
-                    </el-button> -->
-                <!-- </div> -->
+                    </el-button>
+                 </div>
                 <!-- 基本信息 -->
 
                 <componentitle :message="message='基本信息'" class="componentitle" />
@@ -564,9 +563,58 @@ export default {
             });
         },
 
-        // 匹配信息按钮
-        handleMatching() {
-
+// 匹配信息按钮
+        handleMatching(item,index) {
+            // 主办人
+            this.$post('/bussPartner/info', {
+                bussType:'HG',
+                partnerType: 'LEG',
+                partnerSerial: item.matchingId
+            }).then(res => {
+                if (res.data.code == '2000000') {
+                    if(res.data.data.repoMan === undefined){ // 如果data是空的，直接提示内容为空
+                        this.$message.error('无对应信息');
+                    } else {
+                        if(this.legalMan[index].id) {
+                            this.$post('/data/del',{
+                                id: this.legalMan[index].id,
+                                type: 'custLegal'
+                            }).then(res2 => {
+                                if(res2.data.code =='2000000') {
+                                    this.addMatch(res,index);
+                                }
+                            });
+                        }else{
+                            this.addMatch(res,index);
+                        }
+                    }
+                }
+            });
+        },
+        addMatch(res,index){
+            console.log(res.data.data.repoMan,'res.data.data.repoMan');
+            let obj = {...this.legalMan[index],...res.data.data.repoMan,id:''};
+            obj.sortIndex = index+1;
+            console.log(obj,'obj');
+            this.legalMan.splice(index,1,obj);
+            const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            });
+            setTimeout(()=>{
+                this.$emit("saveData");
+            },150);
+            setTimeout(()=>{
+                // 获取url上是否有单号
+                let bussNo = this.$route.query.bussNo;
+                // 如果没有就拼上，否则就是直接刷新
+                if(!bussNo){
+                    window.location.href = window.location.href + '?bussNo=' + this.bussNo;
+                }
+                window.location.reload();
+            },3000);
         },
 
         // 页签切换

@@ -28,16 +28,16 @@
                             </el-option>
                         </el-select>
                     </div>
-                    <!-- <div class="matchingText">
-                        身份证号码
+                    <div class="matchingText" style="width: 25%;">
+                        {{item.partnerType === "NAT"?"身份证号码":"统一社会信用代码或法人名称" }}
                     </div>
                     <div class="matchingText matchId">
                         <el-input v-model="item.matchingId" maxlength="18" class="matchingId" placeholder="请输入身份证号">
                         </el-input>
-                    </div> -->
-                    <!-- <el-button type="primary" size="medium" @click="handleMatching" class="matchingButton">
+                    </div>
+                    <el-button type="primary" size="medium" @click="handleMatching(item,index)" class="matchingButton">
                         匹配信息
-                    </el-button> -->
+                    </el-button>
                 </div>
                 <!-- 基本信息 -->
 
@@ -881,7 +881,6 @@ export default {
             return time.getTime() < new Date(this.warrantorDatas[this.tabChange -1].certStartDate);
         },
 
-
         getData() {
             this.$post('/warrantor/info',{
                 bussNo: this.bussNo,
@@ -996,7 +995,6 @@ export default {
             };
             if(val == 'LEG') {
                 this.$set(this.warrantorDatas,this.tabChange - 1,b);
-
             } else {
                 this.$set(this.warrantorDatas,this.tabChange - 1,a)
             }
@@ -1190,8 +1188,61 @@ export default {
             }
         },
         // 匹配信息按钮
-        handleMatching() {
-
+        handleMatching(item, index) {
+            let partnerType = item.partnerType;
+            this.$post('/bussPartner/info', {
+                bussType:'BZ',
+                partnerType: partnerType,
+                partnerSerial: item.matchingId
+            }).then(res => {
+                if (res.data.code == '2000000') {
+                    if(res.data.data.natureMan === undefined && res.data.data.legalMan === undefined){ // 如果data是空的，直接提示内容为空
+                        this.$message.error('无对应信息');
+                    } else {
+                        // 删除tabs
+                        if(this.warrantorDatas[index].id && this.warrantorDatas[index].partnerType == "NAT") { // 如果是旧的订单并且是自然人
+                            this.$post('/data/del',{
+                                id: this.warrantorDatas[index].id,
+                                type: 'custNature'
+                            }).then(res => {
+                                if(res.data.code =='2000000') {
+                                    this.addMatch(res,index,partnerType);
+                                }
+                            });
+                        }else{
+                            this.addMatch(res,index,partnerType);
+                        }
+                    }
+                }
+            });
+        },
+        addMatch(res,index,partnerType){
+            let obj = {};
+            if(partnerType === 'NAT'){ // 自然人
+                obj = {...this.warrantorDatas[index],...res.data.data.natureMan,id:''};
+            }else {
+                obj = {...this.warrantorDatass[index],...res.data.data.legalMan,id:''};
+            }
+            obj.sortIndex = index+1;
+            this.warrantorDatas.splice(index,1,obj);
+            const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            });
+            setTimeout(()=>{
+                this.$emit("saveData");
+            },150);
+            setTimeout(()=>{
+                // 获取url上是否有单号
+                let bussNo = this.$route.query.bussNo;
+                // 如果没有就拼上，否则就是直接刷新
+                if(!bussNo){
+                    window.location.href = window.location.href + '?bussNo=' + this.bussNo;
+                }
+                window.location.reload();
+            },3000);
         },
         // 联系电话关联微信号
         phoneChange(val) {
