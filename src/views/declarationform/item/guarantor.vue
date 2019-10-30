@@ -187,7 +187,7 @@
                                 v-model="item.custMarriage"
                                 class="inputLessinfo"
                                 clearable
-                                @change="custMarriageChange"
+                                @change="custMarriageChange(item)"
                                 placeholder="请选择">
                                 <el-option
                                     v-for="items in rulesField.custMarriage"
@@ -814,6 +814,7 @@ export default {
                 custMobile: '', // 电话
                 company: '',//工作单位
                 identityType: '',// 身份类型
+                otherwifeType: '',
                 mateInfo: [{
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
@@ -893,6 +894,7 @@ export default {
                             item.sortIndex = index + 1;
                             item['name'] = item.sortIndex + '';
                             item['title'] = "保证人" + item.sortIndex;
+                            item.otherwifeType = item.custMarriage;
                         });
                         this.imgData();
                         this.tabIndex = res.data.data.warrantorData.length;
@@ -927,6 +929,7 @@ export default {
                 custMobile: '', // 电话
                 company: '',//工作单位
                 identityType: '',// 身份类型
+                otherwifeType: '',
                 mateInfo: [{
                     certNo: '', //身份证号码
                     residenceYears: '', //申请地居住年限
@@ -1249,52 +1252,58 @@ export default {
             }
         },
         // 婚姻状况切换
-        custMarriageChange(val) {
-            if(this.tabIndex == this.tabChange) {
-                let infowifi = [{
-                    certNo: '', //身份证号码
-                    residenceYears: '', //申请地居住年限
-                    custSex: '', // 性别
-                    cultureYears: '', //种植年限
-                    custName: '', //承租人信息姓名
-                    custEducation: '', //存储选中的教育程度
-                    custType: '', //存储选中的客户类别
-                    hasChildren: '', //存储选中的是否有子女
-                    hasCreditReport: '', //存储选中的征信报告
-                    custMarriage: '', //存储选中的婚姻状况
-                    marriageSettlement: '', //存储选中的离婚协议
-                    custHomeplace: '', // 户籍地址
-                    custAddress: '', //现住址
-                    custAge: '', //年龄
-                    custWechat: '', // 微信
-                    custMobile: '', // 电话
-                }];
-                if(this.maritalStatus == 'married') {
-                    this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
-                      confirmButtonText: '确定',
-                      cancelButtonText: '取消',
-                      type: 'warning'
-                    }).then(() => {
-                      this.$message({
-                        type: 'success',
-                        message: '删除成功!'
+        custMarriageChange(itemData) {
+            console.log(itemData);
+            let infowifi = [{
+                certNo: '', //身份证号码
+                residenceYears: '', //申请地居住年限
+                custSex: '', // 性别
+                cultureYears: '', //种植年限
+                custName: '', //承租人信息姓名
+                custEducation: '', //存储选中的教育程度
+                custType: '', //存储选中的客户类别
+                hasChildren: '', //存储选中的是否有子女
+                hasCreditReport: '', //存储选中的征信报告
+                custMarriage: '', //存储选中的婚姻状况
+                marriageSettlement: '', //存储选中的离婚协议
+                custHomeplace: '', // 户籍地址
+                custAddress: '', //现住址
+                custAge: '', //年龄
+                custWechat: '', // 微信
+                custMobile: '', // 电话
+            }];
+            if(itemData.otherwifeType == 'married') {
+                this.$confirm('配偶录入的信息将被删除，是否继续?', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                  if(itemData.mateInfo[0].id) {
+                      this.$post('/data/del',{
+                          id: itemData.mateInfo[0].id,
+                          type: 'custNature'
+                      }).then(res => {
+                          if(res.data.code == "2000000") {
+                              itemData.mateInfo = infowifi;
+                              this.$message.success('配偶删除成功');
+                          }
                       });
+                  } else {
+                      this.$message.success('删除配偶成功');
+                      itemData.mateInfo = infowifi;
+                      itemData.otherwifeType = itemData.custMarriage;
+                  }
 
-                      this.warrantorDatas[this.tabChange - 1].mateInfo = infowifi;
+                }).catch(() => {
+                   this.$message({type: 'info',message: '已取消删除',});
 
 
-                    }).catch(() => {
-                       this.$message({
-                           type: 'info',
-                           message: '已取消删除',
-
-                        });
-                        this.maritalStatus = 'married';
-                        this.warrantorDatas[this.tabChange - 1].custMarriage = 'married'; // 恢复成已婚
-                    });
-                }
-                this.maritalStatus = val;
+                    itemData.otherwifeType = 'married';
+                    itemData.custMarriage = 'married'; // 恢复成已婚
+                });
             }
+            itemData.otherwifeType = itemData.custMarriage;
+
         },
         // 债偿比计算
         incomeComputed() {

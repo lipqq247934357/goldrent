@@ -1060,7 +1060,7 @@ export default {
                             }
                         });
                     } else  {
-                        this.$message.success('不通过后台删除配偶成功');
+                        this.$message.success('删除配偶成功');
                         this.naturalData[this.tabChange - 1].mateInfo = infowifi;
                         this.naturalData[this.tabChange - 1].otherwifeType = val;
                     }
