@@ -1,19 +1,23 @@
 <template>
     <div @keyup.enter="queryclick" class="businfo">
-        <div class="topTitle" style="display: none">
+        <div class="topTitle">
             <componentitle :message="message" :parenTtext="parenTtext" :titletext="titletext" :url="url"/>
         </div>
-        <div class="topcontent" style="display: none">
-            <div>
+        <div class="topcontent">
+            <!-- <div>
                 <label>业务编号</label>
                 <el-input class="contentinout" placeholder="请输入内容" v-model="bussNo"></el-input>
                 <label class="rightlabel">承租人姓名</label>
                 <el-input class="contentinout" placeholder="请输入内容" v-model="custName"></el-input>
-            </div>
-            <div>
+            </div> -->
+            <div style="margin: 10px auto; width: 500px;">
                 <label>任务状态</label>
                 <template>
-                    <el-select class="choiceselect" placeholder="请选择" v-model="selectstatus">
+                    <el-select
+                        class="choiceselect"
+                        placeholder="请选择"
+                        @change="statusChange"
+                        v-model="selectstatus">
                         <el-option
                                 :key="item.value"
                                 :label="item.label"
@@ -23,7 +27,7 @@
                     </el-select>
                 </template>
             </div>
-            <button
+            <!-- <button
                     :autofocus="true"
                     @click="queryclick"
                     @keyup.enter="queryclick"
@@ -31,7 +35,7 @@
                     name="button"
                     type="button">
                 查询
-            </button>
+            </button> -->
         </div>
 
         <div class="content" style="margin-top: 50px">
@@ -91,12 +95,22 @@
                             prop="name">
                         <template slot-scope="scope">
                             <el-button
+                                    v-show="selectstatus == '01'"
                                     :disabled="lessinfobutton == 'N'"
                                     @click="handleOrder(scope.row)"
                                     class="elmbutton"
                                     size="small"
                                     type="text">
                                 处理
+                            </el-button>
+                            <el-button
+
+                                    :disabled="lessinfobutton == 'N'"
+                                    @click="copy(scope.row)"
+                                    class="elmbutton"
+                                    size="small"
+                                    type="text">
+                                复制订单
                             </el-button>
                             <el-button
                                     v-show="scope.row.actions.BTN_ABANDON"
@@ -121,7 +135,7 @@
             </template>
 
             <!-- 分页 -->
-            <div class="block">
+            <!-- <div class="block">
                 <el-pagination
                         :current-page.sync="currentPage2"
                         :page-size="10"
@@ -131,7 +145,7 @@
                         @size-change="handleSizeChange"
                         layout="sizes, prev, pager, next">
                 </el-pagination>
-            </div>
+            </div> -->
         </div>
 
     </div>
@@ -156,10 +170,10 @@
                 bussNo: '', // 订单号
                 custName: '', // 承租人姓名
                 task_name: 'ALL_ORDER', // 储存任务名称
-                selectstatus: '', // 储存任务状态
+                selectstatus: '01', // 储存任务状态
                 statusOptions: [
                     {
-                        value: '00',
+                        value: '01',
                         label: '待处理'
                     },
                     {
@@ -177,15 +191,15 @@
             }
         },
         created() {
-            this.pages();
+            this.pages(this.selectstatus);
             this.jurisdiction();
         },
         methods: {
             //查询 点击分页 一页多少 统一调用这一函数
-            pages() {
+            pages(serchstatus) {
                 this.$post('/buss/orders', {
                     taskType: 'FLOW_SURVEY',
-                    taskStatus: '01'
+                    taskStatus: serchstatus
                 }).then(res => {
                     if (res.data.code == '2000000') {
                         if (res.data.data != null) {
@@ -204,7 +218,6 @@
                 this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
                     // 权限ajax
                     this.lessinfobutton = res.data.data.info;
-                    console.log(this.lessinfobutton);
                 });
             },
             handleSizeChange(val) {
@@ -216,7 +229,7 @@
                 this.pages();
             },
             queryclick() {
-                this.pages();
+                this.pages(this.selectstatus);
                 this.currentPage2 = 1;
             },
 
@@ -245,6 +258,22 @@
                         this.$message.success('业务终止成功');
                         this.pages();
                     }
+                });
+            },
+            statusChange() {
+                this.pages(this.selectstatus);
+            },
+            copy(row) {
+                this.$post('/buss/cloneOrder',{
+                    bussNo: row.bussNo
+                }).then(res => {
+                    this.$message.success('复制成功');
+                    this.$router.push({
+                        path: '/layout/declarationfromSign',
+                        query: {
+                            bussNo: res.data.data.bussNo
+                        }
+                    });
                 });
             }
         },

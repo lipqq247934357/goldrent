@@ -1395,7 +1395,7 @@ export default {
         },
         handlePictureCardPreview(file,imgUrls) { // 图片浏览功能
             this.dialogImageUrl = file.url;
-            this.srcList.push(file.url);
+            this.srcList.unshift(file.url);
             this.dialogVisible = true;
         },
         changeChildStatus(item){
