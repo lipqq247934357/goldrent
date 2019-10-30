@@ -20,10 +20,10 @@
                         身份证号码
                     </div>
                     <div class="matchingText matchId">
-                        <el-input v-model="matchingId" maxlength="18" class="matchingId" placeholder="请输入身份证号">
+                        <el-input v-model="item.matchingId" maxlength="18" class="matchingId" placeholder="请输入身份证号">
                         </el-input>
                     </div>
-                    <el-button type="primary" size="medium" @click="handleMatching(index)" class="matchingButton">
+                    <el-button type="primary" size="medium" @click="handleMatching(item,index)" class="matchingButton">
                         匹配信息
                     </el-button>
                 </div>
@@ -897,16 +897,16 @@ export default {
         },
 
         // 匹配信息按钮
-        handleMatching(index) {
+        handleMatching(item,index) {
             // 主办人
             this.$post('/bussPartner/info', {
                 bussType:'CZ',
                 partnerType: 'NAT',
-                partnerSerial: this.matchingId
+                partnerSerial: item.matchingId
             }).then(res => {
                 if (res.data.code == '2000000') {
                     if(res.data.data.natureMan === undefined){ // 如果data是空的，直接提示内容为空
-                        this.$message.alert('无对应信息');
+                        this.$message.error('无对应信息');
                     } else {
                         if(this.naturalData[index].id) {
                             this.$post('/data/del',{
@@ -930,6 +930,12 @@ export default {
             obj.sortIndex = index+1;
             console.log(obj,'obj');
             this.naturalData.splice(index,1,obj);
+            const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            });
             setTimeout(()=>{
                 this.$emit("saveData");
             },150);
