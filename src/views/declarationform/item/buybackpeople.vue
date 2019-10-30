@@ -605,7 +605,7 @@ export default {
             });
             setTimeout(()=>{
                 this.$emit("saveData");
-            },500);
+            },3000);
             setTimeout(()=>{
                 // 获取url上是否有单号
                 let bussNo = this.$route.query.bussNo;
