@@ -909,7 +909,6 @@ export default {
                         this.$message.alert('无对应信息');
                     } else {
                         if(this.naturalData[index].id) {
-                            debugger;
                             this.$post('/data/del',{
                                 id: this.naturalData[index].id,
                                 type: 'custNature'
