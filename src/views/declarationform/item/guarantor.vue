@@ -895,6 +895,7 @@ export default {
                             item['title'] = "保证人" + item.sortIndex;
                         });
                         this.imgData();
+                        this.tabIndex = res.data.data.warrantorData.length;
                     }
                 }
             });
