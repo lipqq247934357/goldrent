@@ -902,14 +902,13 @@ export default {
             });
         },
         friendType(itemData,index) {
-            console.log(itemData);
             // 商业伙伴类型切换
             let a = {
                 id: '',
-                sortIndex: this.tabChange,
+                sortIndex: index + 1,
                 partnerType: 'NAT', //商业伙伴类型
-                title: '保证人' + this.tabChange,
-                name: this.tabChange + '',
+                title: '保证人' + (index + 1),
+                name: (index + 1) + '',
                 certNo: '', //身份证号码
                 residenceYears: '', //申请地居住年限
                 custSex: '', // 性别
@@ -958,13 +957,13 @@ export default {
                 incomeOthers: [], //其他收入
             }
             let b = {
-                sortIndex: this.tabChange,
+                sortIndex: index + 1,
                 zjsxDate: '0', //证件失效时候是否能输入
                 dataDisabled: '0', // 控制是否能输入 0不能 1能
                 id: '',
                 partnerType: 'LEG', //商业伙伴类型
-                title: '保证人' + this.tabChange,
-                name: this.tabChange + '',
+                title: '保证人' + (index + 1),
+                name: (index + 1) + '',
                 comFullname: '', //商业伙伴全称
                 socialSerial: '', //统一社会信用代码
                 partnerSerial: '', //商业伙伴编码
