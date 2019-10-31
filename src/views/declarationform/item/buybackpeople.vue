@@ -574,9 +574,9 @@ export default {
                     if(res.data.data.repoMan === undefined){ // 如果data是空的，直接提示内容为空
                         this.$message.error('无对应信息');
                     } else {
-                        if(this.legalMan[index].id) {
+                        if(this.legalMan[index].basicInfo.id) {
                             this.$post('/data/del',{
-                                id: this.legalMan[index].id,
+                                id: this.legalMan[index].basicInfo.id,
                                 type: 'custLegal'
                             }).then(res2 => {
                                 if(res2.data.code =='2000000') {
