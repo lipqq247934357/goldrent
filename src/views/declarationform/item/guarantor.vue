@@ -1204,8 +1204,8 @@ export default {
                             this.$post('/data/del',{
                                 id: this.warrantorDatas[index].id,
                                 type: 'custNature'
-                            }).then(res => {
-                                if(res.data.code =='2000000') {
+                            }).then(res2 => {
+                                if(res2.data.code =='2000000') {
                                     this.addMatch(res,index,partnerType);
                                 }
                             });
@@ -1481,65 +1481,66 @@ export default {
                     if(item.custMarriage != 'married') {
                         item.mateInfo = null;
                     }
+                }
+            });
 
-
-                    for(let i = 0; i < this.$refs.house.length; i++) {
+            for(let i = 0;i<this.warrantorDatas.length;i++){
+                let item = this.warrantorDatas[i];
+                if(item.partnerType == "NAT") { // 自然人
+                    if(i < this.$refs.house.length) { // 当前数组有值
                         item.assetsHouses = this.$refs.house[i].assetsHouses;
                     }
-                    for(let i = 0; i < this.$refs.lands.length; i++) {
+                    if(i < this.$refs.lands.length) {
                         item.assetsLands = this.$refs.lands[i].assetsLands
                     }
 
-                    for(let i = 0; i < this.$refs.homecar.length; i++) {
-
-                        this.$refs.homecar[i].assetsVehicles.forEach((item,index) => {
-                            if(item.buyTime) {
-                                item.buyTime = item.buyTime + '-01-01 00:00:00';
+                    if(i < this.$refs.homecar.length) {
+                        this.$refs.homecar[i].assetsVehicles.forEach((item2) => {
+                            if(item2.buyTime && !item2.buyTime.endsWith('-01-01 00:00:00')) {
+                                item2.buyTime += '-01-01 00:00:00';
                             }
                         });
 
                         item.assetsVehicles = this.$refs.homecar[i].assetsVehicles;
 
-
                     }
-                    for(let i = 0; i < this.$refs.farmtools.length; i++) {
-                        this.$refs.farmtools[i].assetsFarmTools.forEach((item,index) => {
-                            if(item.buyTime) {
-                                item.buyTime = item.buyTime + '-01-01 00:00:00';
+                    if(i < this.$refs.farmtools.length) {
+                        this.$refs.farmtools[i].assetsFarmTools.forEach((item2) => {
+                            if(item2.buyTime && !item2.buyTime.endsWith('-01-01 00:00:00')) {
+                                item2.buyTime += '-01-01 00:00:00';
                             }
                         });
                         item.assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
                     }
-                    for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
-                        this.$refs.assetsOthers[i].assetsOthers.forEach((item,index) => {
-                            if(item.buyTime) {
-                                item.buyTime = item.buyTime + ' 00:00:00';
+                    if(i < this.$refs.assetsOthers.length) {
+                        this.$refs.assetsOthers[i].assetsOthers.forEach((item2) => {
+                            if(item2.buyTime && !item2.buyTime.endsWith(' 00:00:00')) {
+                                item2.buyTime += ' 00:00:00';
                             }
                         });
                         item.assetsOthers = this.$refs.assetsOthers[i].assetsOthers
                     }
-                    for(let i = 0; i < this.$refs.debt.length; i++) {
+                    if(i < this.$refs.debt.length) {
                         item.debtSituations = this.$refs.debt[i].debtSituations
                     }
-                    for(let i = 0; i < this.$refs.guarantee.length; i++) {
+                    if(i < this.$refs.guarantee.length) {
                         item.debtGuarantees = this.$refs.guarantee[i].debtGuarantees
                     }
-                    for(let i = 0; i < this.$refs.otherLiabilities.length; i++) {
+                    if(i < this.$refs.otherLiabilities.length) {
                         item.debtOthers = this.$refs.otherLiabilities[i].debtOthers
                     }
-                    for(let i = 0; i < this.$refs.plant.length; i++) {
+                    if(i < this.$refs.plant.length) {
                         let len = this.$refs.plant[i].incomePlants.length;
                         if(len > 0){
                             this.$refs.plant[i].incomePlants[len - 1].remark = this.$refs.plant[i].plantRemark;
                         }
                         item.incomePlants = this.$refs.plant[i].incomePlants
                     }
-                    for(let i = 0; i < this.$refs.otherIncome.length; i++) {
+                    if(i < this.$refs.otherIncome.length) {
                         item.incomeOthers = this.$refs.otherIncome[i].incomeOthers
                     }
                 }
-            });
-
+            }
         },
         imgData() {
             this.$post('/buss/materialTree',{
