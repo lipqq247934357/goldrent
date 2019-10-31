@@ -901,9 +901,6 @@ export default {
                 }
             });
         },
-        friendType(item,index) {
-            let val = item.partnerType;
-            this.warrantorDatas[index] = [];
         friendType(itemData,index) {
             // 商业伙伴类型切换
             let a = {
