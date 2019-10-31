@@ -1131,6 +1131,7 @@ export default {
                             this.editableTabsValue = this.warrantorDatas.length + '';
                             //主要防止于添加的时候错误
                             this.tabIndex = this.warrantorDatas.length;
+                            this.tabChange--;
                         }
                     });
                 } else {
@@ -1171,6 +1172,7 @@ export default {
                             this.editableTabsValue = this.warrantorDatas.length + '';
                             //主要防止于添加的时候错误
                             this.tabIndex = this.warrantorDatas.length;
+                            this.tabChange--;
                         }
                     });
                 }
@@ -1206,6 +1208,7 @@ export default {
                 this.editableTabsValue = this.warrantorDatas.length + '';
                 //主要防止于添加的时候错误
                 this.tabIndex = this.warrantorDatas.length;
+                this.tabChange--;
             }
         },
         // 匹配信息按钮
