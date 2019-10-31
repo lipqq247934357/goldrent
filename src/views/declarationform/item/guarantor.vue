@@ -18,7 +18,7 @@
                             v-model="item.partnerType"
                             class="inputLessinfo"
                             clearable
-                            @change="friendType"
+                            @change="friendType(item,index)"
                             placeholder="请选择">
                             <el-option
                                 v-for="items in rulesField.partnerType"
@@ -901,8 +901,11 @@ export default {
                 }
             });
         },
-        friendType(val) {
-            this.warrantorDatas[this.tabChange -1] = [];
+        friendType(item,index) {
+            console.log(index,'index');
+            let val = item.partnerType;
+            debugger;
+            this.warrantorDatas[index] = [];
             // 商业伙伴类型切换
             let a = {
                 id: '',
@@ -994,9 +997,9 @@ export default {
                 bankAccount: '',//贷款卡号
             };
             if(val == 'LEG') {
-                this.$set(this.warrantorDatas,this.tabChange - 1,b);
+                this.$set(this.warrantorDatas,index,b);
             } else {
-                this.$set(this.warrantorDatas,this.tabChange - 1,a)
+                this.$set(this.warrantorDatas,index,a)
             }
 
         },
