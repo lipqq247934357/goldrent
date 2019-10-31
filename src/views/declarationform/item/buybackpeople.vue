@@ -406,7 +406,6 @@ export default {
                     if(res.data.data.length != '0') {
                         this.legalMan = res.data.data;
                         this.legalMan.forEach(function(item,index) {
-                            item.sortIndex = index + 1;
                             if(!item.debtInfo) {
                                 item.debtInfo = [
                                     {

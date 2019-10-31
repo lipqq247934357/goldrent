@@ -138,7 +138,6 @@ export default {
             if(newVal != undefined) {
                 this.incomeFarmMachineryWork = this.njzysr;
                 this.incomeFarmMachineryWork.forEach((item,index) => {
-                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '农机作业收入' + item.sortIndex;
                 });

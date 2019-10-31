@@ -140,7 +140,6 @@ export default {
             if(newVal != undefined) {
                 this.incomeOthers = this.qtsr;
                 this.incomeOthers.forEach((item,index) => {
-                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '其他收入' + item.sortIndex;
                     item.type = item.type + '';

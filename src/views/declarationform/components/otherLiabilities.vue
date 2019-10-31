@@ -116,7 +116,6 @@ export default {
             if(newVal != undefined) {
                 this.debtOthers = this.qtfz;
                 this.debtOthers.forEach((item,index) => {
-                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '其他负债' + item.sortIndex;
                 });

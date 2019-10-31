@@ -148,7 +148,6 @@ export default {
             if(newVal != undefined) {
                 this.assetsFarmTools = this.njj;
                 this.assetsFarmTools.forEach((item,index) => {
-                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '农机具' + item.sortIndex;
                 });
