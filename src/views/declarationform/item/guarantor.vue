@@ -902,6 +902,7 @@ export default {
             });
         },
         friendType(itemData,index) {
+            console.log(itemData);
             // 商业伙伴类型切换
             let a = {
                 id: '',
