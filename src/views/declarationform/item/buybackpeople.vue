@@ -144,14 +144,14 @@
                     <tr>
                         <td>债务种类</td>
                         <td>
-                            <el-input type="text" v-model="item.debtInfo[index].debtType" class="inputLessinfo">
+                            <el-input type="text" v-model="item.debtInfo[0].debtType" class="inputLessinfo">
                             </el-input>
                         </td>
                         <td>债务余额</td>
                         <td>
                             <el-input-number
                                 class="inputLessinfo"
-                                v-model="item.debtInfo[index].debtBalance"
+                                v-model="item.debtInfo[0].debtBalance"
                                 :precision="2"
                                 :step="0.1"
                                 :min="0.00"
@@ -167,7 +167,7 @@
                         <td>
                             <el-input-number
                                 class="inputLessinfo"
-                                v-model="item.debtInfo[index].guaranteeBalance"
+                                v-model="item.debtInfo[0].guaranteeBalance"
                                 :precision="2"
                                 :step="0.1"
                                 :min="0.00"
@@ -179,7 +179,7 @@
                         </td>
                         <td>被担保人</td>
                         <td>
-                            <el-input type="text" v-model="item.debtInfo[index].warrantee" class="inputLessinfo">
+                            <el-input type="text" v-model="item.debtInfo[0].warrantee" class="inputLessinfo">
                             </el-input>
                         </td>
                     </tr>
@@ -193,7 +193,7 @@
                                 placeholder="请输入内容"
                                 maxlength="500"
                                 show-word-limit
-                                v-model="item.debtInfo[index].remark">
+                                v-model="item.debtInfo[0].remark">
                             </el-input>
                         </td>
                     </tr>
@@ -376,9 +376,7 @@ export default {
                     }
                 ]
             }],
-
-            tabIndex: 1,
-
+            tabIndex: 1
         }
     },
     created() {
@@ -439,6 +437,7 @@ export default {
                             }
                             this.imgData();
                         }.bind(this));
+                        this.tabIndex = res.data.data.length;
                     }
                 }
             });
