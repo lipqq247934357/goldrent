@@ -704,6 +704,7 @@ export default {
                     if(res.data.data.naturalData.length != '0') {
                         this.naturalData = res.data.data.naturalData;
                         this.naturalData.forEach(function(item,index) {
+                            item.sortIndex = index + 1;
                             item['name'] = item.sortIndex + '';
                             item['title'] = "承租人" + item.sortIndex;
                             item.otherwifeType = item.custMarriage;

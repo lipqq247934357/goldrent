@@ -97,6 +97,7 @@ export default {
             if(newVal != undefined) {
                 this.childrenInfo = this.sfyzn;
                 this.childrenInfo.forEach((item,index) => {
+                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '承租人子女' + item.sortIndex;
                 });

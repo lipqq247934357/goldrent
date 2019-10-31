@@ -126,6 +126,7 @@ export default {
             if(newVal != undefined) {
                 this.assetsOthers = this.qtzc;
                 this.assetsOthers.forEach((item,index) => {
+                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '其他资产' + item.sortIndex;
                 });

@@ -139,6 +139,7 @@ export default {
             if(newVal != undefined) {
                 this.assetsLands = this.tds;
                 this.assetsLands.forEach((item,index) => {
+                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '土地' + item.sortIndex;
                 });

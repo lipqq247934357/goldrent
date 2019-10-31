@@ -891,6 +891,7 @@ export default {
                         this.warrantorDatas = res.data.data.warrantorData;
                         this.warrantorDatas.forEach(function(item,index) {
                             item.sortIndex = index + 1;
+                            console.log(item.sortIndex);
                             item['name'] = item.sortIndex + '';
                             item['title'] = "保证人" + item.sortIndex;
                             item.otherwifeType = item.custMarriage;

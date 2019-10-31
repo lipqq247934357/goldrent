@@ -134,6 +134,7 @@ export default {
             if(newVal != undefined) {
                 this.assetsFinances = this.jrzc;
                 this.assetsFinances.forEach((item,index) => {
+                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '金融资产' + item.sortIndex;
                 });
