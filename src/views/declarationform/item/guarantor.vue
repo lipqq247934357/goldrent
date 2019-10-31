@@ -1224,6 +1224,7 @@ export default {
                 obj = {...this.warrantorDatass[index],...res.data.data.legalMan,id:''};
             }
             obj.sortIndex = index+1;
+            obj.name = obj.sortIndex + '';
             this.warrantorDatas.splice(index,1,obj);
             const loading = this.$loading({
                 lock: true,
@@ -1484,61 +1485,64 @@ export default {
                 }
             });
 
+            let j = 0;
+
             for(let i = 0;i<this.warrantorDatas.length;i++){
                 let item = this.warrantorDatas[i];
                 if(item.partnerType == "NAT") { // 自然人
-                    if(i < this.$refs.house.length) { // 当前数组有值
-                        item.assetsHouses = this.$refs.house[i].assetsHouses;
+                    if(j < this.$refs.house.length) { // 当前数组有值
+                        item.assetsHouses = this.$refs.house[j].assetsHouses;
                     }
-                    if(i < this.$refs.lands.length) {
-                        item.assetsLands = this.$refs.lands[i].assetsLands
+                    if(j < this.$refs.lands.length) {
+                        item.assetsLands = this.$refs.lands[j].assetsLands
                     }
 
-                    if(i < this.$refs.homecar.length) {
-                        this.$refs.homecar[i].assetsVehicles.forEach((item2) => {
+                    if(j < this.$refs.homecar.length) {
+                        this.$refs.homecar[j].assetsVehicles.forEach((item2) => {
                             if(item2.buyTime && !item2.buyTime.endsWith('-01-01 00:00:00')) {
                                 item2.buyTime += '-01-01 00:00:00';
                             }
                         });
 
-                        item.assetsVehicles = this.$refs.homecar[i].assetsVehicles;
+                        item.assetsVehicles = this.$refs.homecar[j].assetsVehicles;
 
                     }
-                    if(i < this.$refs.farmtools.length) {
-                        this.$refs.farmtools[i].assetsFarmTools.forEach((item2) => {
+                    if(j < this.$refs.farmtools.length) {
+                        this.$refs.farmtools[j].assetsFarmTools.forEach((item2) => {
                             if(item2.buyTime && !item2.buyTime.endsWith('-01-01 00:00:00')) {
                                 item2.buyTime += '-01-01 00:00:00';
                             }
                         });
-                        item.assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
+                        item.assetsFarmTools = this.$refs.farmtools[j].assetsFarmTools
                     }
-                    if(i < this.$refs.assetsOthers.length) {
-                        this.$refs.assetsOthers[i].assetsOthers.forEach((item2) => {
+                    if(j < this.$refs.assetsOthers.length) {
+                        this.$refs.assetsOthers[j].assetsOthers.forEach((item2) => {
                             if(item2.buyTime && !item2.buyTime.endsWith(' 00:00:00')) {
                                 item2.buyTime += ' 00:00:00';
                             }
                         });
-                        item.assetsOthers = this.$refs.assetsOthers[i].assetsOthers
+                        item.assetsOthers = this.$refs.assetsOthers[j].assetsOthers
                     }
-                    if(i < this.$refs.debt.length) {
-                        item.debtSituations = this.$refs.debt[i].debtSituations
+                    if(j < this.$refs.debt.length) {
+                        item.debtSituations = this.$refs.debt[j].debtSituations
                     }
-                    if(i < this.$refs.guarantee.length) {
-                        item.debtGuarantees = this.$refs.guarantee[i].debtGuarantees
+                    if(j < this.$refs.guarantee.length) {
+                        item.debtGuarantees = this.$refs.guarantee[j].debtGuarantees
                     }
-                    if(i < this.$refs.otherLiabilities.length) {
-                        item.debtOthers = this.$refs.otherLiabilities[i].debtOthers
+                    if(j < this.$refs.otherLiabilities.length) {
+                        item.debtOthers = this.$refs.otherLiabilities[j].debtOthers
                     }
-                    if(i < this.$refs.plant.length) {
-                        let len = this.$refs.plant[i].incomePlants.length;
+                    if(j < this.$refs.plant.length) {
+                        let len = this.$refs.plant[j].incomePlants.length;
                         if(len > 0){
-                            this.$refs.plant[i].incomePlants[len - 1].remark = this.$refs.plant[i].plantRemark;
+                            this.$refs.plant[j].incomePlants[len - 1].remark = this.$refs.plant[j].plantRemark;
                         }
-                        item.incomePlants = this.$refs.plant[i].incomePlants
+                        item.incomePlants = this.$refs.plant[j].incomePlants
                     }
-                    if(i < this.$refs.otherIncome.length) {
-                        item.incomeOthers = this.$refs.otherIncome[i].incomeOthers
+                    if(j < this.$refs.otherIncome.length) {
+                        item.incomeOthers = this.$refs.otherIncome[j].incomeOthers
                     }
+                    j++;
                 }
             }
         },
