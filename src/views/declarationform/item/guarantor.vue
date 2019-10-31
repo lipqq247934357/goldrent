@@ -902,10 +902,9 @@ export default {
             });
         },
         friendType(item,index) {
-            console.log(index,'index');
             let val = item.partnerType;
-            debugger;
             this.warrantorDatas[index] = [];
+        friendType(itemData,index) {
             // 商业伙伴类型切换
             let a = {
                 id: '',
@@ -996,10 +995,32 @@ export default {
                 contactAddress: '',//联系地址
                 bankAccount: '',//贷款卡号
             };
-            if(val == 'LEG') {
-                this.$set(this.warrantorDatas,index,b);
+            if(itemData.partnerType == 'LEG') {
+                if(itemData.id) {
+                    this.$post('/data/del',{
+                        id: itemData.id,
+                        type: 'custNature'
+                    }).then(res => {
+                        this.$message.success('成功');
+                        this.$set(this.warrantorDatas,index,b);
+                    });
+                } else {
+                    this.$set(this.warrantorDatas,index,b);
+                }
             } else {
-                this.$set(this.warrantorDatas,index,a)
+                if(itemData.id) {
+                    this.$post('/data/del',{
+                        id: itemData.id,
+                        type: 'custLegal'
+                    }).then(res => {
+                        if(res.data.code == '2000000') {
+                            this.$message.success('成功');
+                            this.$set(this.warrantorDatas,index,a);
+                        }
+                    });
+                } else {
+                    this.$set(this.warrantorDatas,index,a);
+                }
             }
 
         },
