@@ -59,7 +59,7 @@
                     <td>
                         <el-select
                             v-model="item.invoice"
-                            @change='changeInvoiceAmt'
+                            @change='changeInvoiceAmt(item)'
                             clearable
                             class="inputLessinfo"
                             placeholder="请选择">
@@ -238,11 +238,9 @@ export default {
 
 
         },
-        changeInvoiceAmt(val){
-            if (val === 'Y') {
-                this.amountStatus = false;
-            } else {
-                this.amountStatus = true;
+        changeInvoiceAmt(itemData){
+            if(itemData.invoice == 'N') {
+                itemData.invoiceAmount = '';
             }
         }
 
