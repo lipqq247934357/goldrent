@@ -430,6 +430,7 @@ export default {
                                     }];
                             }
                             if(item.debtInfo || item.basicInfo) {
+                                item.sortIndex = index + 1;
                                 this.legalMan = res.data.data;
                                 item['name'] = index + 1 + '';
                                 item['title'] = "回购人" + parseInt(index + 1);

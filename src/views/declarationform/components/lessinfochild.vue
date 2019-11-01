@@ -39,7 +39,7 @@
                     <td>性别</td>
                     <td>
                         <!-- <el-input type="text" v-model="item.naturalData.custSex" class="inputLessinfo"></el-input> -->
-                        {{item.custSex == "M" ? "男" : item.custSex == "F" ? "女" : ''}}
+                        {{item.custSex}}
                     </td>
                     <td>现住址</td>
                     <td>
@@ -100,6 +100,12 @@ export default {
                     item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '承租人子女' + item.sortIndex;
+                    if(item.custSex == 'F') {
+                        item.custSex  = '男'
+                    }
+                    if(item.custSex == 'M') {
+                        item.custSex  = '女'
+                    }
                 });
                 this.childrenTabs = '1';
                 this.childIndex = this.sfyzn.length;
@@ -234,6 +240,7 @@ export default {
         },
         idNumberType(val) {
             let idcontent = this.$idCard.IDcode(val.certNo);
+            console.log(val,idcontent);
             if(idcontent.Status == false) {
                 this.$message.error(idcontent.msg);
             }
