@@ -61,6 +61,7 @@
                             <el-input type="text"
                                 v-model="item.custMobile"
                                 class="inputLessinfo"
+                                maxlength="11"
                                 @change="natural">
                             </el-input>
                         </td>
@@ -462,6 +463,8 @@
                             <el-input
                                 type="text"
                                 v-model="item.legalMobile"
+                                maxlength="11"
+                                @change="phoneChangeLeg(item)"
                                 class="inputLessinfo">
                             </el-input>
                         </td>
@@ -1265,6 +1268,19 @@ export default {
                 }
                 window.location.reload();
             },5000);
+        },
+        phoneChangeLeg(itemData) {
+            let nowIndex = this.tabChange - 1;
+            if(isNaN(itemData.legalMobile) == true) {
+                itemData.legalMobile = '';
+            }
+            if(!(/^1[3456789]\d{9}$/.test(itemData.legalMobile))){
+                this.$message.error("手机号码有误，请重填");
+                itemData.legalMobile = '';
+            }
+            // setTimeout(function() {
+            //     this.warrantorDatas[nowIndex].mateInfo[0].custWechat = this.warrantorDatas[nowIndex].mateInfo[0].custMobile;
+            // }.bind(this),100);
         },
         // 联系电话关联微信号
         phoneChange(val) {
