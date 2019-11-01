@@ -572,7 +572,7 @@ export default {
                 partnerSerial: item.matchingId
             }).then(res => {
                 if (res.data.code == '2000000') {
-                    if(res.data.data.repoMan === undefined){ // 如果data是空的，直接提示内容为空
+                    if(res.data.data.repoMan === undefined || res.data.data.repoMan.debtInfo === null){ // 如果data是空的，直接提示内容为空
                         this.$message.error('无对应信息');
                     } else {
                         if(this.legalMan[index].basicInfo.id) {
