@@ -1220,6 +1220,7 @@ export default {
                 partnerSerial: item.matchingId
             }).then(res => {
                 if (res.data.code == '2000000') {
+                    debugger;
                     if(res.data.data.natureMan === undefined && res.data.data.legalMan === undefined){ // 如果data是空的，直接提示内容为空
                         this.$message.error('无对应信息');
                     } else {
@@ -1243,9 +1244,9 @@ export default {
         addMatch(res,index,partnerType){
             let obj = {};
             if(partnerType === 'NAT'){ // 自然人
-                obj = {...this.warrantorDatas[index],...res.data.data.natureMan,id:''};
+                obj = {...this.warrantorDatas[index],...res.data.data.natureMan,id:'',partnerType: 'NAT'};
             }else {
-                obj = {...this.warrantorDatass[index],...res.data.data.legalMan,id:''};
+                obj = {...this.warrantorDatass[index],...res.data.data.legalMan,id:'',partnerType: 'LEG'};
             }
             obj.sortIndex = index+1;
             obj.name = obj.sortIndex + '';
