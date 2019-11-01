@@ -95,7 +95,7 @@
                             prop="name">
                         <template slot-scope="scope">
                             <el-button
-                                    v-show="selectstatus == '01'"
+                                    v-show="selectstatus == '01' && scope.row.actions.BTN_EDIT"
                                     :disabled="lessinfobutton == 'N'"
                                     @click="handleOrder(scope.row)"
                                     class="elmbutton"
@@ -240,6 +240,7 @@
                 })
             },
             lookClick(row) {
+                console.log(row);
                 this.$router.push({
                     path: '/layout/declarationDetail',
                     query: {task_id: row.id, disabled: 1, bussNo: row.bussNo, arrangementtype: '5', writeOffFlag: 1}
