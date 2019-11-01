@@ -124,6 +124,7 @@ export default {
             if(newVal != undefined) {
                 this.assetsHouses = this.fc;
                 this.assetsHouses.forEach((item,index) => {
+                    item.sortIndex = index + 1;
                     item['name'] = item.sortIndex + '';
                     item['title'] = '房产' + item.sortIndex;
                     item.type = item.type + '';
