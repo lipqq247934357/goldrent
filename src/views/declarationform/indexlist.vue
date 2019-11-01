@@ -256,7 +256,9 @@
                 }).then(res => {
                     if(res.data.code == '2000000') {
                         this.$message.success('业务终止成功');
-                        this.pages();
+                        this.$nextTick( () => {
+                            this.pages(this.selectstatus);
+                        });
                     }
                 });
             },
