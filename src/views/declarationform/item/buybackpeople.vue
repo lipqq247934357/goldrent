@@ -572,7 +572,7 @@ export default {
                 partnerSerial: item.matchingId
             }).then(res => {
                 if (res.data.code == '2000000') {
-                    if(res.data.data.repoMan === undefined || res.data.data.repoMan.debtInfo === null){ // 如果data是空的，直接提示内容为空
+                    if(res.data.data.repoMan === undefined || res.data.data.repoMan.basicInfo === null){ // 如果data是空的，直接提示内容为空
                         this.$message.error('无对应信息');
                     } else {
                         if(this.legalMan[index].basicInfo.id) {
@@ -592,10 +592,11 @@ export default {
             });
         },
         addMatch(res,index){
-            console.log(res.data.data.repoMan,'res.data.data.repoMan');
             let obj = {...this.legalMan[index],...res.data.data.repoMan,id:''};
             obj.sortIndex = index+1;
-            console.log(obj,'obj');
+            if(!obj.debtInfo){
+                obj.debtInfo = [{},{}];
+            }
             this.legalMan.splice(index,1,obj);
             const loading = this.$loading({
                 lock: true,
