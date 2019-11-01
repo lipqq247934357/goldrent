@@ -897,24 +897,26 @@ export default {
                             item['name'] = item.sortIndex + '';
                             item['title'] = "保证人" + item.sortIndex;
                             item.otherwifeType = item.custMarriage;
-                            if(item.mateInfo.length == '0') {
-                                item.mateInfo = [{
-                                    certNo: '', //身份证号码
-                                    residenceYears: '', //申请地居住年限
-                                    custSex: '', // 性别
-                                    cultureYears: '', //种植年限
-                                    custName: '', //保证人信息姓名
-                                    custEducation: '', //存储选中的教育程度
-                                    custType: '', //存储选中的客户类别
-                                    custMarriage: '', //存储选中的婚姻状况
-                                    custHomeplace: '', // 户籍地址
-                                    custAddress: '', //现住址
-                                    custAge: '', //年龄
-                                    custWechat: '', // 微信
-                                    custMobile: '', // 电话
-                                    company: '',//工作单位
-                                    identityType: ''// 身份类型
-                                }]
+                            if(item.partnerType == "NAT") {
+                                if(item.mateInfo.length == '0') {
+                                    item.mateInfo = [{
+                                        certNo: '', //身份证号码
+                                        residenceYears: '', //申请地居住年限
+                                        custSex: '', // 性别
+                                        cultureYears: '', //种植年限
+                                        custName: '', //保证人信息姓名
+                                        custEducation: '', //存储选中的教育程度
+                                        custType: '', //存储选中的客户类别
+                                        custMarriage: '', //存储选中的婚姻状况
+                                        custHomeplace: '', // 户籍地址
+                                        custAddress: '', //现住址
+                                        custAge: '', //年龄
+                                        custWechat: '', // 微信
+                                        custMobile: '', // 电话
+                                        company: '',//工作单位
+                                        identityType: ''// 身份类型
+                                    }]
+                                }
                             }
                         });
                         this.imgData();
@@ -1020,7 +1022,7 @@ export default {
                         id: itemData.id,
                         type: 'custNature'
                     }).then(res => {
-                        this.$message.success('成功');
+                        this.$message.success('商业伙伴类型切换成功');
                         this.$set(this.warrantorDatas,index,b);
                     });
                 } else {
@@ -1033,7 +1035,7 @@ export default {
                         type: 'custLegal'
                     }).then(res => {
                         if(res.data.code == '2000000') {
-                            this.$message.success('成功');
+                            this.$message.success('商业伙伴类型切换成功');
                             this.$set(this.warrantorDatas,index,a);
                         }
                     });
