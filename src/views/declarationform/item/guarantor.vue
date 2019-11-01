@@ -897,6 +897,25 @@ export default {
                             item['name'] = item.sortIndex + '';
                             item['title'] = "保证人" + item.sortIndex;
                             item.otherwifeType = item.custMarriage;
+                            if(item.mateInfo.length == '0') {
+                                item.mateInfo = [{
+                                    certNo: '', //身份证号码
+                                    residenceYears: '', //申请地居住年限
+                                    custSex: '', // 性别
+                                    cultureYears: '', //种植年限
+                                    custName: '', //保证人信息姓名
+                                    custEducation: '', //存储选中的教育程度
+                                    custType: '', //存储选中的客户类别
+                                    custMarriage: '', //存储选中的婚姻状况
+                                    custHomeplace: '', // 户籍地址
+                                    custAddress: '', //现住址
+                                    custAge: '', //年龄
+                                    custWechat: '', // 微信
+                                    custMobile: '', // 电话
+                                    company: '',//工作单位
+                                    identityType: ''// 身份类型
+                                }]
+                            }
                         });
                         this.imgData();
                         this.tabIndex = res.data.data.warrantorData.length;
@@ -1027,7 +1046,6 @@ export default {
         // 页签切换
         changeTables(val) {
             this.tabChange = val.name;
-            console.log(this.tabChange);
         },
 
         addTab(targetName) {
@@ -1106,8 +1124,6 @@ export default {
                             let tabs = this.warrantorDatas;
                             let activeName = this.editableTabsValue;
                             this.tabChange = this.warrantorDatas.length + 1;
-
-
                             if (activeName === targetName) {
                                 tabs.forEach((tab, index) => {
 
@@ -1343,7 +1359,7 @@ export default {
         },
         // 婚姻状况切换
         custMarriageChange(itemData) {
-            console.log(itemData);
+            console.log();
             let infowifi = [{
                 certNo: '', //身份证号码
                 residenceYears: '', //申请地居住年限
@@ -1376,6 +1392,7 @@ export default {
                           if(res.data.code == "2000000") {
                               itemData.mateInfo = infowifi;
                               this.$message.success('配偶删除成功');
+                              itemData.otherwifeType = itemData.custMarriage;
                           }
                       });
                   } else {
@@ -1386,8 +1403,6 @@ export default {
 
                 }).catch(() => {
                    this.$message({type: 'info',message: '已取消删除',});
-
-
                     itemData.otherwifeType = 'married';
                     itemData.custMarriage = 'married'; // 恢复成已婚
                 });
