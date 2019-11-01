@@ -267,7 +267,10 @@
             },
             repurchase(activeName) {
                 this.repurchaseData = this.$refs.repurchase.legalMan;
-
+                console.log(this.repurchaseData);
+                // for(let i = 0;i < this.repurchaseData.length; i++) {
+                //     this.repurchaseData[i].
+                // }
                 return new Promise((resolve, reject) => {
                     for(let i = 0; i < this.$refs.repurchase.legalMan.length; i++) {
                         console.log(this.$refs.repurchase.legalMan[i])

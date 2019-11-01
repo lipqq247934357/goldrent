@@ -430,10 +430,10 @@ export default {
                                     }];
                             }
                             if(item.debtInfo || item.basicInfo) {
-                                item.sortIndex = index + 1;
+                                item.basicInfo.sortIndex = index + 1;
                                 this.legalMan = res.data.data;
-                                item['name'] = index + 1 + '';
-                                item['title'] = "回购人" + parseInt(index + 1);
+                                item['name'] = item.basicInfo.sortIndex + '';
+                                item['title'] = "回购人" + item.basicInfo.sortIndex;
                             }
                             this.imgData();
                         }.bind(this));
