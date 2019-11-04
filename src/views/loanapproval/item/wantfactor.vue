@@ -374,6 +374,8 @@
                     }
                     &:last-child {
                         width: 70%;
+                        overflow: auto;
+                        word-break:break-all
                     }
                 }
             }
