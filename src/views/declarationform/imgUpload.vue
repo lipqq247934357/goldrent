@@ -10,16 +10,15 @@
             :preview-src-list="srcList"> -->
             <div style="overflow:hidden;">
                 <el-upload
-                        :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
-                        :disabled="disabled"
-                        :file-list="fileList"
-                        :headers="{token:this.token}"
-                        :limit="Number(6)"
-                        :on-exceed="onExceed"
-                        :on-preview="handlePictureCardPreview"
-                        :on-remove="handleRemove"
-                        action="/web/fileUploadSingle"
-                        list-type="picture-card">
+                    :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
+                    :disabled="disabled"
+                    :file-list="fileList"
+                    :headers="{token:this.token}"
+                    :on-preview="handlePictureCardPreview"
+                    :on-remove="handleRemove"
+                    multiple
+                    action="/web/fileUploadSingle"
+                    list-type="picture-card">
                     <i class="el-icon-plus"></i>
                 </el-upload>
             </div>
@@ -31,13 +30,12 @@
                 padding-top: 10px;
                 ">
                     <el-upload
-                            :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
-                            :file-list="fileList4File"
-                            :headers="{token:this.token}"
-                            :limit="Number(6)"
-                            :on-exceed="onExceed"
-                            :on-remove="handleRemove"
-                            action="/web/fileUploadSingle">
+                        :data="{bussNo:this.bussNo,relationId:this.relationId,dataType:this.type}"
+                        :file-list="fileList4File"
+                        :headers="{token:this.token}"
+                        :on-remove="handleRemove"
+                        multiple
+                        action="/web/fileUploadSingle">
                         <el-button class="primary" size="small" type="primary">点击上传</el-button>
                     </el-upload>
                 </div>

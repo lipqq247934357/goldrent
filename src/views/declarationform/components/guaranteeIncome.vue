@@ -54,6 +54,18 @@
                         </el-input-number>
                     </td>
                 </tr>
+                <tr>
+                    <td>备注</td>
+                    <td  colspan="4">
+                        <el-input
+                            style="margin: 5px 0;width: 98%;"
+                            class="input-width-2column"
+                            type="textarea"
+                            :rows="2"
+                            v-model="item.remark">
+                        </el-input>
+                    </td>
+                </tr>
             </table>
         </el-tab-pane>
     </el-tabs>

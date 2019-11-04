@@ -11,9 +11,11 @@
                     <td>租赁物名称及规格型号</td>
                     <td>
                         <el-input
-                                class="input-width"
-                                type="text"
-                                v-model="leaseInfo.leaseName">
+                            style="margin: 5px 0;"
+                            type="textarea"
+                            :rows="2"
+                            class="input-width"
+                            v-model="leaseInfo.leaseName">
                         </el-input>
                     </td>
                 </tr>

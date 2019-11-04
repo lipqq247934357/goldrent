@@ -460,67 +460,6 @@
                     path: '/layout/declarationfrom',
                 });
             },
-            // 整合所有tab的数据
-            allTabData() {
-
-                // console.log(assetschild);
-                // console.log(this.$refs.headerChild,'承租人子女') //承租人子女
-                // console.log(this.$refs.house,'房产')  //房产
-                // console.log(this.$refs.lands,'土地（含代收代耕）（如有）') //土地（含代收代耕）（如有）
-                // console.log(this.$refs.financial,'金融资产')  // 金融资产
-                // console.log(this.$refs.homecar,'自用车') // 自用车
-                // console.log(this.$refs.farmtools,'农机具') //农机具
-                // console.log(this.$refs.assetsOthers,'其他资产')  // 其他资产
-                // console.log(this.$refs.debt,'债务情况') // 债务情况
-                // console.log(this.$refs.guarantee,'对外担保') // 对外担保
-                // console.log(this.$refs.otherLiabilities,'其他负债')  // 其他负债
-                // console.log(this.$refs.plant,'种植收入') //种植收入
-                // console.log(this.$refs.agriculture,'农机作业收入') //农机作业收入
-                // console.log(this.$refs.otherIncome,'其他收入') //其他收入
-                // this.tabsFor(this.naturalData)
-                // if(this.leaseInfoData.hasChildren == "Y") {
-                for(let i = 0; i < this.$refs.headerChild.length; i++) {
-                    this.leaseInfoData[i].childrenInfo = this.$refs.headerChild[i].childrenInfo
-                }
-                // }
-
-                for(let i = 0; i < this.$refs.house.length; i++) {
-                    this.leaseInfoData[i].assetsHouses = this.$refs.house[i].assetsHouses;
-                }
-                for(let i = 0; i < this.$refs.lands.length; i++) {
-                    this.leaseInfoData[i].assetsLands = this.$refs.lands[i].assetsLands
-                }
-                for(let i = 0; i < this.$refs.financial.length; i++) {
-                    this.leaseInfoData[i].assetsFinances = this.$refs.financial[i].assetsFinances
-                }
-                for(let i = 0; i < this.$refs.homecar.length; i++) {
-                    this.leaseInfoData[i].assetsVehicles = this.$refs.homecar[i].assetsVehicles
-                }
-                for(let i = 0; i < this.$refs.farmtools.length; i++) {
-                    this.leaseInfoData[i].assetsFarmTools = this.$refs.farmtools[i].assetsFarmTools
-                }
-                for(let i = 0; i < this.$refs.assetsOthers.length; i++) {
-                    this.leaseInfoData[i].assetsOthers = this.$refs.assetsOthers[i].assetsOthers
-                }
-                for(let i = 0; i < this.$refs.debt.length; i++) {
-                    this.leaseInfoData[i].debtSituations = this.$refs.debt[i].debtSituations
-                }
-                for(let i = 0; i < this.$refs.guarantee.length; i++) {
-                    this.leaseInfoData[i].debtGuarantees = this.$refs.guarantee[i].debtGuarantees
-                }
-                for(let i = 0; i < this.$refs.otherLiabilities.length; i++) {
-                    this.leaseInfoData[i].debtOthers = this.$refs.otherLiabilities[i].debtOthers
-                }
-                for(let i = 0; i < this.$refs.plant.length; i++) {
-                    this.leaseInfoData[i].incomePlants = this.$refs.plant[i].incomePlants
-                }
-                for(let i = 0; i < this.$refs.agriculture.length; i++) {
-                    this.leaseInfoData[i].incomeFarmMachineryWork = this.$refs.agriculture[i].incomeFarmMachineryWork
-                }
-                for(let i = 0; i < this.$refs.otherIncome.length; i++) {
-                    this.leaseInfoData[i].incomeOthers = this.$refs.otherIncome[i].incomeOthers
-                }
-            },
         },
         components: {
             wantfactor, //租赁要素

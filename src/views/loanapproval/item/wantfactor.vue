@@ -1,124 +1,126 @@
 <template>
     <div class="businfosss">
         <componentitle :message="message='租赁要素'" class="componentitle"/>
-        <ul class="factorlist">
-            <li>
-                <span>业务编号</span>
-                <span>{{wantfactor.bussNo}}</span>
-            </li>
-            <li>
-                <span>租赁模式</span>
-                <span v-for="leaseMode in statuslist.leaseMode" v-if="wantfactor.leaseMode == leaseMode.optionCode">
+        <table class="factortable" border="1">
+            <tr>
+                <td>业务编号</td>
+                <td>{{wantfactor.bussNo}}</td>
+            </tr>
+            <tr>
+                <td>租赁模式</td>
+                <td v-for="leaseMode in statuslist.leaseMode" v-if="wantfactor.leaseMode == leaseMode.optionCode">
                 <!-- <select class="" name="" disabled>
                     <option value="" v-for="leaseMode in statuslist.leaseMode" :selected="wantfactor.leaseMode == leaseMode.optionCode ? true : false">
                         {{leaseMode.optionName}}
                     </option>
                 </select> -->
                 {{leaseMode.optionName}}
-            </span>
-            </li>
-            <li>
-                <span>租赁物名称及规格型号</span>
-                <span>{{wantfactor.leaseName}}</span>
-            </li>
-            <li>
-                <span>购置价格（元）</span>
-                <span>{{wantfactor.purchaseAmt && formatNumber(wantfactor.purchaseAmt)}}</span>
-            </li>
-            <li>
-                <span>首付款金额（元）</span>
-                <span>{{wantfactor.firstPayAmt && formatNumber(wantfactor.firstPayAmt)}}</span>
-            </li>
-            <li>
-                <span>融资金额（元）</span>
-                <span>{{wantfactor.financeAmt && formatNumber(wantfactor.financeAmt)}}</span>
-            </li>
-            <li>
-                <span>厂商返利（元）</span>
-                <span>{{wantfactor.rebateAmt && formatNumber(wantfactor.rebateAmt)}}</span>
-            </li>
-            <li>
-                <span>厂商贴息（元）</span>
-                <span>{{wantfactor.rebateFirmAmt && formatNumber(wantfactor.rebateFirmAmt)}}</span>
-            </li>
-            <li>
-                <span>承租人风险金（元）</span>
-                <span>{{wantfactor.lesseeRiskAmt && formatNumber(wantfactor.lesseeRiskAmt)}}</span>
-            </li>
-            <li>
-                <span>厂商贴息时间</span>
-                <span>{{rebateDate[wantfactor.firmRebateIntrestDate]}}</span>
-            </li>
-            <li>
-                <span>其他支出(元)</span>
-                <span>{{wantfactor.otherExpense && formatNumber(wantfactor.otherExpense)}}</span>
-            </li>
-            <li>
-                <span>其他支出时间</span>
-                <span>{{rebateDate[wantfactor.otherExpenseDate]}}</span>
-            </li>
-            <li>
-                <span>其他风险金（元）</span>
-                <span>{{wantfactor.otherRiskAmt && formatNumber(wantfactor.otherRiskAmt)}}</span>
-            </li>
-            <li>
-                <span>补贴金额（元）</span>
-                <span>{{wantfactor.allowanceAmt && formatNumber(wantfactor.allowanceAmt)}}</span>
-            </li>
-            <li>
-                <span>预计补贴时间</span>
-                <span>{{wantfactor.allowanceDate}}</span>
-            </li>
-            <li>
-                <span>计划起租日</span>
-                <span>{{wantfactor.startDate}}</span>
-            </li>
-            <li>
-                <span>计划终止日</span>
-                <span>{{wantfactor.endDate}}</span>
-            </li>
-            <li>
-                <span>租赁期限（月）</span>
-                <span>{{wantfactor.leaseTerm}}</span>
-            </li>
-            <li>
-                <span>租赁利率（固定利率/月）%</span>
-                <span>{{wantfactor.leaseRate}}</span>
-            </li>
-            <li>
-                <span>租金支付方式</span>
-                <span v-for="payWay in statuslist.payWay" v-if="wantfactor.payWay == payWay.optionCode">
+            </td>
+        </tr>
+            <tr>
+                <td>租赁物名称及规格型号</td>
+                <td>
+                    {{wantfactor.leaseName}}
+                </td>
+            </tr>
+            <tr>
+                <td>购置价格（元）</td>
+                <td>{{wantfactor.purchaseAmt && formatNumber(wantfactor.purchaseAmt)}}</td>
+            </tr>
+            <tr>
+                <td>首付款金额（元）</td>
+                <td>{{wantfactor.firstPayAmt && formatNumber(wantfactor.firstPayAmt)}}</td>
+            </tr>
+            <tr>
+                <td>融资金额（元）</td>
+                <td>{{wantfactor.financeAmt && formatNumber(wantfactor.financeAmt)}}</td>
+            </tr>
+            <tr>
+                <td>厂商返利（元）</td>
+                <td>{{wantfactor.rebateAmt && formatNumber(wantfactor.rebateAmt)}}</td>
+            </tr>
+            <tr>
+                <td>厂商贴息（元）</td>
+                <td>{{wantfactor.rebateFirmAmt && formatNumber(wantfactor.rebateFirmAmt)}}</td>
+            </tr>
+            <tr>
+                <td>承租人风险金（元）</td>
+                <td>{{wantfactor.lesseeRiskAmt && formatNumber(wantfactor.lesseeRiskAmt)}}</td>
+            </tr>
+            <tr>
+                <td>厂商贴息时间</td>
+                <td>{{rebateDate[wantfactor.firmRebateIntrestDate]}}</td>
+            </tr>
+            <tr>
+                <td>其他支出(元)</td>
+                <td>{{wantfactor.otherExpense && formatNumber(wantfactor.otherExpense)}}</td>
+            </tr>
+            <tr>
+                <td>其他支出时间</td>
+                <td>{{rebateDate[wantfactor.otherExpenseDate]}}</td>
+            </tr>
+            <tr>
+                <td>其他风险金（元）</td>
+                <td>{{wantfactor.otherRiskAmt && formatNumber(wantfactor.otherRiskAmt)}}</td>
+            </tr>
+            <tr>
+                <td>补贴金额（元）</td>
+                <td>{{wantfactor.allowanceAmt && formatNumber(wantfactor.allowanceAmt)}}</td>
+            </tr>
+            <tr>
+                <td>预计补贴时间</td>
+                <td>{{wantfactor.allowanceDate}}</td>
+            </tr>
+            <tr>
+                <td>计划起租日</td>
+                <td>{{wantfactor.startDate}}</td>
+            </tr>
+            <tr>
+                <td>计划终止日</td>
+                <td>{{wantfactor.endDate}}</td>
+            </tr>
+            <tr>
+                <td>租赁期限（月）</td>
+                <td>{{wantfactor.leaseTerm}}</td>
+            </tr>
+            <tr>
+                <td>租赁利率（固定利率/月）%</td>
+                <td>{{wantfactor.leaseRate}}</td>
+            </tr>
+            <tr>
+                <td>租金支付方式</td>
+                <td v-for="payWay in statuslist.payWay" v-if="wantfactor.payWay == payWay.optionCode">
                 <!-- <select class="" name="" disabled>
                     <option value="" v-for="payWay in statuslist.payWay" :selected="wantfactor.payWay == payWay.optionCode ? true : false">
                         {{payWay.optionName}}
                     </option>
                 </select> -->
                 {{payWay.optionName}}
-            </span>
-                <span v-if="wantfactor.payWay ==''"></span>
-            </li>
-            <li>
-                <span>还款频次</span>
-                <span>{{wantfactor.repayRate == "M" ? '月': '季'}}</span>
-            </li>
-            <li>
-                <span>计息方式</span>
+            </td>
+                <td v-if="wantfactor.payWay ==''"></td>
+            </tr>
+            <tr>
+                <td>还款频次</td>
+                <td>{{wantfactor.repayRate == "M" ? '月': '季'}}</td>
+            </tr>
+            <tr>
+                <td>计息方式</td>
                 <!-- <span>{{wantfactor.calcType}}</span> -->
-                <span>按日计息</span>
-            </li>
-            <li>
-                <span>留购价款（元）</span>
-                <span>{{wantfactor.depositAmt && formatNumber(wantfactor.depositAmt)}}</span>
-            </li>
-            <li>
-                <span>提前结清（%）</span>
-                <span>{{wantfactor.settleAhead}}</span>
-            </li>
-            <li>
-                <span>内部收益率(%)</span>
-                <span>{{wantfactor.earningRate}}</span>
-            </li>
-        </ul>
+                <td>按日计息</td>
+            </tr>
+            <tr>
+                <td>留购价款（元）</td>
+                <td>{{wantfactor.depositAmt && formatNumber(wantfactor.depositAmt)}}</td>
+            </tr>
+            <tr>
+                <td>提前结清（%）</td>
+                <td>{{wantfactor.settleAhead}}</td>
+            </tr>
+            <tr>
+                <td>内部收益率(%)</td>
+                <td>{{wantfactor.earningRate}}</td>
+            </tr>
+        </table>
         <componentitle :message="message='租户收款账户'"/>
 
         <ul class="infolist">
@@ -165,6 +167,12 @@
             </li>
         </ul>
         <componentitle :message="message='租金计划表'"/>
+        <el-button
+            @click="download"
+            class="download"
+            type="mini">
+            导出租金计划表
+        </el-button>
         <div class="tables">
             <template>
                 <table class="renttable">
@@ -196,7 +204,7 @@
 <script type="text/ecmascript-6">
     import componentitle from '../../../components/title/title.vue';
     import {formatNumber} from '../../../components/mixins/formatter/index';
-
+    import axios from 'axios';
     export default {
         data() {
             return {
@@ -315,7 +323,36 @@
             componentitle
         },
         methods: {
-            formatNumber
+            formatNumber,
+            download() {
+                axios({
+                    method: 'post',
+                    url: '/contractsign/download', // 请求地址
+                    data: {
+                        bussNo: this.$route.query.bussNo,
+                        type: 'rent_plan',
+                    }, // 参数
+                    responseType: 'blob' // 表明返回服务器返回的数据类型
+                })
+                .then((res) => { // 处理返回的文件流
+                    const content = res;
+                    const blob = new Blob([res.data], { type: 'application/vnd.ms-excel' });
+                    const fileName = window.decodeURI(res.headers['content-disposition'].split('filename=')[1]);
+                    if ('download' in document.createElement('a')) { // 非IE下载
+                        const elink = document.createElement('a')
+                        elink.download = fileName
+                        elink.style.display = 'none'
+                        elink.href = URL.createObjectURL(blob)
+                        document.body.appendChild(elink)
+                        elink.click()
+                        URL.revokeObjectURL(elink.href) // 释放URL 对象
+                        document.body.removeChild(elink)
+                    } else { // IE10+下载
+                        navigator.msSaveBlob(blob, fileName)
+                    }
+                })
+            },
+
         }
     }
 </script>
@@ -323,7 +360,24 @@
     .businfosss {
         background: #fff;
         width: 100%;
-
+        .factortable {
+            width: 100%;
+            text-align: center;
+            border: 1px solid #afafaf;
+            line-height: 50px;
+            color: #909399;
+            tr {
+                min-height: 50px;
+                td {
+                    &:first-child {
+                        width: 30%;
+                    }
+                    &:last-child {
+                        width: 70%;
+                    }
+                }
+            }
+        }
         .factorlist {
             width: 99.7%;
             border: 1px solid #afafaf;
@@ -333,24 +387,27 @@
             li {
                 border-bottom: 1px solid #afafaf;
                 text-align: center;
-                height: 50px;
-                line-height: 50px;
+                min-height: 50px;
                 color: #909399;
                 font-size: 14px;
-
+                margin: 5px 0;
+                position: relative;
                 span {
                     display: inline-block;
-
+                    position: relative;
                     &:first-child {
                         width: 30%;
-                        border-right: 1px solid #afafaf;
                         font-size: 14px;
                         color: #212121;
                         font-weight: bold;
+                        .modefiydStyle {
+                            font-style: normal;
+                        }
                     }
 
                     &:last-child {
                         width: 69%;
+                        border-left: 1px solid #afafaf;
                     }
                 }
 
@@ -395,6 +452,12 @@
 
         .componentitle {
             margin-top: 18px;
+        }
+        .download {
+            float: right;
+            margin: -35px 20px 0 0;
+            z-index: 100;
+            position: relative;
         }
     }
 </style>

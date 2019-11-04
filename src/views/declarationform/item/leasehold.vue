@@ -4,12 +4,24 @@
             <componentitle :message="message='租赁物信息'"/>
             <div class="tableTitle">
                 租赁物情况
+                <el-button
+                    @click="deleteData"
+                    class="deleteData"
+                    type="mini">
+                    删除
+                </el-button>
             </div>
             <table class="lessinfoTbale">
                 <tr>
                     <td>租赁物名称及规格型号</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentInfo.condition.leaseName"></el-input>
+                        <el-input
+                            style="margin: 5px 0;"
+                            class="input-width-2column"
+                            type="textarea"
+                            :rows="2"
+                            v-model="rentInfo.condition.leaseName">
+                        </el-input>
                     </td>
                     <td>交付地点</td>
                     <td>
@@ -44,7 +56,13 @@
                 <tr>
                     <td>唯一识别码</td>
                     <td>
-                        <el-input class="input-width-2column" v-model="rentInfo.condition.serialNo"></el-input>
+                        <el-input
+                            style="margin: 5px 0;"
+                            class="input-width-2column"
+                            type="textarea"
+                            :rows="2"
+                            v-model="rentInfo.condition.serialNo">
+                        </el-input>
                     </td>
                     <td>抵押管理机关</td>
                     <td>
@@ -207,6 +225,7 @@
                 }).then(res => {
                     if (res.data.data.lists.length > 0) {
                         this.rentInfo = res.data.data.lists[0];
+                        console.log(this.rentInfo);
                     }
                 });
             },
@@ -217,6 +236,36 @@
                 } else {
                     this.$emit('update:bindText', '外部信息')
                 }
+            },
+            deleteData() {
+                let leaseinfoDelId = this.rentInfo.condition.id;
+                this.$post('/leaseinfo/delLease',{
+                    id: leaseinfoDelId,
+                }).then(res => {
+                    if(res.data.code == '2000000') {
+                        this.$message.success('删除成功');
+                        this.rentInfo = {
+                            condition: {
+                                leaseName: '', // 租赁物名称及规格型号
+                                deliveryPlace: '', // 交付地点
+                                purchasePrice: '', // 购置价格
+                                mortgage: '', // 是否抵押登记
+                                serialNo: '', // 唯一识别码
+                                mortgageAgency: '', // 抵押管理机关
+                                serialNoType: '', // 识别号类型
+                            },
+                            insurance: {
+                                insuranceType: '', // 险种
+                                insuranceCompany: '', // 保险公司
+                                coverage: '', // 保额
+                                insuranceTerm: '', // 保险期限
+                                insuranceBuyTime: '', // 购买时间
+                                firstBeneficiary: '', // 第一受益人
+                                remark: '', // 备注
+                            }
+                        }
+                    }
+                });
             }
         }
     }
@@ -227,6 +276,12 @@
         .tableTitle {
             font-size: 14px;
             margin: 20px 10px;
+            .deleteData {
+                float: right;
+                background: #ff8f2b;
+                color: #fff;
+                border: 0;
+            }
         }
 
         .lessinfoTbale {
