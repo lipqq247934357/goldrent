@@ -815,6 +815,20 @@
                                         <span>结余（元）</span>
                                         <span>{{incomeOthers.surplus && formatNumber(incomeOthers.surplus)}}</span>
                                     </li>
+
+                                    <li class="subliWidth">
+                                        <p class="bz">备注</p>
+                                        <div class="batextarrear">
+                                            <el-input
+                                                    :rows="2"
+                                                    class="inputtext"
+                                                    placeholder=""
+                                                    readonly
+                                                    type="textarea"
+                                                    v-model="incomeOthers.remark">
+                                            </el-input>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
 

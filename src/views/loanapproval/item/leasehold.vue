@@ -4,40 +4,52 @@
     <div class="leasegoodsinfo" v-for="item in rentinfo">
         <div class="assetsinfoul">
             <h3>租赁物情况</h3>
-            <ul class="infolist ulisthostcss">
-                <li>
-                    <span>租赁物名称及规格型号</span>
-                    <span>
-                        {{item.condition.leaseName}}
-                    </span>
-                </li>
-                <li>
-                    <span>交付地点</span>
-                    <span>{{item.condition.deliveryPlace}}</span>
-                </li>
-                <li>
-                    <span>购置价格(元)</span>
-                    <span>{{item.condition.purchasePrice && formatNumber(item.condition.purchasePrice)}}</span>
-                </li>
-                <li>
-                    <span>是否抵押登记</span>
-                    <span>{{item.condition.mortgage == "Y" ? '是': item.condition.mortgage == "N" ? '未抵押' : '抵押'}}</span>
-                </li>
-                <li>
-                    <span>唯一识别码</span>
-                    <span>{{item.condition.serialNo}}</span>
-                </li>
-                <li>
-                    <span>抵押管理机关</span>
-                    <span>{{item.condition.mortgageAgency}}</span>
-                </li>
-                <li>
-                    <span>识别号类型</span>
-                    <span v-for="nuType in statuslist.serialNumberType" v-if="item.condition.serialNoType == nuType.optionCode">{{nuType.optionName}}</span>
-                    <span v-if="item.condition.serialNoType == null"></span>
-                </li>
+            <table border="1" class="lessinfoTbale">
+                <tr>
+                    <td>租赁物名称及规格型号</td>
+                    <td>
+                        <el-input
+                                :rows="2"
+                                class="tdinput"
+                                placeholder=""
+                                readonly
+                                type="textarea"
+                                v-model="item.condition.leaseName">
+                        </el-input>
+                    </td>
+                    <td>交付地点</td>
+                    <td>{{item.condition.deliveryPlace}}</td>
+                </tr>
+                <tr>
+                    <td>购置价格(元)</td>
+                    <td>{{item.condition.purchasePrice && formatNumber(item.condition.purchasePrice)}}</td>
+                    <td>是否抵押登记</span>
+                    <td>{{item.condition.mortgage == "Y" ? '是': item.condition.mortgage == "N" ? '未抵押' : '抵押'}}</td>
+                </tr>
 
-            </ul>
+                <tr>
+                    <td>唯一识别码</td>
+                    <td>
+                        <el-input
+                                :rows="2"
+                                class="tdinput"
+                                placeholder=""
+                                readonly
+                                type="textarea"
+                                v-model="item.condition.serialNo">
+                        </el-input>
+                    </td>
+                    <td>抵押管理机关</td>
+                    <td>{{item.condition.mortgageAgency}}</td>
+                </tr>
+
+                <tr>
+                    <td>识别号类型</td>
+                    <td v-for="nuType in statuslist.serialNumberType" v-if="item.condition.serialNoType == nuType.optionCode">{{nuType.optionName}}</td>
+                    <td v-if="item.condition.serialNoType == null"></td>
+                </tr>
+
+            </table>
         </div>
         <div class="assetsinfoul">
         <h3>租赁物保险</h3>
@@ -207,6 +219,36 @@ export default {
     }
     .ulisthostcss {
         margin-top: -1px;
+    }
+    .lessinfoTbale {
+        width: 100%;
+        border: 1px solid #afafaf;
+        border-top: 0;
+        line-height: 50px;
+        text-align: center;
+        color: #606266;
+        tr {
+            td {
+                &:nth-child(1) {
+                    width: 16%;
+                    color: #212121;
+                }
+                &:nth-child(2) {
+                    width: 34%;
+                }
+                &:nth-child(3) {
+                    width: 16%;
+                    color: #212121;
+                }
+                &:nth-child(4) {
+                    width: 34%;
+                }
+                .tdinput {
+                    width: 95%;
+                    margin: 2px;
+                }
+            }
+        }
     }
 }
 </style>

@@ -1437,7 +1437,8 @@
         float: left;
         margin-left: -1px;
         border-left: 1px solid #afafaf;
-
+        position: relative;
+        z-index: 1000;
         .el-textarea__inner {
             padding: 0 15px;
         }

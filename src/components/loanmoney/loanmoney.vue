@@ -2,7 +2,50 @@
 <div class="loanmoneycomp">
     <!--    收款账户信息-->
     <componentitle :message="message='收款账户信息'" class="componentitle"/>
-    <ul class="factorlist">
+    <table style="width: 100%;" border="1" class="loanmoneycompTableCss">
+        <tr>
+            <td>收款类型</td>
+            <td>{{payeeAccount.receiptType && payeeAccount.receiptType === 'public' ?'对公':'对私'}}</td>
+        </tr>
+        <tr>
+            <td>账户名称</td>
+            <td>{{payeeAccount.receiptAccountName}}</td>
+        </tr>
+        <tr>
+            <td>账户名称</td>
+            <td>{{payeeAccount.receiptAccountName}}</td>
+        </tr>
+        <tr>
+            <td>身份证号（如有）</td>
+            <td>{{payeeAccount.certNo}}</td>
+        </tr>
+        <tr>
+            <td>银行卡号</td>
+            <td>{{payeeAccount.receiptAccount}}</td>
+        </tr>
+        <tr>
+            <td>开户银行</td>
+            <td>{{payeeAccount.receiptAccountBank}}</td>
+        </tr>
+        <tr>
+            <td>租赁物唯一识别号</td>
+            <td>
+                <el-input
+                        :rows="2"
+                        class="shibiehao"
+                        placeholder=""
+                        readonly
+                        type="textarea"
+                        v-model="leaseData.serialNumber">
+                </el-input>
+            </td>
+        </tr>
+        <tr>
+            <td>识别号类型</td>
+            <td>{{serialNumberTypeEnum[leaseData.serialNumberType]}}</td>
+        </tr>
+    </table>
+    <!-- <ul class="factorlist">
         <li>
             <span>收款类型</span>
             <span>{{payeeAccount.receiptType && payeeAccount.receiptType === 'public' ?'对公':'对私'}}</span>
@@ -31,7 +74,7 @@
             <span>识别号类型</span>
             <span>{{serialNumberTypeEnum[leaseData.serialNumberType]}}</span>
         </li>
-    </ul>
+    </ul> -->
 
     <div class="div3">
         <componentitle :message="message='放款审批'"/>
@@ -348,6 +391,16 @@ export default {
 </script>
 <style lang="less">
 .loanmoneycomp {
+    .loanmoneycompTableCss {
+        border: 1px solid #afafaf;
+        text-align: center;
+        line-height: 50px;
+        color: #606266;
+        .shibiehao {
+            width: 96%;
+            margin: 2px auto;
+        }
+    }
     .subone {
         .titleloantext {
             min-width: 145px;

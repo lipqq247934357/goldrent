@@ -158,6 +158,8 @@ export default {
         width: 100%;
         display: block;
         margin: 0 auto 20px;
+        position: relative;
+        z-index: 1000;
         textarea {
             border-radius: 0px;
         }

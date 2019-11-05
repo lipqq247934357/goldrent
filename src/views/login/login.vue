@@ -145,7 +145,7 @@
             padding: 10px;
             margin: 150px 0 0 736px;
             position: relative;
-
+            z-index: 1000;
             .logintextimg {
                 margin: 18px 0 60px 0;
                 width: 290px;
