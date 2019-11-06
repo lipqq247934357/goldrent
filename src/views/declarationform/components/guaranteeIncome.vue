@@ -61,7 +61,9 @@
                             style="margin: 5px 0;width: 98%;"
                             class="input-width-2column"
                             type="textarea"
-                            :rows="2"
+                            :rows="3"
+                            maxlength="500"
+                            show-word-limit
                             v-model="item.remark">
                         </el-input>
                     </td>
