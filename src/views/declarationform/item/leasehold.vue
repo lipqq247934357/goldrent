@@ -20,6 +20,7 @@
                             class="input-width-2column"
                             type="textarea"
                             :rows="2"
+                            maxlength="500"
                             v-model="rentInfo.condition.leaseName">
                         </el-input>
                     </td>
@@ -61,6 +62,7 @@
                             class="input-width-2column"
                             type="textarea"
                             :rows="2"
+                            maxlength="500"
                             v-model="rentInfo.condition.serialNo">
                         </el-input>
                     </td>
