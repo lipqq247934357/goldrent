@@ -15,6 +15,7 @@
                             type="textarea"
                             :rows="2"
                             class="input-width"
+                            maxlength="500"
                             v-model="leaseInfo.leaseName">
                         </el-input>
                     </td>
