@@ -19,8 +19,9 @@
                             style="margin: 5px 0;"
                             class="input-width-2column"
                             type="textarea"
-                            :rows="2"
+                            :rows="3"
                             maxlength="500"
+                            placeholder="字数限制0-500个字"
                             v-model="rentInfo.condition.leaseName">
                         </el-input>
                     </td>
@@ -61,8 +62,9 @@
                             style="margin: 5px 0;"
                             class="input-width-2column"
                             type="textarea"
-                            :rows="2"
+                            :rows="3"
                             maxlength="500"
+                            placeholder="字数限制0-500个字"
                             v-model="rentInfo.condition.serialNo">
                         </el-input>
                     </td>

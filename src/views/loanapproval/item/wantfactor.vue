@@ -15,12 +15,22 @@
                     </option>
                 </select> -->
                 {{leaseMode.optionName}}
+
             </td>
         </tr>
             <tr>
                 <td>租赁物名称及规格型号</td>
                 <td>
-                    {{wantfactor.leaseName}}
+                    <el-input
+                        style="margin: 5px 0;width: 97%;"
+                        type="textarea"
+                        :rows="3"
+                        class="input-width"
+                        maxlength="500"
+                        placeholder="字数限制0-500个字"
+                        readonly
+                        v-model="wantfactor.leaseName">
+                    </el-input>
                 </td>
             </tr>
             <tr>

@@ -13,9 +13,10 @@
                         <el-input
                             style="margin: 5px 0;"
                             type="textarea"
-                            :rows="2"
+                            :rows="3"
                             class="input-width"
                             maxlength="500"
+                            placeholder="字数限制0-500个字"
                             v-model="leaseInfo.leaseName">
                         </el-input>
                     </td>
