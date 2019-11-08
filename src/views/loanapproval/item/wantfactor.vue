@@ -160,7 +160,7 @@
         <ul class="infolist">
             <li>
                 <span>还租方式</span>
-`                <span v-for="item in payTypeArr"
+                <span v-for="item in payTypeArr"
                       v-show="item.optionCode == rentFactor.payType">{{item.optionName}}</span>
             </li>
             <li>
