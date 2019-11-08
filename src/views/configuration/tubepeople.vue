@@ -2,6 +2,43 @@
 <div class="configuration loanapproval">
     <div class="quanxian">
         <h3>用户权限管理</h3>
+
+
+        <div class="seachDiv">
+            <div class="subseachDiv">
+                <span>员工编号：</span>
+                <el-input
+                    class="searchInput"
+                    type="text"
+                    v-model="staffNo">
+                </el-input>
+            </div>
+            <div class="subseachDiv">
+                <span>用户名：</span>
+                <el-input
+                    class="searchInput"
+                    type="text"
+                    v-model="staffNo">
+                </el-input>
+            </div>
+            <div class="subseachDiv">
+                <span>角色：</span>
+                <el-input
+                    class="searchInput"
+                    type="text"
+                    v-model="staffNo">
+                </el-input>
+
+
+            </div>
+            <el-button
+                type="primary"
+                style="background: #f68e58;color: #fff;border: 0;"
+                size="mini">
+                搜索
+            </el-button>
+        </div>
+
         <componentitle :message="message = '用户权限管理'"/>
     </div>
     <div class="configetable">
@@ -33,6 +70,14 @@
                         label="匹配角色">
                     </el-table-column>
                     <el-table-column
+                        prop=""
+                        label="员工编号">
+                    </el-table-column>
+                    <el-table-column
+                        prop=""
+                        label="部门">
+                    </el-table-column>
+                    <el-table-column
                             prop="name"
                             label="操作">
                         <template slot-scope="scope">
@@ -48,6 +93,23 @@
                                         :value="scope.row.isWxlogin === '1'"
                                         active-color="#13ce66"
                                         inactive-color="#ff4949">
+                                </el-switch>
+                            </div>
+                        </template>
+                    </el-table-column>
+
+                    <el-table-column
+                            label="是否冻结">
+                        <template slot-scope="scope">
+                            <div @click="frozen(scope)" style="display: inline-block;">
+                                <el-switch
+                                    @change="switchChange"
+                                    style="display: block"
+                                    v-model="testValue"
+                                    active-color="#13ce66"
+                                    inactive-color="#ff4949"
+                                    active-text="是"
+                                    inactive-text="否">
                                 </el-switch>
                             </div>
                         </template>
@@ -118,7 +180,9 @@ export default {
             roleChoice: [],
             roleChoice1: [],
             matchingId: [],
-            userId: ''
+            userId: '',
+            testValue:'' ,// 测试滑块
+            staffNo: '', //员工编号
         }
     },
     created() {
@@ -207,6 +271,18 @@ export default {
                     return data[i]
                 }
             }
+        },
+        // 是否冻结
+        frozen() {
+
+        },
+        // 是否冻结选择后之后的提示
+        switchChange(val) {
+            if(val == false) {
+                this.$alert('复用现有“密码错误”', '温馨提示', {
+                    confirmButtonText: '确定',
+                });
+            }
         }
     },
     components: {
@@ -215,5 +291,20 @@ export default {
 }
 </script>
 <style lang="less">
-
+.seachDiv {
+    margin: 20px 10px;
+    .subseachDiv {
+        width: 30%;
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 12px;
+        color: #606266;
+        .searchInput {
+            width: 80%;
+        }
+        span {
+            display: inline-block;
+        }
+    }
+}
 </style>
