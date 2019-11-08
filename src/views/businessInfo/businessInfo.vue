@@ -320,7 +320,14 @@
             },
             handleClick(row) {
                 this.$router.push({
-                    path: '/layout/businessdetail',query: {task_id:row.id,disabled:1,bussNo:row.bussNo,arrangementtype:'5',writeOffFlag:1}
+                    path: '/layout/businessdetail',
+                    query: {
+                        task_id:row.id,
+                        disabled:1,
+                        bussNo:row.bussNo,
+                        arrangement:'5', //1 默认贷款审批 2上会审议 3主任审批 4资深审批 5放款审批经办 6 放款审批复核
+                        writeOffFlag:1
+                    }
                 });
             }
         },

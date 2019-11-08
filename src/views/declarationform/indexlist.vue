@@ -240,10 +240,15 @@
                 })
             },
             lookClick(row) {
-                console.log(row);
                 this.$router.push({
                     path: '/layout/declarationDetail',
-                    query: {task_id: row.id, disabled: 1, bussNo: row.bussNo, arrangementtype: '5', writeOffFlag: 1}
+                    query: {
+                        task_id: row.id,
+                        disabled: 1,
+                        bussNo: row.bussNo,
+                        arrangementtype: '5',
+                        writeOffFlag: 1
+                    }
                 });
             },
             // 新建报单按钮
