@@ -279,8 +279,21 @@
         created() {
             this.pages();
             this.jurisdiction();
+            this.selectOption();
         },
         methods: {
+            selectOption() {
+                // 任务名称
+                this.$post('/buss/taskTypes').then(res => {
+                    let selectInfo = res.data.data;
+                    let i ;
+                    let seleceData = []
+                    for( i in selectInfo ) {
+                       seleceData.push({value: i,label: selectInfo[i]});
+                    }
+                    this.choiceoptions = seleceData;
+                });
+            },
             jurisdiction(val) {
                 let sonresourceId = this.$route.query.idJurisdiction; // 获取菜单栏的映射到uel上的id来请求ajax活的权限
                 this.$get(`/user/get/sonresource?id=${sonresourceId}`).then(res => {
