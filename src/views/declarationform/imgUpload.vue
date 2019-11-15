@@ -16,6 +16,7 @@
                     :headers="{token:this.token}"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove"
+                    accept=".png,.jpg,.jpeg,.gif,.webp,.bmp"
                     multiple
                     action="/web/fileUploadSingle"
                     list-type="picture-card">
@@ -34,9 +35,10 @@
                         :file-list="fileList4File"
                         :headers="{token:this.token}"
                         :on-remove="handleRemove"
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.text,.ppt,.pptx,.rar,.zip"
                         multiple
                         action="/web/fileUploadSingle">
-                        <el-button class="primary" size="small" type="primary">点击上传</el-button>
+                        <el-button class="primary" size="small" type="primary">文件上传</el-button>
                     </el-upload>
                 </div>
             </div>

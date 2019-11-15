@@ -18,22 +18,27 @@
                 <el-input
                     class="searchInput"
                     type="text"
-                    v-model="staffNo">
+                    v-model="userNameSeach">
                 </el-input>
             </div>
             <div class="subseachDiv">
                 <span>角色：</span>
-                <el-input
-                    class="searchInput"
-                    type="text"
-                    v-model="staffNo">
-                </el-input>
-
+                <template>
+                    <el-select class="choiceselect" placeholder="请选择" v-model="userRole">
+                        <el-option
+                            v-for="item in roleChoice"
+                            :key="item.id"
+                            :label="item.roleName"
+                            :value="item.id">
+                        </el-option>
+                    </el-select>
+                </template>
 
             </div>
             <el-button
                 type="primary"
                 style="background: #f68e58;color: #fff;border: 0;"
+                @click="seachButton"
                 size="mini">
                 搜索
             </el-button>
@@ -70,11 +75,11 @@
                         label="匹配角色">
                     </el-table-column>
                     <el-table-column
-                        prop=""
+                        prop="userId"
                         label="员工编号">
                     </el-table-column>
                     <el-table-column
-                        prop=""
+                        prop="departName"
                         label="部门">
                     </el-table-column>
                     <el-table-column
@@ -101,13 +106,15 @@
                     <el-table-column
                             label="是否冻结">
                         <template slot-scope="scope">
-                            <div @click="frozen(scope)" style="display: inline-block;">
+                            <div style="display: inline-block;">
                                 <el-switch
-                                    @change="switchChange"
+                                    @change="switchChange(scope.row)"
                                     style="display: block"
-                                    v-model="testValue"
+                                    v-model="scope.row.freeze"
                                     active-color="#13ce66"
                                     inactive-color="#ff4949"
+                                    active-value="1"
+                                    inactive-value="0"
                                     active-text="是"
                                     inactive-text="否">
                                 </el-switch>
@@ -183,6 +190,10 @@ export default {
             userId: '',
             testValue:'' ,// 测试滑块
             staffNo: '', //员工编号
+            staffNo: '',   //员工编号
+            userNameSeach: '', //用户名
+            userRole: '', //角色
+            roleoptions: [],
         }
     },
     created() {
@@ -195,6 +206,10 @@ export default {
         });
     },
     methods: {
+        seachButton() {
+            this.currentPage = '1';
+            this.tablepage();
+        },
         handleClose() {
             // 关闭弹框
             this.dialogVisible = false;
@@ -239,7 +254,10 @@ export default {
         tablepage() {
             this.$post('/user/listUser',{
                 currentPage: this.currentPage,
-                pageSize: this.pageSize
+                pageSize: this.pageSize,
+                userId: this.staffNo,
+                userName: this.userNameSeach,
+                roleId: this.userRole
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.tableData = res.data.data.recordList;
@@ -273,16 +291,37 @@ export default {
             }
         },
         // 是否冻结
-        frozen() {
+        frozen(row) {
 
+            console.log(row.row);
+            this.$post('/user/update/freezeUser',{
+                userId: row.row.id
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    console.log(res);
+                }
+            });
         },
         // 是否冻结选择后之后的提示
         switchChange(val) {
-            if(val == false) {
-                this.$alert('复用现有“密码错误”', '温馨提示', {
-                    confirmButtonText: '确定',
-                });
-            }
+            this.$post('/user/update/freezeUser',{
+                userId: val.id,
+                freeze: val.freeze
+            }).then(res => {
+                if(res.data.code == '2000000') {
+                    if(val.freeze == '1') {
+                        this.$message.warning('冻结成功，复用现有密码错误');
+                    }
+                } else {
+                    this.$message.error(res.data.msg);
+                    if(val.freeze == '1') {
+                        val.freeze = '0';
+                    } else {
+                        val.freeze = '1';
+                    }
+                }
+            });
+
         }
     },
     components: {

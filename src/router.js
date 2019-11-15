@@ -178,6 +178,11 @@ export default new Router({
                     component: () => import(  './views/configuration/tubepeople.vue')
                 },
                 {
+                    path: '/passwordManagement', // 用户权限管理
+                    name: 'passwordManagement',
+                    component: () => import(  './views/configuration/passwordAdmin.vue')
+                },
+                {
                     path: 'importOrder', // 订单导入
                     name: 'importOrder',
                     component: () => import(  './views/importOrder/index.vue')
