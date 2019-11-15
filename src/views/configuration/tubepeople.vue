@@ -38,8 +38,7 @@
             <el-button
                 type="primary"
                 style="background: #f68e58;color: #fff;border: 0;"
-                @click="seachButton"
-                size="mini">
+                @click="seachButton">
                 搜索
             </el-button>
         </div>
