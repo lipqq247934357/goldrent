@@ -22,9 +22,9 @@
                 </el-input>
             </div>
             <div class="subseachDiv">
-                <span>角色：</span>
+                <span>角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色：</span>
                 <template>
-                    <el-select class="choiceselect" placeholder="请选择" v-model="userRole">
+                    <el-select class="choiceselect searchInput" placeholder="请选择" v-model="userRole">
                         <el-option
                             v-for="item in roleChoice"
                             :key="item.id"
@@ -35,14 +35,14 @@
                 </template>
 
             </div>
-            <el-button
-                type="primary"
-                style="background: #f68e58;color: #fff;border: 0;"
-                @click="seachButton">
-                搜索
-            </el-button>
-        </div>
 
+        </div>
+        <el-button
+            type="primary"
+            style="background: #f68e58;color: #fff;border: 0;margin: 0 auto;display:block;"
+            @click="seachButton">
+            搜索
+        </el-button>
         <componentitle :message="message = '用户权限管理'"/>
     </div>
     <div class="configetable">
@@ -309,7 +309,7 @@ export default {
             }).then(res => {
                 if(res.data.code == '2000000') {
                     if(val.freeze == '1') {
-                        this.$message.warning('冻结成功，复用现有密码错误');
+                        this.$message.warning('冻结成功');
                     }
                 } else {
                     this.$message.error(res.data.msg);
@@ -332,9 +332,9 @@ export default {
 .seachDiv {
     margin: 20px 10px;
     .subseachDiv {
-        width: 30%;
+        width: 45%;
         display: inline-block;
-        margin-right: 10px;
+        margin: 10px;
         font-size: 12px;
         color: #606266;
         .searchInput {
