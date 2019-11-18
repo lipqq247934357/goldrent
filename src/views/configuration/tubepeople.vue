@@ -74,7 +74,7 @@
                         label="匹配角色">
                     </el-table-column>
                     <el-table-column
-                        prop="userId"
+                        prop="id"
                         label="员工编号">
                     </el-table-column>
                     <el-table-column
