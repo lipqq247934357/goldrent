@@ -15,6 +15,7 @@
 
 <script type="text/ecmascript-6">
     import Cookies from 'js-cookie';
+    import {setStore} from "../../utils/utils";
 
     export default {
         props: ['id', 'timeOut', 'showCD'],
@@ -65,7 +66,6 @@
                     //跳首页
                     Cookies.set('token', data.data.data.token);
                     this.getUserInfo(data.data.data.token);
-                    this.$router.push('/');
                 } else if (data.data.code === '2000010' || data.data.code === '500100') {//失败
                     this.$message.error(data.data.msg);
                     this.visible = false;
@@ -92,6 +92,7 @@
                 setStore('userName', user.userName || '');
                 setStore('userPhone', user.userPhone || '');
                 setStore('userRole', user.roleName || '');
+                this.$router.push('/');
             }
         },
 

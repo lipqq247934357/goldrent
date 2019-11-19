@@ -118,7 +118,8 @@
         <p class="titleloantext">审批意见：</p>
         <template>
             <el-radio :disabled="inputdisabled || arrangement == 6" label="1" v-model="radio1">同意</el-radio>
-            <el-radio :disabled="inputdisabled || arrangement == 6" label="0" v-model="radio1">不同意</el-radio>
+            <el-radio :disabled="inputdisabled || arrangement == 6" label="0" v-model="radio1">退回前手</el-radio>
+            <el-radio :disabled="inputdisabled || arrangement == 6" label="2" v-model="radio1">退回主办</el-radio>
         </template>
     </div>
     <div class="subone opinionsdiv" style="clear:both;margin-top:10px;">
