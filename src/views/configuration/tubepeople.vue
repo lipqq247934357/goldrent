@@ -24,7 +24,16 @@
             <div class="subseachDiv">
                 <span>角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色：</span>
                 <template>
-                    <el-select class="choiceselect searchInput" placeholder="请选择" v-model="userRole">
+                    <el-select
+                        class="choiceselect searchInput"
+                        placeholder="请选择"
+                        clearable
+                        v-model="userRole">
+                        <el-option
+                            key=""
+                            label="全部"
+                            value="">
+                        </el-option>
                         <el-option
                             v-for="item in roleChoice"
                             :key="item.id"

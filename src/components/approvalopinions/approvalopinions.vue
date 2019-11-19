@@ -33,6 +33,7 @@
                     <p>审批意见：</p>
                     <template>
                         <el-radio v-model="radio1" label="1" :disabled="inputdisabled">终审同意</el-radio>
+                        <!-- <el-radio v-model="radio1" label="1" :disabled="inputdisabled">退回主办</el-radio> -->
                         <el-radio v-model="radio1" label="2" :disabled="inputdisabled">同意业务并提交资深审批</el-radio>
                         <el-radio v-model="radio1" label="3" :disabled="inputdisabled">同意业务并提交秘书审批</el-radio>
                         <el-radio v-model="radio1" label="0" :disabled="inputdisabled">否决</el-radio>
@@ -288,6 +289,7 @@ export default {
         exitSponsor() {
             this.$post('/LoanApprove/backToSponsor',{
                 bussNo: this.$route.query.bussNo,
+                reasonDescription: this.senior,
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('退回成功');
@@ -350,7 +352,7 @@ export default {
                 '23': '/LoanApprove/directorOpinionSubmit'
             }[role],{
                 bussNo: this.$route.query.bussNo, //单号
-                approvalComments: role == 20 ? this.radio1 : '', //0：否决,1：终审同意 2：同意业务并提交资深审批 3：同意业务并提交会议审批
+                approvalComments: role == 20 ? this.radio1 : '', //0：否决,1：终审同意 2：同意业务并提交资深审批 3：同意业务并提交会议审批 4：退回
                 // textarea: '' //贷款审批
                 // upper: '', //上会审议
                 // director: '', //  主任意见
