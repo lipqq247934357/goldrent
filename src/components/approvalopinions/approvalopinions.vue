@@ -289,7 +289,7 @@ export default {
         exitSponsor() {
             this.$post('/LoanApprove/backToSponsor',{
                 bussNo: this.$route.query.bussNo,
-                reasonDescription: this.senior,
+                reasonDescription: this.textarea,
             }).then(res => {
                 if(res.data.code == '2000000') {
                     this.$message.success('退回成功');
