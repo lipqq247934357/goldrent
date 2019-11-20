@@ -59,7 +59,7 @@
                     let fileMap = new Map(); // 文件对象
                     let imgIndex = ["png", "jpg", "jpeg", "gif", "webp", "bmp"];
                     data.data.data.forEach((val) => {
-                        let index = val.fileType.substring(1); // 文件名字
+                        let index = val.fileType.substring(1).toLowerCase(); // 文件名字
                         if (imgIndex.includes(index)) { // 是图片
                             imgArr.push('/web/fileView?fileId=' + val.id);
                         } else {
