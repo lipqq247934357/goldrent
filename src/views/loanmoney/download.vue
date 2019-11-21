@@ -292,7 +292,7 @@ export default {
                 bussNo: this.bussNumber,
                 custName: this.loanName,
                 numPerPage: this.alsoSize, // 每页多少条
-                currentPage: '1', // 每次点击查询按钮都是第一页
+                currentPage: this.nowPage, // 每次点击查询按钮都是第一页
                 taskType: '40'
             }).then(res => {
 
@@ -316,6 +316,7 @@ export default {
         // 查询按钮
         search() {
             this.loading = true;
+            this.nowPage = 1;
             this.query();
             this.currentPage2 = 1;
         }
