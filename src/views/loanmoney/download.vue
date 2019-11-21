@@ -292,7 +292,7 @@ export default {
                 bussNo: this.bussNumber,
                 custName: this.loanName,
                 numPerPage: this.alsoSize, // 每页多少条
-                currentPage: this.nowPage, // 每次点击查询按钮都是第一页
+                currentPage: this.nowPage, // 当前页
                 taskType: '40'
             }).then(res => {
 
