@@ -242,7 +242,7 @@ export default {
                 createTimeStart: this.beginTime, // 任务开始时间
                 createTimeEnd: this.endTime, // 任务结束时间
                 numPerPage: this.alsoSize, // 每页多少条
-                currentPage: this.currentPage2, // 每次点击查询按钮都是第一页
+                currentPage: this.nowPage, // 当前页
                 taskType: '41'
             }).then(res => {
                 if(res.data.code == '2000000') {
@@ -303,9 +303,9 @@ export default {
         // 查询按钮
         search() {
             this.loading = true;
-            this.query();
+            this.nowPage = 1;
             this.currentPage2 = 1;
-
+            this.query();
         }
     },
 }
