@@ -1,7 +1,8 @@
 <template>
     <div>
         <!-- 审批意见组件 -->
-        <componentitle :message="message='审批意见'"/>
+        <componentitle :message="message='审批意见'" v-if="this.$route.query.arrangement === 20"/>
+        <componentitle :message="message='授信审批意见'" v-else/>
         <div class="opinion">
             <!-- 贷款审批 -->
             <div class="loanval" v-if="this.$route.query.arrangement == 20">
@@ -84,14 +85,12 @@
             <!-- 贷款审批end -->
             <!-- 上会审议 -->
             <div class="upper" v-if="this.$route.query.arrangement == 22">
-                <el-input
-                        :rows="3"
-                        class="uppertextareaup"
-                        disabled
-                        placeholder="贷款审批内容"
-                        type="textarea"
-                        v-model="disabledtextarea">
-                </el-input>
+                <xs
+                        :checkboxlist="checkboxlist"
+                        :conditions="conditions"
+                        :haveAgreement="haveAgreement"
+                        :requirements="requirements"
+                        :textarea="textarea"></xs>
                 <componentitle :message="message='上会审议结论'"/>
                 <p class="uppertext">结论描述：</p>
                 <el-input
@@ -107,14 +106,12 @@
 
             <!-- 主任意见 -->
             <div class="upper director" v-if="this.$route.query.arrangement == 23">
-                <el-input
-                        :rows="3"
-                        class="uppertextareaup"
-                        disabled
-                        placeholder="贷款审批内容"
-                        type="textarea"
-                        v-model="disabledtextarea">
-                </el-input>
+                <xs
+                        :checkboxlist="checkboxlist"
+                        :conditions="conditions"
+                        :haveAgreement="haveAgreement"
+                        :requirements="requirements"
+                        :textarea="textarea"></xs>
                 <componentitle :message="message='上会审议结论'"/>
                 <el-input
                         :rows="3"
@@ -138,24 +135,50 @@
             <!-- 主任意见end -->
             <!-- 资深审批 -->
             <div class="upper" v-if="this.$route.query.arrangement == 21">
-                <el-input
-                        :rows="3"
-                        class="uppertextareaup"
-                        disabled
-                        placeholder="审批提交的意见"
-                        type="textarea"
-                        v-model="disabledtextarea">
-                </el-input>
+                <xs
+                        :checkboxlist="checkboxlist"
+                        :conditions="conditions"
+                        :haveAgreement="haveAgreement"
+                        :requirements="requirements"
+                        :textarea="textarea"></xs>
                 <componentitle :message="message='资深审批意见'"/>
-                <p class="uppertext">意见描述：</p>
-                <el-input
-                        :disabled="inputdisabled"
-                        :rows="3"
-                        class="uppertextarea"
-                        placeholder="资深内容"
-                        type="textarea"
-                        v-model="senior">
-                </el-input>
+                <div class="subone">
+                    <div class="suboneelinput" style="clear:both">
+                        <p class="textdescribe">放款前提条件：</p>
+                        <el-input
+                                :disabled="inputdisabled"
+                                :rows="5"
+                                class="textareawidth"
+                                placeholder="请输入放款前提条件"
+                                type="textarea"
+                                v-model="loanPrecondition"
+                        >
+                        </el-input>
+                    </div>
+                    <div class="suboneelinput" style="clear:both">
+                        <p class="textdescribe">租后管理要求：</p>
+                        <el-input
+                                :disabled="inputdisabled"
+                                :rows="5"
+                                class="textareawidth"
+                                placeholder="请输入租后管理要求"
+                                type="textarea"
+                                v-model="postRentManage"
+                        >
+                        </el-input>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <p class="textdescribe">意见描述：</p>
+                        <el-input
+                                :disabled="inputdisabled"
+                                :rows="3"
+                                class="textareawidth"
+                                placeholder="资深内容"
+                                type="textarea"
+                                v-model="senior">
+                        </el-input>
+                    </div>
+                </div>
             </div>
             <!-- 资深审批end -->
 
@@ -209,6 +232,7 @@
 
 <script type="text/ecmascript-6">
     import componentitle from '../title/title.vue';
+    import xs from './sx'
 
     export default {
         data() {
@@ -222,6 +246,8 @@
                 senior: '',
                 conclusion: '', //上会审议结论
                 director: '', //  主任意见
+                loanPrecondition: '', // 放款前提条件-资深审批
+                postRentManage: '', // 租后管理要求-资深审批
                 dialoginput: '', // 弹框input绑定
                 loanFaceContracts: [], //储存点击面签合同
                 checkboxlist: [], // 面签合同
@@ -332,6 +358,8 @@
                             }
                             if (JSON.stringify(res.data.data.taskType21)) {
                                 this.senior = res.data.data.taskType21.reasonDescription;
+                                this.loanPrecondition = res.data.data.taskType21.loanPrecondition;
+                                this.postRentManage = res.data.data.taskType21.postRentManage;
                             }
                             if (JSON.stringify(res.data.data.taskType22)) {
                                 this.conclusion = res.data.data.taskType22.reasonDescription;
@@ -385,7 +413,9 @@
                     ownerName: this.rolelistName, // 指派人员姓名
                     contracts: this.loanFaceContracts, // 合同数组
                     loanPrecondition: this.conditions,// 放款前提条件
-                    postRentManage: this.requirements// 租后管理要求
+                    postRentManage: this.requirements,// 租后管理要求
+                    seniorPrecondition: this.loanPrecondition, // 放款前提条件-资深审批
+                    seniorRentManage: this.postRentManage // 租后管理要求--资深审批
                 }).then(res => {
                     this.submitStatus = false;
                     if (res.data.code == '2000000') {
@@ -455,7 +485,9 @@
                     }[role], // 原因描述
                     contracts: this.checkList, // 合同数组
                     loanPrecondition: this.conditions,// 放款前提条件
-                    postRentManage: this.requirements// 租后管理要求
+                    postRentManage: this.requirements,// 租后管理要求
+                    seniorPrecondition: this.loanPrecondition, // 放款前提条件-资深审批
+                    seniorRentManage: this.postRentManage // 租后管理要求--资深审批
                 }).then(res => {
                     this.submitStatus = false;
                     if (res.data.code == '2000000') {
@@ -505,7 +537,9 @@
                     }[role], // 原因描述
                     contracts: this.checkList, // 合同数组
                     loanPrecondition: this.conditions,// 放款前提条件
-                    postRentManage: this.requirements// 租后管理要求
+                    postRentManage: this.requirements,// 租后管理要求
+                    seniorPrecondition: this.loanPrecondition, // 放款前提条件-资深审批
+                    seniorRentManage: this.postRentManage // 租后管理要求--资深审批
                 }).then(res => {
                     this.submitStatus = false;
                     if (res.data.code == '2000000') {
@@ -589,7 +623,8 @@
             }
         },
         components: {
-            componentitle
+            componentitle,
+            xs
         }
     }
 </script>
