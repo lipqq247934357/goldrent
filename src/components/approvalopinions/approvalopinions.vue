@@ -293,12 +293,10 @@
             // 合同列表 审批意见和描述
             this.$get(`/LoanApprove/queryApproveDetail?bussNo=${this.$route.query.bussNo}`).then(res => {
 
-                if (this.$route.query.arrangement == '20') { //
-                    if (res.data.data && res.data.data.approvalComments && res.data.data.approvalComments != 'undefined') { // 有值
-                        this.haveAgreement = true;
-                    } else { // 没有值
-                        this.haveAgreement = false;
-                    }
+                if (res.data.data && res.data.data.approvalComments && res.data.data.approvalComments != 'undefined') { // 有值
+                    this.haveAgreement = true;
+                } else { // 没有值
+                    this.haveAgreement = false;
                 }
 
                 if (res.data.data == null) {
