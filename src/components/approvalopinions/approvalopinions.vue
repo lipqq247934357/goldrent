@@ -428,9 +428,8 @@
                             }
                         })
                     } else {
-                        setTimeout(function () {
-                            loading.close();
-                        }, 200);
+                        this.$message.warning({message: res.data.msg, duration: 1000});
+                        loading.close();
                     }
                 })
             },
@@ -493,6 +492,8 @@
                         this.$router.push({
                             path: this.nowurl == undefined ? '/layout/loadapproval' : this.nowurl
                         })
+                    } else {
+                        this.$message.warning({message: res.data.msg, duration: 1000});
                     }
                 })
             },
@@ -552,9 +553,8 @@
                             }
                         })
                     } else {
-                        setTimeout(function () {
-                            loading.close();
-                        }, 200);
+                        this.$message.warning({message: res.data.msg, duration: 1000});
+                        loading.close();
                     }
                 })
             },
